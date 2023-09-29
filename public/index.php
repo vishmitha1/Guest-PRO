@@ -1,2 +1,5 @@
 <?php
- echo "Hello World!";
+ require_once '../app/bootloader.php';
+ 
+ $int=new Core;
+
