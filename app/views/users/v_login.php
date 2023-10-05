@@ -28,15 +28,15 @@
 
         <div class="wraper-login"  >
             <h2>Member Login</h2>
-            <form action="#">
+            <form action="<?php echo URLROOT ;?>/Users/login" method="POST">
                 <div class="input-box">
                     <span class="icon"></span>
-                    <input type="email" required>
+                    <input type="email" required  name='email' id="email" value="<?php echo $data['email'];?>" >
                     <label >Enter your Email</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"></span>
-                    <input type="password" >
+                    <input type="password" name='password' id="password" value="<?php echo $data['password'];?>" >
                     <label >Enter your password</label>
                 </div>
 
