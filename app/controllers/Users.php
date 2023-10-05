@@ -80,9 +80,77 @@
         }
 
         public function login(){
-            $data =[];
+            if($_SERVER['REQUEST_METHOD'] == "POST"){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
+                $data =[
+                    'email' => trim($_POST['email']),
+                    'password' => trim($_POST['password']),
+                    'email_err' => '',
+                    'password_err' => ''
+                    
+                ];
 
-            $this->view('users/v_login', $data); 
+                //validate email
+                if(empty($data['email'])){
+                    $data['email_err'] = 'Please enter email';
+                    
+                }
+                else{
+                    //check email is exist or not
+                    if(($this->userModel->findUserByEmail($data['email']) )){
+                        //user found
+                        
+                    }
+                    else{
+                        $data['email_err'] = "Email is not exist" ;
+                    }
+                    
+                }
+
+                //validate password
+                if(empty($data['password'])){
+                    $data['password_err']= 'Please enter password';
+                }
+
+                else{
+                    if(empty($data['password_err']) && empty($data['email_err'])){
+                        //can login
+                        
+                        $loggeduser=$this->userModel->login($data['email'],$data['password']);
+                        echo "come to logged user";
+                        if($loggeduser){
+                            //authentic user
+                            //can create user sessions
+                            die("Log intothe account successfull");
+                        }
+
+                        else{
+                            $data['password_err']= 'Password incorrect';
+                            //load login again with erros
+                            $this->view('users/v_login',$data);
+                        }
+                    }
+                    else{
+                        //load login view again
+                        $this->view('users/v_login',$data);
+                    }
+                }
+                    
+                    
+            }
+
+            
+            else{
+                $data =[
+                    'email' => '',
+                    'password' => '',
+                    'email_err' => '',
+                    'password_err' => '',
+                    
+                ];
+                $this->view('users/v_login', $data);
+            }
         }
 
 
