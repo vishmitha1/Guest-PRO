@@ -12,10 +12,10 @@
     <header class="header">
         <a href="#" class="logo">Logo</a>
         <nav class="nav">
-            <a href="#">Home</a>
+            <a href="<?php echo URLROOT; ?>/Index">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
-            <a href="#">Login</a>
+            <a href="<?php echo URLROOT;?>/Users/login">Login</a>
 
         </nav>
 
@@ -40,13 +40,13 @@
             <form action="<?php echo URLROOT;?>/Users/register" method="POST">
                 <div class="input-box">
                     <span class="icon"></span>
-                    <input type="email" required  placeholder="Enter your Email" name='email' id="email" value="<?php echo $data['name'];?>" style="color: black;">
+                    <input type="text"   placeholder="Enter your Email" name='email' id="email" value="<?php echo $data['email'];?>" style="color: black;">
                     <span class="form-invalid"><?php echo $data['email_err']; ?></span>
                     <!-- <label >Enter your Email</label> -->
                 </div>
                 <div class="input-box">
                     <span class="icon"></span>
-                    <input type="text" required placeholder="Enter your Name" name='name' id="name" value="<?php echo $data['email'];?>" >
+                    <input type="text"  placeholder="Enter your Name" name='name' id="name" value="<?php echo $data['name'];?>" >
                     <span class="form-invalid"><?php echo $data['name_err']; ?></span>
                     <!-- <label >Enter your Name</label> -->
                 </div>
