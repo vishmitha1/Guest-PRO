@@ -1,0 +1,140 @@
+/* Login  page style */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+    
+
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    backdrop-filter: blur(2px); /* Apply a blur effect */
+    padding: .5%; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+
+.header .logo {
+    font-size: 1.5em;
+    color: rgb(5, 5, 5);
+    text-decoration: none;
+}
+
+.header .nav{
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+.nav a{
+    position: relative;
+    font-size: 1.1em;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    margin-left:5%;
+    border: #000000 1px solid;
+    padding:1%;
+    font-weight: 700;
+
+}
+
+.nav a::after {
+    
+    content: '';
+    position: absolute;
+    left:0;
+    bottom: -2px;
+    width:100%;
+    height: 3px;
+    background: #0776ed;
+    border-radius: 5px;
+    transform: scaleX(0); 
+    transition: .4s;
+    
+}
+
+/* .nav a:hover{
+    text-decoration:dotted;
+    background:#e1d249;
+    transition: .7s;
+} */
+.nav a:hover::after{
+    transform: scaleX(1);
+}
+
+.home{
+    position: relative;
+    width: 100%;
+    height:100vh;
+    background:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),url("https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aG90ZWxzfGVufDB8fDB8fHww&w=1000&q=80") no-repeat; 
+  
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items:center;
+    background-color: rgba(01, 01, 01, 0.5);
+    padding: 80px;
+}
+
+.home .content {
+    max-width: 61%;
+    color: aliceblue;
+}
+.content a {
+    color: #000;
+    font-weight: bold;
+    
+    text-decoration: double;
+    border:3.5px solid #d2d2ce;
+    padding: 10px 10px;
+    border-radius:10cm;
+    font-size: 1.5em;
+    margin-top: 20px;
+    display: inline-block;
+    transition: .6s;
+    text-align: center;
+    margin-left: 40%;
+
+}
+
+.content h2{
+    font-size: 3.8em;
+    letter-spacing: .05em;
+    /* color:#d2671f; */
+    color: #000;
+    font-family: cooper black;
+    
+    
+
+}
+.content p{
+    max-width: 100%;
+    font-size: .3em;
+    letter-spacing: 0.01em;
+    margin-top: 20px;
+    margin-bottom: 2%;
+    line-height: 1.5em;
+    color: #ffffff;
+    
+}
+
+.content a:hover{
+    background: #e1d249;
+    
+}
+
+.blur{
+    backdrop-filter: blur(1px); 
+}
+

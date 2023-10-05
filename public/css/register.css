@@ -69,7 +69,7 @@
     position: relative;
     width: 100vw;
     height:100vh;
-    background:url("../img/login.jpg") no-repeat ;
+    background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url("../img/login.jpg") no-repeat ;
     background-size: cover;
     
     background-position: center;
@@ -79,22 +79,9 @@
     overflow: hidden;
     
 }
-.home::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9); /* Adjust the opacity (0.5) to control darkness */
-    z-index: -1; /* Place it below the content */
-} 
 
-/* .backgroundcontrast{
-    position: absolute; 
-    background:url("../img/login.jpg") no-repeat center center/cover;
-    filter: contrast(70%);
-}  */
+
+
 
 .home .content {
     width: 70%;
@@ -166,7 +153,7 @@
     width: 100%;
     height: 50px;
     background: transparent;
-    border:1.5px solid #000000 ;
+    border:1.5px solid #ffffff ;
     outline: none;
     border-radius: 10cm;
     margin-bottom: 3%;
@@ -222,7 +209,7 @@
 }
 
 .register-link a{
-    color: #0b0b0b;
+    color: #ffffff;
     text-decoration:solid;
     font-weight: 1000;
     font-size: 1.2em;
@@ -247,7 +234,8 @@
 
 
 input::placeholder {
-    color: #000000; 
+    color: #ffffff; 
+    opacity: .5;
 }
 
 .slideshow-container{
@@ -261,5 +249,10 @@ input::placeholder {
 }
 .slideshow-container .content{
     
+}
+
+.form-invalid{
+    border-color: #ff0000;
+    background-color: #ffdddd;
 }
 
