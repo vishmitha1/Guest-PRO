@@ -34,8 +34,22 @@
             else{
                 return false;
             }
+        }
 
-            
+        //login model
+        public function login($data){
+            $this->db->query('SELECT * from users(email ,password) VALUES(:email ,:password)');
+            $this->db->bind(':email',$data['email'] );
+            $this->db->bind(':password',$data['password'] );
+            $row = $this->db->single();
+
+            $hashed_password = $row->password;
+            if(password_verify($data['password'],$hashed_password)){
+                return $row;
+            }
+            else{
+                return false;
+            }
         }
 
 
