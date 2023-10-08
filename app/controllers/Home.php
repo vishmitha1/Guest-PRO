@@ -11,7 +11,8 @@
                 
                 
             ];
-            $this->view('v_index', $data);
+             $this->view('v_about', $data);
+            
         }
 
         
