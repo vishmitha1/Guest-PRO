@@ -1,0 +1,146 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	background-color: #fcfcfc;
+}
+
+.header-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.header-nav-lists {
+	display: none;
+}
+
+.header-nav-list {
+	padding: 0 24px;
+	list-style-type: none;
+}
+
+.header-nav-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 10vh;
+}
+
+.header-nav-link {
+	text-decoration: none;
+	color: #241e09;
+	font-size: 20px;
+}
+
+.header-active {
+	color: #d4af37;
+}
+
+.header-nav-logo {
+	width: 80px;
+	position: relative;
+	z-index: 11;
+}
+
+/**Hamburger ICON **/
+.header-hamburger-icon {
+	width: 100px;
+	height: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+	cursor: pointer;
+}
+
+.header-hamburger-line-1,
+.header-hamburger-line-2,
+.header-hamburger-line-3 {
+	background-color: #d4af37;
+	width: 1.78rem;
+	height: 0.2rem;
+	transition: all 0.2s ease-in-out;
+	position: relative;
+	z-index: 10;
+}
+
+.header-hamburger-line-1,
+.header-hamburger-line-2 {
+	margin-bottom: 6px;
+}
+
+/* Show class to  change the state of hambuger icon cross*/
+.show .header-hamburger-line-1 {
+	transform: translateY(10px) rotate(135deg);
+}
+
+.show .header-hamburger-line-2 {
+	opacity: 0;
+}
+
+.show .header-hamburger-line-3 {
+	transform: translateY(-8.6px) rotate(-135deg);
+}
+
+/*Show */
+
+header ul.show {
+	position: fixed;
+	background-color: #fff;
+	top: 8vh;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	margin-top: -8vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+}
+
+header ul.show li {
+	margin: 1rem 0;
+}
+
+.header-btn {
+	text-decoration: none;
+}
+
+.header-btn-custom {
+	padding: 10px 30px;
+	width: 133px;
+	height: 48px;
+	border-radius: 4px;
+	background-color: #d4af37;
+	color: #fff;
+
+}
+
+.header-btn-custom:hover, 
+.header-btn-custom:active {
+	background-color: #c9a633;
+	border: 1px solid #c9a633;
+}
+
+@media (min-width: 850px) {
+	.header-nav-lists {
+		display: flex;
+	}
+
+	.header-hamburger-icon {
+		display: none;
+	}
+}
+
+@media (min-width: 1200px) {
+	* {
+		font-size: 20px;
+	}
+}

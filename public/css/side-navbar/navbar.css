@@ -1,0 +1,18 @@
+.side-bar{
+    background-color: #002447;
+    /* background-color: #003366; */
+    width: 20%;
+    height: 100vh;
+}
+
+.side-bar a{
+    color: white;
+    text-decoration: none;
+    padding-top: 20%;
+
+}
+
+.side-bar a:hover{
+    color: #ecda0a;
+    text-decoration: none;
+}
