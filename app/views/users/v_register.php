@@ -12,7 +12,7 @@
     <header class="header">
         <a href="#" class="logo">Logo</a>
         <nav class="nav">
-            <a href="<?php echo URLROOT; ?>/Index">Home</a>
+            <a href="<?php echo URLROOT; ?>/Home">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
             <a href="<?php echo URLROOT;?>/Users/login">Login</a>
@@ -64,9 +64,9 @@
                 </div>
 
                 <button type="submit" class="button" value="Register">Login</button>
-                <div class="register-link">
+                <!-- <div class="register-link">
                     <p>Not a Member<a href="#">Signup</a></p>
-                </div>
+                </div> -->
             </form>
         </div>
         

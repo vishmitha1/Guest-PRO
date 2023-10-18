@@ -23,7 +23,7 @@
     <section class="home" >
         <div class="content">
             <h2>Guest Pro</h2> 
-            <a href="#">Get Started</a>
+            <a class="contenta" href="<?php echo URLROOT;?>/Users/register">Get Started</a>
         </div>
 
         <div class="wraper-login"  >
