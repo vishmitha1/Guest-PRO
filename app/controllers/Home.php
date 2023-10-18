@@ -7,9 +7,7 @@
         }
 
         public function index(){
-            $data =[
-                
-                
+            $data =[ 
             ];
              $this->view('v_about', $data);
             

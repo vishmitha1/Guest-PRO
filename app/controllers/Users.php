@@ -52,7 +52,7 @@
 
                     //register user
                     if($this->userModel->register($data)){
-                        die("user is registerd");
+                        redirect('Users/login');
                     }
                     else{
                         die("someting wrond");
@@ -118,11 +118,12 @@
                         //can login
                         
                         $loggeduser=$this->userModel->login($data['email'],$data['password']);
-                        echo "come to logged user";
+                       
                         if($loggeduser){
                             //authentic user
                             //can create user sessions
-                            die("Log intothe account successfull");
+                            redirect("Customers/dashboard");
+                            
                         }
 
                         else{
