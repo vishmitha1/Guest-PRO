@@ -1,7 +1,7 @@
 <?php
     class Core{
         //Url format: /controller/method/params
-        protected $currentController = 'Pages';
+        protected $currentController = 'Home';
         protected $currentMethod = 'index';
         protected $params = [];
 
