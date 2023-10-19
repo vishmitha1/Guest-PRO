@@ -1,8 +1,106 @@
-
+/* ''''''''''''''''''''''''''''''''''''''''' common CSS for all UI pages ''''''''''''''''*/
 .home {
     position: relative;
     left: 325px;
     width: calc(100% - 325px);
+    top: 0;
+    
     /* padding-left: 25px; */
-    padding-bottom: 5rem;
+    /* padding-bottom: 5rem; */
   }
+.profile{
+    top: 0;
+    left: 75%;
+    width: 200px;
+    height: 70px;
+    margin-top: 5px;
+    position: relative;
+}
+
+.profile a{
+    margin-top: 10px;
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+    
+   
+}
+/*''''''''''''''''''''''''''''''''''''''''''' End of common CSS for all UI pages'''''''''''''''  */
+
+  .reservation-componets {
+    align-items: center;
+  }
+
+
+.reservation-componets button{
+   
+    margin-left: 100px;
+    width: 220px;
+    height: 70px;
+    background-color: #bdbcae;
+    border-radius: 20px;
+}
+
+.reservation-componets button:hover{
+    background-color: #003366;
+    color: #ecda0a;
+}
+
+.reservation-componets h2{
+    color: black;
+}
+
+.reservation-componets table{
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+
+.reservation-componets tr{
+    height: 100px;
+    
+}
+
+.reservation-history table{
+    border-collapse: collapse;
+}
+
+.reservation-history p{
+    font-size: 30px;
+    margin-left: 5%;
+}
+
+.reservation-history  th{
+    padding: 20px;
+    background-color: #acc1d7;
+    color: #000000;
+    width: 200px;
+    height: 5px;
+
+}
+.reservation-history  tr{
+    border-bottom: 1px solid #ecda0a;
+}
+    
+.reservation-history td{
+    padding: 15px;
+    background-color: #ffffff;
+    color: #000000;
+    width: 200px;
+    height: 3px;
+    text-align: center;
+    
+}
+.reservation-history .complete-status{
+    background-color: rgb(50, 209, 76);
+    border: none;
+    border-radius: 20px;
+    width: 90px;
+}
+.reservation-history .cancel-status{
+    background-color: rgb(209, 63, 50);
+    border: none;
+    border-radius: 20px;
+    width: 90px;
+}
