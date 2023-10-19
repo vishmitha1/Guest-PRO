@@ -1,8 +1,14 @@
 .side-bar{
+    position: fixed;
     background-color: #002447;
     /* background-color: #003366; */
-    width: 25%;
-    height: 100dvh;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    width: 325px;
+    /* padding: 2.7rem 3rem 0 2rem; */
+   
+
     
 }
 
@@ -39,14 +45,15 @@
 
  .logout{
     position: absolute;
-    width: 10%;
-    margin-top: 2%;
+    width: 15%;
+    margin-top: 5%;
     margin-left: 5%;
     
 }
 
 .logout button{
-    padding: 10px 20px;
+    margin-left: 50px;
+    padding: 5px 30px;
     background-color: #ecda0a;
     border-radius: 20px;
 }
