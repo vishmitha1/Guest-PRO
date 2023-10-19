@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
    
-    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/side-navbar/navbar.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -23,11 +23,9 @@
             <a href="#"><i class="fa-solid fa-star"></i></i>Rate</a>
         </div>
         <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </div>
-    
     </div>
 
-</body>
-</html>
+
     
