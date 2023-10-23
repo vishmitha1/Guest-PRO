@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
 .side-bar{
-    position: fixed;
+    position:fixed;
     background-color: #002447;
     /* background-color: #003366; */
     height: 100vh;
     top: 0;
     left: 0;
     width: 325px;
+    font-family: "poppins", sans-serif;
     /* padding: 2.7rem 3rem 0 2rem; */
    
 
@@ -22,23 +25,26 @@
     font-size: 20px;
 }
 
+
 .links{
-    margin-top: 10%;
+    margin-top: 6%;
     margin-left: 10%;
 }
 
+
+
 .links i{
-    margin-right: 10%;
+    margin-right: 6%;
     direction: none;
 }
 
 .logo{
-    padding: 4% 4%;
+    padding: 2% 4%;
     background-color: #003366;
 
 }
 
-.side-bar a:hover{
+.side-bar a:hover {
     color: #ecda0a;
     text-decoration: none;
 }
@@ -64,4 +70,39 @@
     border: 1px solid #ecda0a;
     transition: .3s;
 
+}
+.home {
+    position: relative;
+    left: 325px;
+    width: calc(100% - 325px);
+    top: 0;
+    background: #ebedef;
+    
+    /* padding-left: 25px; */
+    /* padding-bottom: 5rem; */
+  }
+.profile{
+    top: 0;
+    left: 75%;
+    width: 200px;
+    height: 70px;
+    margin-top: 5px;
+    position: relative;
+  
+   
+}
+
+.profile a {
+    margin-top: 10px;
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+}
+.profile i {
+    margin-top: 10px;
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
 }
