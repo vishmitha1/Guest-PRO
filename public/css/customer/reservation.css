@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Sometype+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sriracha&display=swap');
 /* ''''''''''''''''''''''''''''''''''''''''' common CSS for all UI pages ''''''''''''''''*/
 .home {
     position: relative;
     left: 325px;
     width: calc(100% - 325px);
     top: 0;
+    background: #ebedef;
     
     /* padding-left: 25px; */
     /* padding-bottom: 5rem; */
@@ -15,20 +17,27 @@
     height: 70px;
     margin-top: 5px;
     position: relative;
+  
+   
 }
 
-.profile a{
+.profile a {
     margin-top: 10px;
     position: relative;
     text-decoration: none;
     color: #000000;
     font-size: 25px;
-    
-   
+}
+.profile i {
+    margin-top: 10px;
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
 }
 /*''''''''''''''''''''''''''''''''''''''''''' End of common CSS for all UI pages'''''''''''''''  */
 
-  .reservation-componets {
+  /* .reservation-componets {
     align-items: center;
   }
 
@@ -60,8 +69,58 @@
 .reservation-componets tr{
     height: 100px;
     
+} */
+
+
+.reservation-components{
+    background:#ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+
+}
+.reservation-components-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 150px;
+}
+.blocks{
+    background: rgb(254, 226, 254);
+    border-radius: 10px;
+    padding: 1.2rem;
+    width: 290px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease-in-out;
+    
 }
 
+.blocks a{
+    text-decoration: none;
+    text-align: center;
+    color: #000;
+}
+.blocks .title{
+    font-size: 2.5rem;
+    font-family:"Sriracha",sans-serif;
+    font-weight: 600;
+    color: #000000;
+    text-align:center ;
+}
+.blocks i{
+    background:rgb(248, 173, 248);
+    margin-left: center;
+    border-radius: 20PX;
+    padding: 20px;
+
+}
+
+
+
+.reservation-history{
+    margin-top: 50px;
+}
 .reservation-history table{
     border-collapse: collapse;
 }

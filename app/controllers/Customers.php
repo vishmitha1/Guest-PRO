@@ -11,5 +11,10 @@
             $data =[  ];
             $this->view('customers/v_reservation', $data);
         }
+        
+        public function bill(){
+            $data =[  ];
+            $this->view('customers/v_bill', $data);
+        }
     }
 ?>
