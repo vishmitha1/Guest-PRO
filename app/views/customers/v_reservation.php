@@ -3,9 +3,9 @@
     <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
     
     <div class="home">
-        <div class="profile">
+        <!-- <div class="profile">
         <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
-        </div>
+        </div> -->
         
         <div class="reservation-components">
             <div class="reservation-components-wrapper">
