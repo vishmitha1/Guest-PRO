@@ -1,2 +1,6 @@
+@import url("./main-colors.css");
+
 @import url("./side-navbar/navbar.css");
 @import url("./customer/reservation.css");
+@import url("./customer/bill.css");
+@import url("./customer/payment.css");
