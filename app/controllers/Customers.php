@@ -16,5 +16,9 @@
             $data =[  ];
             $this->view('customers/v_bill', $data);
         }
+        public function payment(){
+            $data =[  ];
+            $this->view('customers/v_payment', $data);
+        }
     }
 ?>

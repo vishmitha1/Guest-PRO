@@ -19,10 +19,9 @@
     color: #000000;
 }
 .bill-blocks{
-    background: rgb(254, 226, 254);
     border-radius: 10px;
     padding: 1.2rem;
-    width: 240px;
+    width: 230px;
     height: 150px;
     display: flex;
     flex-direction: column;
@@ -78,7 +77,7 @@
     margin-top: 10px;
 }
 
-.light-green{
+/* .light-green{
     background: rgb(173, 248, 173);
 }
 .light-blue{
@@ -98,4 +97,69 @@
 
 .dark-perple{
     background: rgb(165, 54, 165);
+} */
+/*'''''''''''''''''''bill table  ''''''''''''''''''''''*/
+.bill-table-warpper{
+    background: #eff0f5;
+    margin-top: 80px;
+    border-radius: 10px;
+    padding: 20px;
 }
+
+.bill-table-container{
+    width: 100%;
+}
+
+.bill-table-warpper table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bill-table-warpper thead{
+    background: #003366;;
+
+}
+.bill-table-container th{
+    padding: 15px  ;
+    text-align: left;
+    color: #ffffff;
+}
+
+tbody{
+    background: #c7c7ec;
+}
+
+td{
+    padding: 15px;
+    font-size: 15px;
+    color: #000000;
+}
+
+tr:nth-child(even){
+    background: #ffffff;
+}
+
+tfoot{
+    background: #c08d8d;
+    font-weight: bold;
+}
+
+tfoot td{
+    padding: 20px;
+}
+
+.bill-table-container button{
+    color: yellow;
+    background: none;
+    cursor: pointer;
+}
+
+ .main-title{
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-family:"Sriracha",sans-serif;
+    color: #000000;
+}
+
+
