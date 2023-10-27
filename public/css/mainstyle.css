@@ -1,3 +1,4 @@
+/* This file is used to import all the css files in the project. */
 @import url("./main-colors.css");
 
 @import url("./side-navbar/navbar.css");
