@@ -44,6 +44,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th hidden >orderid</th>
                             <th>Item Name</th>
                             <th>Date</th>
                             <th>Quantity</th>
@@ -56,6 +57,7 @@
                                 foreach ($data as $item) {
                                     echo "
                                     <tr>
+                                        <td hidden>{$item->order_id}</td>
                                         <td>{$item->item_name}</td>
                                         <td>{$item->date}</td>
                                         <td>{$item->quantity}</td>
@@ -66,7 +68,8 @@
                                         </tr>";
                                     }
                                     else{
-                                        echo "<td><button type='submit' class='light-green'>Edit</button></td>
+                                        echo "<td> <a href='updatefoodorder/{$item->item_name}/{$item->quantity}/{$item->order_id}'><button type='submit' class='light-green'>Edit</button></a>
+                                                   <a href='updatefoodorder/{$item->order_id}'><button type='submit' class='light-perple'>Delete</button></a> </td>
                                         </tr>";
                                     }
                                 }
