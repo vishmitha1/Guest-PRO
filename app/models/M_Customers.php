@@ -57,6 +57,18 @@
             }
         }
 
+        public function deleteorder($param) {
+            $this->db->query("DELETE FROM foodorders WHERE order_id= :id ");
+            $this->db->bind(':id',$param);
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
         
             
     
