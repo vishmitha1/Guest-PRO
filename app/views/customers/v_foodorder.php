@@ -69,16 +69,12 @@
                                     }
                                     else{
                                         echo "<td> <a href='updatefoodorder/{$item->item_name}/{$item->quantity}/{$item->order_id}'><button type='submit' class='light-green'>Edit</button></a>
-                                                   <a href='updatefoodorder/{$item->order_id}'><button type='submit' class='light-perple'>Delete</button></a> </td>
+                                                   <a href='deleteorder/{$item->order_id}'><button type='submit' class='light-perple'>Delete</button></a> </td>
                                         </tr>";
                                     }
                                 }
                             ?>
-                            <?php
-                                if(isset($_POST[""])){
-
-                                }
-                            ?>
+                            
                             
                         </tbody>
                        
