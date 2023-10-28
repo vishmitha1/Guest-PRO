@@ -1,0 +1,157 @@
+/* foodorder form CSS '''''''''''''''''''''''''''''''''*/
+
+.foodorder-form{
+  
+    margin-top: 40px;
+    background:#e8e8ef;
+    padding: 2rem;
+    border-radius: 10px;
+  
+  }
+  
+  .foodorder-form .main-title{
+    font-size: 2.5em;
+    font-family: "poppins";
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .foodorder-form-wrapper{
+    margin-left: 200px;
+    margin-top: 40px;
+    width: 50%;
+    background:#b7b6b9;
+    padding: 2rem;
+    border-radius: 10px;
+    transition:cubic-bezier(1, 0, 0, 1) 0.3s;
+  
+  }
+  
+  .foodorder-img{
+    object-fit: cover;
+    margin-bottom: 10px;
+  
+  }
+  .foodorder-img i{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    gap: 40px;
+    
+  }
+  
+  .form-title{
+    font-size: 1.2em;
+    font-family: "poppins";
+    font-weight: -1500;
+    
+  }
+  
+  .foodorder-field{
+    margin-top: 2px;
+    margin-bottom: 13px;
+    border-radius: 10px;
+  }
+  
+  .foodorder-field input , select , textarea{
+    padding: 7px;
+    background: #e3eaf8;
+    border: none;
+    width: 100%;
+  }
+
+
+  
+  .foodorder-button{
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .foodorder-button input{
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 10px;
+    background: #003366;
+    color: #ecda0a;
+    font-size: 1em;
+    font-family: "poppins";
+    font-weight: 600;
+    padding: 10px;
+    transition: all 0.3s;
+    
+  }
+  
+  .foodorder-button input:hover{
+    transform: translateY(-10px);
+  
+  }
+
+  /*End of foodorder css for form'''''''''''''''''''*/
+
+
+  /*  ''' foodorder CSS for table'''''''''''''*/
+
+  .foodorder-table-warpper{
+    background: #eff0f5;
+    margin-top: 80px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.foodorder-table-container{
+    width: 100%;
+}
+
+.foodorder-table-warpper table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.foodorder-table-warpper thead{
+    background: #003366;;
+
+}
+.foodorder-table-container th{
+    padding: 15px  ;
+    text-align: left;
+    color: #ffffff;
+}
+
+.foodorder-table-warpper tbody{
+    background: #c7c7ec;
+}
+
+.foodorder-table-warpper td{
+    padding: 15px;
+    font-size: 15px;
+    color: #000000;
+}
+
+.foodorder-table-warpper tr:nth-child(even){
+    background: #ffffff;
+}
+
+.foodorder-table-warpper tfoot{
+    background: #c08d8d;
+    font-weight: bold;
+}
+
+.foodorder-table-warpper tfoot td{
+    padding: 20px;
+}
+
+.foodorder-table-container button{
+    cursor: pointer;
+    border: none;
+}
+
+.foodorder-table-warpper .main-title{
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-family:"Sriracha",sans-serif;
+    color: #000000;
+}
+  
+

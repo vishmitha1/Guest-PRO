@@ -1,0 +1,29 @@
+/* Main Colors */
+.main-color{
+    background: #003366;
+}
+.second-color{
+    background: #ecda0a;
+}
+
+.light-green{
+    background: rgb(173, 248, 173);
+}
+.light-blue{
+    background: rgb(173, 248, 248);
+}
+.dark-green{
+    background: rgb(80, 174, 80);
+}
+
+.dark-blue{
+    background: rgb(54, 165, 165);
+}
+
+.light-perple{
+    background: rgb(226, 173, 248);
+}
+
+.dark-perple{
+    background: rgb(165, 54, 165);
+}
