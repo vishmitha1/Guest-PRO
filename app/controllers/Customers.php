@@ -59,7 +59,14 @@
 
                     //place food order
                     if($this->userModel->placefoodorder($data)){
-                        redirect('Customers/foodorder');
+                        
+                        //pass the curent database data to view usig getordermod''''''''''''
+
+                        
+                        $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                        
+
+                        // redirect('Customers/foodorder');
                     }
                     else{
                         die("someting wrond");
@@ -81,8 +88,14 @@
                     'note_err' => '',
                     
                 ];
-                $this->view('customers/v_foodorder', $data);
+                // $this->userModel->getorderdetails();
+                $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                
             }
         }
+
+        
+
+
     }
 ?>
