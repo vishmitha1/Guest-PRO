@@ -32,5 +32,12 @@
         </div>
     </div>
 
+   <!-- '''''''''''''''''''''''''''''''user account imported'''''''''''''''''''''''''''''''''''''''' -->
+    <div class="home">
+        <div class="profile">
+        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
+        </div>
+    </div>
+
 
     

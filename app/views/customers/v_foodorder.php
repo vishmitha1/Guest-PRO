@@ -44,6 +44,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th hidden >orderid</th>
                             <th>Item Name</th>
                             <th>Date</th>
                             <th>Quantity</th>
@@ -52,16 +53,31 @@
                         </tr>
                     </thead>    
                         <tbody>
-                            <tr>
-                                <td>2023/04/10</td>
-                               
-                                <td>Food</td>
-                                <td>Sandwitch</td>
-                                <td>250LKR</td>
-                                <td><button class="light-green">Edit</button></td>
-                            </tr>
+                            <?php
+                                foreach ($data as $item) {
+                                    echo "
+                                    <tr>
+                                        <td hidden>{$item->order_id}</td>
+                                        <td>{$item->item_name}</td>
+                                        <td>{$item->date}</td>
+                                        <td>{$item->quantity}</td>
+                                        <td>{$item->status}</td>
+                                        ";
+                                    if($item->status =="Preparing" || $item->status =="Prepared" || $item->status =="Delivered"){
+                                        echo "<td><button type='submit'  class='light-blue'>Complete</button></td>
+                                        </tr>";
+                                    }
+                                    else{
+                                        echo "<td> <a href='updatefoodorder/{$item->item_name}/{$item->quantity}/{$item->order_id}'><button type='submit' class='light-green'>Edit</button></a>
+                                                   <a href='deleteorder/{$item->order_id}'><button type='submit' class='light-perple'>Delete</button></a> </td>
+                                        </tr>";
+                                    }
+                                }
+                            ?>
+                            
                             
                         </tbody>
+                       
                     
                 </table>
             </div>
