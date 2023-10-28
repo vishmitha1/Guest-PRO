@@ -125,9 +125,16 @@
                     $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
 
                 }
-
-                
-
         }
+    }
+
+
+        public function deleteorder($param){
+            
+                $this->userModel->deleteorder($param);
+                $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+
+            
+        
     }
 }
