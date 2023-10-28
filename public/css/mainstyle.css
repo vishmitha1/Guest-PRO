@@ -1,7 +1,13 @@
+
+
 /* This file is used to import all the css files in the project. */
 @import url("./main-colors.css");
+
+/* Importing common css */
+@import url("./common.css");
 
 @import url("./side-navbar/navbar.css");
 @import url("./customer/reservation.css");
 @import url("./customer/bill.css");
 @import url("./customer/payment.css");
+@import url("./customer/foodorder.css");
