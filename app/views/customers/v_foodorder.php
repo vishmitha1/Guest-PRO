@@ -3,13 +3,13 @@
 <div class="home">
 
 
-    <div class="common-form">
+    <div class="foodorder-form">
         <div class="main-title">Place Food Order</div>
-        <div class="common-form-wrapper">
-            <form action="">
+        <div class="foodorder-form-wrapper">
+            <form action="<?php echo URLROOT;?>/Customers/foodorder" method="POST" >
                 
                 <span class="form-title">Select Item:</span>
-                <div class="common-field">
+                <div class="foodorder-field">
                     <select name="food" id="food">
                         <option value="sandwitch">Sandwitch</option>
                         <option value="friderice">FriedRice</option>
@@ -17,15 +17,19 @@
                     </select>
                 </div>
                 <span class="form-title">Quantity:</span>
-                <div class="common-field">
+                <div class="foodorder-field">
+                    <input type="text" name="quantity" >
+                </div>
+                <span class="form-title">Add note:</span>
+                <div class="foodorder-field">
                     
-                    <input type="text">
+                    <textarea id="note" name="note" rows="4" cols="50"></textarea>
                 </div>
                 
                 
 
-                <div class="common-button">
-                    <input type="button" name="submit" value="Procceed">
+                <div class="foodorder-button">
+                    <input type="submit" name="submit" value="Procceed">
                 </div>
     
             </form>
@@ -34,9 +38,9 @@
     </div>
 
 
-        <div class="common-table-warpper">
+        <div class="foodorder-table-warpper">
             <div class="main-title">Food orders</div>
-            <div class="common-table-container">
+            <div class="foodorder-table-container">
                 <table>
                     <thead>
                         <tr>
