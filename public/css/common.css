@@ -1,0 +1,156 @@
+/* Common form CSS '''''''''''''''''''''''''''''''''*/
+
+.common-form{
+  
+    margin-top: 40px;
+    background:#e8e8ef;
+    padding: 2rem;
+    border-radius: 10px;
+  
+  }
+  
+  .common-form .main-title{
+    font-size: 2.5em;
+    font-family: "poppins";
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .common-form-wrapper{
+    margin-left: 200px;
+    margin-top: 40px;
+    width: 50%;
+    background:#b7b6b9;
+    padding: 2rem;
+    border-radius: 10px;
+    transition:cubic-bezier(1, 0, 0, 1) 0.3s;
+  
+  }
+  
+  .common-img{
+    object-fit: cover;
+    margin-bottom: 10px;
+  
+  }
+  .common-img i{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    gap: 40px;
+    
+  }
+  
+  .form-title{
+    font-size: 2em;
+    font-family: "poppins";
+    font-weight: 00;
+    
+  }
+  
+  .common-field{
+    margin-top: 2px;
+    margin-bottom: 13px;
+    border-radius: 10px;
+  }
+  
+  .common-field input , select , textarea{
+    padding: 7px;
+    background: #e3eaf8;
+    border: none;
+    width: 100%;
+  }
+
+
+  
+  .common-button{
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .common-button input{
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 10px;
+    background: #003366;
+    color: #ecda0a;
+    font-size: 1em;
+    font-family: "poppins";
+    font-weight: 600;
+    padding: 10px;
+    transition: all 0.3s;
+    
+  }
+  
+  .common-button input:hover{
+    transform: translateY(-10px);
+  
+  }
+
+  /*End of common css for form'''''''''''''''''''*/
+
+
+  /*  ''' Common CSS for table'''''''''''''*/
+
+  .common-table-warpper{
+    background: #eff0f5;
+    margin-top: 80px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.common-table-container{
+    width: 100%;
+}
+
+.common-table-warpper table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.common-table-warpper thead{
+    background: #003366;;
+
+}
+.common-table-container th{
+    padding: 15px  ;
+    text-align: left;
+    color: #ffffff;
+}
+
+tbody{
+    background: #c7c7ec;
+}
+
+td{
+    padding: 15px;
+    font-size: 15px;
+    color: #000000;
+}
+
+tr:nth-child(even){
+    background: #ffffff;
+}
+
+tfoot{
+    background: #c08d8d;
+    font-weight: bold;
+}
+
+tfoot td{
+    padding: 20px;
+}
+
+.common-table-container button{
+    cursor: pointer;
+    border: none;
+}
+
+.common-table-warpper .main-title{
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-family:"Sriracha",sans-serif;
+    color: #000000;
+}
+  
