@@ -33,18 +33,31 @@
             // echo("<br>");
             $row=array_reverse($row);
 
-            foreach($row  as $orders){
-            
-                $item=$orders->item_name;
-                $quant=$orders->quantity;
-                $date=$orders->date;
-                $stat=$orders->status;
-                
-            }
-            
-
             return $row;
 
         }
-    }
+        public function updateorderdetails($data,$param) {
+            $this->db->query('UPDATE foodorders SET 
+            item_name=:name ,
+            quantity=:quantity ,
+            status= :status,
+            note=:note WHERE order_id= :param');
+            
+            $this->db->bind(':param', $param);
+            $this->db->bind(':name', $data['food']);
+            $this->db->bind(':quantity',$data['quantity'] );
+            $this->db->bind(':status',"Placed");
+            $this->db->bind(':note',$data['note'] );
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        
+            
     
+    }
