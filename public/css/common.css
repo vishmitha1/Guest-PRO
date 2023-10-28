@@ -10,9 +10,9 @@
   }
   
   .common-form .main-title{
-    font-size: 1.5em;
+    font-size: 2.5em;
     font-family: "poppins";
-    font-weight: 600;
+    font-weight: 800;
     margin-bottom: 10px;
     text-align: center;
   }
@@ -42,42 +42,26 @@
   }
   
   .form-title{
-    font-size: 1em;
+    font-size: 2em;
     font-family: "poppins";
-    font-weight: 600;
+    font-weight: 00;
     
   }
   
   .common-field{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 2px;
+    margin-bottom: 13px;
     border-radius: 10px;
   }
   
-  .common-field input{
+  .common-field input , select , textarea{
     padding: 7px;
     background: #e3eaf8;
     border: none;
     width: 100%;
   }
-  .common-field-half {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-  }
-  
-  .common-field-half input{
-    padding: 7px;
-    background: #e3eaf8;
-    border: none;
-    width: 20%;
-    gap: 50px;
-    margin-top: 20px;
-    
-  }
-  .common-field-half span{
-    margin-left: 15px;
-  }
+
+
   
   .common-button{
     margin-top: 10px;
