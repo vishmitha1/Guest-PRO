@@ -52,16 +52,33 @@
                         </tr>
                     </thead>    
                         <tbody>
-                            <tr>
-                                <td>2023/04/10</td>
-                               
-                                <td>Food</td>
-                                <td>Sandwitch</td>
-                                <td>250LKR</td>
-                                <td><button class="light-green">Edit</button></td>
-                            </tr>
+                            <?php
+                                foreach ($data as $item) {
+                                    echo "
+                                    <tr>
+                                        <td>{$item->item_name}</td>
+                                        <td>{$item->date}</td>
+                                        <td>{$item->quantity}</td>
+                                        <td>{$item->status}</td>
+                                        ";
+                                    if($item->status =="Preparing" || $item->status =="Prepared" || $item->status =="Delivered"){
+                                        echo "<td><button type='submit'  class='light-blue'>Complete</button></td>
+                                        </tr>";
+                                    }
+                                    else{
+                                        echo "<td><button type='submit' class='light-green'>Edit</button></td>
+                                        </tr>";
+                                    }
+                                }
+                            ?>
+                            <?php
+                                if(isset($_POST[""])){
+
+                                }
+                            ?>
                             
                         </tbody>
+                       
                     
                 </table>
             </div>
