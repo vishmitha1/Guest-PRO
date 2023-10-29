@@ -47,6 +47,7 @@
 .side-bar a:hover {
     color: #ecda0a;
     text-decoration: none;
+    transition: all 0.3s ease-in-out;
 }
 
  .logout{
@@ -88,6 +89,7 @@
     height: 70px;
     margin-top: 5px;
     position: relative;
+    
   
    
 }

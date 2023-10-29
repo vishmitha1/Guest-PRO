@@ -149,9 +149,8 @@ tfoot td{
 }
 
 .bill-table-container button{
-    color: yellow;
-    background: none;
     cursor: pointer;
+    border: none;
 }
 
  .main-title{

@@ -12,7 +12,7 @@ class Kitchen extends Controller
     public function foodorder()
     {
         $data = [];
-        $this->view('kitchen/v_foodorder', $data);
+        $this->view('kitchen/v_foodorders', $data);
     }
 
     public function foodmenu()
@@ -20,7 +20,7 @@ class Kitchen extends Controller
         $data = [];
         $this->view('kitchen/v_foodmenu', $data);
     }
-    public function foodstatus()
+    public function orderstatus()
     {
         $data = [];
         $this->view('kitchen/v_orderstatus', $data);
