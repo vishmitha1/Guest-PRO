@@ -1,0 +1,137 @@
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #002447;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* CSS for the logo section */
+.logo-section {
+    background-color: #003366;
+    padding: 10px;
+    text-align: center;
+}
+
+/* CSS for the logout button */
+.logout-button {
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    background-color: #FFD700;
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    border-radius: 50px; /* Rounded corners */
+}
+
+.logout-button:hover {
+    background-color: #fde660;
+}
+
+/* CSS for the navigation links */
+.nav-link {
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background-color: #003366;
+}
+
+/* CSS for the dashboard section */
+.dashboard {
+    margin-left: 250px; /* Adjust for sidebar width */
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+}
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the user profile section */
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px; /* Adjust the image size as needed */
+    height: 50px; /* Adjust the image size as needed */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile-info {
+    color: black;
+}
+
+.user-profile-info p {
+    margin: 0;
+}
+
+/* Monthly Rating Section */
+.monthly-rating {
+    margin-top: 30px;
+    text-align: center;
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.monthly-rating-title {
+    font-size: 24px;
+    color: #003366; /* Dark blue title text */
+    margin-bottom: 20px;
+}
+
+.waiter-image {
+    text-align: center;
+}
+
+.waiter-image img {
+    width: 150px; /* Adjust the image size as needed */
+    height: 150px; /* Adjust the image size as needed */
+    border-radius: 50%;
+}
+
+.waiter-rating {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+/* Customer Comments Section */
+.customer-comments {
+    margin-top: 20px;
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.customer-comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.customer-comment img {
+    width: 50px; /* Adjust the image size as needed */
+    height: 50px; /* Adjust the image size as needed */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.customer-comment-info {
+    color: black;
+}
+
+.customer-comment-info p {
+    margin: 0;
+}
