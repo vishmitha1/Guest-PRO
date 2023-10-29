@@ -109,20 +109,53 @@
 }
 
 
+/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
 
+
+
+/* CSS for the dashboard section */
+.dashboard {
+    margin-left: 250px; /* Adjusted for sidebar width */
+    padding: 20px;
+}
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the user profile section */
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px; /* Adjust the image size */
+    height: 50px; /* Adjust the image size a */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile-info {
+    color: black;
+}
+
+.user-profile-info p {
+    margin: 0;
+}
+
+/* CSS for the search bar */
 .search-bar {
     margin-top: 20px;
     display: flex;
-  }
-  
-  .search-bar input[type="text"] {
+}
+
+.search-bar input[type="text"] {
     flex: 1; /* Take up available space */
     padding: 10px;
     box-sizing: border-box;
     border: 1px solid #E6E7E8; /* Add border to the input field */
-  }
-  
-  .search-bar button {
+}
+
+.search-bar button {
     background-color: #003366;
     color: white;
     border: none;
@@ -130,8 +163,8 @@
     cursor: pointer;
     border-top-right-radius: 0; /* No rounded corners on the button */
     border-bottom-right-radius: 0;
-  }
-  
-  .search-bar button:hover {
+}
+
+.search-bar button:hover {
     background-color: #002447;
-  }
+}
