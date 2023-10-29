@@ -28,14 +28,60 @@
                 
                 
 
-                <div class="foodorder-button">
-                    <input type="submit" name="submit" value="Procceed">
-                </div>
+                
     
-            </form>
+            
 
         </div>
-    </div>
+    
+    <!-- Food Order Menu -->
+    <!-- <form action="<?php echo URLROOT;?>/Customers/foodorder" method="POST" >
+    <div class="food-menu">
+            <h2>Food Menu</h2>
+            <div class="food-item">
+                <img src="food-item-1.jpg" alt="Food Item 1" width="100">
+                <h3>Kottu</h3>
+                <p>Price: $10</p>
+                <div class="quantity-control">
+                    <input type="text" value="0" name="food" >
+                </div>
+            </div>
+            <div class="food-item">
+                <img src="food-item-2.jpg" alt="Food Item 2" width="100">
+                <h3>FriedRice</h3>
+                <p>Price: $12</p>
+                <div class="quantity-control">
+                    <input type="text" value="0"name="food">
+                </div>
+            </div>
+
+            <!-- Delivery Options -->
+            <div class="delivery-options">
+                <h3>Delivery Options</h3>
+                <label for="floor">Select Floor:</label>
+                <select id="floor" name="floor" >
+                    <option value="" hidden  selected disabled > </option>
+                    <option value="floor1">Floor 1</option>
+                    <option value="floor2">Floor 2</option>
+                    <option value="floor3">Floor 3</option>
+                </select>
+                <br>
+                <label for="room">Enter Room Number:</label>
+                <select id="room" name="room">
+                     <option value="" hidden  selected disabled > </option>
+                    <option value="room1">Room 1</option>
+                    <option value="room2">Room 2</option>
+                    <option value="room3">Room 3</option>
+                </select>
+            </div>
+            <div class="foodorder-button">
+                    <input type="submit" name="submit" value="Procceed">
+                </div>
+        </div>    
+
+            
+        
+            </form>
 
 
         <div class="foodorder-table-warpper">
@@ -82,4 +128,5 @@
                 </table>
             </div>
         </div>
+
 </div>
