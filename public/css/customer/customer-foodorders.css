@@ -1,0 +1,168 @@
+/* CSS for the navigation bar */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #002447;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* CSS for the logo section */
+.logo-section {
+    background-color: #003366;
+    padding: 10px;
+    text-align: center;
+}
+
+/* CSS for the logout button */
+.logout-button {
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    background-color: #FFD700;
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    border-radius: 50px; /* Rounded corners */
+}
+
+.logout-button:hover {
+    background-color: #fde660;
+}
+
+/* CSS for the navigation links */
+.nav-link {
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background-color: #003366;
+}
+
+/* CSS for the dashboard section */
+.dashboard {
+    margin-left: 250px; /* Adjusted for sidebar width */
+    padding: 20px;
+}
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the user profile section */
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px; /* Adjust the image size */
+    height: 50px; /* Adjust the image size a */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile-info {
+    color: black;
+}
+
+.user-profile-info p {
+    margin: 0;
+}
+
+/* CSS for the search bar */
+.search-bar {
+    margin-top: 20px;
+    display: flex;
+}
+
+.search-bar input[type="text"] {
+    flex: 1; /* Take up available space */
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #E6E7E8; /* Add border to the input field */
+}
+
+.search-bar button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-top-right-radius: 0; /* No rounded corners on the button */
+    border-bottom-right-radius: 0;
+}
+
+.search-bar button:hover {
+    background-color: #002447;
+}
+
+/* Food Order Menu Styles */
+.food-menu {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f7f7f7;
+}
+
+.food-item {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.food-item img {
+    width: 100px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.quantity-control input {
+    width: 30px;
+    text-align: center;
+}
+
+.delivery-options {
+    margin-top: 20px;
+}
+
+.delivery-options select,
+.delivery-options input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #E6E7E8;
+}
+
+.order-button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.order-button:hover {
+    background-color: #002447;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #E6E7E8;
+    padding: 8px;
+}
