@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-   
-    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    <link rel="stylesheet" href='/public/css/side-navbar/tempory_navbar.css'>
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <!-- <div class="sidebar">
+        <div class="logo-section">
+            <img src="your-logo.png" alt="Your Logo" width="100">
+        </div>
+        <a class="nav-link" href="#">Option 1</a>
+        <a class="nav-link" href="#">Option 2</a>
+        <a class="nav-link" href="#">Option 3</a>
+        <a class="nav-link" href="#">Option 4</a>
+        <a class="nav-link" href="#">Option 5</a>
+        <div class="logout-button">
+            <a href="#">Logout</a>
+        </div>
+    </div> -->
+
     <div class="side-bar">
         <div class="logo">
             <h1><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>  Guest PRO</h1>
@@ -41,18 +51,24 @@
              <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </div>
     </div>
-    <div class="home">
-        <div class="profile">
-        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
+
+
+
+
+    <div class="dashboard">
+        <div class="user-profile">
+            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <div class="user-profile-info">
+                <p>John Doe</p>
+                <p>User</p>
+            </div>
         </div>
-    </div>
 
-   <!-- '''''''''''''''''''''''''''''''user account imported'''''''''''''''''''''''''''''''''''''''' -->
-    <div class="home">
-        <div class="profile">
-        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button>Search</button>
         </div>
+           
     </div>
-
-
-    
+</body>
+</html>
