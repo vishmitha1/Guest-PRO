@@ -1,5 +1,4 @@
-.bill-components{
-    background:#faf8f8;
+.waiter-dashboard-components{
     padding: 2rem;
     border-radius: 10px;
 
@@ -10,11 +9,11 @@
     gap: 15px;
 }
 
-.bill-components .main-title{
+.waiter-dashboard-components-main-title{
     font-size: 28px;
     font-weight: 500;
     margin-bottom: 10px;
-    font-family:"Sriracha",sans-serif;
+    font-family:"Quicksand",sans-serif;
     color: #000000;
 }
 .bill-blocks{
@@ -149,8 +148,9 @@ tfoot td{
 }
 
 .bill-table-container button{
+    color: yellow;
+    background: none;
     cursor: pointer;
-    border: none;
 }
 
  .main-title{
