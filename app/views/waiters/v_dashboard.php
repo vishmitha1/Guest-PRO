@@ -1,9 +1,9 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_waiter.php" ?>
 <div class="home">
-        <div class="bill-components">
-            <div class="main-title">Dashboard</div>
+        <div class="waiter-dashboard-components">
+            <div class="waiter-components-main-title">Dashboard</div>
                 <div class="bill-components-wrapper">
-                    <div class="bill-blocks  light-perple">
+                    <div class="bill-blocks  dashboard-blocks">
                         <div class="block-header ">
                             <div class="amount">
                                 <span class="title">Deliveries</span>
@@ -14,7 +14,7 @@
                             </div>    
                         </div>
                     </div>
-                    <div class="bill-blocks light-green">
+                    <div class="bill-blocks dashboard-blocks">
                         <div class="block-header">
                             <div class="amount">
                                 <span class="title">Stars</span>
