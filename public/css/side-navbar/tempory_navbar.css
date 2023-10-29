@@ -8,6 +8,7 @@
     top: 0;
     left: 0;
     width: 250px;
+
     font-family: "poppins", sans-serif;
     /* padding: 2.7rem 3rem 0 2rem; */
    
@@ -157,7 +158,7 @@
 
 .search-bar button {
     background-color: #003366;
-    color: white;
+    
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -168,6 +169,4 @@
 .search-bar button:hover {
     background-color: #002447;
 }
-
-
 

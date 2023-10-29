@@ -122,7 +122,7 @@
                         if($loggeduser){
                             //authentic user
                             //can create user sessions
-                            redirect("Customers/reservatio");
+                            redirect("Customers/reservation");
                             
                         }
 

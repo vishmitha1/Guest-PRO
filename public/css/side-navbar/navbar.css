@@ -7,7 +7,7 @@
     height: 100vh;
     top: 0;
     left: 0;
-    width: 325px;
+    width: 275px;
     font-family: "poppins", sans-serif;
     /* padding: 2.7rem 3rem 0 2rem; */
    
@@ -44,9 +44,8 @@
 
 }
 
-.side-bar a:hover {
-    color: #ecda0a;
-    text-decoration: none;
+.link-items:hover {
+    background: #003366;
 }
 
  .logout{
@@ -73,10 +72,11 @@
 }
 .home {
     position: relative;
-    left: 325px;
-    width: calc(100% - 325px);
+    left: 275px;
+    width: calc(100% - 275px);
     top: 0;
-    background: #ebedef;
+    /* background: #0074e8; */
+    background: #ffffff;
     
     /* padding-left: 25px; */
     /* padding-bottom: 5rem; */
@@ -88,6 +88,7 @@
     height: 70px;
     margin-top: 5px;
     position: relative;
+    
   
    
 }
