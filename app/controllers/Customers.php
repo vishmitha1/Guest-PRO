@@ -74,7 +74,7 @@
 
                 }
                 else{
-                    $this->view('customers/v_foodorder', $data);
+                    $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
                 }
 
             }
@@ -132,7 +132,7 @@
         public function deleteorder($param){
             
                 $this->userModel->deleteorder($param);
-                $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                redirect('Customers/foodorder');
 
             
         

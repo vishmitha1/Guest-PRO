@@ -7,10 +7,10 @@
     height: 100vh;
     top: 0;
     left: 0;
-    width: 250px;
+    width: 275px;
 
     font-family: "poppins", sans-serif;
-    /* padding: 2.7rem 3rem 0 2rem; */
+    
    
 
     
@@ -116,7 +116,7 @@
 
 /* CSS for the dashboard section */
 .dashboard {
-    margin-left: 250px; /* Adjusted for sidebar width */
+    margin-left: 275px; /* Adjusted for sidebar width */
     padding: 20px;
 }
 
@@ -158,7 +158,7 @@
 
 .search-bar button {
     background-color: #003366;
-    
+    color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
