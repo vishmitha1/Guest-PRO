@@ -162,6 +162,15 @@ class Kitchen extends Controller{
         }
     }
 
+    public function deletemenu($param){
+            
+        $this->userModel->deletemenu($param);
+        $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
+
+    
+
+}
+
    
 
 }
