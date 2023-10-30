@@ -153,5 +153,60 @@
     font-family:"Sriracha",sans-serif;
     color: #000000;
 }
+
+
+/* Food Order Menu Styles */
+.food-menu {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #e8e8ef;
+}
+
+.food-item {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.food-item img {
+  width: 100px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.quantity-control input {
+  width: 30px;
+  text-align: center;
+}
+
+.delivery-options {
+  margin-top: 20px;
+}
+
+
+.delivery-options select, input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #E6E7E8;
+}
+
+.order-button {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.order-button:hover {
+  background-color: #002447;
+}
   
 
