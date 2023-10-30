@@ -37,5 +37,26 @@
 
         }
 
+        public function updatemenu($data){
+            $this->db->query('UPDATE foodmenu SET 
+            food_name=:name ,
+            category=:category ,
+        
+            price=:price WHERE food_name= :param');
+            
+            $this->db->bind(':param', $data['food']);
+            $this->db->bind(':name', $data['food']);
+            $this->db->bind(':category',$data['category'] );
+            
+            $this->db->bind(':price',$data['price'] );
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
 
     }
