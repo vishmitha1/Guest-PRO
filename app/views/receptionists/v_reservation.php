@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href='/public/css/receptionist/receptionist_rooms.css'>
+    <link rel="stylesheet" href='<?php echo URLROOT;?>/public/css/receptionist/receptionist-reservations.css'>
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -25,33 +25,22 @@
         </div>
         <div class="links">
             <div class="link-items">
-                <a href="<?php echo URLROOT;?>/Customers/reservation"><i class="fa-solid fa-hotel"></i>Reservations</a>
+                <a href="<?php echo URLROOT;?>/Receptionists/reservation"><i class="fa-solid fa-hotel"></i>Reservations</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Customers/foodorder""><i class="fa-solid fa-bell-concierge"></i>Food Orders</a>
+            <a href="<?php echo URLROOT;?>/Receptionists/availability"><i class="fa-solid fa-bell-concierge"></i>Room Availability</a>
             </div>
-            <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Customers/bill"><i class="fa-solid fa-file-invoice"></i>Bill</a>
-            </div>
+            
             <div class="link-items">
 
-            <a href="<?php echo URLROOT;?>/Customers/payment"><i class="fa-regular fa-credit-card"></i>Payments</a>
+            <a href="<?php echo URLROOT;?>/Receptionists/payment"><i class="fa-regular fa-credit-card"></i>Payments</a>
             </div>
-            <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Customers/service""><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
-            </div>
-            <div class="link-items">
-                <a href="#"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
-            </div>
-            <div class="link-items">   
-                <a href="#"><i class="fa-solid fa-star"></i></i>Rate</a>
-            </div>
+           
         </div>
         <div class="logout">
              <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </div>
     </div>
-
 
 
 
@@ -64,24 +53,37 @@
                 <p>User</p>
             </div>
         </div>
-        
+
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search...">
             <button>Search</button>
         </div>
 
+        <button class="new-reservations-button">Add Reservation</button>
         
-        <div class="room-details">Room Details</div>
+        <div class="reservations">Reservations</div>
         
-        <table class="table" id="roomDetailsTable">
+        <table class="table" id="reservationsTable">
             <tr>
+                <th>Reservation No</th>
                 <th>Room No</th>
-                <th>Room Type</th>
-                <th>Floor No</th>
-                <th>Availability</th>
-                <th>Description</th>
+                <th>Checkin Date</th>
+                <th>Checkout Date</th>
+                <th>Phone Number</th>
+                <th>Edit</th>
             </tr>
-            <!-- Add more rows-->
+            <tr>
+                <td>1</td>
+                <td>101</td>
+                <td><input type="date" class="editable-input" value="2023-10-30"></td>
+                <td><input type="date" class="editable-input" value="2023-11-05"></td>
+                <td>231-45</td>
+                <td>
+                    <button class="delete-button">Delete</button>
+                    <button class="update-button">Update</button>
+                </td>
+            </tr>
+            <!-- Add more rows -->
         </table>
     </div>
 </body>
