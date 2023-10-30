@@ -15,21 +15,17 @@
         </div>
         <div class="links">
             <div class="link-items">
-                <a href="<?php echo URLROOT;?>/Customers/reservation"><i class="fa-solid fa-hotel"></i>Reservations</a>
+                <a href="<?php echo URLROOT;?>/Supervisors/cleaningstatus"><i class="fa-solid fa-broom"></i>Cleaning Status</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Customers/foodorder""><i class="fa-solid fa-bell-concierge"></i>Food Orders</a>
+            <a href="<?php echo URLROOT;?>/Supervisors/servicerequest""><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Requests</a>
             </div>
         </div>
         <div class="logout">
              <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </div>
     </div>
-    <div class="home">
-        <div class="profile">
-        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
-        </div>
-    </div>
+    
 
    
 
