@@ -25,6 +25,11 @@
             $data =[  ];
             $this->view('customers/v_payment', $data);
         }
+
+        public function servicerequest(){
+            $data =[  ];
+            $this->view('customers/v_servicerequest', $data);
+        }
         public function foodorder(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
