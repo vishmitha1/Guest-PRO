@@ -1,25 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href='/public/css/side-navbar/tempory_navbar.css'>
+
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href='/public/css/kitchen/kitchen-foodmenu.css'>
 </head>
 <body>
-    <!-- <div class="sidebar">
-        <div class="logo-section">
-            <img src="your-logo.png" alt="Your Logo" width="100">
-        </div>
-        <a class="nav-link" href="#">Option 1</a>
-        <a class="nav-link" href="#">Option 2</a>
-        <a class="nav-link" href="#">Option 3</a>
-        <a class="nav-link" href="#">Option 4</a>
-        <a class="nav-link" href="#">Option 5</a>
-        <div class="logout-button">
-            <a href="#">Logout</a>
-        </div>
-    </div> -->
-
-    <div class="side-bar">
+    <<div class="side-bar">
         <div class="logo">
             <h1><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>  Guest PRO</h1>
         </div>
@@ -69,7 +56,57 @@
             <button>Search</button>
         </div>
 
+        <!-- Food menu section -->
+        <div class="food-menu">
+            <h2>Food Menu</h2>
+            
+            <!-- Form to Add Food Item -->
+            <div class="food-item-form">
+                <h3>Add Food Item</h3>
+                <form>
+                    <input type="text" placeholder="Food Item">
+                    <input type="text" placeholder="Category">
+                    <input type="text" placeholder="Price">
+                    <button>Add Item</button>
+                </form>
+            </div>
+            
+            <!-- Form to Update Food Item -->
+            <div class="food-item-form">
+                <h3>Update Food Item</h3>
+                <form>
+                    <input type="text" placeholder="Food Item">
+                    <input type="text" placeholder="Category">
+                    <input type="text" placeholder="Price">
+                    <button>Update Item</button>
+                </form>
+            </div>
+
+            <table class="table" id="foodMenuTable">
+                <tr>
+                    <th>Food ID</th>
+                    <th>Food Item</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Pizza</td>
+                    <td>Food</td>
+                    <td>$15</td>
+                    <td>
+                        <button class="delete-button">Delete</button> <!-- Delete Room Record -->
+                    </td>
+                </tr>
+                <!-- Add more rows -->
+            </table>
+        </div>
+        
            
     </div>
+
+        
+  
 </body>
 </html>

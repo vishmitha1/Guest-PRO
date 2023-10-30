@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href='./manager-roomdetails.css'>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-section">
+            <img src="your-logo.png" alt="Your Logo" width="100">
+        </div>
+        <a class="nav-link" href="#">Option 1</a>
+        <a class="nav-link" href="#">Option 2</a>
+        <a class="nav-link" href="#">Option 3</a>
+        <div class="logout-button">
+            <a href="#">Logout</a>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <div class="user-profile">
+            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <div class="user-profile-info">
+                <p>John Doe</p>
+                <p>User</p>
+            </div>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button>Search</button>
+        </div>
+
+        <button class="new-rooms-button">Add Room</button>
+        
+        <div class="rooms">rooms</div>
+        
+        <table class="table" id="roomsTable">
+            <tr>
+                <th>Room No</th>
+                <th>Room Type</th>
+                <th>Floor</th>
+                <th>Availability</th>
+                <th>Price</th>
+                <th>Edit</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Luxury</td>
+                <td>3</td>
+                <td>No</td>
+                <td>$20</td>
+                <td>
+                    <button class="delete-button">Delete</button> <!-- Delete Room Record -->
+                    <button class="update-button">Update</button> <!-- Update Room Price -->
+                </td>
+            </tr>
+            <!-- Add more rows -->
+        </table>
+    </div>
+</body>
+</html>
+
