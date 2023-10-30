@@ -58,5 +58,17 @@
             }
         }
 
+        public function deletemenu($param) {
+            $this->db->query("DELETE FROM foodmenu WHERE food_id= :id ");
+            $this->db->bind(':id',$param);
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
 
     }
