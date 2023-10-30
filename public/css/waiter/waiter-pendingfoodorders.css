@@ -1,62 +1,125 @@
- /* CSS for the navigation bar */
- .sidebar {
-    height: 100%;
-    width: 250px;
-    position: fixed;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
+.side-bar{
+    position:fixed;
+    background-color: #002447;
+    /* background-color: #003366; */
+    height: 100vh;
     top: 0;
     left: 0;
-    background-color: #002447;
-    overflow-x: hidden;
-    padding-top: 20px;
+    width: 275px;
+
+    font-family: "poppins", sans-serif;
+    /* padding: 2.7rem 3rem 0 2rem; */
+   
+
+    
 }
 
-/* CSS for the logo section */
-.logo-section {
-    background-color: #003366;
-    padding: 10px;
-    text-align: center;
-}
-
-/* CSS for the logout button */
-.logout-button {
-    position: absolute;
-    bottom: 50px;
-    left: 20px;
-    background-color: #FFD700;
-    padding: 10px;
-    width: 100px;
-    text-align: center;
-    border-radius: 50px; /* Rounded corners */
-}
-
-.logout-button:hover {
-    background-color: #fde660;
-}
-
-/* CSS for the navigation links */
-.nav-link {
-    display: block;
-    color: #ffffff;
-    text-align: center;
-    padding: 10px 0;
+.side-bar a{
+    color: rgb(255, 255, 255);
     text-decoration: none;
+    display: block;
+    padding: 5% ;
+    text-align:left;
+    transition: .3s;
+    font-size: 20px;
 }
 
-.nav-link:hover {
-    background-color: #003366;
+
+.links{
+    margin-top: 6%;
+    margin-left: 10%;
 }
+
+
+
+.links i{
+    margin-right: 6%;
+    direction: none;
+}
+
+.logo{
+    padding: 2% 4%;
+    background-color: #003366;
+
+}
+
+.link-items:hover {
+    background: #003366;
+}
+
+ .logout{
+    position: absolute;
+    width: 15%;
+    margin-top: 5%;
+    margin-left: 5%;
+    
+}
+
+.logout button{
+    margin-left: 50px;
+    padding: 5px 30px;
+    background-color: #ecda0a;
+    border-radius: 20px;
+}
+
+.logout button:hover{
+    background-color: #003366;
+    color: #ecda0a;
+    border: 1px solid #ecda0a;
+    transition: .3s;
+
+}
+.home {
+    position: relative;
+    left: 275px;
+    width: calc(100% - 275px);
+    top: 0;
+    /* background: #0074e8; */
+    background: #ffffff;
+    
+    /* padding-left: 25px; */
+    /* padding-bottom: 5rem; */
+  }
+.profile{
+    top: 0;
+    left: 75%;
+    width: 200px;
+    height: 70px;
+    margin-top: 5px;
+    position: relative;
+    
+  
+   
+}
+
+.profile a {
+    margin-top: 10px;
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+}
+.profile i {
+    margin-top: 10px;
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+}
+
+
+/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
+
+
 
 /* CSS for the dashboard section */
 .dashboard {
-    margin-left: 250px; /* Adjust for sidebar width */
+    margin-left: 275px; /* Adjusted for sidebar width */
     padding: 20px;
 }
 
-.pending-food-orders {
-    color: black;
-    font-size: 18px;
-    margin-top: 20px; /* Add some spacing between subheading and table */
-}
 
 .user-profile {
     display: flex;
@@ -66,8 +129,8 @@
 }
 
 .user-profile img {
-    width: 50px; /* Adjust the image size as needed */
-    height: 50px; /* Adjust the image size as needed */
+    width: 50px; /* Adjust the image size */
+    height: 50px; /* Adjust the image size a */
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -79,18 +142,6 @@
 .user-profile-info p {
     margin: 0;
 }
-
-.table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.table th, .table td {
-    border: 1px solid #E6E7E8;
-    padding: 8px;
-}
-
 
 /* CSS for the search bar */
 .search-bar {
@@ -111,10 +162,33 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    border-top-right-radius: 0; /* Remove rounded corners on the button */
+    border-top-right-radius: 0; /* No rounded corners on the button */
     border-bottom-right-radius: 0;
 }
 
 .search-bar button:hover {
     background-color: #002447;
 }
+
+
+.pending-food-orders {
+    color: black;
+    font-size: 18px;
+    margin-top: 20px; /* Add some spacing between subheading and table */
+}
+
+
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #E6E7E8;
+    padding: 8px;
+}
+
+
