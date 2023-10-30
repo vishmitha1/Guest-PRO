@@ -28,16 +28,17 @@
                     <button>Add Item</button>
                 </form>
             </div>
-            <form>
+            
             <!-- Form to Update Food Item -->
             <div class="food-item-form">
+                <form action="<?php echo URLROOT;?>/Kitchen/updatefoodmenu" method="POST" >
                 <h3>Update Food Item</h3>
-                
-                    <input type="text" placeholder="Food Item">
-                    <input type="text" placeholder="Category">
-                    <input type="text" placeholder="Price">
+                    <input type="text" placeholder="Food Item" name="Food" >
+                    <input type="text" placeholder="Category" name="Category">
+                    <input type="text" placeholder="Price" name="Price">
+                </form>    
                     <button>Update Item</button>
-            </form>
+            
             
         
         
@@ -52,6 +53,7 @@
                             <th>Item Name</th>
                             <th>Category</th>
                             <th>Price</th>
+                            <th>Action</th>
                             
                         </tr>
                     </thead>    
@@ -65,6 +67,10 @@
                                         <td>{$item->category}</td>
                                         <td>{$item->price}</td>
                                         ";
+                                        echo " 
+                                              <td> <a href='deletemenu/{$item->food_id}'><button type='submit' class='light-perple'>Delete</button></a> </td>
+                                        </tr>";
+                                        
                                     
                                 }
                             ?>
