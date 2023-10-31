@@ -117,43 +117,38 @@
                     if(empty($data['password_err']) && empty($data['email_err'])){
 
                         //can login
-                        if($this->userModel->loginemployee($data['email'],$data['password']) != false){
-                            echo "visal";
-
-                            $loggedemployee=$this->userModel->loginemployee($data['email'],$data['password']);
-                            if($loggedemployee == "admin"){
-                                redirect("Admins/#");
+                        $loggeduser=$this->userModel->login($data['email'],$data['password']);
+                            
+                        if($loggeduser != false){
+                        
+                            if($loggeduser == "admin"){
+                                redirect("Admins/staffaccounts");
                             }
-                            elseif($loggedemployee == "waiter"){
+                            elseif($loggeduser == "waiter"){
                                 redirect("Waiters/pendingfoodorders");
                             }
-                            elseif($loggedemployee == "receptionist"){
-                                redirect("Receptionists/#");
+                            elseif($loggeduser == "receptionist"){
+                                redirect("Receptionists/reservation");
                             }
-                            elseif($loggedemployee == "supervisor"){
-                                redirect("Supervisors/#");
+                            elseif($loggeduser == "supervisor"){
+                                redirect("Supervisors/servicerequest");
                             }
-                            elseif($loggedemployee == "kitchen"){
-                                redirect("Kitchen/#");
+                            elseif($loggeduser == "kitchen"){
+                                redirect("Kitchen/foodmenu");
                             }
-                        }
-
-                        else{
-                            $loggeduser=$this->userModel->login($data['email'],$data['password']);
-                       
-                            if($loggeduser){
-                                //authentic user
-                                //can create user sessions
+                            elseif($loggeduser == "customer"){
                                 redirect("Customers/reservation");
+                            }
+                            elseif($loggeduser == "manager"){
+                                redirect("Managers/roomdetails");
+                            }
+                        }    
+                        else{
+                            $data['password_err']= 'Password incorrect';
+                            //load login again with erros
+                            $this->view('users/v_login',$data);
+                                }
                             
-                            }
-
-                            else{
-                                $data['password_err']= 'Password incorrect';
-                                //load login again with erros
-                                $this->view('users/v_login',$data);
-                            }
-                        }
 
 
                     }

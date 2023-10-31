@@ -28,7 +28,7 @@
                 <a href="<?php echo URLROOT;?>/Waiters/pendingfoodorders"><i class="fa-solid fa-hotel"></i>Pending Orders</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Waiters/viewratings""><i class="fa-solid fa-bell-concierge"></i>Ratings</a>
+            <a href="<?php echo URLROOT;?>/Waiters/viewratings""><i class="fa-regular fa-star"></i>Ratings</a>
             </div>
             
             

@@ -9,10 +9,11 @@
 
         //register user
         public function register($data){
-            $this->db->query('Insert into users(name ,email ,password) VALUES(:name ,:email ,:password)');
+            $this->db->query('Insert into users(name ,email ,password,role) VALUES(:name ,:email ,:password , :role)');
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':email',$data['email'] );
             $this->db->bind(':password',$data['password'] );
+            $this->db->bind(':role',"customer" );
 
             if($this->db->execute()){
                 return true;
@@ -45,7 +46,7 @@
             
             $hashed_password = $row->password;
             if(password_verify($password,$hashed_password)){
-                return $row;
+                return $row->role;
             }
             else{
                 return false;
@@ -71,7 +72,7 @@
             
             $row = $this->db->single();
             
-            if($password==$row->password){
+            if(password_verify($password,$row->password)){
                 return $row->role;
             }
             else{

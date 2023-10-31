@@ -1,5 +1,5 @@
 /* Login  page style */
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;500&family=Sometype+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sriracha&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -16,12 +16,13 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 100px;
+    padding: 8px ;
     
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 99;
+    z-index: 1;
+    
 }
 
 
@@ -32,9 +33,11 @@
 }
 
 .header .nav{
-    display: flex;
+    top: 2%;
     justify-content: center;
     width: 40%;
+    right: 0%;
+   
 }
 
 .nav a{
@@ -125,9 +128,10 @@
 
 .wraper-login{
     margin-left: 0%;
-    margin-right: 10%;
+    margin-right: 5%;
     align-items: start;
     width: 50%;
+    margin-top: 10%;
     
 }
 
@@ -254,5 +258,11 @@ input::placeholder {
 .form-invalid{
     border-color: #ff0000;
     background-color: #ffdddd;
+}
+
+.wraper-login .error {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    color: red;
 }
 
