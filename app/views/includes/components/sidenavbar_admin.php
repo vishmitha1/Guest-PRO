@@ -15,19 +15,16 @@
         </div>
         <div class="links">
             <div class="link-items">
-                <a href="<?php echo URLROOT;?>/Supervisors/cleaningstatus"><i class="fa-solid fa-broom"></i>Cleaning Status</a>
+                <a href="<?php echo URLROOT;?>/Admins/staffaccounts"><i class="fa-solid fa-user"></i>Staff Accounts</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Supervisors/servicerequest""><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Requests</a>
+            <a href="<?php echo URLROOT;?>/Admins/accountlogs""><i class="fa-solid fa-users"></i>Account logs</a>
+            </div>
+            <div class="link-items">
+            <a href="<?php echo URLROOT;?>/Admins/generatereports""><i class="fa-solid fa-file"></i>Generate Reports</a>
             </div>
         </div>
         <div class="logout">
              <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </div>
     </div>
-    
-
-   
-
-
-    

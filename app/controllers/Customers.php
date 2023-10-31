@@ -26,6 +26,11 @@
             $this->view('customers/v_payment', $data);
         }
 
+        public function complain(){
+            $data =[  ];
+            $this->view('customers/v_complain', $data);
+        }
+
         public function servicerequest(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
@@ -89,12 +94,18 @@
             }
         }
 
+        public function reviewwaiter(){
+            $data =[  ];
+            $this->view('customers/v_reviewwaiter', $data);
+        }
+
         public function deleteservicerequest($param){
             
             $this->userModel->deleteservicerequest($param);
             redirect('Customers/servicerequest');  
     
 }
+
 
 
 

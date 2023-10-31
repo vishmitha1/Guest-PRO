@@ -1,0 +1,111 @@
+/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
+
+
+
+/* CSS for the dashboard section */
+.dashboard {
+    margin-left: 275px; /* Adjusted for sidebar width */
+    padding: 20px;
+}
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the user profile section */
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px; /* Adjust the image size */
+    height: 50px; /* Adjust the image size a */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile-info {
+    color: black;
+}
+
+.user-profile-info p {
+    margin: 0;
+}
+
+/* CSS for the search bar */
+.search-bar {
+    margin-top: 20px;
+    display: flex;
+}
+
+.search-bar input[type="text"] {
+    flex: 1; /* Take up available space */
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #E6E7E8; /* Add border to the input field */
+}
+
+.search-bar button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-top-right-radius: 0; /* No rounded corners on the button */
+    border-bottom-right-radius: 0;
+}
+
+.search-bar button:hover {
+    background-color: #002447;
+}
+            
+            /* CSS for the food menu section */
+            .manager-room-details {
+                margin-top: 20px;
+            }
+    
+            .manager-room-details-form {
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #E6E7E8;
+                border-radius: 10px;
+            }
+    
+            .manager-room-details-form input {
+                margin: 5px 0;
+                padding: 5px;
+            }
+    
+            .manager-room-details-form button {
+                background-color: #003366;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+    
+            .manager-room-details-form button:hover {
+                background-color: #002447;
+            }
+    
+            .table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            }
+    
+            .table th, .table td {
+            border: 1px solid #E6E7E8;
+            padding: 8px;
+            }
+            /* CSS for the delete and update buttons */
+            .delete-button {
+            background-color: #FF0000; /* Red */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            }
+    
+            .delete-button:hover {
+            background-color: #CC0000; /* Darker red on hover */
+            }
