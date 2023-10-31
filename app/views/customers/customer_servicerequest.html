@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <link rel="stylesheet" href='/public/css/waiter/waiter-pendingfoodorders.css'>
+    <link rel="stylesheet" href='/public/css/customer/customer-servicerequest.css'>
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -69,49 +68,14 @@
             <button>Search</button>
         </div>
 
-        <table class="table" id="waiterFoodOrdersTable">
-            <tr>
-                <th>Order No</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Description</th>
-                <th>Total Price</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2023-10-29</td>
-                <td>10:00 AM</td>
-                <td>Sample Order</td>
-                <td>$50.00</td>
-                <td>
-                    <select id="status1">
-                        <option value="Received">Received</option>
-                        <option value="Preparing">Preparing</option>
-                        <option value="Ready for Pick Up">Ready for Pick Up</option>
-                        <option value="On Its Way">On Its Way</option>
-                        <option value="Delivered">Delivered</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2023-10-30</td>
-                <td>11:00 AM</td>
-                <td>Another Order</td>
-                <td>$75.00</td>
-                <td>
-                    <select id="status2">
-                        <option value="Received">Received</option>
-                        <option value="Preparing">Preparing</option>
-                        <option value="Ready for Pick Up">Ready for Pick Up</option>
-                        <option value="On Its Way">On Its Way</option>
-                        <option value="Delivered">Delivered</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
+        <!-- Topic for Service Requests -->
+        <h2>Service Requests</h2>
+        
+        <!-- Form for sending a message -->
+        <form action="send_message.php"  class="message-form">
+            <textarea name="message" class="message-input" placeholder="Type your message..." rows="4"></textarea>
+            <button type="submit" class="send-button">Send</button>
+        </form>
     </div>
-    
 </body>
 </html>

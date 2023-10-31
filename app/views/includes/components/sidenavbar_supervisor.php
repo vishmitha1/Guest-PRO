@@ -20,22 +20,6 @@
             <div class="link-items">
             <a href="<?php echo URLROOT;?>/Customers/foodorder""><i class="fa-solid fa-bell-concierge"></i>Food Orders</a>
             </div>
-            <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Customers/bill"><i class="fa-solid fa-file-invoice"></i>Bill</a>
-            </div>
-            <div class="link-items">
-
-            <a href="<?php echo URLROOT;?>/Customers/payment"><i class="fa-regular fa-credit-card"></i>Payments</a>
-            </div>
-            <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Customers/servicerequest""><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
-            </div>
-            <div class="link-items">
-                <a href="#"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
-            </div>
-            <div class="link-items">   
-                <a href="#"><i class="fa-solid fa-star"></i></i>Rate</a>
-            </div>
         </div>
         <div class="logout">
              <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>

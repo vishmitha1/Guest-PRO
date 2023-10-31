@@ -69,7 +69,44 @@
             }
         }
 
+        public function placeservicerequest($data){
+            $this->db->query('Insert into servicerequests(message , status) VALUES(:message,:status )');
+            $this->db->bind(':message', $data['message']);
+            $this->db->bind(':status',"Placed");
+            
         
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        public function getservicerequestdetails(){
+            $this->db->query("SELECT * FROM servicerequests ");
+            
+            $row = $this->db->resultSet();
+            // echo($row[0]->order_id);
+            // echo("<br>".count($row));
+            // echo("<br>");
+            $row=array_reverse($row);
+
+            return $row;
+
+        }
+
+        public function deleteservicerequest($param) {
+            $this->db->query("DELETE FROM servicerequests WHERE request_id= :id ");
+            $this->db->bind(':id',$param);
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
             
     
     }
