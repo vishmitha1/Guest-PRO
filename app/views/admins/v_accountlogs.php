@@ -34,6 +34,47 @@
                         <td>2023-10-30 11:30 AM</td>
                         <td>Error: Server connection lost.</td>
                     </tr>
+                    <tr>
+    <td>2023-10-31 09:30 AM</td>
+    <td>User Jane Smith updated her password.</td>
+</tr>
+<tr>
+    <td>2023-10-31 10:45 AM</td>
+    <td>User Robert Johnson created a new account.</td>
+</tr>
+<tr>
+    <td>2023-10-31 12:00 PM</td>
+    <td>User Emily Davis deleted her account.</td>
+</tr>
+<tr>
+    <td>2023-10-31 01:15 PM</td>
+    <td>User Michael Brown updated email address.</td>
+</tr>
+<tr>
+    <td>2023-10-31 02:30 PM</td>
+    <td>User Sarah Wilson logged in from a new device.</td>
+</tr>
+<tr>
+    <td>2023-10-31 03:45 PM</td>
+    <td>User Daniel Lee changed his security question.</td>
+</tr>
+<tr>
+    <td>2023-10-31 05:00 PM</td>
+    <td>User Olivia Harris requested a password reset.</td>
+</tr>
+<tr>
+    <td>2023-10-31 06:15 PM</td>
+    <td>User Ethan Clark's account was locked after multiple login failures.</td>
+</tr>
+<tr>
+    <td>2023-10-31 07:30 PM</td>
+    <td>User Ava Turner updated her profile picture.</td>
+</tr>
+<tr>
+    <td>2023-10-31 08:45 PM</td>
+    <td>User Benjamin White changed his account settings.</td>
+</tr>
+
                     <!-- Add more log entries as needed -->
                 </tbody>
             </table>

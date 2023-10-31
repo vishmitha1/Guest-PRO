@@ -48,6 +48,43 @@
                         <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
                     </td>
                 </tr>
+                <tr>
+    <td>Room 105</td>
+    <td>
+        <button class="status-button not-cleaned" onclick="changeStatus(this)">Not Cleaned</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 106</td>
+    <td>
+        <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 107</td>
+    <td>
+        <button class="status-button not-cleaned" onclick="changeStatus(this)">Not Cleaned</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 108</td>
+    <td>
+        <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 109</td>
+    <td>
+        <button class="status-button not-cleaned" onclick="changeStatus(this)">Not Cleaned</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 110</td>
+    <td>
+        <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
+    </td>
+</tr>
+
                 <!-- Add more rows for other rooms as needed -->
             </table>
         </div>
