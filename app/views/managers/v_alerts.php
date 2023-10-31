@@ -1,16 +1,6 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_manager.php" ?>
 
-<div class="sidebar">
-        <div class="logo-section">
-            <img src="your-logo.png" alt="Your Logo" width="100">
-        </div>
-        <a class="nav-link" href="#">Option 1</a>
-        <a class="nav-link" href="#">Option 2</a>
-        <a class="nav-link" href="#">Option 3</a>
-        <div class="logout-button">
-            <a href="#">Logout</a>
-        </div>
-    </div>
+
 
     <div class="dashboard">
         <div class="user-profile">

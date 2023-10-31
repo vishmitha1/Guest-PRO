@@ -17,6 +17,10 @@
             $this->view('managers/v_generatereports', $data);
         }
         
+        public function roomdetails(){
+            $data =[  ];
+            $this->view('managers/v_roomdetails', $data);
+        }
         
         }
     

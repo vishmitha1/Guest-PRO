@@ -21,3 +21,6 @@
 @import url("./supervisor/supervisor-cleaningstatus.css");
 @import url("./supervisor/supervisor-servicerequest.css");
 @import url("./manager/manager-alerts.css");
+@import url("./manager/manager-generatereports.css");
+@import url("./manager/manager-roomdetails.css");
+
