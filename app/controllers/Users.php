@@ -122,22 +122,25 @@
                         if($loggeduser != false){
                         
                             if($loggeduser == "admin"){
-                                redirect("Admins/#");
+                                redirect("Admins/staffaccounts");
                             }
                             elseif($loggeduser == "waiter"){
                                 redirect("Waiters/pendingfoodorders");
                             }
                             elseif($loggeduser == "receptionist"){
-                                redirect("Receptionists/#");
+                                redirect("Receptionists/reservation");
                             }
                             elseif($loggeduser == "supervisor"){
-                                redirect("Supervisors/#");
+                                redirect("Supervisors/servicerequest");
                             }
                             elseif($loggeduser == "kitchen"){
-                                redirect("Kitchen/#");
+                                redirect("Kitchen/foodmenu");
                             }
                             elseif($loggeduser == "customer"){
                                 redirect("Customers/reservation");
+                            }
+                            elseif($loggeduser == "manager"){
+                                redirect("Managers/roomdetails");
                             }
                         }    
                         else{
