@@ -41,6 +41,16 @@
              <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </div>
     </div>
+
+    <div class="home">
+    <div class="user-profile">
+            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <div class="user-profile-info">
+                <p>John Doe</p>
+                <p>User</p>
+            </div>
+        </div>
+    </div>
     
 
    

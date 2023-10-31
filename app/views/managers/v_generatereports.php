@@ -1,13 +1,7 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_manager.php" ?>
 
 <div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
+        
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search...">

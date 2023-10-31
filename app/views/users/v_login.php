@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="<?php echo URLROOT ;?>/public/css/login.css">
+    <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>
    
     <header class="header">
-        <a href="#" class="logo">Logo</a>
+        <a href="#" class="logo"><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>
+        <p><h2>Guest Pro</h2></p></a>
+        
         <nav class="nav">
             <a href="#">Home</a>
             <a href="#">About</a>
@@ -19,10 +22,11 @@
         </nav>
 
     </header>
+    
 
     <section class="home" >
         <div class="content">
-            <h2>Guest Pro</h2> 
+           
             <a class="contenta" href="<?php echo URLROOT;?>/Users/register">Get Started</a>
         </div>
 
