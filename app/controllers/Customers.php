@@ -30,6 +30,11 @@
             $data =[  ];
             $this->view('customers/v_servicerequest', $data);
         }
+
+        public function reviewwaiter(){
+            $data =[  ];
+            $this->view('customers/v_reviewwaiter', $data);
+        }
         public function foodorder(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
