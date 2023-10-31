@@ -28,24 +28,30 @@
             <a href="<?php echo URLROOT;?>/Customers/payment"><i class="fa-regular fa-credit-card"></i>Payments</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Customers/service""><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
+            <a href="<?php echo URLROOT;?>/Customers/servicerequest""><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
             </div>
             <div class="link-items">
-                <a href="#"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
+                <a href="<?php echo URLROOT;?>/Customers/complain"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
             </div>
             <div class="link-items">   
-                <a href="#"><i class="fa-solid fa-star"></i></i>Rate</a>
+                <a href="<?php echo URLROOT;?>/Customers/reviewwaiter"><i class="fa-solid fa-star"></i></i>Rate</a>
             </div>
         </div>
         <div class="logout">
              <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </div>
     </div>
+
     <div class="home">
-        <div class="profile">
-        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
+    <div class="user-profile">
+            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <div class="user-profile-info">
+                <p>John Doe</p>
+                <p>User</p>
+            </div>
         </div>
     </div>
+    
 
    
 

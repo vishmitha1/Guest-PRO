@@ -26,10 +26,95 @@
             $this->view('customers/v_payment', $data);
         }
 
-        public function servicerequest(){
+        public function complain(){
             $data =[  ];
-            $this->view('customers/v_servicerequest', $data);
+            $this->view('customers/v_complain', $data);
         }
+
+        public function servicerequest(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                //validate
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data =[
+
+                    'message' => trim($_POST['message']),
+                    
+                    'message_err' => '',
+                ];
+
+                //validate each input
+                
+                if(empty($data['message'])){
+                    $data['message_err'] = 'Please enter message';
+                }
+               
+
+                
+
+                //validation is completed and no erros
+                if(empty( $data['_err'])  ){
+                    
+
+                    //place food order
+                    if($this->userModel->placeservicerequest($data)){
+                        
+                        //pass the curent database data to view usig getordermod''''''''''''
+
+
+                        // $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                        
+
+                        redirect('Customers/servicerequest');
+                    }
+                    else{
+                        die("someting wrond");
+                    }
+
+                }
+                else{
+                    $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                }
+
+            }
+            else{
+                $data =[
+                    'food' => '',
+                    'quantity' => '',
+                    'note' => '',
+                    'food_err' => '',
+                    'quantity_err' => '',
+                    'note_err' => '',
+                    
+                ];
+                
+                // $this->userModel->getorderdetails();
+                $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                
+            }
+        }
+
+        public function reviewwaiter(){
+            $data =[  ];
+            $this->view('customers/v_reviewwaiter', $data);
+        }
+
+        public function deleteservicerequest($param){
+            
+            $this->userModel->deleteservicerequest($param);
+            redirect('Customers/servicerequest');  
+    
+}
+
+
+
+
+
+
+
+
+
+
         public function foodorder(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
@@ -68,10 +153,10 @@
                         //pass the curent database data to view usig getordermod''''''''''''
 
 
-                        $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                        // $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
                         
 
-                        // redirect('Customers/foodorder');
+                        redirect('Customers/foodorder');
                     }
                     else{
                         die("someting wrond");
@@ -96,6 +181,7 @@
                 
                 // $this->userModel->getorderdetails();
                 $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                
                 
             }
         }
@@ -127,7 +213,8 @@
                     //pass the curent database data to view usig getordermodel''''''''''''
 
 
-                    $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                    // $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                    redirect('Customers/foodorder');
 
                 }
         }
@@ -137,9 +224,7 @@
         public function deleteorder($param){
             
                 $this->userModel->deleteorder($param);
-                redirect('Customers/foodorder');
-
-            
+                redirect('Customers/foodorder');  
         
     }
 }

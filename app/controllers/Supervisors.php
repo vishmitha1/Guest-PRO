@@ -12,6 +12,10 @@
             $this->view('supervisors/v_cleaningstatus', $data);
         }
 
+        public function servicerequest(){
+            $data =[  ];
+            $this->view('supervisors/v_servicerequest', $data);
+        }
         
         
         }
