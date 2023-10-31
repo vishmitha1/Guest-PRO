@@ -26,6 +26,11 @@
             $this->view('customers/v_payment', $data);
         }
 
+        public function complain(){
+            $data =[  ];
+            $this->view('customers/v_complain', $data);
+        }
+
         public function servicerequest(){
             $data =[  ];
             $this->view('customers/v_servicerequest', $data);
