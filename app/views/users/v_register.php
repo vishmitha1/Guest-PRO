@@ -10,7 +10,8 @@
 <body>
    
     <header class="header">
-        <a href="#" class="logo">Logo</a>
+    <a href="#" class="logo"><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>
+        <p><h2>Guest Pro</h2></p></a>
         <nav class="nav">
             <a href="<?php echo URLROOT; ?>/Home">Home</a>
             <a href="#">About</a>
@@ -23,17 +24,12 @@
     <!-- <div class="backgroundcontrast"> -->
     <section class="home" >
     
-        <div class="content">
-            <h2>Do you Know</h2> 
-            <!-- <a href="#">Get Started</a> -->
-            <div class="slideshow-container">
-                <div class="content">
-                    <p>Visal Alwsis</p>
-                </div>
-            </div>
+         <div class="content">
+            
+            <a href="#">Get Started</a> 
             
 
-        </div>
+        </div> 
 
         <div class="wraper-login"  >
             <h2>Register</h2>
