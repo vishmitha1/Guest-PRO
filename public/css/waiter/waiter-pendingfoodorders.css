@@ -54,6 +54,7 @@
     width: 15%;
     margin-top: 5%;
     margin-left: 5%;
+    bottom: 2%;
     
 }
 
@@ -178,7 +179,7 @@
 }
 
 
-}
+
 
 .table {
     border-collapse: collapse;

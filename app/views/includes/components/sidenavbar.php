@@ -28,7 +28,7 @@
             <a href="<?php echo URLROOT;?>/Customers/payment"><i class="fa-regular fa-credit-card"></i>Payments</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Customers/service""><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
+            <a href="<?php echo URLROOT;?>/Customers/servicerequest""><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
             </div>
             <div class="link-items">
                 <a href="<?php echo URLROOT;?>/Customers/complain"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
