@@ -56,6 +56,55 @@
                         <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
                     </td>
                 </tr>
+                <tr>
+    <td>Room 105</td>
+    <td>2023-10-30 02:30 PM</td>
+    <td>Unclog the sink</td>
+    <td>
+        <button class="status-button not-completed" onclick="changeStatus(this)">Not Completed</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 106</td>
+    <td>2023-10-30 04:15 PM</td>
+    <td>Replace the TV remote</td>
+    <td>
+        <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 107</td>
+    <td>2023-10-30 06:00 PM</td>
+    <td>Fix the leaking faucet</td>
+    <td>
+        <button class="status-button not-completed" onclick="changeStatus(this)">Not Completed</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 108</td>
+    <td>2023-10-30 07:45 PM</td>
+    <td>Clean the carpets</td>
+    <td>
+        <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 109</td>
+    <td>2023-10-30 09:30 PM</td>
+    <td>Replace the room key card</td>
+    <td>
+        <button class="status-button not-completed" onclick="changeStatus(this)">Not Completed</button>
+    </td>
+</tr>
+<tr>
+    <td>Room 110</td>
+    <td>2023-10-30 10:00 PM</td>
+    <td>Fix the broken window latch</td>
+    <td>
+        <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
+    </td>
+</tr>
+
                 <!-- Add more rows for other service requests as needed -->
             </table>
         </div>

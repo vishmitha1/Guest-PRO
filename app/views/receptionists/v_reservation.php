@@ -83,6 +83,106 @@
                     <button class="update-button">Update</button>
                 </td>
             </tr>
+            <tr>
+    <td>2</td>
+    <td>102</td>
+    <td><input type="date" class="editable-input" value="2023-11-01"></td>
+    <td><input type="date" class="editable-input" value="2023-11-07"></td>
+    <td>345-67</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>103</td>
+    <td><input type="date" class="editable-input" value="2023-11-05"></td>
+    <td><input type="date" class="editable-input" value="2023-11-10"></td>
+    <td>456-78</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+<tr>
+    <td>4</td>
+    <td>104</td>
+    <td><input type="date" class="editable-input" value="2023-11-08"></td>
+    <td><input type="date" class="editable-input" value="2023-11-13"></td>
+    <td>567-89</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>105</td>
+    <td><input type="date" class="editable-input" value="2023-11-10"></td>
+    <td><input type="date" class="editable-input" value="2023-11-15"></td>
+    <td>678-90</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+<tr>
+    <td>6</td>
+    <td>106</td>
+    <td><input type="date" class="editable-input" value="2023-11-12"></td>
+    <td><input type="date" class="editable-input" value="2023-11-17"></td>
+    <td>789-01</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+<tr>
+    <td>7</td>
+    <td>107</td>
+    <td><input type="date" class="editable-input" value="2023-11-15"></td>
+    <td><input type="date" class="editable-input" value="2023-11-20"></td>
+    <td>890-12</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+<tr>
+    <td>8</td>
+    <td>108</td>
+    <td><input type="date" class="editable-input" value="2023-11-18"></td>
+    <td><input type="date" class="editable-input" value="2023-11-23"></td>
+    <td>901-23</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+<tr>
+    <td>9</td>
+    <td>109</td>
+    <td><input type="date" class="editable-input" value="2023-11-20"></td>
+    <td><input type="date" class="editable-input" value="2023-11-25"></td>
+    <td>012-34</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+<tr>
+    <td>10</td>
+    <td>110</td>
+    <td><input type="date" class="editable-input" value="2023-11-22"></td>
+    <td><input type="date" class="editable-input" value="2023-11-27"></td>
+    <td>123-45</td>
+    <td>
+        <button class="delete-button">Delete</button>
+        <button class="update-button">Update</button>
+    </td>
+</tr>
+
             <!-- Add more rows -->
         </table>
     </div>

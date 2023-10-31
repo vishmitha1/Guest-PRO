@@ -74,11 +74,84 @@
             <tr>
                 <td>12345</td>
                 <td>6789</td>
-                <td>$200</td>
-                <td>$50</td>
+                <td>LKR 3500.00</td>
+                <td>LKR 500.00</td>
                 <td><button class="calculate-button">Calculate</button></td>
                 <td><button class="payment-button">Proceed to Payment</button></td>
             </tr>
+            <tr>
+    <td>12346</td>
+    <td>6790</td>
+    <td>LKR 4000.00</td>
+    <td>LKR 1000.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+<tr>
+    <td>12347</td>
+    <td>6791</td>
+    <td>LKR 3500.00</td>
+    <td>LKR 750.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+<tr>
+    <td>12348</td>
+    <td>6792</td>
+    <td>LKR 4500.00</td>
+    <td>LKR 1200.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+<tr>
+    <td>12349</td>
+    <td>6793</td>
+    <td>LKR 3000.00</td>
+    <td>LKR 800.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+<tr>
+    <td>12350</td>
+    <td>6794</td>
+    <td>LKR 6000.00</td>
+    <td>LKR 1500.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+<tr>
+    <td>12351</td>
+    <td>6795</td>
+    <td>LKR 7500.00</td>
+    <td>LKR 2000.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+<tr>
+    <td>12352</td>
+    <td>6796</td>
+    <td>LKR 4200.00</td>
+    <td>LKR 1100.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+<tr>
+    <td>12353</td>
+    <td>6797</td>
+    <td>LKR 3200.00</td>
+    <td>LKR 850.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+<tr>
+    <td>12354</td>
+    <td>6798</td>
+    <td>LKR 2800.00</td>
+    <td>LKR 750.00</td>
+    <td><button class="calculate-button">Calculate</button></td>
+    <td><button class="payment-button">Proceed to Payment</button></td>
+</tr>
+
             <!-- Add more rows as needed... -->
         </table>
     </div>
