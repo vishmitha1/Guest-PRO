@@ -7,6 +7,11 @@ class Kitchen extends Controller{
         $this->userModel =$this->model('M_Kitchen');
     }
 
+    public function foodstatus(){
+        $data =[  ];
+        $this->view('kitchens/v_foodstatus', $data);
+    }
+
 
     public function foodmenu(){
         $data =[ 
