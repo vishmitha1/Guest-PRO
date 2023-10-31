@@ -52,5 +52,33 @@
             }
         }
 
+        public function findEmployeeByEmail($email){
+            $this->db->query("SELECT * FROM employees WHERE email = :email");
+            $this->db->bind(':email',$email);
+            $row = $this->db->single();
+
+            if($this->db->rowCount() > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        public function loginemployee($email,$password){
+            $this->db->query('SELECT * from employees WHERE email= :email');
+            $this->db->bind(':email',$email );
+            
+            $row = $this->db->single();
+            
+            if($password==$row->password){
+                return $row->role;
+            }
+            else{
+                return false;
+            }
+        }
+        
+
 
     }
