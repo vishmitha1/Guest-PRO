@@ -2,7 +2,17 @@
 
     <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
     
-    <div class="home">
+    <div class="dashboard">
+        <div class="user-profile">
+            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <div class="user-profile-info">
+                <p>John Doe</p>
+                <p>User</p>
+            </div>
+        </div>
+        
+        
+        <div class="home">
         <!-- <div class="profile">
         <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
         </div> -->
