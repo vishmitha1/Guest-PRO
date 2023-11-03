@@ -25,6 +25,6 @@
             </div>
         </div>
         <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        <a href="<?php echo URLROOT;?>/Users/login"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>

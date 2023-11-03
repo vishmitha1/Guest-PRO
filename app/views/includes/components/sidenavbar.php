@@ -38,13 +38,13 @@
             </div>
         </div>
         <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        <a href="<?php echo URLROOT;?>/Users/login"> <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>
 
     <div class="home">
     <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg" alt="User Profile Picture">
             <div class="user-profile-info">
                 <p>John Doe</p>
                 <p>User</p>
