@@ -1,5 +1,5 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
-
+    
 
     <div class="dashboard">
         <!-- <div class="user-profile">
@@ -18,15 +18,17 @@
         <div class="review-waiter">
             <h2>Review Waiter</h2>
             <div class="waiter-profile">
-                <img src="waiter-profile-pic.jpg" alt="Waiter Profile Picture">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgpAKncv9LKonpryvP0bFlEwzXtkPYqRXgOCTVzZWQNg&s" alt="Waiter Profile Picture">
                 <p>Waiter ID: 12345</p>
             </div>
             <div class="star-rating">
-                <img src="star.png" alt="Star" class="star-image">
-                <img src="star.png" alt="Star" class="star-image">
-                <img src="star.png" alt="Star" class="star-image">
-                <img src="star.png" alt="Star" class="star-image">
-                <img src="star.png" alt="Star" class="star-image">
+            <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
+                 <i class="fa-solid fa-star"></i>
+                 <i class="fa-solid fa-star"></i>
+                 <i class="fa-solid fa-star"></i>
+                 <i class="fa-solid fa-star"></i>
+                 <i class="fa-solid fa-star"></i>
+          
             </div>
             <div class="comment-input">
                 <textarea id="waiterReview" placeholder="Leave a comment about the waiter..."></textarea>

@@ -2,7 +2,7 @@
 
 <div class="home">
         <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <img src="https://chefin.com.au/wp-content/uploads/2021/02/chef-hemant-dadlani-profile-1-833x1024.jpg" alt="User Profile Picture">
             <div class="user-profile-info">
                 <p>John Doe</p>
                 <p>User</p>
@@ -44,7 +44,7 @@
         
 
             <div class="foodorder-table-warpper">
-            <div class="main-title">Food orders</div>
+            <div class="main-title">Food Menu</div>
             <div class="foodorder-table-container">
                 <table>
                     <thead>

@@ -48,7 +48,7 @@
 
     <div class="dashboard">
         <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <img src="https://blog.upbook.com/hubfs/handling-front-desk-receptionist-duties.jpg" alt="User Profile Picture">
             <div class="user-profile-info">
                 <p>John Doe</p>
                 <p>User</p>
