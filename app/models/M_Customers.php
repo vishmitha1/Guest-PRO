@@ -107,6 +107,18 @@
                 return false;
             }
         }
+
+        public function loadfoodmenu(){
+            $this->db->query("SELECT * FROM fooditems ");
+            
+            $row = $this->db->resultSet();
+            // echo($row[0]->order_id);
+            // echo("<br>".count($row));
+            // echo("<br>");
+            // $row=array_reverse($row);
+            return $row;
+
+        }
             
     
     }
