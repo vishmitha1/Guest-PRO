@@ -8,12 +8,12 @@
         }
 
         //place food order
-        public function placefoodorder($data){
-            $this->db->query('Insert into foodorders(item_name ,quantity ,status,note) VALUES(:name ,:quantity ,:status,:note)');
-            $this->db->bind(':name', $data['food']);
-            $this->db->bind(':quantity',$data['quantity'] );
-            $this->db->bind(':status',"Placed");
-            $this->db->bind(':note',$data['note'] );
+        public function insertcart($data){
+            $this->db->query('Insert into carts(user_id,quantity ,item_name,price) VALUES(:id ,:quantity ,:item_name,:price)');
+            $this->db->bind(':id', $data['user_id']);
+            $this->db->bind(':quantity',1 );
+            $this->db->bind(':item_name',$data['name']);
+            $this->db->bind(':price',$data['price'] );
             
 
             if($this->db->execute()){
