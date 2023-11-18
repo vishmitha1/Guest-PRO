@@ -104,51 +104,48 @@
             $this->userModel->deleteservicerequest($param);
             redirect('Customers/servicerequest');  
     
-}
-
-
-
-
-
-
-
-
+        }
 
 
         public function foodorder(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            // if(isset($_POST['add_to_cart'])){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
                 
                 //validate
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
                 $data =[
 
-                    'food' => trim($_POST['food']),
-                    'quantity' => trim($_POST['quantity']),
-                    'note' => trim($_POST['note']),
-                    'food_err' => '',
-                    'quantity_err' => '',
-                    'note_err' => '',
+                    'user_id'=>$_SESSION['user_id'],
+                    'name' => trim($_POST['item_name']),
+                    'price' => trim($_POST['item_price']),
+                    'user_id_err'=>'',
+                    'name_err' => '',
+                    'price_err' => '',
                 ];
+                echo "visalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".$data['name'].$data['price'].$_SESSION['user_id'];
 
-                //validate each input
+                //validate each parameter
                 
-                if(empty($data['food'])){
-                    $data['food_err'] = 'Please enter food type';
+                if(empty($data['price'])){
+                    $data['price_err'] = 'Price is empty';
                 }
-               
-
-                //password validation
-                if(empty($data['quantity'])){
-                    $data['quantity_err']= 'Please enter food Quantity';
+            
+                if(empty($data['name'])){
+                    $data['name_err']= 'Item name error';
+                }
+                if(empty($data['user_id'])){
+                    $data['user_id_err']= 'No user';
                 }
                 
 
                 //validation is completed and no erros
-                if(empty( $data['quantity_err']) && empty( $data['food_err']) ){
+                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) ){
                     
 
                     //place food order
-                    if($this->userModel->placefoodorder($data)){
+                    if($this->userModel->insertcart($data)){
                         
                         //pass the curent database data to view usig getordermod''''''''''''
 
@@ -164,7 +161,7 @@
 
                 }
                 else{
-                    $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                    redirect('Customers/foodorder');
                 }
 
             }
@@ -180,7 +177,7 @@
                 ];
                 
                 // $this->userModel->getorderdetails();
-                $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
                 
                 
             }
