@@ -31,7 +31,7 @@
         </div>
 
         <div class="wraper-login"  >
-            <h2>Login to GuestPro</h2>
+            <h2>Login to Guest Pro</h2>
             <form action="<?php echo URLROOT ;?>/Users/login" method="POST">
                 <div class="input-box">
                     <span class="icon"></span>
