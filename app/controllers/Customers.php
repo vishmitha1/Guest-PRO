@@ -3,6 +3,7 @@
         protected $userModel;
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
+            $user_id=$_SESSION['user_id'];
         }
 
  
@@ -120,12 +121,11 @@
                     'user_id'=>$_SESSION['user_id'],
                     'name' => trim($_POST['item_name']),
                     'price' => trim($_POST['item_price']),
+                    'image' => trim($_POST['image']),
                     'user_id_err'=>'',
                     'name_err' => '',
                     'price_err' => '',
                 ];
-                echo "visalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".$data['name'].$data['price'].$_SESSION['user_id'];
-
                 //validate each parameter
                 
                 if(empty($data['price'])){
@@ -147,9 +147,7 @@
                     //place food order
                     if($this->userModel->insertcart($data)){
                         
-                        //pass the curent database data to view usig getordermod''''''''''''
-
-
+                    
                         // $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
                         
 
@@ -166,22 +164,44 @@
 
             }
             else{
-                $data =[
-                    'food' => '',
-                    'quantity' => '',
-                    'note' => '',
-                    'food_err' => '',
-                    'quantity_err' => '',
-                    'note_err' => '',
-                    
-                ];
                 
-                // $this->userModel->getorderdetails();
-                $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
+                    $data =[
+                        'food' => '',
+                        'quantity' => '',
+                        'note' => '',
+                        'food_err' => '',
+                        'quantity_err' => '',
+                        'note_err' => '',
+                        
+                    ];
+                    
+                    // $this->userModel->getorderdetails();
+                    // $this->view('v_test', $this->userModel->retrivefoodcart($_SESSION['user_id']));
+                    // $this->view('v_test', $this->userModel->loadfoodmenu());
+                            //''''pass the cart data and food menu data to foodorder UI. in here parameter array containing foodmenu data and cart data 
+                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->retrivefoodcart($_SESSION['user_id'])]);
+                    
+                    
+                
                 
                 
             }
         }
+
+
+        public function foodcart(){
+            $data =[  ];
+            if(empty($user_id)){
+                $user_err='User dose not exist';
+            }
+            else{
+                if($this->userModel->retrivefoodcart($user_id)){
+                    $this->view('customers/v_foodorder', $this->userModel->retrivefoodcart($user_id));
+                }
+            }
+        }
+
+        
 
         public function updatefoodorder($data1, $data2,$data3){
             $data[0]= $data1;
