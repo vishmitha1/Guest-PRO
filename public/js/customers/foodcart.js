@@ -55,9 +55,12 @@ function text() {
                     priceCell.innerHTML = item.price;
                     var removebtn=newRow.insertCell(4);
                     var btnElement=document.createElement('button');
+                    btnElement.onclick=function(){
+                        removefromCart(item.item_no);
+                    }
                     btnElement.textContent='Remove';
-                    btnElement.id='remove-btn'
-                    btnElement.value=
+                    btnElement.id='remove-btn';
+                    btnElement.value=item.item_no;
                     removebtn.appendChild(btnElement);
             
                     // Perform other tasks with the data if needed
@@ -78,9 +81,24 @@ function text() {
     });
 }
 
-var removeElement=document.getElementById('remove-tbn');
-removeElement.addEventListener('click',removefromCart());
-function removefromCart(){
 
+function removefromCart(item_no){
+    
+    $.ajax({
+        url: 'http://localhost/GuestPro/Customers/removecartitems',
+        method: 'post',
+        data: JSON.stringify({
+            item_no: item_no
+        }),
+        success: function(Data) {
+            
+            text();
+           
+            
+        },
+        error: function(error) {
+            console.error('AJAX error:', error);
+        }
+    });
 }
 
