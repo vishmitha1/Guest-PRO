@@ -169,6 +169,7 @@
                     else{
                         
                         $error_Msg='This item is alredy Added';
+                        redirect("Customers/foodorder");
                     }
                     
                     
@@ -237,7 +238,42 @@
             
         }
            
-       
+       public function removecartitems(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                //validate
+
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $spotData=json_decode(array_keys($_POST)[0],true);
+                $data =[
+
+                    'item_no' => ($spotData['item_no']),
+                    'user_id' => $_SESSION['user_id'],
+                
+                    'item_no_err' => '',
+                    'user_id_err' => '',
+                    
+                ];
+                if(empty($data['item_no'])){
+                    $data['item_no_err']='No Item Selected';
+                }
+                if(empty($data['user_id'])){
+                    $data['user_id_err']='No User logged';
+                }
+                if(empty($data['item_no_err']) && empty($data['user_id_err']) ){
+                    if($this->userModel-> removecartitems($data)){
+                        
+                            redirect('Customers/foodorder');
+                        }
+                    }
+                         
+                    }
+
+                    
+
+                }
+        
+    
 
 
 
@@ -250,32 +286,7 @@
             $this->view('customers/v_update_foodorder', $data);
         }
 
-        public function updateorderdetails($param){
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                
-                //validate
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                $data =[
-
-                    'food' => trim($_POST['food']),
-                    'quantity' => trim($_POST['quantity']),
-                    'note' => trim($_POST['note']),
-                    'food_err' => '',
-                    'quantity_err' => '',
-                    'note_err' => '',
-                ];
-
-                if($this->userModel->updateorderdetails($data,$param)){
-                        
-                    //pass the curent database data to view usig getordermodel''''''''''''
-
-
-                    // $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
-                    redirect('Customers/foodorder');
-
-                }
-        }
-    }
+        
 
 
         public function deleteorder($param){

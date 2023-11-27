@@ -57,10 +57,10 @@
             
         }
 
-        public function deletecart($data){
-            $this->db->query("DELETE * FROM carts WHERE user_id=:u_id AND item_no=:item_id");
+        public function removecartitems($data){
+            $this->db->query("DELETE FROM carts WHERE user_id = :u_id AND item_no = :item_id");
             $this->db->bind('u_id',$data['user_id']);
-            $this->db->bind('item_id',$data['item_id']);
+            $this->db->bind('item_id',$data['item_no']);
             if($this->db->execute()){
                 return true;
             }
