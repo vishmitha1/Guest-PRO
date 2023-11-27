@@ -127,7 +127,7 @@ function closePopup() {
 // })</script>
 
 
- <!-- <script>
+ <script>
         $(document).ready(function () {
             $("form").submit(function (event) {
                 event.preventDefault(); // Prevent the default form submission
@@ -151,7 +151,7 @@ function closePopup() {
                 });
             });
         });
-    </script>> -->
+    </script>>
 
     <!-- <script>
         $(document).ready(function () {
