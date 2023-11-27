@@ -122,10 +122,13 @@
                     'name' => trim($_POST['item_name']),
                     'price' => trim($_POST['item_price']),
                     'image' => trim($_POST['image']),
+                    'item_id' => trim($_POST['id']),
+                    
                     'user_id_err'=>'',
                     'name_err' => '',
                     'price_err' => '',
                 ];
+                $item_id=trim($_POST['id']);
                 //validate each parameter
                 
                 if(empty($data['price'])){
@@ -143,19 +146,32 @@
                 //validation is completed and no erros
                 if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) ){
                     
-
-                    //place food order
-                    if($this->userModel->insertcart($data)){
-                        
                     
-                        // $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
-                        
 
-                        redirect('Customers/foodorder');
+                    //Check item is exist in cart
+                    if($this->userModel->checkcartitem($data) ){
+                        //place food order
+                        
+                        if($this->userModel->insertcart($data) ){
+                            
+                        
+                            // $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
+                            
+
+                            // redirect("Customers/foodorder");
+                            // echo '<p>Item added to cart successfully.</p>';
+                            redirect("Customers/foodorder");
+                        }
+                        else{
+                            die("someting wrond");
+                        }   
                     }
                     else{
-                        die("someting wrond");
+                        
+                        $error_Msg='This item is alredy Added';
                     }
+                    
+                    
 
                 }
                 else{
@@ -188,18 +204,42 @@
             }
         }
 
+        
 
-        public function foodcart(){
-            $data =[  ];
-            if(empty($user_id)){
-                $user_err='User dose not exist';
-            }
-            else{
-                if($this->userModel->retrivefoodcart($user_id)){
-                    $this->view('customers/v_foodorder', $this->userModel->retrivefoodcart($user_id));
+        
+        public function retrivefoodcart(){
+            if($_SERVER['REQUEST_METHOD']== 'POST'){
+
+                $_POST=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+                $data=[
+                    'user_id' => $_SESSION['user_id'],
+                    
+                    'user_id_err'=>'',
+                ];
+
+                if( empty($data['user_id_err']) ){
+                    if($output=$this->userModel->retrivefoodcart($data['user_id'])){
+                        $output=[$output,$this->findtotal($output)];
+                        // print_r($output) ;
+                        header('Content-Type: application/json');
+                        echo json_encode($output);
+                    }
                 }
             }
         }
+
+        public function findtotal($data){
+            $total=0;
+            foreach($data as $item){
+                $total=$total + $item->quantity*$item->price;
+            }
+            return $total;
+            
+        }
+           
+       
+
+
 
         
 

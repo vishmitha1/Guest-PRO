@@ -16,10 +16,12 @@ function addtoCart(name){
     console.log('visassd');
 }
 
+
+
 function text() {
     $(document).ready(function() {
         $.ajax({
-            url: 'http://localhost/GuestPro/Customers/testcart',
+            url: 'http://localhost/GuestPro/Customers/retrivefoodcart',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -27,23 +29,46 @@ function text() {
                 key2: 'value2'
             },
             success: function(response) {
-                
-                // Handle the response from the server
-                // $('#visal').html(response);
-                // Assuming response is a JSON string, parse it into a JavaScript object
-                // var dataArray = JSON.parse(response);
-
-                // Now you can use dataArray for your various works
                 console.log(response);
-
-                // For example, iterate over the array
-                response.forEach(function(item) {
-                    console.log(item.item_name, item.price);
-                    // Perform other tasks with the data
+            
+                // Get the reference to the table body
+                var tableBody = document.getElementById("cart-table").getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';   
+            
+                // Iterate over the array and populate the table
+                response[0].forEach(function(item) {
+                    // Create a new table row
+                    var newRow = tableBody.insertRow();
+            
+                    var imageCell = newRow.insertCell(0);
+                    var imageElement=document.createElement('img');
+                    imageElement.src='http://localhost/GuestPro/public/img/food_items/'+item.image+'.jpg';
+                    imageElement.alt=item.item_name;
+                    imageCell.appendChild(imageElement)
+                    
+                    var itemNameCell = newRow.insertCell(1);
+                    itemNameCell.innerHTML = item.item_name;
+            
+                    var qtyCell = newRow.insertCell(2);
+                    qtyCell.innerHTML = item.quantity;
+                    var priceCell = newRow.insertCell(3);
+                    priceCell.innerHTML = item.price;
+                    var removebtn=newRow.insertCell(4);
+                    var btnElement=document.createElement('button');
+                    btnElement.textContent='Remove';
+                    btnElement.id='remove-btn'
+                    btnElement.value=
+                    removebtn.appendChild(btnElement);
+            
+                    // Perform other tasks with the data if needed
                 });
+                var newRow = tableBody.insertRow();
+                newRow.insertCell(0);
+                newRow.insertCell(0);
+                newRow.insertCell(0);
+                var priceCell = newRow.insertCell(3);
+                priceCell.innerHTML = response[1];
 
-                // If you want to use response outside this function, you might assign it to a global variable or pass it to another function
-                // Example: myOtherFunction(response);
             },
             error: function(xhr, status, error) {
                 // Handle errors
@@ -51,5 +76,11 @@ function text() {
             }
         });
     });
+}
+
+var removeElement=document.getElementById('remove-tbn');
+removeElement.addEventListener('click',removefromCart());
+function removefromCart(){
+
 }
 
