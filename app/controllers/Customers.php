@@ -201,7 +201,8 @@
                     // $this->view('v_test', $this->userModel->retrivefoodcart($_SESSION['user_id']));
                     // $this->view('v_test', $this->userModel->loadfoodmenu());
                             //''''pass the cart data and food menu data to foodorder UI. in here parameter array containing foodmenu data and cart data 
-                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->retrivefoodcart($_SESSION['user_id'])]);
+                    // $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
+                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id'])]);
                     
                     
                 
@@ -281,8 +282,23 @@
                 }
         
     
+        // Itemo count on the cart Icon
+        public function getcartTotal(){
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+                $data =[
 
-
+                    'user_id' => $_SESSION['user_id'],
+            
+                    'user_id_err' => '',
+                    
+                ];
+                $output=$this->userModel->cartTotal($_SESSION['user_id']);
+            
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                
+            }
+        }
 
         
 
@@ -290,7 +306,7 @@
             $data[0]= $data1;
             $data[1]= $data2;
             $data[2]= $data3;
-            $this->view('customers/v_update_foodorder', $data);
+            $this->view('v_test', $data);
         }
 
         

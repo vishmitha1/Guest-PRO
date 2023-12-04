@@ -67,11 +67,9 @@
             else{
                 return false;
             }
-
         }
 
-
-
+            //Retrive items to thecart. when clicked cart all the items retrive
         public function retrivefoodcart($data){
             $this->db->query("SELECT * FROM carts WHERE user_id=:id ");
             $this->db->bind(':id',$data);
@@ -80,8 +78,17 @@
            
             $row=array_reverse($row);
             return $row;
-
         }
+
+        // Itemo count on the cart Icon
+        public function cartTotal($data){
+            $this->db->query("SELECT COUNT(*) FROM carts WHERE user_id=:id ");
+            $this->db->bind(':id',$data);
+            $row = $this->db->single();
+
+            return $row;
+        }
+
         public function test(){
             $this->db->query("SELECT * FROM carts  ");
             $row = $this->db->resultSet();

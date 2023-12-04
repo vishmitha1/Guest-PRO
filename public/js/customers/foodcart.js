@@ -1,3 +1,12 @@
+function togglePopup(){
+    document.getElementById("popup-1").classList.toggle("active");
+    text();
+}
+function closePopup() {
+        document.getElementById("popup-1").classList.remove("active");
+}
+
+
 
 function Increase(id) {
     var quantityElement = document.getElementById(id);
@@ -14,12 +23,12 @@ function Decrease(id) {
     }
 }
 
-// function addtoCart(id){
-//     console.log(id);
-//     var quantityElement=document.getElementById(id);
-//     quantityElement.value=10;
+function addtoCart(id){
+    console.log(id);
+    var quantityElement=document.getElementById(id);
+    quantityElement.value=0;
 
-// }
+}
 
 
 
@@ -99,6 +108,31 @@ function text() {
     });
 }
 
+// function insertCart(){
+//     $('form').submit(function(e){
+//         e.preventDefault();
+
+//         var form=$(this);
+//         var actionUrl = form.attr('action');
+//         var formData = $(this).serialize();
+
+//         $.ajax({
+//             type:'POST',
+//             url: 'hhttp://localhost/GuestPro/Customers/foodorder',
+//             data:formData,
+
+//             success:function(response){
+//                 console.log(response)
+
+//             },
+//             error:function(error){
+//                 console.error('insert cart',error);
+//             }
+
+//         })
+//     })
+// }
+
 
 function removefromCart(item_no){
     console.log(item_no)
@@ -119,5 +153,29 @@ function removefromCart(item_no){
             console.error('AJAX error:', error);
         }
     });
+} 
+
+function totalcartItems(){
+    $.ajax({
+        url: 'http://localhost/GuestPro/Customers/getcartTotal',
+        method: "POST",
+        dataType:'json',
+
+        success: function(response){
+            // console.log("Count Type:", typeof response.COUNT);
+            console.log(response);
+            var countElement=document.getElementById('Cart-item-Count');
+            countElement.textContent=response['COUNT(*)'];
+        },
+
+        error:function(error){
+            console.error('cart item error',error);
+        }
+
+    });
 }
+
+
+    
+
 

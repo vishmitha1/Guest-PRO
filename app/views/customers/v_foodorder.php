@@ -8,7 +8,7 @@
             <input type="hidden" name="cart_popup">
             <div class="img" ><img src="<?php echo URLROOT;?>/public/img/svgs/shopping_cart.svg" class="svg-large" ></img></div>
             <div class="cart-total">
-                <span>25</span>
+                <span id="Cart-item-Count" ><?php echo $data[1]->{'COUNT(*)'};?></span>
             </div>
         </div>
             <!-- <form id="cartForm" method="POST" action="Customers">
@@ -53,7 +53,7 @@
             <?php
                 foreach($data[0] as $item){ ?>
                     
-                    <form class='ajx' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
+                    <form id='addToCart' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
                         <div class='foodorder-items'>
                             <img src='<?php echo URLROOT;?>/public/img/food_items/<?php echo $item->image;?>.jpg' alt='<?php echo $item->image;?>'><input type='hidden' name='image' value='<?php echo $item->image;?>'>
                             <div class='food-title'>                                                                                                <input type='hidden' name='id'  value='<?php echo $item->item_id;?>'>
@@ -115,30 +115,10 @@
                 
             </div>
         </div>
+        
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>function togglePopup(){
-    document.getElementById("popup-1").classList.toggle("active");
-    text();
-}
-function closePopup() {
-        document.getElementById("popup-1").classList.remove("active");
-      }
 
-// const forms =document.querySelectorAll(".form");
-// forms.forEach((form)=>{
-//     form.addEventListener("submit",(e)=>{
-//         e.preventDefault();
-//         $.ajax({
-//                 type: $(this).attr("method"),
-//                 url: $(this).attr("action"),
-//                 data: $(this).serialize(),
-//                 success: function (response) {
-//                     // Handle the response as needed
-//                 }
-//             });
-// })
-// })</script>
 
 
  <script>
@@ -155,6 +135,7 @@ function closePopup() {
                     url: $(this).attr("action"),
                     data: formData,
                     success: function (response) {
+                        totalcartItems();
                         // Handle the response as needed
                         // console.log(response);
                     },
@@ -165,7 +146,7 @@ function closePopup() {
                 });
             });
         });
-    </script>>
+</script>>
 
     <!-- <script>
         $(document).ready(function () {
