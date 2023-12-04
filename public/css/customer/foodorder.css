@@ -117,7 +117,7 @@
   height:auto;
   /* border: 2px solid black; */
   z-index: 1;
-  top: 105px;
+  top: 20%;
   float:inline-end;
   cursor: pointer;
 }
@@ -170,12 +170,12 @@
   
 }
 
-@media screen and (max-width:1020px) {
+/* @media screen and (max-width:1020px) {
   .cart-popup .content{
     left: 620px;
-    background: #ff0202;
+    background: #753a3a;
   }
-}
+} */
 
 .cart-popup .header{ 
   position: sticky;
@@ -296,7 +296,7 @@
   position: absolute;
   right: 0;
   grid-template-columns: auto auto;
-  display: grid;
+  display: none;
   font-family: 'Catamaran';
   font-weight: 400;
 }
