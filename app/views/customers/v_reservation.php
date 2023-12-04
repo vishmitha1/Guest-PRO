@@ -222,8 +222,7 @@
             
                 </div>
             </div>
-            <p><img src="<?php echo URLROOT;?>/public/img/svgs/solid/xmark.svg" class="svg-small" " ></img> </p>
-            <p><i class="fa-solid fa-xmark"></i></p>
+            
             
         </div>
 
