@@ -28,20 +28,20 @@
                 <a href="<?php echo URLROOT;?>/Waiters/pendingfoodorders"><i class="fa-solid fa-hotel"></i>Pending Orders</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Waiters/viewratings""><i class="fa-solid fa-bell-concierge"></i>Ratings</a>
+            <a href="<?php echo URLROOT;?>/Waiters/viewratings""><i class="fa-regular fa-star"></i>Ratings</a>
             </div>
             
             
         </div>
         <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        <a href="<?php echo URLROOT;?>/Users/login"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>
 
 
     <div class="dashboard">
         <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="User Profile Picture">
             <div class="user-profile-info">
                 <p>John Doe</p>
                 <p>User</p>
@@ -59,7 +59,7 @@
                 Monthly Rating
             </div>
             <div class="waiter-image">
-                <img src="waiter-pic.jpg" alt="Waiter Image">
+                <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Waiter Image">
                 <div class="waiter-rating">
                     4.7 stars
                 </div>
@@ -69,14 +69,14 @@
         <!-- Customer Comments Section -->
         <div class="customer-comments">
             <div class="customer-comment">
-                <img src="customer-pic1.jpg" alt="Customer 1 Image">
+                <img src="https://icons-for-free.com/iconfiles/png/512/customer+information+personal+profile+user+icon-1320086045331670685.png" alt="Customer 1 Image">
                 <div class="customer-comment-info">
                     <p>Customer 1</p>
                     <p>Great service!</p>
                 </div>
             </div>
             <div class="customer-comment">
-                <img src="customer-pic2.jpg" alt="Customer 2 Image">
+                <img src="https://icons-for-free.com/iconfiles/png/512/customer+information+personal+profile+user+icon-1320086045331670685.png" alt="Customer 2 Image">
                 <div class="customer-comment-info">
                     <p>Customer 2</p>
                     <p>Excellent waiter!</p>

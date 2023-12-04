@@ -9,18 +9,19 @@
 </head>
 <body>
    
-    <header class="header">
+    <div class="test">
+    <div class="header">
     <a href="#" class="logo"><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>
         <p><h2>Guest Pro</h2></p></a>
-        <nav class="nav">
+        <div class="nav">
             <a href="<?php echo URLROOT; ?>/Home">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
             <a href="<?php echo URLROOT;?>/Users/login">Login</a>
 
-        </nav>
+</div>
 
-    </header>
+    </div>
     <!-- <div class="backgroundcontrast"> -->
     <section class="home" >
     
@@ -37,25 +38,25 @@
                 <div class="input-box">
                     <span class="icon"></span>
                     <input type="text"   placeholder="Enter your Email" name='email' id="email" value="<?php echo $data['email'];?>" style="color: black;">
-                    <span class="form-invalid"><?php echo $data['email_err']; ?></span>
+                    <span class="error"><?php echo $data['email_err']; ?></span>
                     <!-- <label >Enter your Email</label> -->
                 </div>
                 <div class="input-box">
                     <span class="icon"></span>
                     <input type="text"  placeholder="Enter your Name" name='name' id="name" value="<?php echo $data['name'];?>" >
-                    <span class="form-invalid"><?php echo $data['name_err']; ?></span>
+                    <span class="error"><?php echo $data['name_err']; ?></span>
                     <!-- <label >Enter your Name</label> -->
                 </div>
                 <div class="input-box">
                     <span class="icon"></span>
                     <input type="password" placeholder="Enter your password" name='password' id="password" value="<?php echo $data['password'];?>" >
-                    <span class="form-invalid"><?php echo $data['password_err']; ?></span>
+                    <span class="error"><?php echo $data['password_err']; ?></span>
                     <!-- <label >Enter your password</label> -->
                 </div>
                 <div class="input-box">
                     <span class="icon"></span>
                     <input type="password" placeholder="Repeat your password" name='confirm_password' id="confirm_password" value="<?php echo $data['confirm_password'];?>"  >
-                    <span class="form-invalid"><?php echo $data['confirm_password_err']; ?></span>
+                    <span class="error"><?php echo $data['confirm_password_err']; ?></span>
                     <!-- <label >Repeat your password</label> -->
                 </div>
 
@@ -68,7 +69,7 @@
         
     </section>
     <!-- </div> -->
-
+</div>
     
 
 </body>

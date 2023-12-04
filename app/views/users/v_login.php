@@ -9,19 +9,19 @@
 </head>
 <body>
    
-    <header class="header">
-        <a href="#" class="logo"><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>
+    <div class="header">
+        <a href="#" class="logo">
         <p><h2>Guest Pro</h2></p></a>
         
-        <nav class="nav">
-            <a href="#">Home</a>
+        <div class="nav">
+            <<a href="<?php echo URLROOT; ?>/Home">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
             <a href="<?php echo URLROOT;?>/users/register">SignUp</a>
 
-        </nav>
+        </div>
 
-    </header>
+</div>
     
 
     <section class="home" >
@@ -31,22 +31,22 @@
         </div>
 
         <div class="wraper-login"  >
-            <h2>Member Login</h2>
+            <h2>Login to Guest Pro</h2>
             <form action="<?php echo URLROOT ;?>/Users/login" method="POST">
                 <div class="input-box">
                     <span class="icon"></span>
-                    <input type="email" required  name='email' id="email" value="<?php echo $data['email'];?>" >
-                    <label >Enter your Email</label>
+                    <input type="email" required  name='email' id="email" placeholder="Enter your Email" value="<?php echo $data['email'];?>" >
+                    <div class="error"  ><?php echo $data['email_err']; ?></div >
                 </div>
                 <div class="input-box">
                     <span class="icon"></span>
-                    <input type="password" name='password' id="password" value="<?php echo $data['password'];?>" >
-                    <label >Enter your password</label>
+                    <input type="password" name='password' id="password" placeholder="Enter your password" value="<?php echo $data['password'];?>" >
+                    <div class="error"  ><?php echo $data['password_err']; ?></div >
                 </div>
 
                 <button type="submit" class="button">Login</button>
                 <div class="register-link">
-                    <p>Not a Member<a href="#">Signup</a></p>
+                    <p>Not a Member?<a href="#">Signup</a></p>
                 </div>
             </form>
         </div>

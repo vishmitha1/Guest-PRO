@@ -18,7 +18,7 @@
         </form>
 
         <div class="foodorder-table-warpper">
-            <div class="main-title">Food orders</div>
+            <div class="main-title">Service Requests</div>
             <div class="foodorder-table-container">
                 <table>
                     <thead>
