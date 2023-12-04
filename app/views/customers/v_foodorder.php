@@ -1,8 +1,7 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
 
 <div class="home">
-<button style="width: 70px ; height: 50px; " onclick="text()" >ddd</button>
-<span id='visal'>visal</span>
+
         <div class="cart-inUI" onclick="togglePopup()"  >
             <!-- <i class="fa-solid fa-cart-shopping fa-2xl"></i> -->
             <!-- <span class="material-symbols-outlined">shopping_cart</span> -->
@@ -62,8 +61,9 @@
                                 <br><span class='food-price'><?php echo $item->price;?>LKR</span>                                                   <input type='hidden' name='item_price' value='<?php echo $item->price;?>'>
                             </div>
                             <div class='addto-cart'>
-                                <button class="decrease" onclick="Decrease()" >-</button><input type="text" class="qty" id="Quantity" name='quantity' value='0'><button class="increase" onclick="Increase()" ><i class="fa-solid fa-plus fa-xs"></i></button>
-                                <button type="submit" class="addtocart-btn" onclick="addtoCart(<?php echo $item->name;?>)">Add to Cart</button>        
+                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id;?>')" >-</button>    <input type="text" class="qty" id="<?php echo $item->item_id;?>" name='quantity' value="0">
+                                <button class="increase" onclick="Increase('<?php echo $item->item_id;?>')" >+</button>
+                                <button type="submit" class="addtocart-btn" onclick="addtoCart('<?php echo $item->item_id;?>')">Add to Cart</button>        
                             </div>
                         </div>
                     </form>
@@ -94,7 +94,21 @@
                     </tbody>
                      
                     </table> 
-
+                    
+                    <div class="total-cost">
+                        <div class="total-cost-title">
+                            <span>Number of items (2)</span><br>
+                            <span>Tostal Cost</span>
+                        </div>
+                        <div class="total-cost-value">
+                            <span></span> <br>
+                            <span class="value" >2500LKR</span>
+                            <div class="place-order">
+                            <button>PlaceOrder</button>
+                        </div>
+                        </div>
+                        
+                    </div>
                     
                 </div>
                 
@@ -142,7 +156,7 @@ function closePopup() {
                     data: formData,
                     success: function (response) {
                         // Handle the response as needed
-                        console.log(response);
+                        // console.log(response);
                     },
                     error: function (error) {
                         // Handle errors if any
@@ -179,33 +193,7 @@ function closePopup() {
         });
     </script> -->
 
-<script>
-    //script for increasing
-        // Get the counter element
-        var itemCountElement = document.getElementById("item-count");
 
-        // Initialize the counter value
-        var itemCount = 0;
-
-        // Function to increase the item count
-        function increaseItemCount() {
-            itemCount++;
-            updateItemCount();
-        }
-
-        // Function to decrease the item count
-        function decreaseItemCount() {
-            if (itemCount > 0) {
-                itemCount--;
-                updateItemCount();
-            }
-        }
-
-        // Function to update the counter display
-        function updateItemCount() {
-            itemCountElement.textContent = itemCount;
-        }
-    </script>
     
 
 
