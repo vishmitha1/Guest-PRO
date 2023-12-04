@@ -1,5 +1,5 @@
 .foodorder-container{
-  border: 2px solid black;
+  /* border: 2px solid black; */
   padding: 20px;
 }
 .foodorder-container .main-title{
@@ -36,7 +36,7 @@
 
 .foodorder-items img{
   width: 240px;
-  height: 200px;
+  height: 190px;
   object-fit:cover;
   border-radius: 3px;
   
@@ -72,7 +72,26 @@
   margin-bottom: 5px;
   
 }
-.foodorder-items input{
+
+.addto-cart  input{
+  width: 20px;
+  margin-bottom: 10px;
+  height: 10px;
+  text-align: center;
+}
+
+.addto-cart .decrease{
+  width: 20px;
+  margin-right: 5px;
+  text-align: center;
+}
+.addto-cart .increase{
+  width: 20px;
+  margin-left: 5px;
+  text-align: center;
+}
+
+.foodorder-items .addtocart-btn {
   width: 80%;
   height: 22px;
   background: #2E86C1;
@@ -82,7 +101,7 @@
   
 }
 
-.foodorder-items input:hover{
+.foodorder-items .addtocart-btn:hover{
   transform: scale(1.1); 
   transition: transform .5s;
   cursor: pointer;
@@ -90,6 +109,7 @@
   font-size: 15px;
   font-weight: 600;
 }
+
 
 .cart-inUI{
   position:sticky;
@@ -131,22 +151,30 @@
   background: rgb(0, 0, 0,0.5);
   z-index: 1;
   display: none;
+  overflow: hidden;
 }
 
 .cart-popup .content{
   position: fixed;
+  border: 1px solid black;
+  border-radius: 5px;
   top:50%;
-  left: 60%;
-  border: 2px solid black;
-  transform: translate(-50% ,-50%)scale(1);
+  left: 60vw;
+  transform: translate(-50% ,-50%)scale(0);
   background: #fff;
-  width: 850px;
-  height: 490px;
-  
+  width: 650px;
+  height: 390px;
   z-index: 2;
   pad: 20px;
   overflow: auto;
   
+}
+
+@media screen and (max-width:1020px) {
+  .cart-popup .content{
+    left: 620px;
+    background: #ff0202;
+  }
 }
 
 .cart-popup .header{ 
@@ -171,11 +199,13 @@
 
 .cart-popup .header .title{
   position:absolute;
-  color: #000000;
+  color: #000;
   font-size: 25px;
   top: 10px;
   margin-left: 19px;
-  font-family: "Exo 2";
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+ 
 }
 
 .cart-popup.active .overplay{
@@ -184,25 +214,24 @@
 
 .cart-popup.active  .content{
   transition:all 300ms ease-in-out ;
+  
   transform: translate(-50% ,-50%)scale(1) ;
 }
 
-.cart-popup .cart-content{
-  position: relative;
-  padding: 20px;
-  overflow: auto;
-
+.cart-content{
+  z-index: -1;
+  padding: 10px;
 }
+
 .cart-content table{
   border-collapse: collapse;
   width: 100%;
   
 }
 
-.cart-content td{
-  width:150px;
-  
-  border: 2px solid black;
+.cart-content tbody{
+  font-family: 'poppins';
+  /* border: 2px solid black; */
 }
 .cart-content td img{
   width: 80px;
@@ -210,24 +239,112 @@
   object-fit: cover;
   
 }
-.cart-content td:nth-child(1){
-  width: 100px;
+.cart-content tr:nth-child(even){
+  background-color: antiquewhite;
+  
 }
-.cart-content tr{
-  /* border-bottom: 1px solid black; */
-  height: 60px;
+.cart-content tr:nth-child(1) {
+  font-size: 10px;
+  height: 20px;
+  font-family: 'poppins';
+}
+.cart-content td:nth-child(1){
+  width: 10%;
+}
+.cart-content td:nth-child(2){
+  width: 40%;
+  font-size: 18px;
+  text-align:start;
+}
+.cart-content td:nth-child(3){
+  width: 5%;
+  
+}
+.cart-content td:nth-child(4){
+  width: 20%;
+  text-align: center;
+}
+.cart-content td:nth-child(5){
+  width: 25%;
 }
 
-.cart-popup .footer{
+.cart-content tr{
+  height: 40px;
+}
+
+.cart-content td button{
+  width: 23px;
+  height: 23px;
+  text-align: center;
+  border-radius: 50px;
+  background: transparent;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+.cart-content td i{
+  color: red;
+}
+.cart-content td i:hover{
+  transition: transform .7s ease-in-out;
+  transform: rotate(360deg);
+}
+
+.total-cost{
+  margin-top: 50px;
+  width: 300px;
+  position: absolute;
+  right: 0;
+  grid-template-columns: auto auto;
+  display: grid;
+  font-family: 'Catamaran';
+  font-weight: 400;
+}
+
+.total-cost-title{
+  font-size: 20px;
+}
+.total-cost .place-order{
+  display: block;
+  margin-top: 10px;
+}
+.total-cost .place-order button{
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  border:none;
+}
+
+.total-cost .place-order button:hover{
+  background-color: #F28C28;
+}
+
+.total-cost-value .value{
+  font-size: 20px;
+  
+}
+
+/* .cart-popup .footer{
   position: sticky;
   border: 2px solid black;
+  display: grid;
+  grid-template-columns: auto auto;
   width: 99%;
-  height: 30px;
+  height: 10%;
   top: 100%;
   background: #fff;
-  
-  /* padding: 20px; */
+  overflow: hidden;
+ 
 }
+
+.cart-popup .footer>div:nth-child(1){
+  background-color: #28B463;
+} */
+
+
+
+
+
 
 
 
