@@ -22,9 +22,9 @@
 
         //When customer place a order ,ordered items will store cart db 
         public function insertcart($data){
-            $this->db->query('Insert into carts(item_no,user_id,quantity ,item_name,price,image) VALUES(:item_no,:id ,:quantity ,:item_name,:price,:image)');
+            $this->db->query('Insert into carts(item_no,user_id,quantity,item_name,price,image) VALUES(:item_no,:id ,:quantity ,:item_name,:price,:image)');
             $this->db->bind(':id', $data['user_id']);
-            $this->db->bind(':quantity',1 );
+            $this->db->bind(':quantity',$data['quantity']);
             $this->db->bind(':item_name',$data['name']);
             $this->db->bind(':price',$data['price'] );
             $this->db->bind(':image',$data['image'] );
@@ -77,6 +77,7 @@
             $this->db->bind(':id',$data);
             
             $row = $this->db->resultSet();
+           
             $row=array_reverse($row);
             return $row;
 

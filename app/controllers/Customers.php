@@ -123,10 +123,12 @@
                     'price' => trim($_POST['item_price']),
                     'image' => trim($_POST['image']),
                     'item_id' => trim($_POST['id']),
+                    'quantity' => trim($_POST['quantity']),
                     
                     'user_id_err'=>'',
                     'name_err' => '',
                     'price_err' => '',
+                    'quantity_err'=>'',
                 ];
                 $item_id=trim($_POST['id']);
                 //validate each parameter
@@ -141,10 +143,13 @@
                 if(empty($data['user_id'])){
                     $data['user_id_err']= 'No user';
                 }
+                if(empty($data['quantity'])){
+                    $data['quantity_err']= 'Enter Quantity';
+                }
                 
 
                 //validation is completed and no erros
-                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) ){
+                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) && empty( $data['quantity_err']) ){
                     
                     
 
@@ -220,10 +225,12 @@
 
                 if( empty($data['user_id_err']) ){
                     if($output=$this->userModel->retrivefoodcart($data['user_id'])){
+                        
                         $output=[$output,$this->findtotal($output)];
                         // print_r($output) ;
                         header('Content-Type: application/json');
                         echo json_encode($output);
+                        
                     }
                 }
             }
