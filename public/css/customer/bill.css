@@ -27,10 +27,12 @@
     flex-direction: column;
     justify-content: space-between;
     transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0,0,0,1);
     
 }
 .bill-blocks:hover{
     transform: translateY(-10px);
+    
 
 }
 
@@ -113,6 +115,7 @@
 .bill-table-warpper table{
     width: 100%;
     border-collapse: collapse;
+    border-radius: 10%;
 }
 
 .bill-table-warpper thead{

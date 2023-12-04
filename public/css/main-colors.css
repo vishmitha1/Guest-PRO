@@ -1,8 +1,18 @@
 /* Main Colors */
-.main-color{
+
+:root{
+    --main-blue:#002447;
+    --secondary-blue:#003366;
+    --main-yellow:#ecda0a;
+}
+
+.main-blue{
+    background: #002447;
+}
+.secondary-blue{
     background: #003366;
 }
-.second-color{
+.main-yellow{
     background: #ecda0a;
 }
 
