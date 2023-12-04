@@ -1,15 +1,14 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
 
 <div class="home">
-<button style="width: 70px ; height: 50px; " onclick="text()" >ddd</button>
-<span id='visal'>visal</span>
+
         <div class="cart-inUI" onclick="togglePopup()"  >
             <!-- <i class="fa-solid fa-cart-shopping fa-2xl"></i> -->
             <!-- <span class="material-symbols-outlined">shopping_cart</span> -->
             <input type="hidden" name="cart_popup">
             <div class="img" ><img src="<?php echo URLROOT;?>/public/img/svgs/shopping_cart.svg" class="svg-large" ></img></div>
             <div class="cart-total">
-                <span>25</span>
+                <span id="Cart-item-Count" ><?php echo $data[1]->{'COUNT(*)'};?></span>
             </div>
         </div>
             <!-- <form id="cartForm" method="POST" action="Customers">
@@ -54,7 +53,7 @@
             <?php
                 foreach($data[0] as $item){ ?>
                     
-                    <form class='ajx' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
+                    <form id='addToCart' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
                         <div class='foodorder-items'>
                             <img src='<?php echo URLROOT;?>/public/img/food_items/<?php echo $item->image;?>.jpg' alt='<?php echo $item->image;?>'><input type='hidden' name='image' value='<?php echo $item->image;?>'>
                             <div class='food-title'>                                                                                                <input type='hidden' name='id'  value='<?php echo $item->item_id;?>'>
@@ -62,8 +61,9 @@
                                 <br><span class='food-price'><?php echo $item->price;?>LKR</span>                                                   <input type='hidden' name='item_price' value='<?php echo $item->price;?>'>
                             </div>
                             <div class='addto-cart'>
-                                <button class="decrease" onclick="Decrease()" >-</button><input type="text" class="qty" id="Quantity" name='quantity' value='0'><button class="increase" onclick="Increase()" ><i class="fa-solid fa-plus fa-xs"></i></button>
-                                <button type="submit" class="addtocart-btn" onclick="addtoCart(<?php echo $item->name;?>)">Add to Cart</button>        
+                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id;?>')" >-</button>    <input type="text" class="qty" id="<?php echo $item->item_id;?>" name='quantity' value="0">
+                                <button class="increase" onclick="Increase('<?php echo $item->item_id;?>')" >+</button>
+                                <button type="submit" class="addtocart-btn" onclick="addtoCart('<?php echo $item->item_id;?>')">Add to Cart</button>        
                             </div>
                         </div>
                     </form>
@@ -94,37 +94,31 @@
                     </tbody>
                      
                     </table> 
-
+                    
+                    <div class="total-cost">
+                        <div class="total-cost-title">
+                            <span>Number of items (2)</span><br>
+                            <span>Tostal Cost</span>
+                        </div>
+                        <div class="total-cost-value">
+                            <span></span> <br>
+                            <span class="value" >2500LKR</span>
+                            <div class="place-order">
+                            <button>PlaceOrder</button>
+                        </div>
+                        </div>
+                        
+                    </div>
                     
                 </div>
                 
                 
             </div>
         </div>
+        
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>function togglePopup(){
-    document.getElementById("popup-1").classList.toggle("active");
-    text();
-}
-function closePopup() {
-        document.getElementById("popup-1").classList.remove("active");
-      }
 
-// const forms =document.querySelectorAll(".form");
-// forms.forEach((form)=>{
-//     form.addEventListener("submit",(e)=>{
-//         e.preventDefault();
-//         $.ajax({
-//                 type: $(this).attr("method"),
-//                 url: $(this).attr("action"),
-//                 data: $(this).serialize(),
-//                 success: function (response) {
-//                     // Handle the response as needed
-//                 }
-//             });
-// })
-// })</script>
 
 
  <script>
@@ -141,8 +135,9 @@ function closePopup() {
                     url: $(this).attr("action"),
                     data: formData,
                     success: function (response) {
+                        totalcartItems();
                         // Handle the response as needed
-                        console.log(response);
+                        // console.log(response);
                     },
                     error: function (error) {
                         // Handle errors if any
@@ -151,7 +146,7 @@ function closePopup() {
                 });
             });
         });
-    </script>>
+</script>>
 
     <!-- <script>
         $(document).ready(function () {
@@ -179,33 +174,7 @@ function closePopup() {
         });
     </script> -->
 
-<script>
-    //script for increasing
-        // Get the counter element
-        var itemCountElement = document.getElementById("item-count");
 
-        // Initialize the counter value
-        var itemCount = 0;
-
-        // Function to increase the item count
-        function increaseItemCount() {
-            itemCount++;
-            updateItemCount();
-        }
-
-        // Function to decrease the item count
-        function decreaseItemCount() {
-            if (itemCount > 0) {
-                itemCount--;
-                updateItemCount();
-            }
-        }
-
-        // Function to update the counter display
-        function updateItemCount() {
-            itemCountElement.textContent = itemCount;
-        }
-    </script>
     
 
 

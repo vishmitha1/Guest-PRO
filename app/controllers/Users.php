@@ -176,7 +176,7 @@
                 redirect("Kitchen/foodmenu/". $_SESSION['username']);
             }
             elseif($_SESSION['role'] == "customer"){
-                redirect("Customers/reservation/". $_SESSION['username']);
+                redirect("Customers/reservation/". $_SESSION['username'].'/'.$_SESSION['user_id']);
             }
             elseif($_SESSION['role'] == "manager"){
                 redirect("Managers/roomdetails/". $_SESSION['username']);

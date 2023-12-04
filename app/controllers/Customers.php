@@ -123,10 +123,12 @@
                     'price' => trim($_POST['item_price']),
                     'image' => trim($_POST['image']),
                     'item_id' => trim($_POST['id']),
+                    'quantity' => trim($_POST['quantity']),
                     
                     'user_id_err'=>'',
                     'name_err' => '',
                     'price_err' => '',
+                    'quantity_err'=>'',
                 ];
                 $item_id=trim($_POST['id']);
                 //validate each parameter
@@ -141,10 +143,13 @@
                 if(empty($data['user_id'])){
                     $data['user_id_err']= 'No user';
                 }
+                if(empty($data['quantity'])){
+                    $data['quantity_err']= 'Enter Quantity';
+                }
                 
 
                 //validation is completed and no erros
-                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) ){
+                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) && empty( $data['quantity_err']) ){
                     
                     
 
@@ -196,7 +201,8 @@
                     // $this->view('v_test', $this->userModel->retrivefoodcart($_SESSION['user_id']));
                     // $this->view('v_test', $this->userModel->loadfoodmenu());
                             //''''pass the cart data and food menu data to foodorder UI. in here parameter array containing foodmenu data and cart data 
-                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->retrivefoodcart($_SESSION['user_id'])]);
+                    // $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
+                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id'])]);
                     
                     
                 
@@ -220,10 +226,12 @@
 
                 if( empty($data['user_id_err']) ){
                     if($output=$this->userModel->retrivefoodcart($data['user_id'])){
+                        
                         $output=[$output,$this->findtotal($output)];
                         // print_r($output) ;
                         header('Content-Type: application/json');
                         echo json_encode($output);
+                        
                     }
                 }
             }
@@ -274,8 +282,23 @@
                 }
         
     
+        // Itemo count on the cart Icon
+        public function getcartTotal(){
+            if ($_SERVER['REQUEST_METHOD']=='POST'){
+                $data =[
 
-
+                    'user_id' => $_SESSION['user_id'],
+            
+                    'user_id_err' => '',
+                    
+                ];
+                $output=$this->userModel->cartTotal($_SESSION['user_id']);
+            
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                
+            }
+        }
 
         
 
@@ -283,7 +306,7 @@
             $data[0]= $data1;
             $data[1]= $data2;
             $data[2]= $data3;
-            $this->view('customers/v_update_foodorder', $data);
+            $this->view('v_test', $data);
         }
 
         

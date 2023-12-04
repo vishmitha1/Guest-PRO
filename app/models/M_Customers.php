@@ -22,9 +22,9 @@
 
         //When customer place a order ,ordered items will store cart db 
         public function insertcart($data){
-            $this->db->query('Insert into carts(item_no,user_id,quantity ,item_name,price,image) VALUES(:item_no,:id ,:quantity ,:item_name,:price,:image)');
+            $this->db->query('Insert into carts(item_no,user_id,quantity,item_name,price,image) VALUES(:item_no,:id ,:quantity ,:item_name,:price,:image)');
             $this->db->bind(':id', $data['user_id']);
-            $this->db->bind(':quantity',1 );
+            $this->db->bind(':quantity',$data['quantity']);
             $this->db->bind(':item_name',$data['name']);
             $this->db->bind(':price',$data['price'] );
             $this->db->bind(':image',$data['image'] );
@@ -67,20 +67,28 @@
             else{
                 return false;
             }
-
         }
 
-
-
+            //Retrive items to thecart. when clicked cart all the items retrive
         public function retrivefoodcart($data){
             $this->db->query("SELECT * FROM carts WHERE user_id=:id ");
             $this->db->bind(':id',$data);
             
             $row = $this->db->resultSet();
+           
             $row=array_reverse($row);
             return $row;
-
         }
+
+        // Itemo count on the cart Icon
+        public function cartTotal($data){
+            $this->db->query("SELECT COUNT(*) FROM carts WHERE user_id=:id ");
+            $this->db->bind(':id',$data);
+            $row = $this->db->single();
+
+            return $row;
+        }
+
         public function test(){
             $this->db->query("SELECT * FROM carts  ");
             $row = $this->db->resultSet();
