@@ -10,7 +10,7 @@ function closePopup() {
 
 function Increase(id,e) {
     e.preventDefault();
-    console.log(e);
+
     var quantityElement = document.getElementById(id);
   
     var qty = parseInt(quantityElement.value, 10);

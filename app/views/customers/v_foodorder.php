@@ -61,7 +61,7 @@
                                 <br><span class='food-price'><?php echo $item->price;?>LKR</span>                                                   <input type='hidden' name='item_price' value='<?php echo $item->price;?>'>
                             </div>
                             <div class='addto-cart'>
-                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id.'ID';?>')" >-</button> 
+                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id.'ID';?>',event)" >-</button> 
                                 <input type="text" class="qty" id="<?php echo $item->item_id.'ID';?>" name='quantity' value="1" >
                         
                                 <button class="increase" onclick="Increase('<?php echo $item->item_id.'ID';?>',event)" >+</button>
