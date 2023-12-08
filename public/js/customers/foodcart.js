@@ -8,14 +8,17 @@ function closePopup() {
 
 
 
-function Increase(id) {
+function Increase(id,e) {
+    e.preventDefault();
+    console.log(e);
     var quantityElement = document.getElementById(id);
-    console.log(id)
+  
     var qty = parseInt(quantityElement.value, 10);
-    qty++;
+    qty=qty+1;
     quantityElement.value=qty
 }
-function Decrease(id) {
+function Decrease(id,e) {
+    e.preventDefault();
     var quantityElement = document.getElementById(id);
     var qty = parseInt(quantityElement.value, 10);
     if(qty>0){
