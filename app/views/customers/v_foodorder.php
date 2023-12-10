@@ -159,7 +159,7 @@
 
         
 </script>>
-
+    totalcartItems()
     <!-- <script>
         $(document).ready(function () {
             $(".ajx").submit(function (event) {
