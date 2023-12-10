@@ -57,44 +57,65 @@
 /* '''''''''''''' search results '''''''''''''''''''''''*/
 
 .search-result{
+    /* border: 2px solid black; */
     margin-top: 20px;
-    background: #acc1d7;
+    height: 100%;
+    height: auto;
+    background: #f5f5f5;
     padding: 10px;
     margin-bottom: 80px;
+    position: relative;
+    width: calc(100%-10px);
+    
 }
 
 .result-component{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: #510707;
-    padding: 2px;
-    display: block; 
+   display: flex;
+   flex-direction: column;
+   row-gap: 20px;
+   /* border: 2px solid black; */
+   height: 100%;
 }
 
 .result-component-wrapper{
-    display: flex;
-    background: #ffffff;
-
+   /* border: 2px solid black; */
+   height: 100%;
+   /* padding: 30px; */
+   
+   position: relative;
+   display: grid;
+   grid-template-columns: 290px 1fr;
+   padding: 8px;
+    border: 1px solid black;
+    background-color:#ffffff;
+    border-radius: 5px;
+}
+.search-result-container{
+    
 }
 
 .search-result .room-img{
-    width: 350px;
-    
-    height: 200px;
+    width: 290px;
+    height: 220px;
     color: #acc1d7;
     background-color: #000;
+    border-radius: 10px;
+
 }   
 
 .room-img img{
         width: 100%;
         height: 100%;
+        border-radius: 6px 0 0 6px;
   
 }
 
 .room-details{
+   
     top: 0;
-    height: 100%;height: 200px;background-color: #ecda0a;
-    width: calc(100% - 350px);
+    background-color: #ecda0a;
+    height: 220px;
+    border-radius: 0 06px 6px 0;
    
 }
 
@@ -105,6 +126,8 @@
 .room-details .room-functions{
    padding-top: 10px;
    padding-left: 10px;
+   display: grid;
+   grid-template-columns: auto auto auto auto auto;
 }
 
 .room-functions i{
@@ -119,6 +142,9 @@
     margin-top: 10px;
     margin-bottom: 20px;
     margin-left: 20px;
+    display: grid;
+    grid-template-columns: 130px 120px;
+    grid-template-rows: auto ;
 }
 
 .room-intend .intend-name{
@@ -128,8 +154,12 @@
 .room-reviews{
     position: relative;
    
-    margin-left: 10px;
-    display: flex;
+    margin-left: 50px;
+    display: inline-block;
+}
+.room-reviews .reserve{
+    display: inline;
+    margin-left: 20px;
 }
 
 .room-reviews button{

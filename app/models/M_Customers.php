@@ -13,10 +13,6 @@
             
             $row = $this->db->resultSet();
             
-            // echo("<br>".count($row));
-            // echo("<br>");
-            // $row=array_reverse($row);
-            
             return $row;
         }
 
@@ -96,78 +92,17 @@
             return $row;
 
         }
-        public function updateorderdetails($data,$param) {
-            $this->db->query('UPDATE foodorders SET 
-            item_name=:name ,
-            quantity=:quantity ,
-            status= :status,
-            note=:note WHERE order_id= :param');
-            
-            $this->db->bind(':param', $param);
-            $this->db->bind(':name', $data['food']);
-            $this->db->bind(':quantity',$data['quantity'] );
-            $this->db->bind(':status',"Placed");
-            $this->db->bind(':note',$data['note'] );
 
-            if($this->db->execute()){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
-        public function deleteorder($param) {
-            $this->db->query("DELETE FROM foodorders WHERE order_id= :id ");
-            $this->db->bind(':id',$param);
-
-            if($this->db->execute()){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
-        public function placeservicerequest($data){
-            $this->db->query('Insert into servicerequests(message , status) VALUES(:message,:status )');
-            $this->db->bind(':message', $data['message']);
-            $this->db->bind(':status',"Placed");
-            
-        
-            if($this->db->execute()){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
-        public function getservicerequestdetails(){
-            $this->db->query("SELECT * FROM servicerequests ");
-            
-            $row = $this->db->resultSet();
-            // echo($row[0]->order_id);
-            // echo("<br>".count($row));
-            // echo("<br>");
-            $row=array_reverse($row);
-
+        //Reservation part'''''''''''''''''''''''''''''''''''''''''''''''''''
+        public function checkroomavailability($data){
+            $this->db->query('SELECT roomtype.category,roomtype.price, rooms.roomNo from rooms INNER JOIN roomtype ON roomtype.category=rooms.category and   availability=:avail GROUP BY roomtype.category ');
+            $this->db->bind('avail','yes');
+            $row=$this->db->resultSet();
             return $row;
-
         }
+       
 
-        public function deleteservicerequest($param) {
-            $this->db->query("DELETE FROM servicerequests WHERE request_id= :id ");
-            $this->db->bind(':id',$param);
-
-            if($this->db->execute()){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
+        
         
             
     

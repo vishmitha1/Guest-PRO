@@ -13,9 +13,108 @@
             $this->view('customers/v_dashboard', $data);
         }
 
+        
+
+
         public function reservation(){
-            $data =[  ];
-            $this->view('customers/v_reservation', $data);
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                
+                // if(isset($_POST['add_to_cart'])){
+                    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                    
+                    
+                    //validate
+                    
+                    $data =[
+    
+                        'user_id'=>$_SESSION['user_id'],
+                        'in_date' => trim($_POST['indate']),
+                        'out_date' => trim($_POST['outdate']),
+                        'room_count' => trim($_POST['roomcount']),
+                      
+                        
+                        'user_id_err'=>'',
+                        'indate_err' => '',
+                        'outdate_err' => '',
+                        'roomcount_err' => '',
+                    
+                    ];
+                    
+                    //validate each parameter
+                    
+                    if(empty($data['in_date'])){
+                        $data['indate_err'] = 'Checkin date empty';
+                    }
+                
+                    if(empty($data['out_date'])){
+                        $data['outdate_err']= 'Checkout error';
+                    }
+                    if(empty($data['user_id'])){
+                        $data['user_id_err']= 'No user';
+                    }
+                    if(empty($data['room_count'])){
+                        $data['roomcount_err']= 'Empty room number';
+                    }
+                    
+                    
+    
+                    //validation is completed and no erros
+                    if(empty( $data['indate_err']) && empty( $data['outdate_err']) && empty( $data['user_id_err'])  && empty( $data['roomcount_err']) ){
+                        
+                        
+    
+                        //Check item is exist in cart
+                            if($output=$this->userModel->checkroomavailability($data) ){
+                                //place food order
+                                // $this->view('v_test', $this->userModel->checkroomavailability($data));
+                                // print_r($this->userModel->checkroomavailability($data));
+                                // $this->view('customers/v_reservation', $this->userModel->checkroomavailability($data));
+                                 // Clear output buffer
+                                header('Content-Type: application/json');
+                               echo json_encode($output);
+                                
+                                
+                           
+                            
+                              
+                        }
+                        else{
+                            
+                            $error_Msg='No Any room available';
+                            redirect("Customers/reservation");
+                        }
+                        
+                        
+    
+                    }
+                    else{
+                        redirect('Customers/reservation');
+                    }
+    
+                }
+                else{
+                    
+                        $data =[
+                            'food' => '',
+                            'quantity' => '',
+                            'note' => '',
+                            'food_err' => '',
+                            'quantity_err' => '',
+                            'note_err' => '',
+                            
+                        ];
+                        
+                         $this->view('customers/v_reservation', $this->userModel->checkroomavailability($data));
+                        // $this->view('v_test', $data);
+                        // print_r( $this->userModel->checkroomavailability($data));
+                        
+                        
+                    
+                    
+                    
+                }
+           
         }
         
         public function bill(){

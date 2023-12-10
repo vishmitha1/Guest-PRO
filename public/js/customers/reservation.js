@@ -35,5 +35,25 @@ function showSlides(n) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
   slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
+  // dots[slideIndex-1].className += " active";
 }
+
+
+//retrive search 
+// Sample data structure (replace it with your actual fetched data)
+const fetchedData = [
+  {
+      category: "Deluxe Room",
+      functions: ["Bathtab", "Wifi", "Pool", "Square", "1 Queen Bed"],
+      intends: ["Mini Bar", "AC", "Balcony"],
+      reviews: 1250,
+      price: "2500LKR"
+  },
+  // Add more room data objects as needed
+];
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Call a function to populate the room details
+//   populateRoomDetails(fetchedData);
+// });
+
