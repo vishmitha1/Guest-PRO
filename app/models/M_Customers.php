@@ -95,7 +95,7 @@
 
         //Reservation part'''''''''''''''''''''''''''''''''''''''''''''''''''
         public function checkroomavailability($data){
-            $this->db->query('SELECT roomtype.category,roomtype.price, rooms.roomNo from rooms INNER JOIN roomtype ON roomtype.category=rooms.category and   availability=:avail GROUP BY roomtype.category ');
+            $this->db->query('SELECT roomtype.category,roomtype.price, rooms.roomNo,roomtype.roomImg from rooms INNER JOIN roomtype ON roomtype.category=rooms.category and   availability=:avail GROUP BY roomtype.category ');
             $this->db->bind('avail','yes');
             $row=$this->db->resultSet();
             return $row;
