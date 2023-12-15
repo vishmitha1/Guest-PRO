@@ -95,10 +95,25 @@
 
         //Reservation part'''''''''''''''''''''''''''''''''''''''''''''''''''
         public function checkroomavailability($data){
-            $this->db->query('SELECT roomtype.category,roomtype.price, rooms.roomNo,roomtype.roomImg from rooms INNER JOIN roomtype ON roomtype.category=rooms.category and   availability=:avail GROUP BY roomtype.category ');
+            $this->db->query('SELECT roomtype.category,roomtype.price * :count as price, rooms.roomNo,roomtype.roomImg from rooms INNER JOIN roomtype ON roomtype.category=rooms.category and   availability=:avail GROUP BY roomtype.category ');
             $this->db->bind('avail','yes');
+            $this->db->bind('count',$data['roomcount']);
             $row=$this->db->resultSet();
             return $row;
+        }
+
+        public function placereservation($data){
+            $this->db->query('INSERT INTO reseravtions user_id,checkIn,checkOut VALUES(:id,:indate,:outdate)');
+            $this->db->bind('id',$data["user_id"]);
+            $this->db->bind('indate',$data["indate"]);
+            $this->db->bind('outdate',$data["outdate"]);
+            // $this->db->bind('cost',$data["cost"]);
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
        
 

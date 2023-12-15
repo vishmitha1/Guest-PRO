@@ -18,9 +18,9 @@
                 <table   >
                     <tr>
                         <form id="search-form" action="<?php echo URLROOT;?>/Customers/reservation" method="POST" >
-                        <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="text" value="1" name="indate" placeholder="Check In Date"></th>
-                        <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="text" value="1"name="outdate" placeholder="Check Out Date"></th>
-                        <th><div class="img"><i class="fa-solid fa-people-group"></i></div><input type="text"value="1" name="roomcount" placeholder="Details"></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date"></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date"></th>
+                        <th><div class="img"><i class="fa-solid fa-people-group"></i></div><input type="text" id="roomcount" name="roomcount" placeholder="Details"></th>
                         <th><div class="img"></div><button type="submit" >Submit</button></th>
                         </form>
                     </tr>
@@ -387,10 +387,15 @@
         
 
         $(document).ready(function() {
-            console.log("visal")
+            
+            
             $("#search-form").submit(function (event) {
                 event.preventDefault(); // Prevent the default form submission
-
+                var indate=document.getElementById('indate').value;
+                var outdate=document.getElementById('outdate').value;
+                var roomcount=document.getElementById('roomcount').value;
+                
+                
                 // Serialize form data
                 var formData = $(this).serialize();
                 console.log(formData)
@@ -402,11 +407,11 @@
                     data: formData,
                     success: function (response) {
                         console.log(response);
+                        response=shuffle(response);
                           const roomListContainer = document.getElementById("roomListContainer");
                           const popupContainer=document.getElementsByClassName('search-result');
-
-                        
-                        
+                          roomListContainer.innerHTML=''; 
+                          
                           var mainImg,fun1Img,fun2Img,fun3Img,fun4Img;
                           var fun1Title,fun2Title,fun3Title,fun4Title;
                           var price,nights,rooms,roomnumber,popupID,dyID;
@@ -415,7 +420,7 @@
                         // Populate dynamic content based on fetched data
                         response.forEach(item => {
                             item.roomImg=item.roomImg.split(',')
-                            console.log(item.roomImg[1]);
+                            
                             const roomComponent = document.createElement("div");
                             roomComponent.classList.add("result-component-wrapper");
                             
@@ -632,10 +637,11 @@
                             
                         </div>
                         <div class="payment-wrapper">
+                            <form action='<?php echo URLROOT; ?>/Customers/reservation' method='POST'>
                             <span class="title">Reservation options</span>
                             <div class="payment-type">
-                                <label class="rd-btn" ><input type="radio" name="e"> Pay Now</label><br>
-                                <label class="rd-btn"><input type="radio" name="e"> Pay at property</label>
+                                <label class="rd-btn" ><input type="radio" name='payment-radio' value="paynow"> Pay Now</label><br>
+                                <label class="rd-btn"><input type="radio" name='payment-radio' value="paylater"> Pay at property</label>
                             </div>
                             <div class="payment-content">
                                 <div class="left-box">
@@ -644,12 +650,15 @@
                                     <p class="duration"><span class="material-symbols-outlined">bed</span>  1 Room</p><br>
                                     <span class="price">`+price+`LKR</span>
                                     <label>includes taxes & fees</label>
-                                    
+                                    <input type="hidden" name="indate" class='indate2' value='' >
+                                    <input type='hidden' name='outdate' class='outdate2' value='' >
+                                    <input type='hidden' name='roomcount' class='roomcount2' value='' >
                                 </div>
                                 <div class="right-box">
-                                    <button>Reserve</button>
+                                    <button name='place-reservation' >Reserve</button>
                                 </div>
                             </div>
+                            </form>
 
                         </div>
                     </div>
@@ -657,7 +666,18 @@
             
                 </div>`;
                 roomListContainer.appendChild(popupComponent); 
+                
+                
+            
+
             });
+                
+                for(var i=0;i<document.getElementsByClassName('indate2').length;i++){
+                    document.getElementsByClassName('indate2')[i].value=indate;
+                
+                    document.getElementsByClassName('outdate2')[i].value=outdate;
+                    document.getElementsByClassName('roomcount2')[i].value=roomcount;
+                }
       
                 },
                 error: function(error) {
