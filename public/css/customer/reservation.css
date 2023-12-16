@@ -61,8 +61,8 @@
     margin-top: 20px;
     height: 100%;
     height: auto;
-    background: #f5f5f5;
-    padding: 10px;
+    
+    /* padding: 10px; */
     margin-bottom: 80px;
     position: relative;
     width: calc(100%-10px);
@@ -72,6 +72,7 @@
 .result-component{
    display: flex;
    flex-direction: column;
+   
    row-gap: 20px;
    /* border: 2px solid black; */
    height: 100%;
@@ -85,9 +86,9 @@
    position: relative;
    display: grid;
    grid-template-columns: 290px 1fr;
-   padding: 8px;
-    border: 1px solid black;
-    background-color:#ffffff;
+   padding: 20px;
+    /* border: 1px solid black; */
+    background-color:#eaeaea;
     border-radius: 5px;
 }
 .search-result-container{
@@ -113,7 +114,8 @@
 .room-details{
    
     top: 0;
-    background-color: #ecda0a;
+    /* background-color: #ffffff; */
+    background-color: rgb(253, 245, 95);
     height: 220px;
     border-radius: 0 06px 6px 0;
    
@@ -121,6 +123,8 @@
 
 .room-details .room-type{
     font-size: 30px;
+    font-family: 'Exo 2';
+    margin-left: 1%;
 }
 
 .room-details .room-functions{
@@ -128,10 +132,11 @@
    padding-left: 10px;
    display: grid;
    grid-template-columns: auto auto auto auto auto;
+   font-family: 'Catamaran';
 }
 
-.room-functions i{
-   
+.room-functions i {
+   font-size: 20px;
 }
 
 .room-functions .function-name{
@@ -145,10 +150,17 @@
     display: grid;
     grid-template-columns: 130px 120px;
     grid-template-rows: auto ;
+    line-height: 2%;
+    
+}
+.room-intend i{
+    font-size: 20px ;
 }
 
 .room-intend .intend-name{
     font-size: 15px;
+    font-family: 'Catamaran';
+    font-weight: 600;
 }
 
 .room-reviews{
@@ -163,11 +175,14 @@
 }
 
 .room-reviews button{
-    background:green;
+    background:rgb(75, 200, 75);
     font-weight: 700;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 5px;
+    border-radius: 14%;
+    border: 1px solid;
     font-size: 15px;
+    font-family: "Sriracha";
+    
 }
 .reserve button{
     background: #cadae9;
@@ -187,6 +202,7 @@
 .more-details a{
     font-size: 20px;
     color: rgb(42, 80, 206);
+    font-family: "Sriracha";
     
 }
 .more-details a:hover{
@@ -197,6 +213,7 @@
     font-size: 30px;
     margin-bottom: 10px;
     margin-left: 10px;
+    font-family: "Sometype Mono";
     
 }
 
