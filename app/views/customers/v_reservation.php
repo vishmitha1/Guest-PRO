@@ -31,7 +31,7 @@
         <div class="search-result">
             <div id="roomListContainer" class="result-component">
                 
-            <!-- <div class="search-result-container">
+            <div class="search-result-container">
                 <div class="result-component-wrapper">
                     <div class="room-img">
                         <img src="<?php echo URLROOT;?>/public/img/rooms/room1.jpg" alt="">
@@ -40,27 +40,27 @@
                             <div class="room-type">name</div>
 
                             <div class="room-functions">
-                                <div><i class="fa-solid fa-bath"></i><span class="function-name"> Hot tab</span></div>
+                                <div><span class="material-symbols-outlined">hot_tub</span><span class="function-name"> Hot tab</span></div>
                                 
-                                <div><i class="fa-solid fa-person-swimming"></i><span class="function-name"> Lavish Bathroom</span></div>
+                                <div><i class="fa-solid fa-sink"></i><span class="function-name"> Lavish Bathroom</span></div>
                                 <div> <i class="fa-solid fa-vector-square"></i><span class="function-name"> 250ft<sup>2</sup> </span></div>
                                <div> <i class="fa-solid fa-bed-pulse"></i><span class="function-name"> Premium King Bed</span></div>
                                
                                 
                             </div>
                             <div class="room-intend">
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> Mini Bar</span><br></div>
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> AC</span><br></div>
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> Balcony</span><br></div>
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> Kitchenette</span><br></div>
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> Soundproofed</span><br></div>
+                                <div><i class="fa-solid fa-check "></i><span class="intend-name"> Mini Bar</span><br></div>
+                                <div><i class="fa-solid fa-check "></i><span class="intend-name"> AC</span><br></div>
+                                <div><i class="fa-solid fa-check "></i><span class="intend-name"> Balcony</span><br></div>
+                                <div><i class="fa-solid fa-check "></i><span class="intend-name"> Kitchenette</span><br></div>
+                                <div><i class="fa-solid fa-check "></i><span class="intend-name"> Soundproofed</span><br></div>
                                 
                             </div>
                             <div class="room-reviews">
                                 <button>1250 reveiws</button>
-                                <div class="reserve">
+                                <!-- <div class="reserve">
                                     <button>Reserve</button>
-                                </div>
+                                </div> -->
                             </div>
                             
                         
@@ -76,7 +76,7 @@
                     
                     
                 </div>
-            </div>     -->
+            </div>    
                 
             </div>
 
@@ -406,6 +406,7 @@
                     url: 'http://localhost/GuestPro/Customers/reservation',
                     data: formData,
                     success: function (response) {
+                        // response.roomNo=response.roomNo.split(',');
                         console.log(response);
                         response=shuffle(response);
                           const roomListContainer = document.getElementById("roomListContainer");
@@ -420,7 +421,8 @@
                         // Populate dynamic content based on fetched data
                         response.forEach(item => {
                             item.roomImg=item.roomImg.split(',')
-                            
+                            // item.roomNo=item.roomNo.split(',')
+                            console.log(item.roomNo);
                             const roomComponent = document.createElement("div");
                             roomComponent.classList.add("result-component-wrapper");
                             
@@ -500,9 +502,7 @@
                             </div>
                             <div class="room-reviews">
                                 <button>1250 reveiws</button>
-                                <div class="reserve">
-                                    <button>Reserve</button>
-                                </div>
+                                
                             </div>
                             
                         
@@ -653,6 +653,7 @@
                                     <input type="hidden" name="indate" class='indate2' value='' >
                                     <input type='hidden' name='outdate' class='outdate2' value='' >
                                     <input type='hidden' name='roomcount' class='roomcount2' value='' >
+                                    <input type='hidden' name='roomno'  value='${item.roomNo}' >
                                 </div>
                                 <div class="right-box">
                                     <button name='place-reservation' >Reserve</button>
