@@ -57,58 +57,86 @@
 /* '''''''''''''' search results '''''''''''''''''''''''*/
 
 .search-result{
+    /* border: 2px solid black; */
     margin-top: 20px;
-    background: #acc1d7;
-    padding: 10px;
+    height: 100%;
+    height: auto;
+    
+    /* padding: 10px; */
     margin-bottom: 80px;
+    position: relative;
+    width: calc(100%-10px);
+    
 }
 
 .result-component{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: #510707;
-    padding: 2px;
-    display: block; 
+   display: flex;
+   flex-direction: column;
+   
+   row-gap: 20px;
+   /* border: 2px solid black; */
+   height: 100%;
 }
 
 .result-component-wrapper{
-    display: flex;
-    background: #ffffff;
-
+   /* border: 2px solid black; */
+   height: 100%;
+   /* padding: 30px; */
+   
+   position: relative;
+   display: grid;
+   grid-template-columns: 290px 1fr;
+   padding: 20px;
+    /* border: 1px solid black; */
+    background-color:#eaeaea;
+    border-radius: 5px;
+}
+.search-result-container{
+    
 }
 
 .search-result .room-img{
-    width: 350px;
-    
-    height: 200px;
+    width: 290px;
+    height: 220px;
     color: #acc1d7;
     background-color: #000;
+    border-radius: 10px;
+
 }   
 
 .room-img img{
         width: 100%;
         height: 100%;
+        border-radius: 6px 0 0 6px;
   
 }
 
 .room-details{
+   
     top: 0;
-    height: 100%;height: 200px;background-color: #ecda0a;
-    width: calc(100% - 350px);
+    /* background-color: #ffffff; */
+    background-color: rgb(253, 245, 95);
+    height: 220px;
+    border-radius: 0 06px 6px 0;
    
 }
 
 .room-details .room-type{
     font-size: 30px;
+    font-family: 'Exo 2';
+    margin-left: 1%;
 }
 
 .room-details .room-functions{
    padding-top: 10px;
    padding-left: 10px;
+   display: grid;
+   grid-template-columns: auto auto auto auto auto;
+   font-family: 'Catamaran';
 }
 
-.room-functions i{
-   
+.room-functions i {
+   font-size: 20px;
 }
 
 .room-functions .function-name{
@@ -119,25 +147,42 @@
     margin-top: 10px;
     margin-bottom: 20px;
     margin-left: 20px;
+    display: grid;
+    grid-template-columns: 130px 120px;
+    grid-template-rows: auto ;
+    line-height: 2%;
+    
+}
+.room-intend i{
+    font-size: 20px ;
 }
 
 .room-intend .intend-name{
     font-size: 15px;
+    font-family: 'Catamaran';
+    font-weight: 600;
 }
 
 .room-reviews{
     position: relative;
    
-    margin-left: 10px;
-    display: flex;
+    margin-left: 50px;
+    display: inline-block;
+}
+.room-reviews .reserve{
+    display: inline;
+    margin-left: 20px;
 }
 
 .room-reviews button{
-    background:green;
+    background:rgb(75, 200, 75);
     font-weight: 700;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 5px;
+    border-radius: 14%;
+    border: 1px solid;
     font-size: 15px;
+    font-family: "Sriracha";
+    
 }
 .reserve button{
     background: #cadae9;
@@ -157,6 +202,7 @@
 .more-details a{
     font-size: 20px;
     color: rgb(42, 80, 206);
+    font-family: "Sriracha";
     
 }
 .more-details a:hover{
@@ -167,6 +213,7 @@
     font-size: 30px;
     margin-bottom: 10px;
     margin-left: 10px;
+    font-family: "Sometype Mono";
     
 }
 
@@ -238,7 +285,8 @@
     transform: translate(-50% ,-50%)scale(1) ;
 }
 
-.popup .slideshow-container{                /*slideshow contaner in the popup windwo*/
+/*slideshow contaner in the popup windwo*/
+/* .popup .slideshow-container{                
     width: 100%;
     position: relative;
     top: 10px;
@@ -296,7 +344,70 @@
 .next:hover , .prev:hover{
     background: #848485;
     cursor: pointer;
-}
+} */
+
+
+#slideshow-container {
+    width: 93%;
+    height: 400px;
+    position: relative;
+    margin-top: 10px;
+    z-index: -1;
+    left: 3.5%;
+
+  }
+
+  .mySlides {
+    /* display: none; */
+    width: 100%;
+  }
+  .mySlides img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid red;
+    border-radius: 10px;
+  }
+
+  .img-text {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    font-size: 20px;
+    color: white;
+  }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  
+
+  .active {
+    background-color: #717171;
+  }
 
 .room-amenities{
     position: relative;

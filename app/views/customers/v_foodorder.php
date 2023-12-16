@@ -53,7 +53,7 @@
             <?php
                 foreach($data[0] as $item){ ?>
                     
-                    <form id='addToCart' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
+                    <form id='<?php echo $item->item_id.'formID';?>' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
                         <div class='foodorder-items'>
                             <img src='<?php echo URLROOT;?>/public/img/food_items/<?php echo $item->image;?>.jpg' alt='<?php echo $item->image;?>'><input type='hidden' name='image' value='<?php echo $item->image;?>'>
                             <div class='food-title'>                                                                                                <input type='hidden' name='id'  value='<?php echo $item->item_id;?>'>
@@ -61,9 +61,12 @@
                                 <br><span class='food-price'><?php echo $item->price;?>LKR</span>                                                   <input type='hidden' name='item_price' value='<?php echo $item->price;?>'>
                             </div>
                             <div class='addto-cart'>
-                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id;?>')" >-</button>    <input type="text" class="qty" id="<?php echo $item->item_id;?>" name='quantity' value="0">
-                                <button class="increase" onclick="Increase('<?php echo $item->item_id;?>')" >+</button>
-                                <button type="submit" class="addtocart-btn" onclick="addtoCart('<?php echo $item->item_id;?>')">Add to Cart</button>        
+                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id.'ID';?>',event)" >-</button> 
+                                <input type="text" class="qty" id="<?php echo $item->item_id.'ID';?>" name='quantity' value="1" >
+                        
+                                <button class="increase" onclick="Increase('<?php echo $item->item_id.'ID';?>',event)" >+</button>
+                                <button class="addtocart-btn" >Add to Cart</button>
+                                <!-- <input type="submit"  class="addtocart-btn" value="Add to Cart" > -->
                             </div>
                         </div>
                     </form>
@@ -122,7 +125,10 @@
 
 
  <script>
+    
+    
         $(document).ready(function () {
+            console.log("run in akjax")
             $("form").submit(function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
@@ -146,8 +152,14 @@
                 });
             });
         });
-</script>>
 
+
+
+
+
+        
+</script>>
+    totalcartItems()
     <!-- <script>
         $(document).ready(function () {
             $(".ajx").submit(function (event) {
