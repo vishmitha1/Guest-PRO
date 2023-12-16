@@ -1,6 +1,13 @@
 /*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
-
-
+*{
+    display: auto;
+    font-family: 'Poppins',sans-serif;
+}
+body{
+    margin: 0;
+    width: 100vw;
+    font-family: 'Poppins',sans-serif;
+}
 
 /* CSS for the dashboard section */
 .dashboard {

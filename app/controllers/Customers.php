@@ -12,6 +12,7 @@
 
         public function dashboard(){
             $data =[  ];
+
             $this->view("v_test",$data);
             $output=$this->userModel->checkroomavailability($data);
             foreach ($output as $item){
@@ -21,6 +22,7 @@
             print_r($output);
             
         }
+
 
         
 
