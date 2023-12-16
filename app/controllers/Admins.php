@@ -4,22 +4,22 @@
 
         public function dashboard(){
             $data =[  ];
-            $this->view('admin/admin_dashboard', $data);
+            $this->view('admins/v_dashboard.php', $data);
         }
 
         public function staffaccounts(){
             $data =[  ];
-            $this->view('admin/admin_staffaccounts', $data);
+            $this->view('admins/v_staffaccounts.php', $data);
         }
 
         public function useraccounts(){
             $data =[  ];
-            $this->view('admin/admin_useraccounts', $data);
+            $this->view('admins/v_generatereports.php', $data);
         }
 
         public function accountlogs(){
             $data =[  ];
-            $this->view('admin/admin_accountlogs', $data);
+            $this->view('admins/v_accountlogs.php', $data);
         }
 
     }
