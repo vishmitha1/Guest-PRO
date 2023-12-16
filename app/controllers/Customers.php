@@ -12,8 +12,7 @@
 
         public function dashboard(){
             $data =[  ];
-            ;
-        }
+
 
         
 
