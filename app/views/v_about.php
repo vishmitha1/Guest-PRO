@@ -10,7 +10,7 @@
 <body>
    
     <header class="header">
-        <a href="?php echo URLROOT ;?>/Home" class="logo">Logo</a>
+        <a href="?php echo URLROOT ;?>/Home" class="logo"><h2>Guest Pro</h2></a>
         <nav class="nav">
             <a href="#">Home</a>
             <a href="#">About</a>

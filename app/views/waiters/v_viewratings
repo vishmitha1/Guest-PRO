@@ -1,1 +1,0 @@
-<?php   require APPROOT. "/views/includes/components/sidenavbar_waiter.php" ?>

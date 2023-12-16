@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
+
+ @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Poppins:wght@100;500&family=Sometype+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sriracha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 .side-bar{
     position:fixed;
     background-color: #002447;
@@ -7,8 +9,9 @@
     height: 100vh;
     top: 0;
     left: 0;
-    width: 325px;
+    width: 275px;
     font-family: "poppins", sans-serif;
+    font-weight: 100;
     /* padding: 2.7rem 3rem 0 2rem; */
    
 
@@ -44,17 +47,18 @@
 
 }
 
-.side-bar a:hover {
-    color: #ecda0a;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
+.active, .link-items a:hover  {
+    background: #003366;  
 }
+
+
 
  .logout{
     position: absolute;
     width: 15%;
     margin-top: 5%;
     margin-left: 5%;
+    bottom: 2%;
     
 }
 
@@ -74,24 +78,23 @@
 }
 .home {
     position: relative;
-    left: 325px;
-    width: calc(100% - 325px);
+    left: 275px;
+    width: calc(100% - 275px);
     top: 0;
-    background: #ebedef;
+    /* background: #0074e8; */
+    background: #ffffff;
     
     /* padding-left: 25px; */
     /* padding-bottom: 5rem; */
   }
 .profile{
     top: 0;
-    left: 75%;
-    width: 200px;
+    width: 100%;
+    border: 2px solid black;
     height: 70px;
     margin-top: 5px;
     position: relative;
-    
-  
-   
+    margin-bottom: 20px; 
 }
 
 .profile a {
@@ -100,6 +103,8 @@
     text-decoration: none;
     color: #000000;
     font-size: 25px;
+    left: 85%;
+    
 }
 .profile i {
     margin-top: 10px;

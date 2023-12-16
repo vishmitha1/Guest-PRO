@@ -9,10 +9,11 @@
 
         //register user
         public function register($data){
-            $this->db->query('Insert into users(name ,email ,password) VALUES(:name ,:email ,:password)');
+            $this->db->query('Insert into users(name ,email ,password,role) VALUES(:name ,:email ,:password , :role)');
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':email',$data['email'] );
             $this->db->bind(':password',$data['password'] );
+            $this->db->bind(':role',"customer" );
 
             if($this->db->execute()){
                 return true;
@@ -51,6 +52,34 @@
                 return false;
             }
         }
+
+        public function findEmployeeByEmail($email){
+            $this->db->query("SELECT * FROM employees WHERE email = :email");
+            $this->db->bind(':email',$email);
+            $row = $this->db->single();
+
+            if($this->db->rowCount() > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        public function loginemployee($email,$password){
+            $this->db->query('SELECT * from employees WHERE email= :email');
+            $this->db->bind(':email',$email );
+            
+            $row = $this->db->single();
+            
+            if(password_verify($password,$row->password)){
+                return $row->role;
+            }
+            else{
+                return false;
+            }
+        }
+        
 
 
     }

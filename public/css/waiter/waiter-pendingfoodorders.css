@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
+.side-bar{
+    position:fixed;
+    background-color: #002447;
+    /* background-color: #003366; */
+    height: 100vh;
+    top: 0;
+    left: 0;
+    width: 275px;
+
+    font-family: "poppins", sans-serif;
+    /* padding: 2.7rem 3rem 0 2rem; */
+   
+
+    
+}
+
+.side-bar a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    display: block;
+    padding: 5% ;
+    text-align:left;
+    transition: .3s;
+    font-size: 20px;
+}
+
+
+.links{
+    margin-top: 6%;
+    margin-left: 10%;
+}
+
+
+
+.links i{
+    margin-right: 6%;
+    direction: none;
+}
+
+.logo{
+    padding: 2% 4%;
+    background-color: #003366;
+
+}
+
+.link-items:hover {
+    background: #003366;
+}
+
+ .logout{
+    position: absolute;
+    width: 15%;
+    margin-top: 5%;
+    margin-left: 5%;
+    bottom: 2%;
+    
+}
+
+.logout button{
+    margin-left: 50px;
+    padding: 5px 30px;
+    background-color: #ecda0a;
+    border-radius: 20px;
+}
+
+.logout button:hover{
+    background-color: #003366;
+    color: #ecda0a;
+    border: 1px solid #ecda0a;
+    transition: .3s;
+
+}
+.home {
+    position: relative;
+    left: 275px;
+    width: calc(100% - 275px);
+    top: 0;
+    /* background: #0074e8; */
+    background: #ffffff;
+    
+    /* padding-left: 25px; */
+    /* padding-bottom: 5rem; */
+  }
+.profile{
+    top: 0;
+    left: 75%;
+    width: 200px;
+    height: 70px;
+    margin-top: 5px;
+    position: relative;
+    
+  
+   
+}
+
+.profile a {
+    margin-top: 10px;
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+}
+.profile i {
+    margin-top: 10px;
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+}
+
+
+/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
+
+
+
+/* CSS for the dashboard section */
+.dashboard {
+    margin-left: 275px; /* Adjusted for sidebar width */
+    padding: 20px;
+}
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the user profile section */
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px; /* Adjust the image size */
+    height: 50px; /* Adjust the image size a */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile-info {
+    color: black;
+}
+
+.user-profile-info p {
+    margin: 0;
+}
+
+/* CSS for the search bar */
+.search-bar {
+    margin-top: 20px;
+    display: flex;
+}
+
+.search-bar input[type="text"] {
+    flex: 1; /* Take up available space */
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #E6E7E8; /* Add border to the input field */
+}
+
+.search-bar button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-top-right-radius: 0; /* No rounded corners on the button */
+    border-bottom-right-radius: 0;
+}
+
+.search-bar button:hover {
+    background-color: #002447;
+}
+
+
+.pending-food-orders {
+    color: black;
+    font-size: 18px;
+    margin-top: 20px; /* Add some spacing between subheading and table */
+}
+
+
+
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #E6E7E8;
+    padding: 8px;
+}
+
+

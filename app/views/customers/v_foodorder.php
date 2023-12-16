@@ -2,84 +2,179 @@
 
 <div class="home">
 
-
-    <div class="foodorder-form">
-        <div class="main-title">Place Food Order</div>
-        <div class="foodorder-form-wrapper">
-            <form action="<?php echo URLROOT;?>/Customers/foodorder" method="POST" >
-                
-                <span class="form-title">Select Item:</span>
-                <div class="foodorder-field">
-                    <select name="food" id="food">
-                        <option value="sandwitch">Sandwitch</option>
-                        <option value="friderice">FriedRice</option>
-                        <option value="kottu">Kottu</option>
-                    </select>
-                </div>
-                <span class="form-title">Quantity:</span>
-                <div class="foodorder-field">
-                    <input type="text" name="quantity" >
-                </div>
-                <span class="form-title">Add note:</span>
-                <div class="foodorder-field">
-                    
-                    <textarea id="note" name="note" rows="4" cols="50"></textarea>
-                </div>
-                
-                
-
-                <div class="foodorder-button">
-                    <input type="submit" name="submit" value="Procceed">
-                </div>
-    
-            </form>
-
-        </div>
-    </div>
-
-
-        <div class="foodorder-table-warpper">
-            <div class="main-title">Food orders</div>
-            <div class="foodorder-table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th hidden >orderid</th>
-                            <th>Item Name</th>
-                            <th>Date</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>    
-                        <tbody>
-                            <?php
-                                foreach ($data as $item) {
-                                    echo "
-                                    <tr>
-                                        <td hidden>{$item->order_id}</td>
-                                        <td>{$item->item_name}</td>
-                                        <td>{$item->date}</td>
-                                        <td>{$item->quantity}</td>
-                                        <td>{$item->status}</td>
-                                        ";
-                                    if($item->status =="Preparing" || $item->status =="Prepared" || $item->status =="Delivered"){
-                                        echo "<td><button type='submit'  class='light-blue'>Complete</button></td>
-                                        </tr>";
-                                    }
-                                    else{
-                                        echo "<td> <a href='updatefoodorder/{$item->item_name}/{$item->quantity}/{$item->order_id}'><button type='submit' class='light-green'>Edit</button></a>
-                                                   <a href='deleteorder/{$item->order_id}'><button type='submit' class='light-perple'>Delete</button></a> </td>
-                                        </tr>";
-                                    }
-                                }
-                            ?>
-                            
-                            
-                        </tbody>
-                       
-                    
-                </table>
+        <div class="cart-inUI" onclick="togglePopup()"  >
+            <!-- <i class="fa-solid fa-cart-shopping fa-2xl"></i> -->
+            <!-- <span class="material-symbols-outlined">shopping_cart</span> -->
+            <input type="hidden" name="cart_popup">
+            <div class="img" ><img src="<?php echo URLROOT;?>/public/img/svgs/shopping_cart.svg" class="svg-large" ></img></div>
+            <div class="cart-total">
+                <span id="Cart-item-Count" ><?php echo $data[1]->{'COUNT(*)'};?></span>
             </div>
         </div>
+            <!-- <form id="cartForm" method="POST" action="Customers">
+            <div class="cart-inUI" onclick="togglePopup()" >
+                <div class="img" >
+                    <img src="<?php echo URLROOT;?>/public/img/svgs/shopping_cart.svg" class="svg-large" ></img>
+                </div>
+                <div class="cart-total">
+                    <span id="cartTotal">25</span>
+                </div>
+            </div>
+
+            <input type="hidden" id="cartPopup" name="cart_popup" value="0">
+            </form> -->
+           
+    <div class="foodorder-container">
+        <div class="main-title">
+            <!-- Today's Tastes , Menu Marvels,Flavor Fiesta -->
+            <span>Flavors of the Day  </span>
+        </div>
+        <div class="foodorder-wrapper">
+        
+            <!-- <?php
+                foreach($data[0] as $item){ 
+                    
+                    echo "
+                    <form class='ajx' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
+                    <div class='foodorder-items'>
+                        <img src='http://localhost/GuestPro/public/img/food_items/{$item->image}.jpg' alt='$item->name'><input type='hidden' name='image' value='$item->image'>
+                        <div class='food-title'>
+                            {$item->name}<input type='hidden' name='item_name' value='$item->name'>
+                            <br><span class='food-price'>{$item->price}LKR</span><input type='hidden' name='item_price' value='$item->price'>
+                            <input type='hidden' name='id'  value='$item->item_id'>
+                        </div>
+                        <div class='addto-cart'>
+                            <input  type='submit' name='add_to_cart' value='Add To Cart'>
+                        </div>
+                    </div>
+                    </form>";
+                }
+            ?> -->
+            <?php
+                foreach($data[0] as $item){ ?>
+                    
+                    <form id='addToCart' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
+                        <div class='foodorder-items'>
+                            <img src='<?php echo URLROOT;?>/public/img/food_items/<?php echo $item->image;?>.jpg' alt='<?php echo $item->image;?>'><input type='hidden' name='image' value='<?php echo $item->image;?>'>
+                            <div class='food-title'>                                                                                                <input type='hidden' name='id'  value='<?php echo $item->item_id;?>'>
+                                <?php echo $item->name;?>                                                                                           <input type='hidden' name='item_name' value='<?php echo $item->name;?>'>
+                                <br><span class='food-price'><?php echo $item->price;?>LKR</span>                                                   <input type='hidden' name='item_price' value='<?php echo $item->price;?>'>
+                            </div>
+                            <div class='addto-cart'>
+                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id;?>')" >-</button>    <input type="text" class="qty" id="<?php echo $item->item_id;?>" name='quantity' value="0">
+                                <button class="increase" onclick="Increase('<?php echo $item->item_id;?>')" >+</button>
+                                <button type="submit" class="addtocart-btn" onclick="addtoCart('<?php echo $item->item_id;?>')">Add to Cart</button>        
+                            </div>
+                        </div>
+                    </form>
+                <?php } ?>
+            
+            
+        </div>
+        
+        
+    </div>
+    
+
+
+
+        <div class="cart-popup" id="popup-1">
+            <div class="overplay"></div>
+            <div class="content">
+                <div class="header"  >
+                    <span  class="title" >My Cart</span>
+                    <div class="close-btn">
+                        <img src="<?php echo URLROOT;?>/public/img/svgs/solid/xmark.svg" class="svg-medium" onclick="closePopup()" ></img>  
+                    </div>
+                </div>
+                <div class="cart-content">
+                    <table id="cart-table" >
+                    <tbody>
+                        
+                    </tbody>
+                     
+                    </table> 
+                    
+                    <div class="total-cost">
+                        <div class="total-cost-title">
+                            <span>Number of items (2)</span><br>
+                            <span>Tostal Cost</span>
+                        </div>
+                        <div class="total-cost-value">
+                            <span></span> <br>
+                            <span class="value" >2500LKR</span>
+                            <div class="place-order">
+                            <button>PlaceOrder</button>
+                        </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+        
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+
+ <script>
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Serialize form data
+                var formData = $(this).serialize();
+
+                // Perform AJAX submission
+                $.ajax({
+                    type: $(this).attr("method"),
+                    url: $(this).attr("action"),
+                    data: formData,
+                    success: function (response) {
+                        totalcartItems();
+                        // Handle the response as needed
+                        // console.log(response);
+                    },
+                    error: function (error) {
+                        // Handle errors if any
+                        console.error(error);
+                    }
+                });
+            });
+        });
+</script>>
+
+    <!-- <script>
+        $(document).ready(function () {
+            $(".ajx").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Serialize form data
+                var formData = $(this).serialize();
+
+                // Perform AJAX submission
+                $.ajax({
+                    type: $(this).attr("method"),
+                    url: $(this).attr("action"),
+                    data: formData,
+                    success: function (response) {
+                        // Handle the response as needed
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        // Handle errors if any
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script> -->
+
+
+    
+
+

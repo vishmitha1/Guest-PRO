@@ -98,7 +98,7 @@
                 }
                 else{
                     //check email is exist or not
-                    if(($this->userModel->findUserByEmail($data['email']) )){
+                    if(($this->userModel->findUserByEmail($data['email']) || $this->userModel->findEmployeeByEmail($data['email']))){
                         //user found
                         
                     }
@@ -115,22 +115,22 @@
 
                 else{
                     if(empty($data['password_err']) && empty($data['email_err'])){
-                        //can login
-                        
-                        $loggeduser=$this->userModel->login($data['email'],$data['password']);
-                       
-                        if($loggeduser){
-                            //authentic user
-                            //can create user sessions
-                            redirect("Customers/reservatio");
-                            
-                        }
 
+                        //can login
+                        $loggeduser=$this->userModel->login($data['email'],$data['password']);
+                            
+                        if($loggeduser ){
+                        
+                            $this->createUsersession($loggeduser);
+                        }    
                         else{
                             $data['password_err']= 'Password incorrect';
                             //load login again with erros
                             $this->view('users/v_login',$data);
-                        }
+                                }
+                            
+
+
                     }
                     else{
                         //load login view again
@@ -153,6 +153,50 @@
                 $this->view('users/v_login', $data);
             }
         }
+
+        public function createUsersession($user){
+            $_SESSION['user_id']=$user ->id;
+            $_SESSION['username']= $user -> name;
+            $_SESSION['email']= $user -> email;
+            $_SESSION['role']= $user -> role;
+
+            if($_SESSION['role'] == "admin"){
+                redirect("Admins/staffaccounts/". $_SESSION['username']);
+            }
+            elseif($_SESSION['role'] == "waiter"){
+                redirect("Waiters/pendingfoodorders/". $_SESSION['username']);
+            }
+            elseif($_SESSION['role'] == "receptionist/". $_SESSION['username']){
+                redirect("Receptionists/reservation");
+            }
+            elseif($_SESSION['role'] == "supervisor/". $_SESSION['username']){
+                redirect("Supervisors/servicerequest");
+            }
+            elseif($_SESSION['role'] == "kitchen"){
+                redirect("Kitchen/foodmenu/". $_SESSION['username']);
+            }
+            elseif($_SESSION['role'] == "customer"){
+                redirect("Customers/reservation/". $_SESSION['username'].'/'.$_SESSION['user_id']);
+            }
+            elseif($_SESSION['role'] == "manager"){
+                redirect("Managers/roomdetails/". $_SESSION['username']);
+            }
+
+        }
+
+        public function logout(){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['username']);
+            unset($_SESSION['email']);
+            unset($_SESSION['role']);
+
+            session_destroy();
+            redirect('Users/login');
+
+        }
+
+
+        
         
 
 
