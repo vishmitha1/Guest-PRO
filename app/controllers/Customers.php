@@ -10,7 +10,7 @@
 
         public function dashboard(){
             $data =[  ];
-            $this->view('customers/v_dashboard', $data);
+            $this->view('customers/v_reservation', $data);
         }
 
         public function reservation(){
