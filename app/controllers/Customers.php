@@ -12,7 +12,14 @@
 
         public function dashboard(){
             $data =[  ];
-            ;
+            $this->view("v_test",$data);
+            $output=$this->userModel->checkroomavailability($data);
+            foreach ($output as $item){
+                $item->roomNo = explode(',', $item->roomNo);
+            }
+            // $output['roomNo'] = explode(',', $output['roomNo']);
+            print_r($output);
+            
         }
 
         
@@ -27,6 +34,7 @@
                     'indate' =>trim($_POST['indate']),
                     'outdate' => trim($_POST['outdate']),
                     'roomcount' => trim($_POST['roomcount']),
+                    'roomNo' => trim($_POST['roomno']),
 
                     'user_id_err'=>'',
                     'payment_type_err' => '',
@@ -44,7 +52,7 @@
                     }
                     elseif($data['payment_type']=='paylater'){
                         if($this->userModel->placereservation($data)){
-
+                            redirect("Customers/reservation");
                         }
                     }
                 }
@@ -106,7 +114,9 @@
                                 // print_r($this->userModel->checkroomavailability($data));
                                 // $this->view('customers/v_reservation', $this->userModel->checkroomavailability($data));
                                 // Clear output buffer
-                                
+                                foreach ($output as $item){
+                                    $item->roomNo = explode(',', $item->roomNo);
+                                }
                                 header('Content-Type: application/json');
                                echo json_encode($output);
                                      
@@ -146,6 +156,7 @@
            
         }
 
+        
         
         
         public function bill(){
