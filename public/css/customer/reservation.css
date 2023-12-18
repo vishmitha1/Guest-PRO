@@ -579,6 +579,17 @@
 }
 
 
+/* Data retrive */
+.empty-data-retrive{
+    position: relative;
+    text-align: center;
+}
+
+.empty-data-retrive p{
+    font-size: 40px;
+}
+
+
 
 
 

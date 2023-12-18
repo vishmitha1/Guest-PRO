@@ -143,13 +143,15 @@
                             'roomcount' => '',
                             'out_date' => '',
                             'outdate' => '',
+                            'user_id'=>$_SESSION['user_id'],
+
                             'roomcount_err' => '',
                             'out_date_err' => '',
                             'outdate_err' => '',
                             
                         ];
                         
-                         $this->view('customers/v_reservation', $data);
+                         $this->view('customers/v_reservation',$this->userModel->retriveReservations($data));
                         // $this->view('v_test', $data);
                         // print_r( $this->userModel->checkroomavailability($data));
                         

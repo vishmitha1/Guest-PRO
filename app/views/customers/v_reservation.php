@@ -31,7 +31,7 @@
         <div class="search-result">
             <div id="roomListContainer" class="result-component">
                 
-            <div class="search-result-container">
+            <!-- <div class="search-result-container">
                 <div class="result-component-wrapper">
                     <div class="room-img">
                         <img src="<?php echo URLROOT;?>/public/img/rooms/room1.jpg" alt="">
@@ -58,9 +58,7 @@
                             </div>
                             <div class="room-reviews">
                                 <button>1250 reveiws</button>
-                                <!-- <div class="reserve">
-                                    <button>Reserve</button>
-                                </div> -->
+                                
                             </div>
                             
                         
@@ -76,7 +74,7 @@
                     
                     
                 </div>
-            </div>    
+            </div>     -->
                 
             </div>
 
@@ -372,9 +370,23 @@
             
             
         </div>
+        <?php if(empty($data)){ ?>
 
-        
-        
+            <div class="empty-data-retrive">
+                <p>You haven't any reservations</p>
+                <div class="imag">
+                <span class="material-symbols-outlined">sentiment_dissatisfied</span>
+                </div>
+            </div>
+            
+        <?php } 
+
+            else{ ?>
+
+                data have
+
+        <?php }?>  
+
         
     </div>
 
