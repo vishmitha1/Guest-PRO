@@ -120,17 +120,35 @@
                                             GROUP BY
                                                 RankedRooms.category, roomtype.price, roomtype.roomImg; ;");
             $this->db->bind('avail','yes');
-            $this->db->bind('count',2);
+            $this->db->bind('count',$data['roomcount']);
             $row=$this->db->resultSet();
             return $row;
         }
 
         public function placereservation($data){
-            $this->db->query('INSERT INTO reseravtions user_id,checkIn,checkOut VALUES(:id,:indate,:outdate)');
+            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo) VALUES(:id,:indate,:outdate,:roomNo)');
             $this->db->bind('id',$data["user_id"]);
             $this->db->bind('indate',$data["indate"]);
             $this->db->bind('outdate',$data["outdate"]);
-            // $this->db->bind('cost',$data["cost"]);
+            $this->db->bind('roomNo',$data["roomNo"]);
+            
+            if($this->db->execute()){
+                if($this->changeRoomAvailability($data)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+                
+            }
+            else{
+                return false;
+            }
+        }
+        public function changeRoomAvailability($data){
+            $this->db->query('UPDATE rooms SET availability = :avail WHERE roomNo=:roomNo');
+            $this->db->bind('roomNo',$data["roomNo"]);
+            $this->db->bind('avail','no');
             if($this->db->execute()){
                 return true;
             }
@@ -138,6 +156,18 @@
                 return false;
             }
         }
+
+        
+        public function retriveReservations($data){
+            $this->db->query("SELECT * FROM reservations WHERE user_id=:id LIMIT 5");
+            $this->db->bind(':id',$data['user_id']);
+            
+            $row = $this->db->resultSet();
+           
+            return $row;
+        }
+
+       
        
 
         

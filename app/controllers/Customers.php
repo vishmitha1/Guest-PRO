@@ -13,6 +13,16 @@
         public function dashboard(){
             $data =[  ];
 
+            $this->view("v_test",$data);
+            $output=$this->userModel->checkroomavailability($data);
+            foreach ($output as $item){
+                $item->roomNo = explode(',', $item->roomNo);
+            }
+            // $output['roomNo'] = explode(',', $output['roomNo']);
+            print_r($output);
+            
+        }
+
 
         
 
@@ -26,6 +36,7 @@
                     'indate' =>trim($_POST['indate']),
                     'outdate' => trim($_POST['outdate']),
                     'roomcount' => trim($_POST['roomcount']),
+                    'roomNo' => trim($_POST['roomno']),
 
                     'user_id_err'=>'',
                     'payment_type_err' => '',
@@ -43,7 +54,7 @@
                     }
                     elseif($data['payment_type']=='paylater'){
                         if($this->userModel->placereservation($data)){
-
+                            redirect("Customers/reservation");
                         }
                     }
                 }
@@ -105,7 +116,9 @@
                                 // print_r($this->userModel->checkroomavailability($data));
                                 // $this->view('customers/v_reservation', $this->userModel->checkroomavailability($data));
                                 // Clear output buffer
-                                
+                                foreach ($output as $item){
+                                    $item->roomNo = explode(',', $item->roomNo);
+                                }
                                 header('Content-Type: application/json');
                                echo json_encode($output);
                                      
@@ -130,13 +143,15 @@
                             'roomcount' => '',
                             'out_date' => '',
                             'outdate' => '',
+                            'user_id'=>$_SESSION['user_id'],
+
                             'roomcount_err' => '',
                             'out_date_err' => '',
                             'outdate_err' => '',
                             
                         ];
                         
-                         $this->view('customers/v_reservation', $data);
+                         $this->view('customers/v_reservation',$this->userModel->retriveReservations($data));
                         // $this->view('v_test', $data);
                         // print_r( $this->userModel->checkroomavailability($data));
                         
@@ -145,6 +160,7 @@
            
         }
 
+        
         
         
         public function bill(){
