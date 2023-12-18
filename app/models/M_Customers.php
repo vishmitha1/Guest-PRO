@@ -157,6 +157,16 @@
             }
         }
 
+        
+        public function retriveReservations($data){
+            $this->db->query("SELECT * FROM reservations WHERE user_id=:id LIMIT 5");
+            $this->db->bind(':id',$data['user_id']);
+            
+            $row = $this->db->resultSet();
+           
+            return $row;
+        }
+
        
        
 
