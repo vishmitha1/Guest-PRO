@@ -374,7 +374,7 @@
 
             <div class="empty-data-retrive">
                 
-                <p> <span> OOPS! <br> </span>You haven't any reservations</p>
+                <p> <span> OOPS! <br> </span>You don't have  any reservations</p>
                 
                 <div class="imag">
                 <span class="material-symbols-outlined">sentiment_dissatisfied</span>
@@ -389,17 +389,26 @@
                 <h2>Reservation History</h2>
                 <ul class="responsive-table">
                     <li class="table-header">
-                    <div class="col col-1">Job Id</div>
-                    <div class="col col-2">Customer Name</div>
-                    <div class="col col-3">Amount Due</div>
-                    <div class="col col-4">Payment Status</div>
+                    <div class="col col-1">Reservation Id</div>
+                    <div class="col col-2">Room No</div>
+                    <div class="col col-3">CheckIn Date</div>
+                    <div class="col col-4">CheckOut Date</div>
+                    <div class="col col-5">Action</div>
                     </li>
                     <?php foreach($data as $item){ ?>
                     <li class="table-row">
-                    <div class="col col-1" data-label="Job Id"><?php echo $item->reservation_id; ?></div>
-                    <div class="col col-2" data-label="Customer Name"><?php echo $item->roomNo; ?></div>
-                    <div class="col col-3" data-label="Amount"><?php echo $item->checkIn; ?></div>
-                    <div class="col col-4" data-label="Payment Status"><?php echo $item->checkOut; ?></div>
+                    <div class="col col-1" data-label="Reservation Id"><?php echo $item->reservation_id; ?></div>
+                    <div class="col col-2" data-label="Room No"><?php echo $item->roomNo; ?></div>
+                    <div class="col col-3" data-label="CheckIn Date"><?php echo $item->checkIn; ?></div>
+                    <div class="col col-4" data-label="CheckOut Date"><?php echo $item->checkOut; ?></div>
+                    <div class="col col-5" data-label="Action">
+                        <!-- <button id='<?php echo $item->reservation_id; ?>' onclick="deleteReservation('<?php echo $item->reservation_id; ?>')" ><i class='fa-solid fa-trash fa-lg'></i></button> -->
+                        <form action="<?php echo URLROOT;?>/Customers/deleteReservation" method='POST' >
+                            <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id; ?>">
+                            <input type="hidden" name="roomNo" value="<?php echo $item->roomNo; ?>">
+                            <button type="submit" name="delete" ><i class='fa-solid fa-trash fa-lg'></i></button>
+                        </form>
+                    </div>
                     </li>
                     <?php } ?>
                     
