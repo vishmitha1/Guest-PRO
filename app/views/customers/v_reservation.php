@@ -427,8 +427,18 @@
                 var indate=document.getElementById('indate').value;
                 var outdate=document.getElementById('outdate').value;
                 var roomcount=document.getElementById('roomcount').value;
+                
                 var reservationRetrive=document.getElementsByClassName('empty-data-retrive');
                 reservationRetrive[0].style.display='none';
+                var reservationRetrive2=document.getElementsByClassName('data-retrive');
+                console.log(reservationRetrive2.length);
+                if(reservationRetrive2.length>0){
+                    reservationRetrive2[0].style.display='none';
+                }
+                
+                // reservationRetrive2[0].style.display='none';
+                // console.log(reservationRetrive2);
+            
                 
                 
                 
