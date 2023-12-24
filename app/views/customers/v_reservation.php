@@ -18,8 +18,8 @@
                 <table   >
                     <tr>
                         <form id="search-form" action="<?php echo URLROOT;?>/Customers/reservation" method="POST" >
-                        <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date"></th>
-                        <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date"></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date" value='2023-09-14' ></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date" value='2023-09-17'></th>
                         <th><div class="img"><i class="fa-solid fa-people-group"></i></div><input type="text" id="roomcount" name="roomcount" placeholder="Details"></th>
                         <th><div class="img"></div><button type="submit" >Submit</button></th>
                         </form>
@@ -373,7 +373,9 @@
         <?php if(empty($data)){ ?>
 
             <div class="empty-data-retrive">
-                <p>You haven't any reservations</p>
+                
+                <p> <span> OOPS! <br> </span>You don't have  any reservations</p>
+                
                 <div class="imag">
                 <span class="material-symbols-outlined">sentiment_dissatisfied</span>
                 </div>
@@ -383,7 +385,35 @@
 
             else{ ?>
 
-                data have
+                <div class="data-retrive">
+                <h2>Reservation History</h2>
+                <ul class="responsive-table">
+                    <li class="table-header">
+                    <div class="col col-1">Reservation Id</div>
+                    <div class="col col-2">Room No</div>
+                    <div class="col col-3">CheckIn Date</div>
+                    <div class="col col-4">CheckOut Date</div>
+                    <div class="col col-5">Action</div>
+                    </li>
+                    <?php foreach($data as $item){ ?>
+                    <li class="table-row">
+                    <div class="col col-1" data-label="Reservation Id"><?php echo $item->reservation_id; ?></div>
+                    <div class="col col-2" data-label="Room No"><?php echo $item->roomNo; ?></div>
+                    <div class="col col-3" data-label="CheckIn Date"><?php echo $item->checkIn; ?></div>
+                    <div class="col col-4" data-label="CheckOut Date"><?php echo $item->checkOut; ?></div>
+                    <div class="col col-5" data-label="Action">
+                        <!-- <button id='<?php echo $item->reservation_id; ?>' onclick="deleteReservation('<?php echo $item->reservation_id; ?>')" ><i class='fa-solid fa-trash fa-lg'></i></button> -->
+                        <form action="<?php echo URLROOT;?>/Customers/deleteReservation" method='POST' >
+                            <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id; ?>">
+                            <input type="hidden" name="roomNo" value="<?php echo $item->roomNo; ?>">
+                            <button type="submit" name="delete" ><i class='fa-solid fa-trash fa-lg'></i></button>
+                        </form>
+                    </div>
+                    </li>
+                    <?php } ?>
+                    
+                </ul>
+                </div>
 
         <?php }?>  
 
@@ -406,6 +436,19 @@
                 var indate=document.getElementById('indate').value;
                 var outdate=document.getElementById('outdate').value;
                 var roomcount=document.getElementById('roomcount').value;
+                
+                var reservationRetrive=document.getElementsByClassName('empty-data-retrive');
+                reservationRetrive[0].style.display='none';
+                var reservationRetrive2=document.getElementsByClassName('data-retrive');
+                console.log(reservationRetrive2.length);
+                if(reservationRetrive2.length>0){
+                    reservationRetrive2[0].style.display='none';
+                }
+                
+                // reservationRetrive2[0].style.display='none';
+                // console.log(reservationRetrive2);
+            
+                
                 
                 
                 // Serialize form data
