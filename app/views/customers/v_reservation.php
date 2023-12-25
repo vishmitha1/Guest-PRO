@@ -28,6 +28,8 @@
             </div>
         </div>
 
+        
+
         <div class="search-result">
             <div id="roomListContainer" class="result-component">
                 
@@ -438,9 +440,12 @@
                 var roomcount=document.getElementById('roomcount').value;
                 
                 var reservationRetrive=document.getElementsByClassName('empty-data-retrive');
-                reservationRetrive[0].style.display='none';
+                if(reservationRetrive.length>0){
+                    reservationRetrive[0].style.display='none';
+                }
                 var reservationRetrive2=document.getElementsByClassName('data-retrive');
-                console.log(reservationRetrive2.length);
+                
+                
                 if(reservationRetrive2.length>0){
                     reservationRetrive2[0].style.display='none';
                 }
@@ -477,7 +482,9 @@
                         response.forEach(item => {
                             item.roomImg=item.roomImg.split(',')
                             // item.roomNo=item.roomNo.split(',')
-                            console.log(item.roomNo);
+                            var roomNumbers=item.roomNo;
+                            
+                            
                             const roomComponent = document.createElement("div");
                             roomComponent.classList.add("result-component-wrapper");
                             
@@ -587,6 +594,7 @@
                         </div>
                     </div>
                     <div id="slideshow-container">
+                    
                         <div class="mySlides"  >
                         <img src="<?php echo URLROOT;?>/public/img/rooms/`+item.roomImg[0]+`.jpg" alt="">
                         </div>
@@ -598,6 +606,12 @@
 
                         <div class="mySlides">
                         <img src="<?php echo URLROOT;?>/public/img/rooms/`+item.roomImg[2]+`.jpg" alt="">
+                        </div>
+                        <div class="mySlides">
+                        <img src="<?php echo URLROOT;?>/public/img/rooms/`+item.roomImg[3]+`.jpg" alt="">
+                        </div>
+                        <div class="mySlides">
+                        <img src="<?php echo URLROOT;?>/public/img/rooms/`+item.roomImg[4]+`.jpg" alt="">
                         </div>
 
                         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -701,8 +715,16 @@
                             <div class="payment-content">
                                 <div class="left-box">
                                     <p class="termsandcon"><a href="">Terms and Condition <i class="fa-solid fa-circle-info"></i></a></p>
-                                    <p class="duration"><i class="fa-solid fa-moon"></i>  1 Night</p>
-                                    <p class="duration"><span class="material-symbols-outlined">bed</span>  1 Room</p><br>
+                                    <p class="duration"><i class="fa-solid fa-moon"></i>  `+ (Date.parse(outdate) - Date.parse(indate)) / (24 * 3600 * 1000)+` Night</p>
+                                    
+
+                                    <p class="duration"><span class="material-symbols-outlined">bed</span>  `+roomcount+` Room(s)`+ roomNumbers.map((element) =>  
+                                    `<span class="fa-stack ">
+                                        <i class="fa fa-square-o fa-stack-2x"></i>
+                                        <strong class="fa-stack-1x">`+element+`</strong>
+                                    </span>` ).join('') + `
+                                     </p><br>
+
                                     <span class="price">`+price+`LKR</span>
                                     <label>includes taxes & fees</label>
                                     <input type="hidden" name="indate" class='indate2' value='' >
