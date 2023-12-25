@@ -477,6 +477,8 @@
                           var fun1Title,fun2Title,fun3Title,fun4Title;
                           var price,nights,rooms,roomnumber,popupID,dyID;
                           var BedroomAmentitiesList,BathroomAmentitiesList,FurnitureAmentitiesList,EntertainmentAmentitiesList,AdditionalAmentitiesList; 
+                          var intend1,Intend2,Intend3,Intend4,Intend5;
+                          
                         // ... your existing HTML structure for room details ...
 
                         // Populate dynamic content based on fetched data
@@ -490,21 +492,34 @@
                             roomComponent.classList.add("result-component-wrapper");
                             
                             
+                            
                             if(item.category=='Deluxe Room'){
                                 fun1Img="fa-bath"
-                                fun2Img="fa-person-swimming"
+                                fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
                                 fun4Img="fa-bed-pulse"
+                                fun1Title='Hot Tub'
+                                fun2Title='Lavish Bathroom' 
+                                fun3Title='450'
+                                fun4Title='Queen Bed'
                                 mainImg="DeluxeroomMain";
                                 price=item.price;
                                 popupID=item.category+'ID';
                                 dyId=item.category+'dyID';
+
+                                Intend1=`<i class="fa-solid fa-check"></i><span class="intend-name"> Mini Bar</span><br>`;
+                                Intend2=`<i class="fa-solid fa-check"></i><span class="intend-name"> AC</span><br>`;
+                                Intend3=`<i class="fa-solid fa-check"></i><span class="intend-name"> Balcony</span><br>`;
+                                Intend4=`<i class="fa-solid fa-check"></i><span class="intend-name"> Vanity mirror</span><br>`;
+                                Intend5=`<i class="fa-solid fa-xmark"></i><span class="intend-name"> Soundproofed</span><br>`;
+                            
+
                                 BathroomamenitiesList=`
                                                     <ul>
                                                         <li>Ensuite bathroom</li>
                                                         <li>Glass-enclosed shower</li>
                                                         <li>Premium bathrobes</li>
-                                                        <li>Vanity mirror</li>
+                                                        <li></li>
                                                         <li>Rainfall-Shower</li>
                                                     </ul>
                                                 `;
@@ -541,10 +556,21 @@
                                                 `; 
                             }
                             else if(item.category=='Standard Room'){
-                                fun1Img="fa-bath"
-                                fun2Img="fa-person-swimming"
+                                fun1Img="fa-shower"
+                                fun2Img="fa-toilet"
                                 fun3Img="fa-vector-square"
                                 fun4Img="fa-bed-pulse"
+                                fun1Title='Shower'
+                                fun2Title='Complete Bathroom' 
+                                fun3Title='250'
+                                fun4Title='King Bed'
+
+                                Intend1=`<i class="fa-solid fa-xmark"></i><span class="intend-name"> Mini Bar</span><br>`;
+                                Intend2=`<i class="fa-solid fa-check"></i><span class="intend-name"> AC</span><br>`;
+                                Intend3=`<i class="fa-solid fa-check"></i><span class="intend-name"> LCD TV</span><br>`;
+                                Intend4=`<i class="fa-solid fa-check"></i><span class="intend-name"> Luggage rack</span><br>`;
+                                Intend5=`<i class="fa-solid fa-xmark"></i><span class="intend-name"> Soundproofed</span><br>`;
+                               
                                 mainImg='StandardroomMain';
                                 price=item.price;
                                 popupID=item.category+'ID';
@@ -592,9 +618,20 @@
                             }
                             else if(item.category=='Executive Suite'){
                                 fun1Img="fa-bath"
-                                fun2Img="fa-person-swimming"
+                                fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
                                 fun4Img="fa-bed-pulse"
+                                fun1Title='Hot Tub'
+                                fun2Title='Spacious Bathroom' 
+                                fun3Title='550'
+                                fun4Title='Premium King Bed'
+
+                                Intend1=`<i class="fa-solid fa-check"></i><span class="intend-name"> Mini Bar</span><br>`;
+                                Intend2=`<i class="fa-solid fa-check"></i><span class="intend-name"> AC</span><br>`;
+                                Intend3=`<i class="fa-solid fa-check"></i><span class="intend-name"> Workstaion</span><br>`;
+                                Intend4=`<i class="fa-solid fa-check"></i><span class="intend-name"> Balcony</span><br>`;
+                                Intend5=`<i class="fa-solid fa-check"></i><span class="intend-name"> Soundproofed</span><br>`;
+                                
                                 mainImg="ExecutivesuiteMain";
                                 price=item.price;
                                 popupID=item.category+'ID';
@@ -646,9 +683,20 @@
                             }
                             else if(item.category=='Family Room'){
                                 fun1Img="fa-bath"
-                                fun2Img="fa-person-swimming"
+                                fun2Img="fa-toilet"
                                 fun3Img="fa-vector-square"
                                 fun4Img="fa-bed-pulse"
+                                fun1Title='Shower'
+                                fun2Title='Complete Bathroom' 
+                                fun3Title='550'
+                                fun4Title='Multiple beds'
+
+                                Intend1=`<i class="fa-solid fa-xmark"></i><span class="intend-name"> Mini Bar</span><br>`;
+                                Intend2=`<i class="fa-solid fa-check"></i><span class="intend-name"> AC</span><br>`;
+                                Intend3=`<i class="fa-solid fa-check"></i><span class="intend-name"> LCD TV</span><br>`;
+                                Intend4=`<i class="fa-solid fa-check"></i><span class="intend-name"> Luggage rack</span><br>`;
+                                Intend5=`<i class="fa-solid fa-check"></i><span class="intend-name"> Family-themed</span><br>`;
+                            
                                 mainImg="FamilyroomMain";
                                 price=item.price;
                                 popupID=item.category+'ID';
@@ -697,16 +745,27 @@
                             }
                             else if(item.category=='Presidential Suite'){
                                 fun1Img="fa-bath"
-                                fun2Img="fa-person-swimming"
+                                fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
                                 fun4Img="fa-bed-pulse"
+                                fun1Title='Soaking Tub'
+                                fun2Title=' Luxurious Bathroom' 
+                                fun3Title='650'
+                                fun4Title='Premium King Bed'
                                 mainImg="PresidentialsuiteMain";
+
+                                Intend1=`<i class="fa-solid fa-check"></i><span class="intend-name"> Mini Bar</span><br>`;
+                                Intend2=`<i class="fa-solid fa-check"></i><span class="intend-name"> AC</span><br>`;
+                                Intend3=`<i class="fa-solid fa-check"></i><span class="intend-name"> Dining table</span><br>`;
+                                Intend4=`<i class="fa-solid fa-check"></i><span class="intend-name"> Panoramic view</span><br>`;
+                                Intend5=`<i class="fa-solid fa-check"></i><span class="intend-name"> Soundproofed</span><br>`;
+
                                 price=item.price;
                                 popupID=item.category+'ID';
                                 dyId='';
                                 BathroomamenitiesList=`
                                                     <ul>
-                                                        <li>Luxurious ensuite bathroom</li>
+                                                        <li>Ensuite bathroom</li>
                                                         <li>Premium toiletries</li>
                                                         <li>Private sauna or steam room</li>
                                                         <li>Double vanity</li>
@@ -760,20 +819,21 @@
                             <div class="room-type">${item.category}</div>
 
                             <div class="room-functions">
-                                <div><i class="fa-solid `+fun1Img+`"></i><span class="function-name"> Hot tab</span></div>
-                                <!-- <div><i class="fa-solid fa-wifi"></i><span class="function-name"> Wifi</span></div> -->
-                                <div><i class="fa-solid `+fun2Img+`"></i><span class="function-name"> Lavish Bathroom</span></div>
-                                <div> <i class="fa-solid `+fun3Img+`"></i><span class="function-name"> 250ft<sup>2</sup> </span></div>
-                               <div> <i class="fa-solid `+fun4Img+`"></i><span class="function-name"> Premium King Bed</span></div>
+                                <div><i class="fa-solid `+fun1Img+`"></i><span class="function-name"> `+fun1Title+`</span></div>
+                                
+                                <div><i class="fa-solid `+fun2Img+`"></i><span class="function-name"> `+fun2Title+` </span></div>
+                                <div> <i class="fa-solid `+fun3Img+`"></i><span class="function-name">`+fun3Title+` ft<sup>2</sup> </span></div>
+                               <div> <i class="fa-solid `+fun4Img+`"></i><span class="function-name"> `+fun4Title+`</span></div>
                                
                                 
                             </div>
                             <div class="room-intend">
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> Mini Bar</span><br></div>
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> AC</span><br></div>
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> Balcony</span><br></div>
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> Kitchenette</span><br></div>
-                                <div><i class="fa-solid fa-check"></i><span class="intend-name"> Soundproofed</span><br></div>
+                                <div>`+Intend1+`</div>
+                                <div>`+Intend2+`</div>
+                                <div>`+Intend3+`</div>
+                                <div>`+Intend4+`</div>
+                                <div>`+Intend5+`</div>
+                            
                                 
                             </div>
                             <div class="room-reviews">
