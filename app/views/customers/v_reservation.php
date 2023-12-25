@@ -718,7 +718,7 @@
                                     <p class="duration"><i class="fa-solid fa-moon"></i>  `+ (Date.parse(outdate) - Date.parse(indate)) / (24 * 3600 * 1000)+` Night</p>
                                     
 
-                                    <p class="duration"><span class="material-symbols-outlined">bed</span>  `+roomcount+` Room(s)`+ roomNumbers.map((element) =>  
+                                    <p class="duration"><span class="material-symbols-outlined">bed</span>  `+ roomNumbers.length +` Room(s)`+ roomNumbers.map((element) =>  
                                     `<span class="fa-stack ">
                                         <i class="fa fa-square-o fa-stack-2x"></i>
                                         <strong class="fa-stack-1x">`+element+`</strong>
