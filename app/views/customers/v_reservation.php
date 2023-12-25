@@ -476,6 +476,7 @@
                           var mainImg,fun1Img,fun2Img,fun3Img,fun4Img;
                           var fun1Title,fun2Title,fun3Title,fun4Title;
                           var price,nights,rooms,roomnumber,popupID,dyID;
+                          var BedroomAmentitiesList,BathroomAmentitiesList,FurnitureAmentitiesList,EntertainmentAmentitiesList,AdditionalAmentitiesList; 
                         // ... your existing HTML structure for room details ...
 
                         // Populate dynamic content based on fetched data
@@ -488,6 +489,7 @@
                             const roomComponent = document.createElement("div");
                             roomComponent.classList.add("result-component-wrapper");
                             
+                            
                             if(item.category=='Deluxe Room'){
                                 fun1Img="fa-bath"
                                 fun2Img="fa-person-swimming"
@@ -497,6 +499,46 @@
                                 price=item.price;
                                 popupID=item.category+'ID';
                                 dyId=item.category+'dyID';
+                                BathroomamenitiesList=`
+                                                    <ul>
+                                                        <li>Ensuite bathroom</li>
+                                                        <li>Glass-enclosed shower</li>
+                                                        <li>Premium bathrobes</li>
+                                                        <li>Vanity mirror</li>
+                                                        <li>Rainfall-Shower</li>
+                                                    </ul>
+                                                `;
+                                BedroomAmentitiesList= `
+                                                    <ul>
+                                                        <li>Air conditioning</li>
+                                                        <li>Queen or King-sized bed</li>
+                                                        <li>High-quality bed sheets</li>
+                                                        <li>Plush pillows</li>
+                                                        <li>Bedside USB chargers</li>
+                                                    </ul>
+                                                `;
+                                FurnitureAmentitiesList=`
+                                                    <ul>
+                                                        <li>Luggage rack</li>
+                                                        <li>Reading lamps</li>
+                                                        <li>Seating area with comfortable chairs or sofa</li>
+                                                        <li>Mini-fridge</li>
+                                                    </ul>
+                                                `; 
+                                EntertainmentAmentitiesList=`
+                                                    <ul>
+                                                        <li>40-inch LCD TV</li>
+                                                        <li>On-demand movies</li>
+                                                        <li>Bluetooth speaker</li>
+                                                    </ul>
+                                                `;
+                                AdditionalAmentitiesList=`
+                                                    <ul>
+                                                        <li>Daily housekeeping</li>
+                                                        <li>Complimentary Wi-Fi</li>
+                                                        <li>Express check-in/check-out</li>
+                                                    </ul>
+                                                `; 
                             }
                             else if(item.category=='Standard Room'){
                                 fun1Img="fa-bath"
@@ -507,6 +549,46 @@
                                 price=item.price;
                                 popupID=item.category+'ID';
                                 dyId=item.category+'dyID';
+                                BathroomamenitiesList=`
+                                                    <ul>
+                                                        <li>Standard ensuite bathroom</li>
+                                                        <li>Shower/tub combination</li>
+                                                        <li>Basic toiletries</li>
+                                                        <li>Hairdryer</li>
+                                                       
+                                                    </ul>
+                                                `;
+                                BedroomAmentitiesList= `
+                                                    <ul>
+                                                        <li>Air conditioning</li>
+                                                        <li>Normal-sized bed</li>
+                                                        <li>Bed sheets</li>
+                                                        <li>Pillows</li>
+                                                    
+                                                    </ul>
+                                                `;
+                                FurnitureAmentitiesList=`
+                                                    <ul>
+                                                        <li>Luggage rack</li>
+                                                        <li>Reading lamps</li>
+                                                        <li>Dresser or wardrobe</li>
+                                                    
+                                                    </ul>
+                                                `; 
+                                EntertainmentAmentitiesList=`
+                                                    <ul>
+                                                        <li> LCD TV</li>
+                                                        <li>Tv Chanels</li>
+                                                        <li>Family board games</li>
+                                                    </ul>
+                                                `;
+                                AdditionalAmentitiesList=`
+                                                    <ul>
+                                                        <li>Daily housekeeping</li>
+                                                        <li>Complimentary continental breakfast</li>
+                                                        <li>childcare services</li>
+                                                    </ul>
+                                                `; 
                             }
                             else if(item.category=='Executive Suite'){
                                 fun1Img="fa-bath"
@@ -517,6 +599,50 @@
                                 price=item.price;
                                 popupID=item.category+'ID';
                                 dyId=item.category+'dyID';
+                                BathroomamenitiesList=`
+                                                    <ul>
+                                                        <li>Spacious ensuite bathroom</li>
+                                                        <li>Jacuzzi or spa bath</li>
+                                                        <li>Double vanity</li>
+                                                        <li>Luxury bath amenities</li>
+                                                       
+                                                    </ul>
+                                                `;
+                                BedroomAmentitiesList= `
+                                                    <ul>
+                                                        <li>Separate living area</li>
+                                                        <li>King-sized bed</li>
+                                                        <li>High-thread-count bed sheets</li>
+                                                        <li>Walk-in closet</li>
+                                                        <li>Workstation</li>
+                                                    
+                                                    </ul>
+                                                `;
+                                FurnitureAmentitiesList=`
+                                                    <ul>
+                                                        <li>Access to exclusive lounge</li>
+                                                        <li>Dining table and chairs</li>
+                                                        <li>Complimentary snacks</li>
+                                                        <li>Complimentary beverages</li>
+                                                    
+                                                    </ul>
+                                                `; 
+                                EntertainmentAmentitiesList=`
+                                                    <ul>
+                                                        <li>50 inch LCD TV</li>
+                                                        <li>Home theater system</li>
+                                                        <li>Gaming console</li>
+                                                    </ul>
+                                                `;
+                                AdditionalAmentitiesList=`
+                                                    <ul>
+                                                        <li>Butler service</li>
+                                                        <li>Daily housekeeping</li>
+                                                        <li>Private dining area</li>
+                                                        <li>Exclusive access to VIP facilities</li>
+                                                        <li>Personalized concierge service</li>
+                                                    </ul>
+                                                `; 
                             }
                             else if(item.category=='Family Room'){
                                 fun1Img="fa-bath"
@@ -527,6 +653,47 @@
                                 price=item.price;
                                 popupID=item.category+'ID';
                                 dyId=item.category+'dyID';
+                                BedroomAmentitiesList= `
+                                                    <ul>
+                                                        <li>Air conditioning</li>
+                                                        <li>Multiple beds or a combination of bed sizes</li>
+                                                        <li>Bed sheets</li>
+                                                        <li>Family-themed decor</li>
+                                                        <li>Space for family activities</li>
+                                                    </ul>
+                                                `;
+                                BathroomamenitiesList=`
+                                                    <ul>
+                                                        <li>Kid-friendly toiletries</li>
+                                                        <li>Baby-changing station</li>
+                                                        <li>Rainfall showerhead</li>
+                                                        <li>Kid-friendly bath amenities</li>
+                                                        <li>Shower</li>
+                                                    </ul>
+                                                `;
+                                FurnitureAmentitiesList=`
+                                                    <ul>
+                                                        <li>Luggage rack</li>
+                                                        <li>Additional seating or play area for children</li>
+                                                        <li>Seating area with chairs or sofa</li>
+                                                        <li>Sturdy and family-friendly furniture</li>
+                                                    </ul>
+                                                `; 
+                                EntertainmentAmentitiesList=`
+                                                    <ul>
+                                                        <li>40-inch LCD TV</li>
+                                                        <li> Access to video games</li>
+                                                        <li>Family-friendly movies and channels</li>
+                                                    </ul>
+                                                `;
+                                AdditionalAmentitiesList=`
+                                                    <ul>
+                                                        <li>Daily housekeeping</li>
+                                                        <li>Space for family activities</li>
+                                                        <li>Kid's club or childcare services</li>
+                                                    </ul>
+                                                `;                               
+                                
                             }
                             else if(item.category=='Presidential Suite'){
                                 fun1Img="fa-bath"
@@ -537,6 +704,53 @@
                                 price=item.price;
                                 popupID=item.category+'ID';
                                 dyId='';
+                                BathroomamenitiesList=`
+                                                    <ul>
+                                                        <li>Luxurious ensuite bathroom</li>
+                                                        <li>Premium toiletries</li>
+                                                        <li>Private sauna or steam room</li>
+                                                        <li>Double vanity</li>
+                                                        <li>Oversized soaking tub</li>
+                                                       
+                                                    </ul>
+                                                `;
+                                BedroomAmentitiesList= `
+                                                    <ul>
+                                                        <li>Grand bedroom with a canopy bed</li>
+                                                        <li>Fine linens and bedding</li>
+                                                        <li>High-thread-count bed sheets</li>
+                                                        <li>Pillow menu</li>
+                                                        <li>Workstation</li>
+                                                    
+                                                    </ul>
+                                                `;
+                                FurnitureAmentitiesList=`
+                                                    <ul>
+                                                        <li>Access to exclusive lounge</li>
+                                                        <li>Dining table and chairs</li>
+                                                        <li>Complimentary snacks</li>
+                                                        <li>Butler service</li>
+                                                        <li>Panoramic views from the suite</li>
+                                                    
+                                                    </ul>
+                                                `; 
+                                EntertainmentAmentitiesList=`
+                                                    <ul>
+                                                        <li>Multiple LCD TVs</li>
+                                                        <li>Home theater system</li>
+                                                        <li>Gaming console</li>
+                                                        <li>Blu-ray player</li>
+                                                    </ul>
+                                                `;
+                                AdditionalAmentitiesList=`
+                                                    <ul>
+                                                        <li>Daily housekeeping</li>
+                                                        <li>Private dining area</li>
+                                                        <li>Exclusive access to VIP facilities</li>
+                                                        <li>Limousine service</li>
+                                                        <li>Private chef upon request</li>
+                                                    </ul>
+                                                `;
                             }
                             roomComponent.innerHTML = `
                          <div class="room-img">
@@ -647,59 +861,32 @@
                             <div class="room-content">
                                 <span class="list-name"><img src="<?php echo URLROOT;?>/public/img/svgs/solid/shower.svg" class="svg-medium"  ></img>Bathroom</span>
                                 <div class="ul">
-                                    <ul>
-                                        <li>Kid-friendly toiletries</li>
-                                        <li>Baby-changing station</li>
-                                        <li>Rainfall showerhead</li>
-                                        <li>Kid-friendly bath amenities</li>
-                                        <li>Shower</li>
-                                    </ul>
+                                    `+  BathroomamenitiesList+`
                                 </div>
                             </div>
                             <div class="room-content">
                                 <span class="list-name"><img src="<?php echo URLROOT;?>/public/img/svgs/solid/bed.svg" class="svg-medium" ></img>Bedroom</span>
                                 <div class="ul">
-                                    <ul>
-                                        <li>Air conditioning</li>
-                                        <li>Multiple beds or a combination of bed sizes</li>
-                                        <li>Bed sheets</li>
-                                        <li>BFamily-themed decor</li>
-                                        <li>Space for family activities</li>
-                                        
-                                    </ul>
+                                    `+BedroomAmentitiesList+`
                                 </div>
                             </div>
                             <div class="room-content">
                                 <span class="list-name"><img src="<?php echo URLROOT;?>/public/img/svgs/solid/couch.svg" class="svg-medium"  ></img>Furniture</span>
                                 <div class="ul">
-                                    <ul>
-                                        <li>Luggage rack</li>
-                                        <li>Additional seating or play area for children</li>
-                                        <li>Seating area with chairs or sofa</li>
-                                        <li>Sturdy and family-friendly furniture</li>
-                                    </ul>
+                                    `+FurnitureAmentitiesList+`
                                 </div>
                             </div>
                             <div class="room-content">
                                 <span class="list-name"><img src="<?php echo URLROOT;?>/public/img/svgs/solid/tv.svg" class="svg-medium" ></img>Entertainment</span>
                                 <div class="ul">
-                                    <ul>
-                                        <li>40-inch LCD TV</li>
-                                        <li> Access to video games</li>
-                                        <li>Family-friendly movies and channels</li>
-                                    </ul>
+                                    `+EntertainmentAmentitiesList+`
                                 </div>
                             </div>
                             
                             <div class="room-content">
                                 <span class="list-name"><img src="<?php echo URLROOT;?>/public/img/svgs/solid/check.svg" class="svg-medium"  ></img>Additional Features</span>
                                 <div class="ul">
-                                    <ul>
-                                        <li>Daily housekeeping</li>
-                                        <li>Space for family activities</li>
-                                        <li>Kid's club or childcare services</li>
-                                        
-                                    </ul>
+                                    `+AdditionalAmentitiesList+`
                                 </div>
                             </div>
                             
