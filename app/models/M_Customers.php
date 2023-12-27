@@ -133,7 +133,7 @@
             $this->db->bind('roomNo',$data["roomNo"]);
             
             if($this->db->execute()){
-                if($this->changeRoomAvailability($data)){
+                if($this->changeRoomAvailability($data,'no')){
                     return true;
                 }
                 else{
@@ -145,10 +145,11 @@
                 return false;
             }
         }
-        public function changeRoomAvailability($data){
+        public function changeRoomAvailability($data,$avail){
             $this->db->query('UPDATE rooms SET availability = :avail WHERE roomNo=:roomNo');
             $this->db->bind('roomNo',$data["roomNo"]);
-            $this->db->bind('avail','no');
+            
+            $this->db->bind('avail',$avail);
             if($this->db->execute()){
                 return true;
             }
@@ -165,6 +166,25 @@
             $row = $this->db->resultSet();
            
             return $row;
+        }
+
+        public function deleteReservation($data){
+            $this->db->query("DELETE FROM reservations WHERE user_id = :u_id AND reservation_id = :res_id  ");
+            $this->db->bind('u_id',$data['user_id']);
+            $this->db->bind('res_id',$data['reservation_id']);
+            
+            if($this->db->execute()){
+                if($this->changeRoomAvailability($data,'yes')){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+                
+            }
+            else{
+                return false;
+            }
         }
 
        

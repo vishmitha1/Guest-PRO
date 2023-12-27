@@ -1,10 +1,16 @@
 <?php
     class Customers extends Controller{
         protected $userModel;
+        protected $middleware;
         
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
-            $user_id=$_SESSION['user_id'];
+
+            // Load middleware
+            $this->middleware = new AuthMiddleware();
+            // Check if user is logged in
+            $this->middleware->checkAccess(['customer']);
+            
             
         }
 
@@ -158,6 +164,44 @@
                     
                 }
            
+        }
+
+        public function deleteReservation(){
+            
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'reservation_id' => trim($_POST['reservation_id']),
+                    'roomNo' => trim($_POST['roomNo']),
+                    
+                    'user_id_err'=>'',
+                    'reservation_id_err' => '',
+                    'roomNo_err' => '',
+                    
+                ];
+                if(empty($data['user_id'])){
+                    $data['user_id_err']='No User';
+                }
+
+                if(empty($data['reservation_id'])){
+                    $data['reservation_id_err']='No Reservation';
+                }
+                if(empty($data['roomNo'])){
+                    $data['roomNo_err']='No Room';
+                }
+
+                if(empty($data['user_id_err']) && empty($data['reservation_id_err'])){
+                    if($output=$this->userModel->deleteReservation($data)){
+                        redirect('Customers/reservation');
+                        
+                        
+                    }
+                    else{
+                        die("someting wrond");
+                    }  
+                }
+                 
+            }
         }
 
         

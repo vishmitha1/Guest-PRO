@@ -116,3 +116,20 @@ const fetchedData = [
 //   populateRoomDetails(fetchedData);
 // });
 
+function deleteReservation(id){
+  console.log(id);
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost/GuestPro/Customers/deleteReservation',
+    data: {"resID" : id},
+    dataType : 'json',
+    
+        success: function(data){
+            console.log('data');
+        },
+        error: function(error){
+            console.log(error);
+        }
+})
+}
+
