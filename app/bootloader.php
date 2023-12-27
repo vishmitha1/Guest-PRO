@@ -14,4 +14,7 @@
     require_once 'libraries/Core.php';  
     require_once 'libraries/Controller.php';
     require_once 'libraries/Database.php';
+
+    // Load the middleware (checks for the file)
+    require_once 'middlewares/AuthMiddleware.php';
     

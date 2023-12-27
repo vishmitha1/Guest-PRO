@@ -582,6 +582,11 @@
     color: #fff;
 }
 
+.left-box p span i ,p strong{
+    color: rgb(98, 154, 234);
+    
+}
+
 
 /* retrive data to webpage '''''''''''''''''''''''''''''''' */
 .empty-data-retrive{
@@ -655,7 +660,7 @@
     }
 
     .table-row button{
-        background-color: #ffffff;
+        background-color:transparent;
         border: none;
         cursor: pointer;
         color: red;
