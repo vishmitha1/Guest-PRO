@@ -3,6 +3,10 @@
     class Receptionists extends Controller{
 
         public function __construct(){
+            // Load middleware
+            $this->middleware = new AuthMiddleware();
+            // Check if user is logged in
+            $this->middleware->checkAccess(['receptionist']);
             
         }
 

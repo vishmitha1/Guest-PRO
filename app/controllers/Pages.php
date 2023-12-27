@@ -2,7 +2,7 @@
     class Pages extends Controller {
         private $pagesModel;
         public function __construct(){
-            echo "Pages controller";
+            // echo "Pages controller";
             $this->pagesModel = $this->model('M_Pages');
         }
 
@@ -30,6 +30,10 @@
             // Send the JSON response
             echo $jsonData;
         }
-        
-        
+
+        public function _404() {
+            $data=[ ];
+            
+            $this->view('pages/404', $data);
+        }
     }

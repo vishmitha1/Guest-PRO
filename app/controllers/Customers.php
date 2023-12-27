@@ -1,10 +1,16 @@
 <?php
     class Customers extends Controller{
         protected $userModel;
+        protected $middleware;
         
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
-            $user_id=$_SESSION['user_id'];
+
+            // Load middleware
+            $this->middleware = new AuthMiddleware();
+            // Check if user is logged in
+            $this->middleware->checkAccess(['customer']);
+            
             
         }
 
