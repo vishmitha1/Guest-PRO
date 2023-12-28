@@ -9,9 +9,9 @@
         }
 
 
-        public function visal(){
+        public function dashboard(){
             $data =[  ];
-            $this->view('users/v_login', $data);
+            $this->view('admins/v_dashboard', $data);
         }
 
         public function accountlogs(){
