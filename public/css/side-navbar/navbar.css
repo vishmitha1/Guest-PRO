@@ -114,3 +114,33 @@
     color: #000000;
     font-size: 25px;
 }
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the user profile section */
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px; /* Adjust the image size */
+    height: 50px; /* Adjust the image size a */
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid black;
+}
+
+.user-profile-info {
+    position: block;
+    color: black;
+}
+.user-profile-info .username {
+    font-size: 1.2rem;
+    font-weight: 500;
+    
+    text-transform: capitalize;
+}
+
+.user-profile-info p {
+    margin: 0;
+}
