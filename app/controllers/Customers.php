@@ -1,10 +1,16 @@
 <?php
     class Customers extends Controller{
         protected $userModel;
+        protected $middleware;
         
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
-            $user_id=$_SESSION['user_id'];
+
+            // Load middleware
+            $this->middleware = new AuthMiddleware();
+            // Check if user is logged in
+            $this->middleware->checkAccess(['customer']);
+            
             
         }
 
@@ -13,13 +19,8 @@
         public function dashboard(){
             $data =[  ];
 
-            $this->view("v_test",$data);
-            $output=$this->userModel->checkroomavailability($data);
-            foreach ($output as $item){
-                $item->roomNo = explode(',', $item->roomNo);
-            }
-            // $output['roomNo'] = explode(',', $output['roomNo']);
-            print_r($output);
+            $this->view("customers/v_dashboard",$data);
+            
             
         }
 
@@ -273,7 +274,7 @@
                 ];
                 
                 // $this->userModel->getorderdetails();
-                $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                $this->view('customers/v_servicerequest', $data);
                 
             }
         }

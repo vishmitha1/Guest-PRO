@@ -118,7 +118,7 @@
                                             WHERE
                                                 row_num <= :count
                                             GROUP BY
-                                                RankedRooms.category, roomtype.price, roomtype.roomImg; ;");
+                                                RankedRooms.category, roomtype.price, roomtype.roomImg");
             $this->db->bind('avail','yes');
             $this->db->bind('count',$data['roomcount']);
             $row=$this->db->resultSet();

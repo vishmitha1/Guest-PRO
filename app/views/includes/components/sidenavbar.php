@@ -24,7 +24,7 @@
             <a href="<?php echo URLROOT;?>/Customers/foodorder"class="ltags"><i class="fa-solid fa-bell-concierge"></i>Food Orders</a>
             
             
-            <a href="<?php echo URLROOT;?>/Customers/bill"class="ltags"><i class="fa-solid fa-file-invoice"></i>Bill</a>
+            <a href="<?php echo URLROOT;?>/Customers/Dashboard"class="ltags"><i class="fa-solid fa-file-invoice"></i>Dashboard</a>
             
             
 
@@ -41,21 +41,21 @@
             </div>
         </div>
         <div class="logout">
-        <a href="<?php echo URLROOT;?>/Users/login"> <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
+        <a href="<?php echo URLROOT;?>/Users/logout"> <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>
 
     <div class="home">
-    <!-- <div class="user-profile">
-            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg" alt="User Profile Picture">
+    <div class="user-profile">
+            <img src="" alt="User Profile Picture"><br>
             <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
+                <div class='username'><?php echo $_SESSION['name'];?></div>
+                <p><?php echo $_SESSION['role'];?></p>
             </div>
-        </div> -->
-         <div class="profile">
-        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   <?php echo $_SESSION['user_id'];?></a>
         </div>
+         <!-- <div class="profile">
+        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   <?php echo $_SESSION['user_id'];?></a>
+        </div> -->
     </div>
     <script>
         var btnContainer = document.getElementById("visal");
