@@ -19,13 +19,8 @@
         public function dashboard(){
             $data =[  ];
 
-            $this->view("v_test",$data);
-            $output=$this->userModel->checkroomavailability($data);
-            foreach ($output as $item){
-                $item->roomNo = explode(',', $item->roomNo);
-            }
-            // $output['roomNo'] = explode(',', $output['roomNo']);
-            print_r($output);
+            $this->view("customers/v_dashboard",$data);
+            
             
         }
 
@@ -279,7 +274,7 @@
                 ];
                 
                 // $this->userModel->getorderdetails();
-                $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                $this->view('customers/v_servicerequest', $data);
                 
             }
         }
