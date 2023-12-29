@@ -89,12 +89,11 @@
                             <span></span> <br>
                             <span class="value" id='total_cost_inCart' > </span>
                             <div class="place-order">
-                                <form action="">
-                                
-
+                                <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
+                                    <button type='submit' onclick="submitForm()" >PlaceOrder</button>
                                 </form>
-                                <button>PlaceOrder</button>
-                        </div>
+                                
+                            </div>
                         </div>
                         
                     </div>
@@ -104,6 +103,7 @@
                 
             </div>
         </div>
+        
         
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

@@ -2,6 +2,7 @@
     class Customers extends Controller{
         protected $userModel;
         protected $middleware;
+       
         
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
@@ -292,6 +293,9 @@
         }
 
 
+        //Food order part''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
         public function foodorder(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // if(isset($_POST['add_to_cart'])){
@@ -483,6 +487,38 @@
                 
             }
         }
+
+
+        //place order
+        public function placeOrder(){
+            $count++;
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                $qty=$name='';
+                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
+                foreach($var as $item){
+                
+                    $qty.=$item->quantity.',';
+                    
+                    $name.=$item->item_name.',';
+                }
+                $qty=trim($qty,',');
+                $name=trim($name,',');
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$qty,$name)){
+                    // $this->userModel->deletecart($_SESSION['user_id']);
+                    redirect('Customers/foodorder');
+                    // $this->view('v_test', $var);
+                    // echo 'count'.$count;
+                }
+                else{
+                    // die("someting wrond");
+                    $this->view('v_test', $var);
+                    // print_r($var);
+                }
+                
+                
+            }
+        }        
 
         
 

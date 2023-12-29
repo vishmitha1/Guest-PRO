@@ -98,6 +98,8 @@ function retrivefoodcart() {
                     var priceCell = newRow.insertCell(4);
                     priceCell.innerHTML = item.price;
                     document.querySelector(".total-cost").style.display="grid";
+
+    
             
                     // Perform other tasks with the data if needed
                 });
@@ -186,6 +188,13 @@ function totalcartItems(){
         }
 
     });
+}
+
+
+
+function submitForm() {
+    // You can add additional validation logic here if needed
+    document.getElementById("cart_submit_Form").submit();
 }
 
 
