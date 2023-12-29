@@ -1,7 +1,7 @@
 
 function togglePopup(){
     document.getElementById("popup-1").classList.toggle("active");
-    text();
+    retrivefoodcart();
 }
 function closePopup() {
         document.getElementById("popup-1").classList.remove("active");
@@ -36,7 +36,7 @@ function addtoCart(id){
 
 
 
-function text() {
+function retrivefoodcart() {
     $(document).ready(function() {
         $.ajax({
             url: 'http://localhost/GuestPro/Customers/retrivefoodcart',
@@ -48,7 +48,13 @@ function text() {
             },
             success: function(response) {
                 console.log(response);
-            
+                totalcartItems();
+                
+
+                //get the reference to the cart
+                var total_cost= document.getElementById('total_cost_inCart');
+                total_cost.textContent=response[1]+' LKR';
+
                 // Get the reference to the table body
                 var tableBody = document.getElementById("cart-table").getElementsByTagName('tbody')[0];
                 tableBody.innerHTML = ''; 
@@ -92,6 +98,8 @@ function text() {
                     var priceCell = newRow.insertCell(4);
                     priceCell.innerHTML = item.price;
                     document.querySelector(".total-cost").style.display="grid";
+
+    
             
                     // Perform other tasks with the data if needed
                 });
@@ -149,7 +157,8 @@ function removefromCart(item_no){
         }),
         success: function(Data) {
     
-            text();
+            retrivefoodcart();
+            totalcartItems()
            
             
         },
@@ -169,7 +178,9 @@ function totalcartItems(){
             // console.log("Count Type:", typeof response.COUNT);
             console.log(response);
             var countElement=document.getElementById('Cart-item-Count');
+            var Popup_countElement=document.getElementById('total_items_in_Popup');
             countElement.textContent=response['COUNT(*)'];
+            Popup_countElement.textContent=response['COUNT(*)'];
         },
 
         error:function(error){
@@ -177,6 +188,13 @@ function totalcartItems(){
         }
 
     });
+}
+
+
+
+function submitForm() {
+    // You can add additional validation logic here if needed
+    document.getElementById("cart_submit_Form").submit();
 }
 
 

@@ -85,6 +85,30 @@
             return $row;
         }
 
+        //Place order
+        public function placeOrder($id,$data,$qty,$name){
+            
+       
+            // $this->db->query("INSERT INTO foodorders (user_id,quantity,item_name) VALUES(:id,:quantity,:item_name)");
+            $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
+            $this->db->bind(':id',$id);
+            // $this->db->bind(':quantity', $qty);
+            // $this->db->bind(':item_name',$name);
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+           
+                      
+            
+               
+            
+            
+        }
+
         public function test(){
             $this->db->query("SELECT * FROM carts  ");
             $row = $this->db->resultSet();
@@ -118,7 +142,7 @@
                                             WHERE
                                                 row_num <= :count
                                             GROUP BY
-                                                RankedRooms.category, roomtype.price, roomtype.roomImg; ;");
+                                                RankedRooms.category, roomtype.price, roomtype.roomImg");
             $this->db->bind('avail','yes');
             $this->db->bind('count',$data['roomcount']);
             $row=$this->db->resultSet();

@@ -2,6 +2,7 @@
     class Customers extends Controller{
         protected $userModel;
         protected $middleware;
+       
         
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
@@ -19,13 +20,8 @@
         public function dashboard(){
             $data =[  ];
 
-            $this->view("v_test",$data);
-            $output=$this->userModel->checkroomavailability($data);
-            foreach ($output as $item){
-                $item->roomNo = explode(',', $item->roomNo);
-            }
-            // $output['roomNo'] = explode(',', $output['roomNo']);
-            print_r($output);
+            $this->view("customers/v_dashboard",$data);
+            
             
         }
 
@@ -279,7 +275,7 @@
                 ];
                 
                 // $this->userModel->getorderdetails();
-                $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                $this->view('customers/v_servicerequest', $data);
                 
             }
         }
@@ -295,6 +291,9 @@
             redirect('Customers/servicerequest');  
     
         }
+
+
+        //Food order part''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
         public function foodorder(){
@@ -488,6 +487,38 @@
                 
             }
         }
+
+
+        //place order
+        public function placeOrder(){
+            $count++;
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                $qty=$name='';
+                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
+                foreach($var as $item){
+                
+                    $qty.=$item->quantity.',';
+                    
+                    $name.=$item->item_name.',';
+                }
+                $qty=trim($qty,',');
+                $name=trim($name,',');
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$qty,$name)){
+                    // $this->userModel->deletecart($_SESSION['user_id']);
+                    redirect('Customers/foodorder');
+                    // $this->view('v_test', $var);
+                    // echo 'count'.$count;
+                }
+                else{
+                    // die("someting wrond");
+                    $this->view('v_test', $var);
+                    // print_r($var);
+                }
+                
+                
+            }
+        }        
 
         
 

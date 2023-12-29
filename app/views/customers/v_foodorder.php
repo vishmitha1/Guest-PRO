@@ -31,25 +31,7 @@
         </div>
         <div class="foodorder-wrapper">
         
-            <!-- <?php
-                foreach($data[0] as $item){ 
-                    
-                    echo "
-                    <form class='ajx' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
-                    <div class='foodorder-items'>
-                        <img src='http://localhost/GuestPro/public/img/food_items/{$item->image}.jpg' alt='$item->name'><input type='hidden' name='image' value='$item->image'>
-                        <div class='food-title'>
-                            {$item->name}<input type='hidden' name='item_name' value='$item->name'>
-                            <br><span class='food-price'>{$item->price}LKR</span><input type='hidden' name='item_price' value='$item->price'>
-                            <input type='hidden' name='id'  value='$item->item_id'>
-                        </div>
-                        <div class='addto-cart'>
-                            <input  type='submit' name='add_to_cart' value='Add To Cart'>
-                        </div>
-                    </div>
-                    </form>";
-                }
-            ?> -->
+          
             <?php
                 foreach($data[0] as $item){ ?>
                     
@@ -100,15 +82,18 @@
                     
                     <div class="total-cost">
                         <div class="total-cost-title">
-                            <span>Number of items (2)</span><br>
+                            <span>Number of items <span id='total_items_in_Popup'> </span></span><br>
                             <span>Tostal Cost</span>
                         </div>
                         <div class="total-cost-value">
                             <span></span> <br>
-                            <span class="value" >2500LKR</span>
+                            <span class="value" id='total_cost_inCart' > </span>
                             <div class="place-order">
-                            <button>PlaceOrder</button>
-                        </div>
+                                <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
+                                    <button type='submit' onclick="submitForm()" >PlaceOrder</button>
+                                </form>
+                                
+                            </div>
                         </div>
                         
                     </div>
@@ -118,6 +103,7 @@
                 
             </div>
         </div>
+        
         
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
