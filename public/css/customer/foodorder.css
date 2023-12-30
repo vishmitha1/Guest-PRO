@@ -246,11 +246,13 @@
 .cart-content{
   z-index: -1;
   padding: 10px;
+  display: block;
 }
 
 .cart-content table{
   border-collapse: collapse;
   width: 100%;
+  
   
 }
 

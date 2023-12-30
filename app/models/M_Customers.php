@@ -70,10 +70,18 @@
             $this->db->query("SELECT * FROM carts WHERE user_id=:id ");
             $this->db->bind(':id',$data);
             
-            $row = $this->db->resultSet();
-           
-            $row=array_reverse($row);
-            return $row;
+            if($this->db->execute()){
+                $row = $this->db->resultSet();
+                $row=array_reverse($row);
+                return $row;
+            }
+            else{
+                return false;
+                
+            }
+
+ 
+            
         }
 
         // Itemo count on the cart Icon

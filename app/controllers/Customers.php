@@ -413,14 +413,23 @@
                 ];
 
                 if( empty($data['user_id_err']) ){
-                    if($output=$this->userModel->retrivefoodcart($data['user_id'])){
-                        
+                    $output=$this->userModel->retrivefoodcart($data['user_id']);
+
+                    if($output==false){
+                        $output=[200,'null'];
+                        header('Content-Type: application/json');
+                        echo json_encode($output);
+                    }
+                    
+                    else{
                         $output=[$output,$this->findtotal($output)];
                         // print_r($output) ;
                         header('Content-Type: application/json');
                         echo json_encode($output);
-                        
                     }
+                        
+                        
+                    
                 }
             }
         }
@@ -496,6 +505,9 @@
                 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $roomNo=trim($_POST['roomNumber']);
+                if(empty($roomNo)){
+                    die("No room selected");
+                }
                 
                 $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
                 
@@ -531,6 +543,35 @@
             
                 $this->userModel->deleteorder($param);
                 redirect('Customers/foodorder');  
+        
+    }
+
+
+    //Use for testing perpose. When use ajax to debug the code''''''''''''''''''''''''''''''
+    
+    public function test(){
+        $data=[
+            'user_id'=>$_SESSION['user_id'],
+            'name' => 'test',
+            'price' => 'test',
+            'image' => 'test',
+            'item_id' => 'test',
+            'quantity' => 'test',
+            
+            'user_id_err'=>'',
+            'name_err' => '',
+            'price_err' => '',
+            'quantity_err'=>'',
+        ];
+        if($output=$this->userModel->retrivefoodcart($_SESSION['user_id'])){
+            $this->view('v_test', $data);
+            print_r($output);
+        }
+        elseif($output==false){
+            $this->view('v_test', $data);
+            echo 'visal';
+            // print_r($output);
+        }
         
     }
 }
