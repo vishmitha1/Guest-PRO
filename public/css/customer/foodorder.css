@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
 .foodorder-container{
   /* border: 2px solid black; */
   padding: 20px;
@@ -187,6 +188,30 @@
   height: 50px;
   background:#d3deea;
   overflow: hidden;
+}
+.cart-popup .header .selectRoom{
+  position: absolute;
+  left:24%;
+  top: 25%;
+
+}
+
+.selectRoom select{
+  width: 12 0px;
+  height:auto;
+  border-radius: 5px;
+  border: 2px solid rgb(76, 137, 230);
+  background:transparent;
+  font-size: 15px;
+  font-family: 'Catamaran';
+  font-weight: 600;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.selectRoom option{
+  font-family: 'Rubik Doodle Shadow';
+  font-weight: bold;
 }
 
 .cart-popup .header .close-btn{

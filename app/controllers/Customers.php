@@ -390,7 +390,7 @@
                     // $this->view('v_test', $this->userModel->loadfoodmenu());
                             //''''pass the cart data and food menu data to foodorder UI. in here parameter array containing foodmenu data and cart data 
                     // $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
-                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id'])]);
+                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
                     
                     
                 
@@ -491,20 +491,15 @@
 
         //place order
         public function placeOrder(){
-            $count++;
+        
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
-                $qty=$name='';
-                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
-                foreach($var as $item){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $roomNo=trim($_POST['roomNumber']);
                 
-                    $qty.=$item->quantity.',';
-                    
-                    $name.=$item->item_name.',';
-                }
-                $qty=trim($qty,',');
-                $name=trim($name,',');
-                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$qty,$name)){
+                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
+                
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$roomNo)){
                     // $this->userModel->deletecart($_SESSION['user_id']);
                     redirect('Customers/foodorder');
                     // $this->view('v_test', $var);
