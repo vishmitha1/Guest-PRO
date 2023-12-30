@@ -70,10 +70,18 @@
             $this->db->query("SELECT * FROM carts WHERE user_id=:id ");
             $this->db->bind(':id',$data);
             
-            $row = $this->db->resultSet();
-           
-            $row=array_reverse($row);
-            return $row;
+            if($this->db->execute()){
+                $row = $this->db->resultSet();
+                $row=array_reverse($row);
+                return $row;
+            }
+            else{
+                return false;
+                
+            }
+
+ 
+            
         }
 
         // Itemo count on the cart Icon
@@ -86,14 +94,24 @@
         }
 
         //Place order
-        public function placeOrder($id,$data,$qty,$name){
+        public function placeOrder($id,$data,$roomNo){
             
+            $qty=$name='';
+            foreach($data as $item){
+                
+                $qty.=$item->quantity.',';
+                
+                $name.=$item->item_name.',';
+            }
+            $qty=trim($qty,',');
+            $name=trim($name,',');
        
-            // $this->db->query("INSERT INTO foodorders (user_id,quantity,item_name) VALUES(:id,:quantity,:item_name)");
-            $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
+            $this->db->query("INSERT INTO foodorders (user_id,quantity,item_name,roomNo) VALUES(:id,:quantity,:item_name,:roomNo)");
+            // $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
             $this->db->bind(':id',$id);
-            // $this->db->bind(':quantity', $qty);
-            // $this->db->bind(':item_name',$name);
+            $this->db->bind(':quantity', $qty);
+            $this->db->bind(':item_name',$name);
+            $this->db->bind(':roomNo',$roomNo);
             
             if($this->db->execute()){
                 return true;
@@ -101,12 +119,17 @@
             else{
                 return false;
             }
-           
-                      
+              
             
-               
-            
-            
+        }
+
+        //Retrive Reservation Room number for food order
+        public function retriveRoomNo($id){
+            $this->db->query("SELECT roomNo FROM reservations WHERE user_id=:id ");
+            $this->db->bind(':id',$id);
+            $row = $this->db->resultSet();
+
+            return $row;
         }
 
         public function test(){

@@ -390,7 +390,7 @@
                     // $this->view('v_test', $this->userModel->loadfoodmenu());
                             //''''pass the cart data and food menu data to foodorder UI. in here parameter array containing foodmenu data and cart data 
                     // $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
-                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id'])]);
+                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
                     
                     
                 
@@ -413,14 +413,23 @@
                 ];
 
                 if( empty($data['user_id_err']) ){
-                    if($output=$this->userModel->retrivefoodcart($data['user_id'])){
-                        
+                    $output=$this->userModel->retrivefoodcart($data['user_id']);
+
+                    if($output==false){
+                        $output=[200,'null'];
+                        header('Content-Type: application/json');
+                        echo json_encode($output);
+                    }
+                    
+                    else{
                         $output=[$output,$this->findtotal($output)];
                         // print_r($output) ;
                         header('Content-Type: application/json');
                         echo json_encode($output);
-                        
                     }
+                        
+                        
+                    
                 }
             }
         }
@@ -491,20 +500,18 @@
 
         //place order
         public function placeOrder(){
-            $count++;
+        
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
-                $qty=$name='';
-                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
-                foreach($var as $item){
-                
-                    $qty.=$item->quantity.',';
-                    
-                    $name.=$item->item_name.',';
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $roomNo=trim($_POST['roomNumber']);
+                if(empty($roomNo)){
+                    die("No room selected");
                 }
-                $qty=trim($qty,',');
-                $name=trim($name,',');
-                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$qty,$name)){
+                
+                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
+                
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$roomNo)){
                     // $this->userModel->deletecart($_SESSION['user_id']);
                     redirect('Customers/foodorder');
                     // $this->view('v_test', $var);
@@ -536,6 +543,35 @@
             
                 $this->userModel->deleteorder($param);
                 redirect('Customers/foodorder');  
+        
+    }
+
+
+    //Use for testing perpose. When use ajax to debug the code''''''''''''''''''''''''''''''
+    
+    public function test(){
+        $data=[
+            'user_id'=>$_SESSION['user_id'],
+            'name' => 'test',
+            'price' => 'test',
+            'image' => 'test',
+            'item_id' => 'test',
+            'quantity' => 'test',
+            
+            'user_id_err'=>'',
+            'name_err' => '',
+            'price_err' => '',
+            'quantity_err'=>'',
+        ];
+        if($output=$this->userModel->retrivefoodcart($_SESSION['user_id'])){
+            $this->view('v_test', $data);
+            print_r($output);
+        }
+        elseif($output==false){
+            $this->view('v_test', $data);
+            echo 'visal';
+            // print_r($output);
+        }
         
     }
 }
