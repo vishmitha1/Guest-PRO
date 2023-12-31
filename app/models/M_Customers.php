@@ -79,10 +79,10 @@
                 return false;
                 
             }
-
- 
-            
+           
         }
+
+        
 
         // Itemo count on the cart Icon
         public function cartTotal($data){
@@ -114,13 +114,32 @@
             $this->db->bind(':roomNo',$roomNo);
             
             if($this->db->execute()){
-                return true;
+                if($this->deleteallCartitems($id)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+                
             }
             else{
                 return false;
             }
               
             
+        }
+
+        //Dlete all the items in the cart
+        public function deleteallCartitems($data){
+            $this->db->query("DELETE FROM carts WHERE user_id = :u_id ");
+            $this->db->bind('u_id',$data);
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
 
         //Retrive Reservation Room number for food order
