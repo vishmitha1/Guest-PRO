@@ -1,3 +1,6 @@
+//import toastr from 
+
+document.write('<script type="text/javascript" src="http://localhost/GuestPro/public/js/customers/toast.js"></script>');
 
 function togglePopup(){
     document.getElementById("popup-1").classList.toggle("active");
@@ -164,10 +167,11 @@ function removefromCart(item_no){
         data: JSON.stringify({
             item_no: item_no
         }),
-        success: function(Data) {
-    
+        success: function(response) {
+            console.log(response);
             retrivefoodcart();
-            totalcartItems()
+            totalcartItems();
+            toastFlashMsg(response[0],response[1]);
            
             
         },
