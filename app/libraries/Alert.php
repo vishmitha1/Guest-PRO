@@ -1,36 +1,37 @@
 <?php
-    function toastFlashMsg($type,$msg){
-        if($type == 'success'){
-            $icon = 'success';
-            $title = $msg;
-            $color = '#3498DB';
-            $iconColor = 'Blue';
+    function toastFlashMsg(){
+        if($_SESSION['toast_type']=="success"){
+            $iconColor = "#ffffff";
+            $icon = "success";
+            $color = "#51c41a";
+            $title = $_SESSION['toast_msg'];
         }
-        elseif($type == 'error'){
-            $icon = 'error';
-            $title = $msg;
-            $color = '#E74C3C';
-            $iconColor = 'Red';
+        elseif($_SESSION['toast_type']=="error"){
+            $iconColor = "#ffffff";
+            $icon = "error";
+            $color = "#ff4d4f";
+            $title = $_SESSION['toast_msg'];
         }
-        elseif($type == 'warning'){
-            $icon = 'warning';
-            $title = $msg;
-            $color = '#F1C40F';
-            $iconColor = 'Yellow';
+        elseif($_SESSION['toast_type']=="warning"){
+            $iconColor = "#ffffff";
+            $icon = "warning";
+            $color = "#faad14";
+            $title = $_SESSION['toast_msg'];
         }
-        elseif($type == 'info'){
-            $icon = 'info';
-            $title = $msg;
-            $color = '#3498DB';
-            $iconColor = 'Blue';
+        elseif($_SESSION['toast_type']=="info"){
+            $iconColor = "#ffffff";
+            $icon = "info";
+            $color = "#1890ff";
+            $title = $_SESSION['toast_msg'];
         }
-        elseif($type == 'question'){
-            $icon = 'question';
-            $title = $msg;
-            $color = '#3498DB';
-            $iconColor = 'Blue';
+        elseif($_SESSION['toast_type']=="question"){
+            $iconColor = "#ffffff";
+            $icon = "question";
+            $color = "#9254de";
+            $title = $_SESSION['toast_msg'];
         }
-            
+        
+         
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -47,4 +48,6 @@
     
 </script>
 <?php
+    unset($_SESSION['toast_type']);
+    unset($_SESSION['toast_msg']);
     } 
