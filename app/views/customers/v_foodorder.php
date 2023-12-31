@@ -1,5 +1,8 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
 
+
+
+
 <div class="home">
 
         <div class="cart-inUI" onclick="togglePopup()"  >
@@ -115,9 +118,11 @@
         
         
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://localhost/GuestPro/public/js/customers/toast.js"></script>
 
  <script>
     
@@ -137,6 +142,8 @@
                     data: formData,
                     success: function (response) {
                         totalcartItems();
+                        console.log(response);
+                        toastFlashMsg(response[0],response[1]);
                         // Handle the response as needed
                         // console.log(response);
                     },
