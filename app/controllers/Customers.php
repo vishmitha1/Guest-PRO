@@ -347,22 +347,28 @@
                         
                         if($this->userModel->insertcart($data) ){
                             
-                        
-                            // $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
-                            
+                        //this one ran using aJAX so no need to redirect.
 
-                            // redirect("Customers/foodorder");
-                            // echo '<p>Item added to cart successfully.</p>';
-                            redirect("Customers/foodorder");
+                            // $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
+                            // toastFlashMsg('success','Item added to cart successfully.');
+                            $output=['success','Item added to cart successfully.'];
+                            header('Content-Type: application/json');
+                            echo json_encode($output);
+
                         }
                         else{
                             die("someting wrond");
+                            $output=['error','Someting went wrong.Try again. '];
+                            header('Content-Type: application/json');
+                            echo json_encode($output);
                         }   
                     }
                     else{
                         
                         $error_Msg='This item is alredy Added';
-                        redirect("Customers/foodorder");
+                        $output=['warning','This item is alredy Added.'];
+                        header('Content-Type: application/json');
+                        echo json_encode($output);
                     }
                     
                     
@@ -392,7 +398,9 @@
                     // $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
                     $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
                     
-                    
+                    if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                        toastFlashMsg();
+                    }
                 
                 
                 
@@ -467,16 +475,19 @@
                 }
                 if(empty($data['item_no_err']) && empty($data['user_id_err']) ){
                     if($this->userModel-> removecartitems($data)){
+                        $output=['success','Item removed from cart successfully.'];
+                        header('Content-Type: application/json');
+                        echo json_encode($output);
                         
-                            redirect('Customers/foodorder');
+            
                         }
                     }
                          
-                    }
+                }
 
                     
 
-                }
+            }
         
     
         // Itemo count on the cart Icon
@@ -506,45 +517,39 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $roomNo=trim($_POST['roomNumber']);
                 if(empty($roomNo)){
-                    die("No room selected");
-                }
-                
-                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
-                
-                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$roomNo)){
-                    // $this->userModel->deletecart($_SESSION['user_id']);
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a room.';
                     redirect('Customers/foodorder');
-                    // $this->view('v_test', $var);
-                    // echo 'count'.$count;
                 }
+
                 else{
-                    // die("someting wrond");
-                    $this->view('v_test', $var);
-                    // print_r($var);
+
+                    $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
+                    
+                    if($this->userModel->placeOrder($_SESSION['user_id'],$var,$roomNo)){
+                        // $this->userModel->deletecart($_SESSION['user_id']);
+                        // $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
+                        $_SESSION['toast_type']='success';
+                        $_SESSION['toast_msg']='Order placed successfully.';
+                        redirect('Customers/foodorder');
+
+                        // $this->view('v_test', $data);
+                        // echo 'count'.$count;
+                    }
+                    else{
+                        $_SESSION['toast_type']='warning';
+                        $_SESSION['toast_msg']='Something went wrong.';
+                        redirect('Customers/foodorder');
+                    }
+                
+               
                 }
-                
-                
             }
         }        
 
         
 
-        public function updatefoodorder($data1, $data2,$data3){
-            $data[0]= $data1;
-            $data[1]= $data2;
-            $data[2]= $data3;
-            $this->view('v_test', $data);
-        }
-
         
-
-
-        public function deleteorder($param){
-            
-                $this->userModel->deleteorder($param);
-                redirect('Customers/foodorder');  
-        
-    }
 
 
     //Use for testing perpose. When use ajax to debug the code''''''''''''''''''''''''''''''
@@ -563,15 +568,10 @@
             'price_err' => '',
             'quantity_err'=>'',
         ];
-        if($output=$this->userModel->retrivefoodcart($_SESSION['user_id'])){
-            $this->view('v_test', $data);
-            print_r($output);
+        $this->view('v_test', $data);
+    
+        if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+            toastFlashMsg();
         }
-        elseif($output==false){
-            $this->view('v_test', $data);
-            echo 'visal';
-            // print_r($output);
-        }
-        
     }
 }
