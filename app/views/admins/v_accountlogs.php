@@ -5,7 +5,7 @@
 </head>
 
 <body>
-        <?php   require APPROOT. "/views/includes/components/sidenavbar_admin.php" ?>
+        <?php require APPROOT. "/views/includes/components/sidenavbar_admin.php" ?>
 
 
             <div class="dashboard">
