@@ -30,7 +30,9 @@ function Decrease(id,e) {
     }
 }
 
-function addtoCart(id){
+function resetItemCount(id){
+    console.log(id);
+    id=id.replace('formID','ID');
     console.log(id);
     var quantityElement=document.getElementById(id);
     quantityElement.value=0;

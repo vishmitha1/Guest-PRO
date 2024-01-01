@@ -47,6 +47,9 @@
 
                 if(empty($data['payment_type'])){
                     $data['payment_type_err']=='Payment Type Error';
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a payment type.';
+                    redirect("Customers/reservation");
                 }
                 if(empty($data['payment_type_err'])){
                     if($data['payment_type']=='paynow'){
@@ -56,6 +59,8 @@
                     }
                     elseif($data['payment_type']=='paylater'){
                         if($this->userModel->placereservation($data)){
+                            $_SESSION['toast_type']='success';
+                            $_SESSION['toast_msg']='Reservation placed successfully.';
                             redirect("Customers/reservation");
                         }
                     }
@@ -128,6 +133,8 @@
                         else{
                             
                             $error_Msg='No Any room available';
+                            $_SESSION['toast_type']='error';
+                            $_SESSION['toast_msg']='No Any room available';
                             redirect("Customers/reservation");
                         }
                         
@@ -154,6 +161,9 @@
                         ];
                         
                          $this->view('customers/v_reservation',$this->userModel->retriveReservations($data));
+                         if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                            toastFlashMsg();
+                        }
                         // $this->view('v_test', $data);
                         // print_r( $this->userModel->checkroomavailability($data));
                         
@@ -217,33 +227,58 @@
             $this->view('customers/v_complain', $data);
         }
 
-        public function servicerequest(){
+        public function serviceRequest(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
                 //validate
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $data =[
 
-                    'message' => trim($_POST['message']),
+                    'category' => trim($_POST['category']),
+                    'AddDetails' => trim($_POST['AddDetails']),
+                    'SpecDetails' => trim($_POST['SpecDetails']),
+                    'user_id'=>$_SESSION['user_id'],
                     
-                    'message_err' => '',
+                    'category_err' => '',
+                    'AddDetails_err' => '',
+                    'SpecDetails_err' => '',
+                    'user_id_err'=>'',
+
                 ];
 
                 //validate each input
                 
-                if(empty($data['message'])){
-                    $data['message_err'] = 'Please enter message';
+                if(empty($data['category'])){
+                    $data['category_err'] = 'Please Select a category';
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Please Select a  Service category';
+                    redirect('Customers/serviceRequest');
+                }
+
+                if(empty($data['AddDetails'])){
+                    $data['AddDetails_err'] = 'Please Enter Additional Details';
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Please Enter Additional Details';
+                    redirect('Customers/serviceRequest');
+                }
+
+                //check user id
+                if(empty($data['user_id'])){
+                    $data['user_id_err'] = 'No User';
+                    $_SESSION['toast_type']='question';
+                    $_SESSION['toast_msg']='Please Try Again. ';
+                    redirect('Customers/serviceRequest');
                 }
                
 
                 
 
                 //validation is completed and no erros
-                if(empty( $data['_err'])  ){
+                if(empty( $data['category_err']) && empty( $data['AddDetails_err']) && empty( $data['user_id_err'])  ){
                     
 
                     //place food order
-                    if($this->userModel->placeservicerequest($data)){
+                    if($this->userModel->placeserviceRequest($data)){
                         
                         //pass the curent database data to view usig getordermod''''''''''''
 
@@ -251,15 +286,19 @@
                         // $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
                         
 
-                        redirect('Customers/servicerequest');
+                        $_SESSION['toast_type']='success';
+                        $_SESSION['toast_msg']='Service request placed successfully.';
+                        redirect('Customers/serviceRequest');
+
                     }
                     else{
-                        die("someting wrond");
+                        $_SESSION['toast_type']='question';
+                        $_SESSION['toast_msg']='Server Error. Please Try Again.';
                     }
 
                 }
                 else{
-                    $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                    $this->view('customers/v_servicerequest', $data);
                 }
 
             }
@@ -276,6 +315,10 @@
                 
                 // $this->userModel->getorderdetails();
                 $this->view('customers/v_servicerequest', $data);
+
+                if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                    toastFlashMsg();
+                }
                 
             }
         }
@@ -333,6 +376,7 @@
                 }
                 if(empty($data['quantity'])){
                     $data['quantity_err']= 'Enter Quantity';
+                    
                 }
                 
 
@@ -375,7 +419,9 @@
 
                 }
                 else{
-                    redirect('Customers/foodorder');
+                    $output=['error','Enter Quantity before add.'];
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
                 }
 
             }

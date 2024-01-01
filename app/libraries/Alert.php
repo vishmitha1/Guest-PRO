@@ -1,27 +1,27 @@
 <?php
     function toastFlashMsg(){
         if($_SESSION['toast_type']=="success"){
-            $iconColor = "#ffffff";
+            $iconColor = "#58D68D";
             $icon = "success";
-            $color = "#51c41a";
+            $color = "#3498DB";
             $title = $_SESSION['toast_msg'];
         }
         elseif($_SESSION['toast_type']=="error"){
             $iconColor = "#ffffff";
             $icon = "error";
-            $color = "#ff4d4f";
+            $color = "#EC7063";
             $title = $_SESSION['toast_msg'];
         }
         elseif($_SESSION['toast_type']=="warning"){
-            $iconColor = "#ffffff";
+            $iconColor = "#F39C12";
             $icon = "warning";
-            $color = "#faad14";
+            $color = "#F1C40F";
             $title = $_SESSION['toast_msg'];
         }
         elseif($_SESSION['toast_type']=="info"){
-            $iconColor = "#ffffff";
+            $iconColor = "##5DADE2";
             $icon = "info";
-            $color = "#1890ff";
+            $color = "#3498DB";
             $title = $_SESSION['toast_msg'];
         }
         elseif($_SESSION['toast_type']=="question"){

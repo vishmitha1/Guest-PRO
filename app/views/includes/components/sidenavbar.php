@@ -18,26 +18,26 @@
         </div>
         <div class="links" >
             <div class="link-items" id="visal">
+                <a href="<?php echo URLROOT;?>/Customers/Dashboard"class="ltags"><i class="fa-solid fa-file-invoice"></i>Dashboard</a>
                 <a href="<?php echo URLROOT;?>/Customers/reservation" class="ltags" ><i class="fa-solid fa-hotel"></i>Reservations</a>
             
             
-            <a href="<?php echo URLROOT;?>/Customers/foodorder"class="ltags"><i class="fa-solid fa-bell-concierge"></i>Food Orders</a>
+                 <a href="<?php echo URLROOT;?>/Customers/foodorder"class="ltags"><i class="fa-solid fa-bell-concierge"></i>Food Orders</a>
             
             
-            <a href="<?php echo URLROOT;?>/Customers/Dashboard"class="ltags"><i class="fa-solid fa-file-invoice"></i>Dashboard</a>
             
             
 
-            <a href="<?php echo URLROOT;?>/Customers/payment"class="ltags"><i class="fa-regular fa-credit-card"></i>Payments**</a>
+                <!-- <a href="<?php echo URLROOT;?>/Customers/payment"class="ltags"><i class="fa-regular fa-credit-card"></i>Payments**</a> -->
             
             
-            <a href="<?php echo URLROOT;?>/Customers/servicerequest"class="ltags"><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
+                <a href="<?php echo URLROOT;?>/Customers/servicerequest"class="ltags"><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
             
             
-                <a href="<?php echo URLROOT;?>/Customers/complain"class="ltags"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
+                <!-- <a href="<?php echo URLROOT;?>/Customers/complain"class="ltags"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a> -->
             
                
-                <a href="<?php echo URLROOT;?>/Customers/reviewwaiter"class="ltags"><i class="fa-solid fa-star"></i></i>Rate***</a>
+                <a href="<?php echo URLROOT;?>/Customers/reviewwaiter"class="ltags"><i class="fa-solid fa-star"></i></i>Rate</a>
             </div>
         </div>
         <div class="logout">

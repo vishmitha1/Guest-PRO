@@ -46,10 +46,10 @@
                                 <br><span class='food-price'><?php echo $item->price;?>LKR</span>                                                   <input type='hidden' name='item_price' value='<?php echo $item->price;?>'>
                             </div>
                             <div class='addto-cart'>
-                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id.'ID';?>',event)" >-</button> 
+                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id.'ID';?>',event)" >&#8681;</button> 
                                 <input type="text" class="qty" id="<?php echo $item->item_id.'ID';?>" name='quantity' value="1" >
                         
-                                <button class="increase" onclick="Increase('<?php echo $item->item_id.'ID';?>',event)" >+</button>
+                                <button class="increase" onclick="Increase('<?php echo $item->item_id.'ID';?>',event)" >&#8679;</button>
                                 <button class="addtocart-btn" >Add to Cart</button>
                                 <!-- <input type="submit"  class="addtocart-btn" value="Add to Cart" > -->
                             </div>
@@ -134,7 +134,7 @@
 
                 // Serialize form data
                 var formData = $(this).serialize();
-
+                var id=$(this).attr("id");
                 // Perform AJAX submission
                 $.ajax({
                     type: $(this).attr("method"),
@@ -152,6 +152,7 @@
                         console.error(error);
                     }
                 });
+                resetItemCount(id);
             });
         });
 

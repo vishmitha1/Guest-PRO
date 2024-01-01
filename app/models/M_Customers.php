@@ -254,10 +254,21 @@
         }
 
        
-       
 
-        
-        
+        //Service Request
+        public function placeserviceRequest($data){
+            $this->db->query('INSERT INTO servicerequests (user_id,category,AddDetails,SpecDetails) VALUES(:id,:category,:AddDetails,:SpecDetails)');
+            $this->db->bind('id',$data["user_id"]);
+            $this->db->bind('category',$data["category"]);
+            $this->db->bind('AddDetails',$data["AddDetails"]);
+            $this->db->bind('SpecDetails',$data["SpecDetails"]);
             
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     
     }
