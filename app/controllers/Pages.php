@@ -27,6 +27,8 @@
         }
 
         public function _404() {
-            
+            $data=[];
+            //load view
+            $this->view('pages/404',$data);
         }
     }
