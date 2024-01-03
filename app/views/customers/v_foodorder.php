@@ -193,3 +193,4 @@
     
 
 
+    <?php   require APPROOT. "/views/includes/components/footer.php" ?>
