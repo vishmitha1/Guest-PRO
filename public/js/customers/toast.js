@@ -7,17 +7,17 @@
             icon = 'success';
             title = msg;
             color = '#3498DB';
-            iconColor = 'Blue';
+            iconColor = '#58D68D';
         } else if (type === 'error') {
             icon = 'error';
             title = msg;
             color = '#E74C3C';
-            iconColor = 'Red';
+            iconColor = '#FF0000';
         } else if (type === 'warning') {
             icon = 'warning';
             title = msg;
             color = '#F1C40F';
-            iconColor = 'Yellow';
+            iconColor = '#F39C12';
         } else if (type === 'info') {
             icon = 'info';
             title = msg;

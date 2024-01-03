@@ -30,6 +30,7 @@
   width: 240px;
   height:auto;
   padding: 1%;
+  box-shadow: 10px 5px 10px  rgba(0, 0, 0, 0.15);
 
   
 }
@@ -42,11 +43,7 @@
   border-radius: 3px;
   
 }
-/* .foodorder-items img:hover{
-  transform: scale(1.1); 
-  transition: transform .8s;
-  
-} */
+
 
 
 .foodorder-items .food-title{
@@ -81,16 +78,17 @@
   text-align: center;
 }
 
-.addto-cart .decrease{
+.addto-cart .decrease , .increase{
   width: 20px;
-  margin-right: 5px;
-  text-align: center;
+  padding: 2px;
+  border-radius: 5px;
+  border: none;
+  font-size: 17px;
+  color: #6d8cab;
+  font-weight:bolder;
+  
 }
-.addto-cart .increase{
-  width: 20px;
-  margin-left: 5px;
-  text-align: center;
-}
+
 
 .foodorder-items .addtocart-btn {
   width: 80%;
