@@ -3,6 +3,11 @@
         protected $userModel;
         public function __construct(){
             $this->userModel =$this->model('M_Managers');
+
+            // Load middleware
+            $this->middleware = new AuthMiddleware();
+            // Check if user is logged in
+            $this->middleware->checkAccess(['manager']);
         }
 
  

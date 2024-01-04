@@ -1,5 +1,8 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
 
+
+
+
 <div class="home">
 
         <div class="cart-inUI" onclick="togglePopup()"  >
@@ -31,29 +34,11 @@
         </div>
         <div class="foodorder-wrapper">
         
-            <!-- <?php
-                foreach($data[0] as $item){ 
-                    
-                    echo "
-                    <form class='ajx' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
-                    <div class='foodorder-items'>
-                        <img src='http://localhost/GuestPro/public/img/food_items/{$item->image}.jpg' alt='$item->name'><input type='hidden' name='image' value='$item->image'>
-                        <div class='food-title'>
-                            {$item->name}<input type='hidden' name='item_name' value='$item->name'>
-                            <br><span class='food-price'>{$item->price}LKR</span><input type='hidden' name='item_price' value='$item->price'>
-                            <input type='hidden' name='id'  value='$item->item_id'>
-                        </div>
-                        <div class='addto-cart'>
-                            <input  type='submit' name='add_to_cart' value='Add To Cart'>
-                        </div>
-                    </div>
-                    </form>";
-                }
-            ?> -->
+          
             <?php
                 foreach($data[0] as $item){ ?>
                     
-                    <form id='<?php echo $item->item_id.'formID';?>' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
+                    <form class='FormClass' id='<?php echo $item->item_id.'formID';?>' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
                         <div class='foodorder-items'>
                             <img src='<?php echo URLROOT;?>/public/img/food_items/<?php echo $item->image;?>.jpg' alt='<?php echo $item->image;?>'><input type='hidden' name='image' value='<?php echo $item->image;?>'>
                             <div class='food-title'>                                                                                                <input type='hidden' name='id'  value='<?php echo $item->item_id;?>'>
@@ -61,10 +46,10 @@
                                 <br><span class='food-price'><?php echo $item->price;?>LKR</span>                                                   <input type='hidden' name='item_price' value='<?php echo $item->price;?>'>
                             </div>
                             <div class='addto-cart'>
-                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id.'ID';?>',event)" >-</button> 
+                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id.'ID';?>',event)" >&#8681;</button> 
                                 <input type="text" class="qty" id="<?php echo $item->item_id.'ID';?>" name='quantity' value="1" >
                         
-                                <button class="increase" onclick="Increase('<?php echo $item->item_id.'ID';?>',event)" >+</button>
+                                <button class="increase" onclick="Increase('<?php echo $item->item_id.'ID';?>',event)" >&#8679;</button>
                                 <button class="addtocart-btn" >Add to Cart</button>
                                 <!-- <input type="submit"  class="addtocart-btn" value="Add to Cart" > -->
                             </div>
@@ -85,7 +70,15 @@
             <div class="overplay"></div>
             <div class="content">
                 <div class="header"  >
-                    <span  class="title" >My Cart</span>
+                    <span  class="title" >My Cart For </span> <div class="selectRoom">
+                    <select  name="roomNumber" form="cart_submit_Form">
+                                                                    <option hidden value="" >Select Room</option>
+                                                                    <?php foreach($data[2] as $room){ ?>
+                                                                        <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                    <?php } ?>
+                                                                    
+                                                                    </select> 
+                    </div>
                     <div class="close-btn">
                         <img src="<?php echo URLROOT;?>/public/img/svgs/solid/xmark.svg" class="svg-medium" onclick="closePopup()" ></img>  
                     </div>
@@ -100,15 +93,19 @@
                     
                     <div class="total-cost">
                         <div class="total-cost-title">
-                            <span>Number of items (2)</span><br>
+                            <span>Number of items <span id='total_items_in_Popup'> </span></span><br>
                             <span>Tostal Cost</span>
                         </div>
                         <div class="total-cost-value">
                             <span></span> <br>
-                            <span class="value" >2500LKR</span>
+                            <span class="value" id='total_cost_inCart' > </span>
                             <div class="place-order">
-                            <button>PlaceOrder</button>
-                        </div>
+                                <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
+                                    <button type='submit' >PlaceOrder</button>
+                                    <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
+                                </form>
+                                
+                            </div>
                         </div>
                         
                     </div>
@@ -119,22 +116,25 @@
             </div>
         </div>
         
+        
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://localhost/GuestPro/public/js/customers/toast.js"></script>
 
  <script>
     
     
         $(document).ready(function () {
             console.log("run in akjax")
-            $("form").submit(function (event) {
+            $(".FormClass").submit(function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
                 // Serialize form data
                 var formData = $(this).serialize();
-
+                var id=$(this).attr("id");
                 // Perform AJAX submission
                 $.ajax({
                     type: $(this).attr("method"),
@@ -142,6 +142,8 @@
                     data: formData,
                     success: function (response) {
                         totalcartItems();
+                        console.log(response);
+                        toastFlashMsg(response[0],response[1]);
                         // Handle the response as needed
                         // console.log(response);
                     },
@@ -150,6 +152,7 @@
                         console.error(error);
                     }
                 });
+                resetItemCount(id);
             });
         });
 

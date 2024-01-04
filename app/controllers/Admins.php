@@ -6,6 +6,7 @@ class Admins extends Controller{
         $this->staffModel = $this->model('M_Admins');
     }
 
+
     public function dashboard(){
         $data = [];
         $this->view('admins/v_dashboard', $data);

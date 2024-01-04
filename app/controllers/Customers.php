@@ -1,10 +1,17 @@
 <?php
     class Customers extends Controller{
         protected $userModel;
+        protected $middleware;
+       
         
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
-            $user_id=$_SESSION['user_id'];
+
+            // Load middleware
+            $this->middleware = new AuthMiddleware();
+            // Check if user is logged in
+            $this->middleware->checkAccess(['customer']);
+            
             
         }
 
@@ -13,13 +20,8 @@
         public function dashboard(){
             $data =[  ];
 
-            $this->view("v_test",$data);
-            $output=$this->userModel->checkroomavailability($data);
-            foreach ($output as $item){
-                $item->roomNo = explode(',', $item->roomNo);
-            }
-            // $output['roomNo'] = explode(',', $output['roomNo']);
-            print_r($output);
+            $this->view("customers/v_dashboard",$data);
+            
             
         }
 
@@ -45,6 +47,9 @@
 
                 if(empty($data['payment_type'])){
                     $data['payment_type_err']=='Payment Type Error';
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a payment type.';
+                    redirect("Customers/reservation");
                 }
                 if(empty($data['payment_type_err'])){
                     if($data['payment_type']=='paynow'){
@@ -54,6 +59,8 @@
                     }
                     elseif($data['payment_type']=='paylater'){
                         if($this->userModel->placereservation($data)){
+                            $_SESSION['toast_type']='success';
+                            $_SESSION['toast_msg']='Reservation placed successfully.';
                             redirect("Customers/reservation");
                         }
                     }
@@ -126,6 +133,8 @@
                         else{
                             
                             $error_Msg='No Any room available';
+                            $_SESSION['toast_type']='error';
+                            $_SESSION['toast_msg']='No Any room available';
                             redirect("Customers/reservation");
                         }
                         
@@ -143,19 +152,62 @@
                             'roomcount' => '',
                             'out_date' => '',
                             'outdate' => '',
+                            'user_id'=>$_SESSION['user_id'],
+
                             'roomcount_err' => '',
                             'out_date_err' => '',
                             'outdate_err' => '',
                             
                         ];
                         
-                         $this->view('customers/v_reservation', $data);
+                         $this->view('customers/v_reservation',$this->userModel->retriveReservations($data));
+                         if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                            toastFlashMsg();
+                        }
                         // $this->view('v_test', $data);
                         // print_r( $this->userModel->checkroomavailability($data));
                         
                     
                 }
            
+        }
+
+        public function deleteReservation(){
+            
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'reservation_id' => trim($_POST['reservation_id']),
+                    'roomNo' => trim($_POST['roomNo']),
+                    
+                    'user_id_err'=>'',
+                    'reservation_id_err' => '',
+                    'roomNo_err' => '',
+                    
+                ];
+                if(empty($data['user_id'])){
+                    $data['user_id_err']='No User';
+                }
+
+                if(empty($data['reservation_id'])){
+                    $data['reservation_id_err']='No Reservation';
+                }
+                if(empty($data['roomNo'])){
+                    $data['roomNo_err']='No Room';
+                }
+
+                if(empty($data['user_id_err']) && empty($data['reservation_id_err'])){
+                    if($output=$this->userModel->deleteReservation($data)){
+                        redirect('Customers/reservation');
+                        
+                        
+                    }
+                    else{
+                        die("someting wrond");
+                    }  
+                }
+                 
+            }
         }
 
         
@@ -175,33 +227,58 @@
             $this->view('customers/v_complain', $data);
         }
 
-        public function servicerequest(){
+        public function serviceRequest(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
                 //validate
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $data =[
 
-                    'message' => trim($_POST['message']),
+                    'category' => trim($_POST['category']),
+                    'AddDetails' => trim($_POST['AddDetails']),
+                    'SpecDetails' => trim($_POST['SpecDetails']),
+                    'user_id'=>$_SESSION['user_id'],
                     
-                    'message_err' => '',
+                    'category_err' => '',
+                    'AddDetails_err' => '',
+                    'SpecDetails_err' => '',
+                    'user_id_err'=>'',
+
                 ];
 
                 //validate each input
                 
-                if(empty($data['message'])){
-                    $data['message_err'] = 'Please enter message';
+                if(empty($data['category'])){
+                    $data['category_err'] = 'Please Select a category';
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Please Select a  Service category';
+                    redirect('Customers/serviceRequest');
+                }
+
+                if(empty($data['AddDetails'])){
+                    $data['AddDetails_err'] = 'Please Enter Additional Details';
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Please Enter Additional Details';
+                    redirect('Customers/serviceRequest');
+                }
+
+                //check user id
+                if(empty($data['user_id'])){
+                    $data['user_id_err'] = 'No User';
+                    $_SESSION['toast_type']='question';
+                    $_SESSION['toast_msg']='Please Try Again. ';
+                    redirect('Customers/serviceRequest');
                 }
                
 
                 
 
                 //validation is completed and no erros
-                if(empty( $data['_err'])  ){
+                if(empty( $data['category_err']) && empty( $data['AddDetails_err']) && empty( $data['user_id_err'])  ){
                     
 
                     //place food order
-                    if($this->userModel->placeservicerequest($data)){
+                    if($this->userModel->placeserviceRequest($data)){
                         
                         //pass the curent database data to view usig getordermod''''''''''''
 
@@ -209,15 +286,19 @@
                         // $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
                         
 
-                        redirect('Customers/servicerequest');
+                        $_SESSION['toast_type']='success';
+                        $_SESSION['toast_msg']='Service request placed successfully.';
+                        redirect('Customers/serviceRequest');
+
                     }
                     else{
-                        die("someting wrond");
+                        $_SESSION['toast_type']='question';
+                        $_SESSION['toast_msg']='Server Error. Please Try Again.';
                     }
 
                 }
                 else{
-                    $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                    $this->view('customers/v_servicerequest', $data);
                 }
 
             }
@@ -233,7 +314,11 @@
                 ];
                 
                 // $this->userModel->getorderdetails();
-                $this->view('customers/v_servicerequest', $this->userModel->getservicerequestdetails());
+                $this->view('customers/v_servicerequest', $data);
+
+                if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                    toastFlashMsg();
+                }
                 
             }
         }
@@ -249,6 +334,9 @@
             redirect('Customers/servicerequest');  
     
         }
+
+
+        //Food order part''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
         public function foodorder(){
@@ -288,6 +376,7 @@
                 }
                 if(empty($data['quantity'])){
                     $data['quantity_err']= 'Enter Quantity';
+                    
                 }
                 
 
@@ -302,29 +391,37 @@
                         
                         if($this->userModel->insertcart($data) ){
                             
-                        
-                            // $this->view('customers/v_foodorder', $this->userModel->getorderdetails());
-                            
+                        //this one ran using aJAX so no need to redirect.
 
-                            // redirect("Customers/foodorder");
-                            // echo '<p>Item added to cart successfully.</p>';
-                            redirect("Customers/foodorder");
+                            // $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
+                            // toastFlashMsg('success','Item added to cart successfully.');
+                            $output=['success','Item added to cart successfully.'];
+                            header('Content-Type: application/json');
+                            echo json_encode($output);
+
                         }
                         else{
                             die("someting wrond");
+                            $output=['error','Someting went wrong.Try again. '];
+                            header('Content-Type: application/json');
+                            echo json_encode($output);
                         }   
                     }
                     else{
                         
                         $error_Msg='This item is alredy Added';
-                        redirect("Customers/foodorder");
+                        $output=['warning','This item is alredy Added.'];
+                        header('Content-Type: application/json');
+                        echo json_encode($output);
                     }
                     
                     
 
                 }
                 else{
-                    redirect('Customers/foodorder');
+                    $output=['error','Enter Quantity before add.'];
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
                 }
 
             }
@@ -345,9 +442,11 @@
                     // $this->view('v_test', $this->userModel->loadfoodmenu());
                             //''''pass the cart data and food menu data to foodorder UI. in here parameter array containing foodmenu data and cart data 
                     // $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
-                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id'])]);
+                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
                     
-                    
+                    if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                        toastFlashMsg();
+                    }
                 
                 
                 
@@ -368,14 +467,23 @@
                 ];
 
                 if( empty($data['user_id_err']) ){
-                    if($output=$this->userModel->retrivefoodcart($data['user_id'])){
-                        
+                    $output=$this->userModel->retrivefoodcart($data['user_id']);
+
+                    if($output==false){
+                        $output=[200,'null'];
+                        header('Content-Type: application/json');
+                        echo json_encode($output);
+                    }
+                    
+                    else{
                         $output=[$output,$this->findtotal($output)];
                         // print_r($output) ;
                         header('Content-Type: application/json');
                         echo json_encode($output);
-                        
                     }
+                        
+                        
+                    
                 }
             }
         }
@@ -413,16 +521,19 @@
                 }
                 if(empty($data['item_no_err']) && empty($data['user_id_err']) ){
                     if($this->userModel-> removecartitems($data)){
+                        $output=['success','Item removed from cart successfully.'];
+                        header('Content-Type: application/json');
+                        echo json_encode($output);
                         
-                            redirect('Customers/foodorder');
+            
                         }
                     }
                          
-                    }
+                }
 
                     
 
-                }
+            }
         
     
         // Itemo count on the cart Icon
@@ -443,22 +554,70 @@
             }
         }
 
+
+        //place order
+        public function placeOrder(){
+        
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $roomNo=trim($_POST['roomNumber']);
+                if(empty($roomNo)){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a room.';
+                    redirect('Customers/foodorder');
+                }
+
+                else{
+
+                    $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
+                    
+                    if($this->userModel->placeOrder($_SESSION['user_id'],$var,$roomNo)){
+                        // $this->userModel->deletecart($_SESSION['user_id']);
+                        // $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
+                        $_SESSION['toast_type']='success';
+                        $_SESSION['toast_msg']='Order placed successfully.';
+                        redirect('Customers/foodorder');
+
+                        // $this->view('v_test', $data);
+                        // echo 'count'.$count;
+                    }
+                    else{
+                        $_SESSION['toast_type']='warning';
+                        $_SESSION['toast_msg']='Something went wrong.';
+                        redirect('Customers/foodorder');
+                    }
+                
+               
+                }
+            }
+        }        
+
         
 
-        public function updatefoodorder($data1, $data2,$data3){
-            $data[0]= $data1;
-            $data[1]= $data2;
-            $data[2]= $data3;
-            $this->view('v_test', $data);
-        }
-
         
 
 
-        public function deleteorder($param){
+    //Use for testing perpose. When use ajax to debug the code''''''''''''''''''''''''''''''
+    
+    public function test(){
+        $data=[
+            'user_id'=>$_SESSION['user_id'],
+            'name' => 'test',
+            'price' => 'test',
+            'image' => 'test',
+            'item_id' => 'test',
+            'quantity' => 'test',
             
-                $this->userModel->deleteorder($param);
-                redirect('Customers/foodorder');  
-        
+            'user_id_err'=>'',
+            'name_err' => '',
+            'price_err' => '',
+            'quantity_err'=>'',
+        ];
+        $this->view('v_test', $data);
+    
+        if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+            toastFlashMsg();
+        }
     }
 }

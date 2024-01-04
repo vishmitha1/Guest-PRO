@@ -159,6 +159,7 @@
             $_SESSION['username']= $user -> name;
             $_SESSION['email']= $user -> email;
             $_SESSION['role']= $user -> role;
+            $_SESSION['name']= $user -> name;
 
             if($_SESSION['role'] == "admin"){
                 redirect("Admins/staffaccounts/". $_SESSION['username']);
@@ -189,6 +190,7 @@
             unset($_SESSION['username']);
             unset($_SESSION['email']);
             unset($_SESSION['role']);
+            unset($_SESSION['name']);
 
             session_destroy();
             redirect('Users/login');

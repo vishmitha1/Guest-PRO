@@ -2,7 +2,7 @@
     class Pages extends Controller {
         private $pagesModel;
         public function __construct(){
-            echo "Pages controller";
+            // echo "Pages controller";
             $this->pagesModel = $this->model('M_Pages');
         }
 
@@ -21,15 +21,12 @@
 
         }
         public function test() {
-            $dataArray = ['123', 'visla', 2322323];
-            $jsonData = json_encode($dataArray);
-        
-            // Set the content type header
-            header('Content-Type: application/json');
-        
-            // Send the JSON response
-            echo $jsonData;
+           $data=[ ];
+            
+            $this->view('customers/v_dashboard', $data);
         }
-        
-        
+
+        public function _404() {
+            
+        }
     }
