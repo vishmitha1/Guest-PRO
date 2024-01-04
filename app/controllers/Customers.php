@@ -324,8 +324,17 @@
         }
 
         public function reviewwaiter(){
-            $data =[  ];
-            $this->view('customers/v_reviewwaiter', $data);
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $data=[
+                    'user_id' => $_SESSION['user_id']
+                ];
+            
+            }
+            else{
+                $data =[  ];
+                $this->view('customers/v_reviewwaiter',$this->userModel->getwaiterdetails($data));
+            }
+            
         }
 
         public function deleteservicerequest($param){
@@ -596,8 +605,10 @@
         
 
         
-
-
+    public function postriview(){
+        $data=[];
+        $this->view('customers/v_placereview', $data);
+    }
     //Use for testing perpose. When use ajax to debug the code''''''''''''''''''''''''''''''
     
     public function test(){

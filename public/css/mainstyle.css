@@ -1,5 +1,5 @@
 /*fonts imported */
-
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@400&family=Exo+2:wght@500&family=Hedvig+Letters+Sans&family=Poppins:wght@100;500&family=Sometype+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sriracha&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
@@ -11,10 +11,13 @@
 @import url("./common.css");
 
 @import url("./side-navbar/navbar.css");
+@import url("./side-navbar/footer.css");
+
 @import url("./customer/reservation.css");
 @import url("./customer/foodorder.css");
 @import url("./customer/dashboard.css");
 @import url("./customer/servicerequest.css");
+@import url("./customer/ratings.css");
 /* @import url("./customer/bill.css");
 @import url("./customer/payment.css");
 @import url("./customer/foodorder.css");

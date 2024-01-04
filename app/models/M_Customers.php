@@ -270,5 +270,14 @@
                 return false;
             }
         }
+
+
+
+        //Review waiter''''''''''''''''''''''''''''''''''''''''
+        public function getwaiterdetails(){
+            $this->db->query("SELECT * FROM waiters ");
+            $row = $this->db->resultSet();
+            return $row;
+        }
     
     }
