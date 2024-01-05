@@ -96,22 +96,30 @@
         //Place order
         public function placeOrder($id,$data,$roomNo){
             
-            $qty=$name='';
+            $qty=$name=$cost=$itemid=$img='';
             foreach($data as $item){
                 
                 $qty.=$item->quantity.',';
-                
+                $cost.=($item->price).',';
                 $name.=$item->item_name.',';
+                $itemid.=$item->item_no.',';
+                $img.=$item->image.',';
             }
             $qty=trim($qty,',');
             $name=trim($name,',');
+            $cost=trim($cost,',');
+            $itemid=trim($itemid,',');
+            $img=trim($img,',');
        
-            $this->db->query("INSERT INTO foodorders (user_id,quantity,item_name,roomNo) VALUES(:id,:quantity,:item_name,:roomNo)");
+            $this->db->query("INSERT INTO foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img) VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img)");
             // $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
             $this->db->bind(':id',$id);
             $this->db->bind(':quantity', $qty);
             $this->db->bind(':item_name',$name);
             $this->db->bind(':roomNo',$roomNo);
+            $this->db->bind(':cost',$cost);
+            $this->db->bind(':item_id',$itemid);
+            $this->db->bind(':img',$img);
             
             if($this->db->execute()){
                 if($this->deleteallCartitems($id)){
@@ -125,8 +133,19 @@
             else{
                 return false;
             }
+
+           
               
             
+        }
+
+        //Retrive Last order
+        public function retriveLastOrder($data){
+            $this->db->query("SELECT * FROM foodorders WHERE user_id=:id ORDER BY order_id DESC LIMIT 1");
+            $this->db->bind(':id',$data);
+            $row = $this->db->single();
+
+            return $row;
         }
 
         //Dlete all the items in the cart
@@ -149,6 +168,44 @@
             $row = $this->db->resultSet();
 
             return $row;
+        }
+
+        //Update order
+        public function updateOrder($data,$id){
+          
+            
+                $item=$data;
+                $itemNames = explode(",",$item ->item_name);
+				$itemCosts = explode(",", $item->cost);
+				$quantities = explode(",", $item->quantity);
+                $itemImgs = explode(",", $item->img);
+                $itemIds = explode(",", $item->item_no);
+                
+                
+            for($i=0;$i<count($itemNames);$i++){
+                $param = [
+                    'name' => $itemNames[$i],
+                    'price' => $itemCosts[$i],
+                    'quantity' => $quantities[$i],
+                    'image' => $itemImgs[$i],
+                    'item_id' => $itemIds[$i],
+                    'user_id' => $id
+                ];
+                // echo $param['name'];
+                if($this->checkcartitem($param)){
+                    if($this->insertcart($param)){
+                    continue;
+                    }
+                    else{
+                        return false;
+                    }
+                
+                
+                }
+            }
+            return true;
+				
+				
         }
 
         public function test(){
@@ -269,6 +326,15 @@
             else{
                 return false;
             }
+        }
+
+
+
+        //Review waiter''''''''''''''''''''''''''''''''''''''''
+        public function getwaiterdetails(){
+            $this->db->query("SELECT * FROM waiters ");
+            $row = $this->db->resultSet();
+            return $row;
         }
     
     }
