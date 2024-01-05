@@ -14,8 +14,9 @@
 }
 
 .col-div-3{
-	width: 25%;
+	width: 30%;
 	float: left;
+  margin-left: 20px;
 }
 .box{
 	width: 90%;
@@ -34,13 +35,13 @@
     display: inline-block;
 }
 .box p span{
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: 500;
 	color: #cdcdcd;
 }
 .box-icon{
-	font-size: 30px!important;
-    float: right;
+	font-size: 25x;
+  float: right;
 ;
     margin-top: 3px!important;
     color: #cdcdcd;
@@ -65,16 +66,35 @@
 }
 .content-box p span{
 	float: right;
-    background-color: #ddd;
-    padding: 3px 10px;
-    font-size: 15px;
+  background-color:transparent;
+  padding: 3px 10px;
+  font-size: 15px;
 }
+.content-box p span button{
+  background-color: #f7403b;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+.content-box p span button:hover{
+  background-color: #f7403b;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .box-8{
 	width: 95%;
 	background-color: #003366;
-	height: 400px;
-    overflow: auto;
-    border-radius: 5px;
+	height: auto;
+  overflow: auto;
+  border-radius: 5px;
 }
 .box-4{
 	width: 95%;

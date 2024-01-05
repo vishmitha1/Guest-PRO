@@ -20,7 +20,7 @@
         public function dashboard(){
             $data =[  ];
 
-            $this->view("customers/v_dashboard",$data);
+            $this->view("customers/v_dashboard",$this->userModel->retriveLastOrder($_SESSION['user_id']));
             
             
         }
@@ -198,6 +198,8 @@
 
                 if(empty($data['user_id_err']) && empty($data['reservation_id_err'])){
                     if($output=$this->userModel->deleteReservation($data)){
+                        $_SESSION['toast_type']='success';
+                        $_SESSION['toast_msg']='Reservation deleted successfully.';
                         redirect('Customers/reservation');
                         
                         
@@ -411,7 +413,7 @@
                         }
                         else{
                             die("someting wrond");
-                            $output=['error','Someting went wrong.Try again. '];
+                            $output=['error','Someting went wrong.Try again . '];
                             header('Content-Type: application/json');
                             echo json_encode($output);
                         }   
@@ -593,14 +595,34 @@
                     }
                     else{
                         $_SESSION['toast_type']='warning';
-                        $_SESSION['toast_msg']='Something went wrong.';
+                        $_SESSION['toast_msg']='Something went wrong .';
                         redirect('Customers/foodorder');
                     }
                 
                
                 }
             }
-        }        
+        }     
+        
+        //Update order
+        public function updateOrder(){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                $data=$this->userModel->retriveLastOrder($_SESSION['user_id']);
+                if($this->userModel->updateOrder($data,$_SESSION['user_id'])){
+                    
+                    redirect('Customers/foodorder');
+                }
+                else{
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Something went wwwrong.';
+                    redirect('Customers/foodorder');
+                }
+                
+            }
+
+        }
 
         
 
@@ -625,8 +647,13 @@
             'price_err' => '',
             'quantity_err'=>'',
         ];
-        $this->view('v_test', $data);
-    
+        $data=$this->userModel->retriveLastOrder($_SESSION['user_id']);
+        if($this->userModel->updateOrder($data,$_SESSION['user_id'])){
+            $this->view('v_test', $data);
+            echo'visa';
+        }
+        
+        
         if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
             toastFlashMsg();
         }
