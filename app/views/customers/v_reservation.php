@@ -20,7 +20,7 @@
                         <form id="search-form" action="<?php echo URLROOT;?>/Customers/reservation" method="POST" >
                         <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date" value='2023-09-14' ></th>
                         <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date" value='2023-09-17'></th>
-                        <th><div class="img"><i class="fa-solid fa-people-group"></i></div><input type="text" id="roomcount" name="roomcount" placeholder="Details"></th>
+                        <th><div class="img"><i class="fa-solid fa-people-group"></i></div><input type="text" id="roomcount" name="roomcount" placeholder="Rooms"></th>
                         <th><div class="img"></div><button type="submit" >Submit</button></th>
                         </form>
                     </tr>
@@ -405,10 +405,10 @@
                     <div class="col col-4" data-label="CheckOut Date"><?php echo $item->checkOut; ?></div>
                     <div class="col col-5" data-label="Action">
                         <!-- <button id='<?php echo $item->reservation_id; ?>' onclick="deleteReservation('<?php echo $item->reservation_id; ?>')" ><i class='fa-solid fa-trash fa-lg'></i></button> -->
-                        <form action="<?php echo URLROOT;?>/Customers/deleteReservation" method='POST' >
+                        <form class="deleteReservation" id="<?php echo $item->reservation_id.'formId';?> " action="<?php echo URLROOT;?>/Customers/deleteReservation" method='POST' >
                             <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id; ?>">
                             <input type="hidden" name="roomNo" value="<?php echo $item->roomNo; ?>">
-                            <button type="submit" name="delete" ><i class='fa-solid fa-trash fa-lg'></i></button>
+                            <button type="submit" name="delete"  onclick="deleteReservation('<?php echo $item->reservation_id.'formId'; ?>')" ><i class='fa-solid fa-trash fa-lg'></i></button>
                         </form>
                     </div>
                     </li>
@@ -1014,6 +1014,65 @@
 
 
 
+});
+
+
+// Delete reservation using ajax
+// this one can before run through the form submit but need add alert before delete reservation
+
+$(document).ready(function () {
+    console.log('ready');
+
+$(".deleteReservation").submit(function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Serialize form data
+    var formData = $(this).serialize();
+    var id=$(this).attr("id");
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: " Are you sure you want to delete this reservation? ",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Perform AJAX submission
+          $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("action"),
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                
+                //set time out for reload the page
+
+                setTimeout(function () {
+                    location.reload();
+                    }, 2000);
+                
+                // Handle the response as needed
+                // console.log(response);
+            },
+            error: function (error) {
+                // Handle errors if any
+                console.error(error);
+            }
+        });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your reservation has been deleted.",
+          icon: "success",
+            timer: 2000,
+        });
+      }
+    });
+    
+ 
+});
 });
         
     </script>

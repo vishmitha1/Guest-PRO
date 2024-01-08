@@ -202,7 +202,9 @@
                     if($output=$this->userModel->deleteReservation($data)){
                         $_SESSION['toast_type']='success';
                         $_SESSION['toast_msg']='Reservation deleted successfully.';
-                        redirect('Customers/reservation');
+                        header('Content-Type: application/json');
+                        echo json_encode('vidsl');
+                        
                         
                         
                     }
@@ -667,15 +669,21 @@
             'price_err' => '',
             'quantity_err'=>'',
         ];
-        $data=$this->userModel->retriveLastOrder($_SESSION['user_id']);
-        if($this->userModel->updateOrder($data,$_SESSION['user_id'])){
+      
+       
             $this->view('v_test', $data);
-            echo'visa';
-        }
+            if(confirm()){
+                echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvyes";
+            }
+            else{
+                echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvno";
+            }
+            
         
         
-        if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
-            toastFlashMsg();
-        }
+        
+        // if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+        //     toastFlashMsg();
+        // }
     }
 }
