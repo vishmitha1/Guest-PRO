@@ -1,7 +1,7 @@
 .serviceReq-container{
     margin-top: 20px;
     margin-bottom: 20px;
-    padding: 80px 100px 80px 100px;
+    padding: 50px 100px 80px 100px;
     width: 80%;
     height: 100%;
     border-radius: 5px;
@@ -32,9 +32,18 @@
     font-family: 'Josefin Sans';
     font-size: 20px;
 }
+.serviceReq-container-wrapper .input-box-block{
+    display:inline-block;
+    margin-right: 20%;
 
-.serviceReq-container-wrapper .input-box select{
+    margin-top: 20px;
+    font-family: 'Josefin Sans';
+    font-size: 20px;
+}
+
+.serviceReq-container-wrapper .input-box select , .input-box-block select{
     width:max-content;
+    display: block;
     height: 30px;
     border: 1px solid #000000;
     border-radius: 5px;
