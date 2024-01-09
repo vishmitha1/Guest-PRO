@@ -25,6 +25,15 @@
             </div>
         </div>
         <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        <a href="<?php echo URLROOT;?>/Users/login"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>
+    <div class="dashboard">
+        <div class="user-profile">
+            <img src="https://img.freepik.com/free-photo/portrait-optimistic-businessman-formalwear_1262-3600.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698537600&semt=ais" alt="User Profile Picture">
+            <div class="user-profile-info">
+                <p>John Doe</p>
+                <p>User</p>
+            </div>
+        </div>
+    </div> 

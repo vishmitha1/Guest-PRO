@@ -11,7 +11,7 @@
         private $error;         //for handling errors
 
         public function __construct(){
-            $dsn = 'mysql:host='. $this->host . '; dbname=' . $this->dbname;
+            $dsn = 'mysql:host='.$this->host .';port=8888; dbname='.$this->dbname;
             $options = array(
                 PDO::ATTR_PERSISTENT => true,       //persistent connection
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION

@@ -5,10 +5,15 @@ class Kitchen extends Controller{
     protected $userModel;
     public function __construct(){
         $this->userModel =$this->model('M_Kitchen');
+
+        // Load middleware
+        $this->middleware = new AuthMiddleware();
+        // Check if user is logged in
+        $this->middleware->checkAccess(['kitchen']);
     }
 
     public function foodstatus(){
-        $data =[  ];
+        $data =[];
         $this->view('kitchens/v_foodstatus', $data);
     }
 
@@ -170,7 +175,7 @@ class Kitchen extends Controller{
     public function deletemenu($param){
             
         $this->userModel->deletemenu($param);
-        $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
+        redirect('Kitchen/foodmenu');
 
     
 

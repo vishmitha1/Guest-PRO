@@ -19,13 +19,9 @@
             <a href="<?php echo URLROOT;?>/Customers/foodorder""><i class="fa-solid fa-bell-concierge"></i>View Ratings</a>
         </div>
         <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        <a href="<?php echo URLROOT;?>/Users/login"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>
 
    <!-- '''''''''''''''''''''''''''''''user account imported'''''''''''''''''''''''''''''''''''''''' -->
-    <div class="home">
-        <div class="profile">
-        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
-        </div>
-    </div>
+    

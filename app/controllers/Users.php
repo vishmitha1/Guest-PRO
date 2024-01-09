@@ -81,7 +81,7 @@
 
         public function login(){
             if($_SERVER['REQUEST_METHOD'] == "POST"){
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                // $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 
                 $data =[
                     'email' => trim($_POST['email']),
@@ -119,29 +119,9 @@
                         //can login
                         $loggeduser=$this->userModel->login($data['email'],$data['password']);
                             
-                        if($loggeduser != false){
+                        if($loggeduser ){
                         
-                            if($loggeduser == "admin"){
-                                redirect("Admins/staffaccounts");
-                            }
-                            elseif($loggeduser == "waiter"){
-                                redirect("Waiters/pendingfoodorders");
-                            }
-                            elseif($loggeduser == "receptionist"){
-                                redirect("Receptionists/reservation");
-                            }
-                            elseif($loggeduser == "supervisor"){
-                                redirect("Supervisors/servicerequest");
-                            }
-                            elseif($loggeduser == "kitchen"){
-                                redirect("Kitchen/foodmenu");
-                            }
-                            elseif($loggeduser == "customer"){
-                                redirect("Customers/reservation");
-                            }
-                            elseif($loggeduser == "manager"){
-                                redirect("Managers/roomdetails");
-                            }
+                            $this->createUsersession($loggeduser);
                         }    
                         else{
                             $data['password_err']= 'Password incorrect';
@@ -159,10 +139,7 @@
                 }
                     
                     
-            }
-
-            
-            else{
+            }else{
                 $data =[
                     'email' => '',
                     'password' => '',
@@ -172,6 +149,49 @@
                 ];
                 $this->view('users/v_login', $data);
             }
+        }
+
+        public function createUsersession($user){
+            $_SESSION['user_id']=$user ->id;
+            $_SESSION['username']= $user -> name;
+            $_SESSION['email']= $user -> email;
+            $_SESSION['role']= $user -> role;
+            $_SESSION['name']= $user -> name;
+
+            if($_SESSION['role'] == "admin"){
+                redirect("Admins/staffaccounts/". $_SESSION['username']);
+            }
+            elseif($_SESSION['role'] == "waiter"){
+                redirect("Waiters/pendingfoodorders/". $_SESSION['username']);
+            }
+            elseif($_SESSION['role'] == "receptionist/". $_SESSION['username']){
+                redirect("Receptionists/reservation");
+            }
+            elseif($_SESSION['role'] == "supervisor"){
+                redirect("Supervisors/");
+            }
+            elseif($_SESSION['role'] == "kitchen"){
+                redirect("Kitchen/foodmenu/". $_SESSION['username']);
+            }
+            elseif($_SESSION['role'] == "customer"){
+                redirect("Customers/reservation/". $_SESSION['username'].'/'.$_SESSION['user_id']);
+            }
+            elseif($_SESSION['role'] == "manager"){
+                redirect("Managers/roomdetails/". $_SESSION['username']);
+            }
+
+        }
+
+        public function logout(){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['username']);
+            unset($_SESSION['email']);
+            unset($_SESSION['role']);
+            unset($_SESSION['name']);
+
+            session_destroy();
+            redirect('Users/login');
+
         }
 
 

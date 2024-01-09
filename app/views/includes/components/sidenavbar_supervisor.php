@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-   
-    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/side-navbar/navbar.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/supervisor/supervisor-servicerequest.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/supervisor/supervisor-cleaningstatus.css' >
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -22,7 +23,7 @@
             </div>
         </div>
         <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        <a href="<?php echo URLROOT;?>/Users/login"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>
     

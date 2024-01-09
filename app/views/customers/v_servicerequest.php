@@ -1,65 +1,41 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
 
-<div class="dashboard">
-        
-
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button>Search</button>
-        </div>
-
-        <!-- Topic for Service Requests -->
-        <h2>Service Requests</h2>
-        
-        <!-- Form for sending a message -->
-        <form action="<?php echo URLROOT;?>/Customers/servicerequest" method="POST" >
-            <textarea name="message" class="message-input" placeholder="Type your message..." rows="4"></textarea>
-            <button type="submit" class="send-button">Send</button>
-        </form>
-
-        <div class="foodorder-table-warpper">
-            <div class="main-title">Food orders</div>
-            <div class="foodorder-table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th hidden >orderid</th>
-                            
-                            <th>Date</th>
-                            <th>Message</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>    
-                        <tbody>
-                            <?php
-                                foreach ($data as $item) {
-                                    echo "
-                                    <tr>
-                                        <td hidden>{$item->request_id}</td>
-                                        
-                                        <td>{$item->date}</td>
-                                        <td>{$item->message}</td>
-                                        <td>{$item->status}</td>
-                                        ";
-                                    if($item->status =="Completed" ){
-                                        echo "<td><button type='submit'  class='light-blue'>Complete</button></td>
-                                        </tr>";
-                                    }
-                                    else{
-                                        echo "<td> <a href='updateservicerequest/{$item->request_id}'><button type='submit' class='light-green'>Edit</button></a>
-                                                   <a href='deleteservicerequest/{$item->request_id}'><button type='submit' class='light-perple'>Delete</button></a> </td>
-                                        </tr>";
-                                    }
-                                }
-                            ?>
-                            
-                            
-                        </tbody>
-                       
-                    
-                </table>
+<div class="home">
+    <div class="serviceReq-container">
+        <div class="serviceReq-container-wrapper">
+            <div class="title">
+                <span>Service Request</span>
             </div>
+            <form action="<?php echo URLROOT;?>/Customers/serviceRequest" method='POST' >
+                <div class="input-box">
+                <lable class="material-symbols-outlined">Format_List_Bulleted</lable><span>Service Type</span> <br>
+                    <select name="category" id="category">
+                        <option hidden value=''>Select One</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Snack Refill">Snack Refill</option>
+                        <option value="Health and Wellness">Health and Wellness</option>
+                        <option value="Cleaning">Cleaning</option>
+                        <option value="Accessibility">Accessibility</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                <lable class="material-symbols-outlined">Text_Snippet</lable><span>Additional Details</span> <br>
+                    <textarea name="AddDetails" id="details" style='width:60%;height:20%' ></textarea>
+                </div>
+                <div class="input-box">
+                <lable class="material-symbols-outlined">more</lable><span>Special Instructions</span> <br>
+                    <textarea  name="SpecDetails"  ></textarea>
+                </div>
+
+                <div class="send-req">
+                    <button type="submit" class="btn">Send Request</button>
+                </div>
+
+            </form>
         </div>
     </div>
+
+</div>
+
 

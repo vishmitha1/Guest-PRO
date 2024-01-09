@@ -7,47 +7,27 @@
             $this->db = new Database;
         }
 
-        //place food order
-        public function placefoodorder($data){
-            $this->db->query('Insert into foodorders(item_name ,quantity ,status,note) VALUES(:name ,:quantity ,:status,:note)');
-            $this->db->bind(':name', $data['food']);
-            $this->db->bind(':quantity',$data['quantity'] );
-            $this->db->bind(':status',"Placed");
-            $this->db->bind(':note',$data['note'] );
-            
-
-            if($this->db->execute()){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
-        public function getorderdetails(){
-            $this->db->query("SELECT * FROM foodorders ");
+            //Load food menu to food order UI
+        public function loadfoodmenu(){
+            $this->db->query("SELECT * FROM fooditems ");
             
             $row = $this->db->resultSet();
-            // echo($row[0]->order_id);
-            // echo("<br>".count($row));
-            // echo("<br>");
-            $row=array_reverse($row);
-
+            
             return $row;
-
         }
-        public function updateorderdetails($data,$param) {
-            $this->db->query('UPDATE foodorders SET 
-            item_name=:name ,
-            quantity=:quantity ,
-            status= :status,
-            note=:note WHERE order_id= :param');
+
+        //When customer place a order ,ordered items will store cart db 
+        public function insertcart($data){
+            $this->db->query('Insert into carts(item_no,user_id,quantity,item_name,price,image) VALUES(:item_no,:id ,:quantity ,:item_name,:price,:image)');
+            $this->db->bind(':id', $data['user_id']);
+            $this->db->bind(':quantity',$data['quantity']);
+            $this->db->bind(':item_name',$data['name']);
+            $this->db->bind(':price',$data['price'] );
+            $this->db->bind(':image',$data['image'] );
+            $this->db->bind(':item_no',$data['item_id'] );
+
             
-            $this->db->bind(':param', $param);
-            $this->db->bind(':name', $data['food']);
-            $this->db->bind(':quantity',$data['quantity'] );
-            $this->db->bind(':status',"Placed");
-            $this->db->bind(':note',$data['note'] );
+            
 
             if($this->db->execute()){
                 return true;
@@ -57,10 +37,26 @@
             }
         }
 
-        public function deleteorder($param) {
-            $this->db->query("DELETE FROM foodorders WHERE order_id= :id ");
-            $this->db->bind(':id',$param);
+        public function checkcartitem($data){
+            $this->db->query('SELECT * FROM carts WHERE user_id=:id AND item_no=:itemNo ');
+            $this->db->bind('id',$data['user_id']);
+            $this->db->bind('itemNo',$data['item_id']);
+            $row=$this->db->resultSet();
+            if($this->db->rowCount() > 0){
+                
+                return false;
+            }
+            else{
+               
+                return true;
+            }
+            
+        }
 
+        public function removecartitems($data){
+            $this->db->query("DELETE FROM carts WHERE user_id = :u_id AND item_no = :item_id");
+            $this->db->bind('u_id',$data['user_id']);
+            $this->db->bind('item_id',$data['item_no']);
             if($this->db->execute()){
                 return true;
             }
@@ -69,12 +65,75 @@
             }
         }
 
-        public function placeservicerequest($data){
-            $this->db->query('Insert into servicerequests(message , status) VALUES(:message,:status )');
-            $this->db->bind(':message', $data['message']);
-            $this->db->bind(':status',"Placed");
+            //Retrive items to thecart. when clicked cart all the items retrive
+        public function retrivefoodcart($data){
+            $this->db->query("SELECT * FROM carts WHERE user_id=:id ");
+            $this->db->bind(':id',$data);
             
+            if($this->db->execute()){
+                $row = $this->db->resultSet();
+                $row=array_reverse($row);
+                return $row;
+            }
+            else{
+                return false;
+                
+            }
+           
+        }
+
         
+
+        // Itemo count on the cart Icon
+        public function cartTotal($data){
+            $this->db->query("SELECT COUNT(*) FROM carts WHERE user_id=:id ");
+            $this->db->bind(':id',$data);
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+        //Place order
+        public function placeOrder($id,$data,$roomNo){
+            
+            $qty=$name='';
+            foreach($data as $item){
+                
+                $qty.=$item->quantity.',';
+                
+                $name.=$item->item_name.',';
+            }
+            $qty=trim($qty,',');
+            $name=trim($name,',');
+       
+            $this->db->query("INSERT INTO foodorders (user_id,quantity,item_name,roomNo) VALUES(:id,:quantity,:item_name,:roomNo)");
+            // $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
+            $this->db->bind(':id',$id);
+            $this->db->bind(':quantity', $qty);
+            $this->db->bind(':item_name',$name);
+            $this->db->bind(':roomNo',$roomNo);
+            
+            if($this->db->execute()){
+                if($this->deleteallCartitems($id)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+                
+            }
+            else{
+                return false;
+            }
+              
+            
+        }
+
+        //Dlete all the items in the cart
+        public function deleteallCartitems($data){
+            $this->db->query("DELETE FROM carts WHERE user_id = :u_id ");
+            $this->db->bind('u_id',$data);
+            
             if($this->db->execute()){
                 return true;
             }
@@ -83,23 +142,80 @@
             }
         }
 
-        public function getservicerequestdetails(){
-            $this->db->query("SELECT * FROM servicerequests ");
-            
+        //Retrive Reservation Room number for food order
+        public function retriveRoomNo($id){
+            $this->db->query("SELECT roomNo FROM reservations WHERE user_id=:id ");
+            $this->db->bind(':id',$id);
             $row = $this->db->resultSet();
-            // echo($row[0]->order_id);
-            // echo("<br>".count($row));
-            // echo("<br>");
-            $row=array_reverse($row);
 
+            return $row;
+        }
+
+        public function test(){
+            $this->db->query("SELECT * FROM carts  ");
+            $row = $this->db->resultSet();
+            $row=array_reverse($row);
             return $row;
 
         }
 
-        public function deleteservicerequest($param) {
-            $this->db->query("DELETE FROM servicerequests WHERE request_id= :id ");
-            $this->db->bind(':id',$param);
+        //Reservation part'''''''''''''''''''''''''''''''''''''''''''''''''''
+        public function checkroomavailability($data){
+            // $this->db->query('SELECT roomtype.category,roomtype.price * :count as price, rooms.roomNo,roomtype.roomImg from rooms INNER JOIN roomtype ON roomtype.category=rooms.category and   availability=:avail GROUP BY roomtype.category ');
+            $this->db->query("WITH RankedRooms AS (
+                                                SELECT
+                                                    category,
+                                                    roomNo,
+                                                    ROW_NUMBER() OVER (PARTITION BY category ORDER BY roomNo) AS row_num
+                                                FROM
+                                                    rooms
+                                                WHERE
+                                                    availability = :avail
+                                            )
+                                            SELECT
+                                                RankedRooms.category,
+                                                GROUP_CONCAT(RankedRooms.roomNo) AS roomNo,
+                                                roomtype.price,
+                                                roomtype.roomImg
+                                            FROM
+                                                RankedRooms
+                                            INNER JOIN
+                                                roomtype ON roomtype.category = RankedRooms.category
+                                            WHERE
+                                                row_num <= :count
+                                            GROUP BY
+                                                RankedRooms.category, roomtype.price, roomtype.roomImg");
+            $this->db->bind('avail','yes');
+            $this->db->bind('count',$data['roomcount']);
+            $row=$this->db->resultSet();
+            return $row;
+        }
 
+        public function placereservation($data){
+            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo) VALUES(:id,:indate,:outdate,:roomNo)');
+            $this->db->bind('id',$data["user_id"]);
+            $this->db->bind('indate',$data["indate"]);
+            $this->db->bind('outdate',$data["outdate"]);
+            $this->db->bind('roomNo',$data["roomNo"]);
+            
+            if($this->db->execute()){
+                if($this->changeRoomAvailability($data,'no')){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+                
+            }
+            else{
+                return false;
+            }
+        }
+        public function changeRoomAvailability($data,$avail){
+            $this->db->query('UPDATE rooms SET availability = :avail WHERE roomNo=:roomNo');
+            $this->db->bind('roomNo',$data["roomNo"]);
+            
+            $this->db->bind('avail',$avail);
             if($this->db->execute()){
                 return true;
             }
@@ -107,6 +223,52 @@
                 return false;
             }
         }
+
+        
+        public function retriveReservations($data){
+            $this->db->query("SELECT * FROM reservations WHERE user_id=:id LIMIT 5");
+            $this->db->bind(':id',$data['user_id']);
             
+            $row = $this->db->resultSet();
+           
+            return $row;
+        }
+
+        public function deleteReservation($data){
+            $this->db->query("DELETE FROM reservations WHERE user_id = :u_id AND reservation_id = :res_id  ");
+            $this->db->bind('u_id',$data['user_id']);
+            $this->db->bind('res_id',$data['reservation_id']);
+            
+            if($this->db->execute()){
+                if($this->changeRoomAvailability($data,'yes')){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+                
+            }
+            else{
+                return false;
+            }
+        }
+
+       
+
+        //Service Request
+        public function placeserviceRequest($data){
+            $this->db->query('INSERT INTO servicerequests (user_id,category,AddDetails,SpecDetails) VALUES(:id,:category,:AddDetails,:SpecDetails)');
+            $this->db->bind('id',$data["user_id"]);
+            $this->db->bind('category',$data["category"]);
+            $this->db->bind('AddDetails',$data["AddDetails"]);
+            $this->db->bind('SpecDetails',$data["SpecDetails"]);
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     
     }

@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
+
+ @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Poppins:wght@100;500&family=Sometype+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sriracha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 .side-bar{
     position:fixed;
     background-color: #002447;
@@ -9,6 +11,8 @@
     left: 0;
     width: 275px;
     font-family: "poppins", sans-serif;
+    font-weight: 100;
+    z-index: 100;
     /* padding: 2.7rem 3rem 0 2rem; */
    
 
@@ -44,9 +48,11 @@
 
 }
 
-.link-items:hover {
-    background: #003366;
+.active, .link-items a:hover  {
+    background: #003366;  
 }
+
+
 
  .logout{
     position: absolute;
@@ -84,14 +90,12 @@
   }
 .profile{
     top: 0;
-    left: 75%;
-    width: 200px;
+    width: 100%;
+    border: 2px solid black;
     height: 70px;
     margin-top: 5px;
     position: relative;
-    
-  
-   
+    margin-bottom: 20px; 
 }
 
 .profile a {
@@ -100,6 +104,8 @@
     text-decoration: none;
     color: #000000;
     font-size: 25px;
+    left: 85%;
+    
 }
 .profile i {
     margin-top: 10px;
@@ -107,4 +113,34 @@
     text-decoration: none;
     color: #000000;
     font-size: 25px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right-align the user profile section */
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px; /* Adjust the image size */
+    height: 50px; /* Adjust the image size a */
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid black;
+}
+
+.user-profile-info {
+    position: block;
+    color: black;
+}
+.user-profile-info .username {
+    font-size: 1.2rem;
+    font-weight: 500;
+    
+    text-transform: capitalize;
+}
+
+.user-profile-info p {
+    margin: 0;
 }

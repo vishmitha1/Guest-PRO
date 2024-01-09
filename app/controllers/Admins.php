@@ -1,10 +1,17 @@
 <?php
     class Admins extends Controller{
 
+        public function __construct(){
+            // Load middleware
+            $this->middleware = new AuthMiddleware();
+            // Check if user is logged in
+            $this->middleware->checkAccess(['admin']);
+        }
 
-        public function visal(){
+
+        public function dashboard(){
             $data =[  ];
-            $this->view('users/v_login', $data);
+            $this->view('admins/v_dashboard', $data);
         }
 
         public function accountlogs(){

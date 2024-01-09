@@ -1,4 +1,407 @@
-/* foodorder form CSS '''''''''''''''''''''''''''''''''*/
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
+.foodorder-container{
+  /* border: 2px solid black; */
+  padding: 20px;
+}
+.foodorder-container .main-title{
+  font-size: 40px;
+  font-family: "Exo 2";
+  text-align: center;
+}
+.foodorder-wrapper{
+  margin-top: 5px;
+  /* border: 2px solid black; */
+  padding:20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  column-gap: 7.5%;
+  row-gap: 30px;
+  z-index: -1;
+  height: auto;
+
+}
+
+.foodorder-items{
+  position: relative;
+  border: 1px solid black;
+  border-radius: 5px;
+  /* width: 23%; */
+  width: 240px;
+  height:auto;
+  padding: 1%;
+  box-shadow: 10px 5px 10px  rgba(0, 0, 0, 0.15);
+
+  
+}
+
+
+.foodorder-items img{
+  width: 240px;
+  height: 190px;
+  object-fit:cover;
+  border-radius: 3px;
+  
+}
+
+
+
+.foodorder-items .food-title{
+  word-wrap:break-word;
+  font-size: 19px;
+  text-align:center;
+  width: 100%;
+  height: auto;
+  font-family: "catamaran";
+  line-height: 1.2;
+
+  
+}
+
+.food-title .food-price{
+  color:#28B463;
+  font-weight: 600;
+}
+
+.foodorder-items .addto-cart{
+  margin-top: 5px;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 5px;
+  
+}
+
+.addto-cart  input{
+  width: 20px;
+  margin-bottom: 10px;
+  height: 10px;
+  text-align: center;
+}
+
+.addto-cart .decrease , .increase{
+  width: 20px;
+  padding: 2px;
+  border-radius: 5px;
+  border: none;
+  font-size: 17px;
+  color: #6d8cab;
+  font-weight:bolder;
+  
+}
+
+
+.foodorder-items .addtocart-btn {
+  width: 80%;
+  height: 22px;
+  background: #2E86C1;
+  border: none;
+  border-radius: 18px;
+  font-weight: 600;
+  
+}
+
+.foodorder-items .addtocart-btn:hover{
+  transform: scale(1.1); 
+  transition: transform .5s;
+  cursor: pointer;
+  font-family: "Exo 2";
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+.cart-inUI{
+  position:sticky;
+  width: 50px;
+  height:auto;
+  /* border: 2px solid black; */
+  z-index: 1;
+  top: 20%;
+  float:inline-end;
+  cursor: pointer;
+}
+
+.cart-inUI .img{
+  margin-top: 15px;
+}
+
+.cart-inUI .cart-total{
+  position: absolute;
+  top: 2px;
+  width: 25px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 25%;
+  background-color: red;
+  color: rgb(255, 255, 255);
+  text-align: center  ;
+  font-weight: 600;
+  
+}
+
+
+
+.cart-popup .overplay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(0, 0, 0,0.5);
+  z-index: 1;
+  display: none;
+  overflow: hidden;
+}
+
+.cart-popup .content{
+  position: fixed;
+  border: 1px solid black;
+  border-radius: 5px;
+  top:50%;
+  left: 60vw;
+  transform: translate(-50% ,-50%)scale(0);
+  background: #fff;
+  width: 650px;
+  height: 390px;
+  z-index: 2;
+  pad: 20px;
+  overflow: auto;
+  
+}
+
+/* @media screen and (max-width:1020px) {
+  .cart-popup .content{
+    left: 620px;
+    background: #753a3a;
+  }
+} */
+
+.cart-popup .header{ 
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  background:#d3deea;
+  overflow: hidden;
+}
+.cart-popup .header .selectRoom{
+  position: absolute;
+  left:24%;
+  top: 25%;
+
+}
+
+.selectRoom select{
+  width: 12 0px;
+  height:auto;
+  border-radius: 5px;
+  border: 2px solid rgb(76, 137, 230);
+  background:transparent;
+  font-size: 15px;
+  font-family: 'Catamaran';
+  font-weight: 600;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.selectRoom option{
+  font-family: 'Rubik Doodle Shadow';
+  font-weight: bold;
+}
+
+.cart-popup .header .close-btn{
+  height: 20px;
+  float: right;
+  margin: 10px;
+  cursor: pointer;
+  /* border: 2px solid black; */
+}
+
+.cart-popup .header .title{
+  position:absolute;
+  color: #000;
+  font-size: 25px;
+  top: 10px;
+  margin-left: 19px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+ 
+}
+
+.cart-popup.active .overplay{
+  display: block;
+}
+
+.cart-popup.active  .content{
+  transition:all 300ms ease-in-out ;
+  
+  transform: translate(-50% ,-50%)scale(1) ;
+}
+
+.cart-content{
+  z-index: -1;
+  padding: 10px;
+  display: block;
+}
+
+.cart-content table{
+  border-collapse: collapse;
+  width: 100%;
+  
+  
+}
+
+.cart-content tbody{
+  font-family: 'poppins';
+  /* border: 2px solid black; */
+}
+.cart-content td img{
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  
+}
+.cart-content tr:nth-child(even){
+  background-color: antiquewhite;
+  
+}
+.cart-content tr:nth-child(1) {
+  font-size: 10px;
+  height: 20px;
+  font-family: 'poppins';
+}
+.cart-content td:nth-child(1){
+  width: 10%;
+}
+.cart-content td:nth-child(2){
+  width: 40%;
+  font-size: 18px;
+  text-align:start;
+}
+.cart-content td:nth-child(3){
+  width: 5%;
+  text-align: center;
+  
+}
+.cart-content td:nth-child(4){
+  width: 20%;
+  text-align: center;
+}
+.cart-content td:nth-child(5){
+  width: 30%;
+  text-align: center;
+}
+
+.cart-content tr{
+  height: 40px;
+}
+
+.cart-content td button{
+  width: 23px;
+  height: 23px;
+  text-align: center;
+  border-radius: 50px;
+  background: transparent;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+.cart-content td i{
+  color: red;
+}
+.cart-content td i:hover{
+  transition: transform .7s ease-in-out;
+  transform: rotate(360deg);
+}
+
+.total-cost{
+  margin-top: 50px;
+  width: 300px;
+  position: absolute;
+  right: 0;
+  grid-template-columns: auto auto;
+  display: none;
+  font-family: 'Catamaran';
+  font-weight: 400;
+}
+
+.total-cost-title{
+  font-size: 20px;
+}
+.total-cost .place-order{
+  display: block;
+  margin-top: 10px;
+}
+.total-cost .place-order button{
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  border:none;
+}
+
+.total-cost .place-order button:hover{
+  background-color: #F28C28;
+}
+
+.total-cost-value .value{
+  font-size: 20px;
+  
+}
+
+/* .cart-popup .footer{
+  position: sticky;
+  border: 2px solid black;
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 99%;
+  height: 10%;
+  top: 100%;
+  background: #fff;
+  overflow: hidden;
+ 
+}
+
+.cart-popup .footer>div:nth-child(1){
+  background-color: #28B463;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
 
 .foodorder-form{
   
@@ -87,10 +490,6 @@
   
   }
 
-  /*End of foodorder css for form'''''''''''''''''''*/
-
-
-  /*  ''' foodorder CSS for table'''''''''''''*/
 
   .foodorder-table-warpper{
     background: #eff0f5;
@@ -155,7 +554,7 @@
 }
 
 
-/* Food Order Menu Styles */
+
 .food-menu {
   margin-top: 30px;
   padding: 20px;
@@ -209,4 +608,4 @@
   background-color: #002447;
 }
   
-
+ */

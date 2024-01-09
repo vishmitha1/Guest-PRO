@@ -1,132 +1,195 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
 
+
+
+
 <div class="home">
 
-
-    <div class="foodorder-form">
-        <div class="main-title">Place Food Order</div>
-        <div class="foodorder-form-wrapper">
-            <form action="<?php echo URLROOT;?>/Customers/foodorder" method="POST" >
-                
-                <span class="form-title">Select Item:</span>
-                <div class="foodorder-field">
-                    <select name="food" id="food">
-                        <option value="sandwitch">Sandwitch</option>
-                        <option value="friderice">FriedRice</option>
-                        <option value="kottu">Kottu</option>
-                    </select>
-                </div>
-                <span class="form-title">Quantity:</span>
-                <div class="foodorder-field">
-                    <input type="text" name="quantity" >
-                </div>
-                <span class="form-title">Add note:</span>
-                <div class="foodorder-field">
-                    
-                    <textarea id="note" name="note" rows="4" cols="50"></textarea>
-                </div>
-                
-                
-
-                
-    
-            
-
+        <div class="cart-inUI" onclick="togglePopup()"  >
+            <!-- <i class="fa-solid fa-cart-shopping fa-2xl"></i> -->
+            <!-- <span class="material-symbols-outlined">shopping_cart</span> -->
+            <input type="hidden" name="cart_popup">
+            <div class="img" ><img src="<?php echo URLROOT;?>/public/img/svgs/shopping_cart.svg" class="svg-large" ></img></div>
+            <div class="cart-total">
+                <span id="Cart-item-Count" ><?php echo $data[1]->{'COUNT(*)'};?></span>
+            </div>
         </div>
-    
-    <!-- Food Order Menu -->
-    <!-- <form action="<?php echo URLROOT;?>/Customers/foodorder" method="POST" >
-    <div class="food-menu">
-            <h2>Food Menu</h2>
-            <div class="food-item">
-                <img src="food-item-1.jpg" alt="Food Item 1" width="100">
-                <h3>Kottu</h3>
-                <p>Price: $10</p>
-                <div class="quantity-control">
-                    <input type="text" value="0" name="food" >
+            <!-- <form id="cartForm" method="POST" action="Customers">
+            <div class="cart-inUI" onclick="togglePopup()" >
+                <div class="img" >
+                    <img src="<?php echo URLROOT;?>/public/img/svgs/shopping_cart.svg" class="svg-large" ></img>
                 </div>
-            </div>
-            <div class="food-item">
-                <img src="food-item-2.jpg" alt="Food Item 2" width="100">
-                <h3>FriedRice</h3>
-                <p>Price: $12</p>
-                <div class="quantity-control">
-                    <input type="text" value="0"name="food">
+                <div class="cart-total">
+                    <span id="cartTotal">25</span>
                 </div>
             </div>
 
-            <!-- Delivery Options -->
-            <div class="delivery-options">
-                <h3>Delivery Options</h3>
-                <label for="floor">Select Floor:</label>
-                <select id="floor" name="floor" >
-                    <option value="" hidden  selected disabled > </option>
-                    <option value="floor1">Floor 1</option>
-                    <option value="floor2">Floor 2</option>
-                    <option value="floor3">Floor 3</option>
-                </select>
-                <br>
-                <label for="room">Enter Room Number:</label>
-                <select id="room" name="room">
-                     <option value="" hidden  selected disabled > </option>
-                    <option value="room1">Room 1</option>
-                    <option value="room2">Room 2</option>
-                    <option value="room3">Room 3</option>
-                </select>
-            </div>
-            <div class="foodorder-button">
-                    <input type="submit" name="submit" value="Procceed">
-                </div>
-        </div>    
-
-            
+            <input type="hidden" id="cartPopup" name="cart_popup" value="0">
+            </form> -->
+           
+    <div class="foodorder-container">
+        <div class="main-title">
+            <!-- Today's Tastes , Menu Marvels,Flavor Fiesta -->
+            <span>Flavors of the Day  </span>
+        </div>
+        <div class="foodorder-wrapper">
         
-            </form>
-
-
-        <div class="foodorder-table-warpper">
-            <div class="main-title">Food orders</div>
-            <div class="foodorder-table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th hidden >orderid</th>
-                            <th>Item Name</th>
-                            <th>Date</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>    
-                        <tbody>
-                            <?php
-                                foreach ($data as $item) {
-                                    echo "
-                                    <tr>
-                                        <td hidden>{$item->order_id}</td>
-                                        <td>{$item->item_name}</td>
-                                        <td>{$item->date}</td>
-                                        <td>{$item->quantity}</td>
-                                        <td>{$item->status}</td>
-                                        ";
-                                    if($item->status =="Preparing" || $item->status =="Prepared" || $item->status =="Delivered"){
-                                        echo "<td><button type='submit'  class='light-blue'>Complete</button></td>
-                                        </tr>";
-                                    }
-                                    else{
-                                        echo "<td> <a href='updatefoodorder/{$item->item_name}/{$item->quantity}/{$item->order_id}'><button type='submit' class='light-green'>Edit</button></a>
-                                                   <a href='deleteorder/{$item->order_id}'><button type='submit' class='light-perple'>Delete</button></a> </td>
-                                        </tr>";
-                                    }
-                                }
-                            ?>
-                            
-                            
-                        </tbody>
-                       
+          
+            <?php
+                foreach($data[0] as $item){ ?>
                     
-                </table>
+                    <form class='FormClass' id='<?php echo $item->item_id.'formID';?>' action='http://localhost/GuestPro/Customers/foodorder' method='POST' >
+                        <div class='foodorder-items'>
+                            <img src='<?php echo URLROOT;?>/public/img/food_items/<?php echo $item->image;?>.jpg' alt='<?php echo $item->image;?>'><input type='hidden' name='image' value='<?php echo $item->image;?>'>
+                            <div class='food-title'>                                                                                                <input type='hidden' name='id'  value='<?php echo $item->item_id;?>'>
+                                <?php echo $item->name;?>                                                                                           <input type='hidden' name='item_name' value='<?php echo $item->name;?>'>
+                                <br><span class='food-price'><?php echo $item->price;?>LKR</span>                                                   <input type='hidden' name='item_price' value='<?php echo $item->price;?>'>
+                            </div>
+                            <div class='addto-cart'>
+                                <button class="decrease" onclick="Decrease('<?php echo $item->item_id.'ID';?>',event)" >&#8681;</button> 
+                                <input type="text" class="qty" id="<?php echo $item->item_id.'ID';?>" name='quantity' value="1" >
+                        
+                                <button class="increase" onclick="Increase('<?php echo $item->item_id.'ID';?>',event)" >&#8679;</button>
+                                <button class="addtocart-btn" >Add to Cart</button>
+                                <!-- <input type="submit"  class="addtocart-btn" value="Add to Cart" > -->
+                            </div>
+                        </div>
+                    </form>
+                <?php } ?>
+            
+            
+        </div>
+        
+        
+    </div>
+    
+
+
+
+        <div class="cart-popup" id="popup-1">
+            <div class="overplay"></div>
+            <div class="content">
+                <div class="header"  >
+                    <span  class="title" >My Cart For </span> <div class="selectRoom">
+                    <select  name="roomNumber" form="cart_submit_Form">
+                                                                    <option hidden value="" >Select Room</option>
+                                                                    <?php foreach($data[2] as $room){ ?>
+                                                                        <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                    <?php } ?>
+                                                                    
+                                                                    </select> 
+                    </div>
+                    <div class="close-btn">
+                        <img src="<?php echo URLROOT;?>/public/img/svgs/solid/xmark.svg" class="svg-medium" onclick="closePopup()" ></img>  
+                    </div>
+                </div>
+                <div class="cart-content">
+                    <table id="cart-table" >
+                    <tbody>
+                        
+                    </tbody>
+                     
+                    </table> 
+                    
+                    <div class="total-cost">
+                        <div class="total-cost-title">
+                            <span>Number of items <span id='total_items_in_Popup'> </span></span><br>
+                            <span>Tostal Cost</span>
+                        </div>
+                        <div class="total-cost-value">
+                            <span></span> <br>
+                            <span class="value" id='total_cost_inCart' > </span>
+                            <div class="place-order">
+                                <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
+                                    <button type='submit' >PlaceOrder</button>
+                                    <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
+                                </form>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+                
             </div>
         </div>
-
+        
+        
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://localhost/GuestPro/public/js/customers/toast.js"></script>
+
+ <script>
+    
+    
+        $(document).ready(function () {
+            console.log("run in akjax")
+            $(".FormClass").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Serialize form data
+                var formData = $(this).serialize();
+                var id=$(this).attr("id");
+                // Perform AJAX submission
+                $.ajax({
+                    type: $(this).attr("method"),
+                    url: $(this).attr("action"),
+                    data: formData,
+                    success: function (response) {
+                        totalcartItems();
+                        console.log(response);
+                        toastFlashMsg(response[0],response[1]);
+                        // Handle the response as needed
+                        // console.log(response);
+                    },
+                    error: function (error) {
+                        // Handle errors if any
+                        console.error(error);
+                    }
+                });
+                resetItemCount(id);
+            });
+        });
+
+
+
+
+
+        
+</script>>
+    totalcartItems()
+    <!-- <script>
+        $(document).ready(function () {
+            $(".ajx").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Serialize form data
+                var formData = $(this).serialize();
+
+                // Perform AJAX submission
+                $.ajax({
+                    type: $(this).attr("method"),
+                    url: $(this).attr("action"),
+                    data: formData,
+                    success: function (response) {
+                        // Handle the response as needed
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        // Handle errors if any
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script> -->
+
+
+    
+
+

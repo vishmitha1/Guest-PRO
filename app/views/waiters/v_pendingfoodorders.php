@@ -34,7 +34,7 @@
             
         </div>
         <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        <a href="<?php echo URLROOT;?>/Users/login"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
 
     <div class="dashboard">
         <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
+            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="User Profile Picture">
             <div class="user-profile-info">
                 <p>John Doe</p>
                 <p>User</p>
