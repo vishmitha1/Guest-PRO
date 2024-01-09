@@ -7,9 +7,9 @@ class Kitchen extends Controller{
         $this->userModel =$this->model('M_Kitchen');
 
         // Load middleware
-        $this->middleware = new AuthMiddleware();
-        // Check if user is logged in
-        $this->middleware->checkAccess(['kitchen']);
+        // $this->middleware = new AuthMiddleware();
+        // // Check if user is logged in
+        // $this->middleware->checkAccess(['kitchen']);
     }
 
     public function foodstatus(){

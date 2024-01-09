@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
    
-    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/side-navbar/navbar.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/kitchen/kitchen-foodstatus.css' >
+    
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>

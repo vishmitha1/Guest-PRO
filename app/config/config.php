@@ -3,7 +3,7 @@
     define('APPROOT', dirname(dirname(__FILE__)));
 
     //url root
-    define('URLROOT', 'http://localhost:8888/GuestPro');
+    define('URLROOT', 'http://localhost/GuestPro');
 
     //site name
     define('SITENAME', 'GuestPro');
