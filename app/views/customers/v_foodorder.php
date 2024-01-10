@@ -72,18 +72,41 @@
                 <div class="header"  >
                     <span  class="title" >My Cart For </span> <div class="selectRoom">
                     <select  name="roomNumber" form="cart_submit_Form">
+                                                             <!-- change this after db roomNo switch to vachr -->
+
                                                                     <?php if(sizeof($data[2])==1){ ?>
                                                                         <?php foreach($data[2] as $room){ ?>
-                                                                            <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                                echo "<option hidden value='' >Select Room</option>";
+                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
                                                                         <?php } ?>
                                                                     <?php } 
                                                                     else{ ?>    
                                                                     
                                                                         <option hidden value="" >Select Room</option>
                                                                         <?php foreach($data[2] as $room){ ?>
-                                                                            <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                                
+                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
                                                                         <?php } ?>
                                                                     <?php } ?>    
+                                                 
                                                                     
                                                                     </select> 
                     </div>
