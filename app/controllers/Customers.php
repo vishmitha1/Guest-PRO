@@ -44,6 +44,7 @@
                     'payment_type_err' => '',
                     
                 ];
+            
 
                 if(empty($data['payment_type'])){
                     $data['payment_type_err']=='Payment Type Error';
@@ -66,6 +67,28 @@
                     }
                 }
             }
+
+            //update reservation
+            else if($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['edit-reservation']) ){
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                 
+                    'indate' =>trim($_POST['indate']),
+                    'outdate' => trim($_POST['outdate']),
+                    'roomcount' => trim($_POST['roomcount']),
+                    'roomNo' => trim($_POST['roomNo']),
+                    'reservation_id' => trim($_POST['reservation_id']),
+
+                    'user_id_err'=>'',
+                    'payment_type_err' => '',
+                    
+                ];
+
+                $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $data]);
+                
+                
+            }
+
             else if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 
@@ -159,8 +182,10 @@
                             'outdate_err' => '',
                             
                         ];
-                        
-                         $this->view('customers/v_reservation',$this->userModel->retriveReservations($data));
+                        //initilze empty date array. this array fill only when updating the reservation 
+                        $dates=[];
+
+                         $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates]);
                          if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                             toastFlashMsg();
                         }
@@ -200,8 +225,8 @@
 
                 if(empty($data['user_id_err']) && empty($data['reservation_id_err'])){
                     if($output=$this->userModel->deleteReservation($data)){
-                        $_SESSION['toast_type']='success';
-                        $_SESSION['toast_msg']='Reservation deleted successfully.';
+                        // $_SESSION['toast_type']='success';
+                        // $_SESSION['toast_msg']='Reservation deleted successfully.';
                         header('Content-Type: application/json');
                         echo json_encode('vidsl');
                         

@@ -254,9 +254,12 @@
             $this->db->bind('indate',$data["indate"]);
             $this->db->bind('outdate',$data["outdate"]);
             $this->db->bind('roomNo',$data["roomNo"]);
+
+            //split roomNo one by one
+            $roomNo = explode(",",$data["roomNo"]);
             
             if($this->db->execute()){
-                if($this->changeRoomAvailability($data,'no')){
+                if($this->changeRoomAvailability($roomNo,'no')){
                     return true;
                 }
                 else{
@@ -269,21 +272,41 @@
             }
         }
         public function changeRoomAvailability($data,$avail){
-            $this->db->query('UPDATE rooms SET availability = :avail WHERE roomNo=:roomNo');
-            $this->db->bind('roomNo',$data["roomNo"]);
-            
-            $this->db->bind('avail',$avail);
-            if($this->db->execute()){
+            if(sizeof($data)>1){
+                for($i=0;$i<sizeof($data);$i++){
+                    $this->db->query('UPDATE rooms SET availability = :avail WHERE roomNo=:roomNo');
+                    $this->db->bind('roomNo',$data[$i]);
+                    
+                    $this->db->bind('avail',$avail);
+                    if($this->db->execute()){
+                        continue;
+                    }
+                    else{
+                        return false;
+                    }
+                    
+                }
                 return true;
             }
+
             else{
-                return false;
+                $this->db->query('UPDATE rooms SET availability = :avail WHERE roomNo=:roomNo');
+                $this->db->bind('roomNo',$data["roomNo"]);
+                
+                $this->db->bind('avail',$avail);
+                if($this->db->execute()){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
+            
         }
 
         
         public function retriveReservations($data){
-            $this->db->query("SELECT * FROM reservations WHERE user_id=:id LIMIT 5");
+            $this->db->query("SELECT (LENGTH(roomNo) - LENGTH(REPLACE(roomNo, ',', '')) + 1) AS roomcount ,reservation_id,checkIn,checkOut,roomNo FROM reservations WHERE user_id=:id LIMIT 5");
             $this->db->bind(':id',$data['user_id']);
             
             $row = $this->db->resultSet();
@@ -295,9 +318,12 @@
             $this->db->query("DELETE FROM reservations WHERE user_id = :u_id AND reservation_id = :res_id  ");
             $this->db->bind('u_id',$data['user_id']);
             $this->db->bind('res_id',$data['reservation_id']);
+
+            //split roomNo one by one
+            $roomNo = explode(",",$data["roomNo"]);
             
             if($this->db->execute()){
-                if($this->changeRoomAvailability($data,'yes')){
+                if($this->changeRoomAvailability($roomNo,'yes')){
                     return true;
                 }
                 else{
