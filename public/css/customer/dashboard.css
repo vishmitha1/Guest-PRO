@@ -48,6 +48,7 @@
     padding-right: 10px;
 }
 .col-div-8{
+  height: 310px;
 	width: 70%;
 	float: left;
   overflow: auto;
@@ -109,6 +110,8 @@
 	margin-left: 10px;
 }
 .content-box table {
+  height: auto;
+  border-radius: 5px;
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -169,4 +172,75 @@
   z-index: 100;
   font-weight: 700;
   font-size: 2em;
+}
+
+
+.bill_fletch{
+  display: relative;
+  margin-top: 60px;
+  width: calc(100% - 20px);
+  height: 100vh;
+  border: 1px solid #000000;
+}
+
+.bill_fletch_wrapper{
+  border: 1px solid #000000;
+  width: 100%;
+  height: auto;
+}
+
+
+
+.bill_fletch_wrapper h2 {
+  font-size: 26px;
+  margin: 20px 0;
+  text-align: center;
+  font-family: 'Exo 2';
+  small {
+    font-size: 0.5em;
+  }
+}
+
+.bill_fletch_wrapper table{
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.bill_fletch_wrapper thead{
+  vertical-align: middle;
+  display: table-header-group;
+  
+}
+
+.bill_fletch_wrapper {
+  tr{
+    display: table-row;
+    vertical-align: inherit;
+    width: 100%;
+  }
+  th{
+    padding: 15px 5px 15px 5px;
+    font-family: "Lato";
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #6c7ae0;
+    text-align: center;
+    
+  }
+  td{
+    font-family: 'Lato';
+    
+    font-size: 18px;
+    color: gray;
+    line-height: 1.4;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    text-align: center;
+  }
+  tr{
+    padding: 15px 5px 15px 5px;
+  }
 }

@@ -7,6 +7,23 @@
             $this->db = new Database;
         }
 
+
+        //dashboard part
+        public function retriveBill($data){
+            $this->db->query("SELECT *  FROM expenses WHERE user_id=:id ORDER BY date DESC ");
+            $this->db->bind(':id',$data['user_id']);
+            $row = $this->db->resultSet();
+
+            return $row;
+        }
+        public function billTotal($data){
+            $this->db->query("SELECT sum(amount) as cost  FROM expenses WHERE user_id=:id and status='Not Paid' ");
+            $this->db->bind(':id',$data['user_id']);
+            $row = $this->db->resultSet();
+
+            return $row;
+        }
+
             //Load food menu to food order UI
         public function loadfoodmenu(){
             $this->db->query("SELECT * FROM fooditems ");
@@ -94,10 +111,10 @@
         }
 
         //Place order
-        public function placeOrder($id,$data,$roomNo){
+        public function placeOrder($id,$var,$data){
             
             $qty=$name=$cost=$itemid=$img='';
-            foreach($data as $item){
+            foreach($var as $item){
                 
                 $qty.=$item->quantity.',';
                 $cost.=($item->price).',';
@@ -116,14 +133,22 @@
             $this->db->bind(':id',$id);
             $this->db->bind(':quantity', $qty);
             $this->db->bind(':item_name',$name);
-            $this->db->bind(':roomNo',$roomNo);
+            $this->db->bind(':roomNo',$data['roomNo']);
             $this->db->bind(':cost',$cost);
             $this->db->bind(':item_id',$itemid);
             $this->db->bind(':img',$img);
             
             if($this->db->execute()){
                 if($this->deleteallCartitems($id)){
-                    return true;
+
+                    //add to bill this order
+                    if($this->addExpenses($data,"Food Order Placed")){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                    
                 }
                 else{
                     return false;
@@ -259,8 +284,17 @@
             $roomNo = explode(",",$data["roomNo"]);
             
             if($this->db->execute()){
+                //change room availability
                 if($this->changeRoomAvailability($roomNo,'no')){
-                    return true;
+
+                    //add to bill this reservation
+                    if($this->addExpenses($data,"Reservation Cost")){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                   
                 }
                 else{
                     return false;
@@ -271,6 +305,8 @@
                 return false;
             }
         }
+
+        //function to change room availability
         public function changeRoomAvailability($data,$avail){
             if(sizeof($data)>1){
                 for($i=0;$i<sizeof($data);$i++){
@@ -302,6 +338,24 @@
                 }
             }
             
+        }
+
+        //function for the add expenses
+
+        public function addExpenses($data , $category=''){
+            $this->db->query('INSERT INTO expenses (user_id,amount,description,status) VALUES(:id,:amount,:description,:status)');
+            $this->db->bind('id',$data["user_id"]);
+            $this->db->bind('description',$category);
+            $this->db->bind('amount',$data["price"]);
+       
+            $this->db->bind('status','Not Paid');
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
 
         

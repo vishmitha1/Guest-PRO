@@ -18,9 +18,12 @@
  
 
         public function dashboard(){
-            $data =[  ];
+            $data =[ 
+                'user_id'=>$_SESSION['user_id'],
+                'user_id_err'=>'',
+             ];
 
-            $this->view("customers/v_dashboard",$this->userModel->retriveLastOrder($_SESSION['user_id']));
+            $this->view("customers/v_dashboard",[$this->userModel->retriveLastOrder($_SESSION['user_id']), $this->userModel->retriveBill($data),$this->userModel->billTotal($data)]);
             
             
         }
@@ -39,6 +42,7 @@
                     'outdate' => trim($_POST['outdate']),
                     'roomcount' => trim($_POST['roomcount']),
                     'roomNo' => trim($_POST['roomno']),
+                    'price' => trim($_POST['price']),
 
                     'user_id_err'=>'',
                     'payment_type_err' => '',
@@ -244,19 +248,7 @@
         
         
         
-        public function bill(){
-            $data =[  ];
-            $this->view('customers/v_bill', $data);
-        }
-        public function payment(){
-            $data =[  ];
-            $this->view('customers/v_payment', $data);
-        }
-
-        public function complain(){
-            $data =[  ];
-            $this->view('customers/v_complain', $data);
-        }
+       
 
 
         //servicerequest
@@ -457,7 +449,6 @@
 
                         }
                         else{
-                            die("someting wrond");
                             $output=['error','Someting went wrong.Try again . '];
                             header('Content-Type: application/json');
                             echo json_encode($output);
@@ -618,6 +609,11 @@
                 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $roomNo=trim($_POST['roomNumber']);
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'roomNo'=>trim($_POST['roomNumber']),
+                    'price'=>trim($_POST['amount']),
+                ];
                 if(empty($roomNo)){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please select a room.';
@@ -630,7 +626,7 @@
                     
                 
                     
-                    if($this->userModel->placeOrder($_SESSION['user_id'],$var,$roomNo)){
+                    if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
                         // $this->userModel->deletecart($_SESSION['user_id']);
                         // $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
                         $_SESSION['toast_type']='success';
