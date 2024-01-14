@@ -24,7 +24,7 @@
 		</div>
 	</a>
 	
-	<a href="#res_fletch">	
+	<a href="#foodorder_fletch">	
 		<div class="col-div-3">
 			<div class="box">
 				<p>01<br/><span>Active Reservations</span></p>
@@ -108,7 +108,7 @@
 		<div class="bill_fletch" id='bill_fletch'>
 			<div class="bill_fletch_wrapper">
 
-				<h2>Current Bill</h2>
+				<h2>Current Bill </h2>
 				<table>
 					<thead>
 						<tr>
@@ -135,9 +135,78 @@
 			</div>
 		</div>
 
-		<div class="ser_fletch"></div>
-		<div class="res_fletch"></div>
+		<div class="foodorder_fletch" id="foodorder_fletch" >
+			<div class="foodorder_fletch_wrapper">
+				<h2>Active Food Orders</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Order Id</th>
+							<th>Date</th>
+							<th>Item Count</th>
+							<th>Amount</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if(!empty($data[3])){?>
+							<?php foreach($data[3] as $item){?>
+								<tr>
+									<td>
+										
+										<div class="dropdown">
+											<button><?php echo $item->order_id; ?></button>
+											<div class="dropdown-content">
+												<table>
+													<thead>
+														<tr class='heder'>
+															<th>Image</th>
+															<th>Item Name</th>
+															<th>Quantity</th>
+															<th>Cost</th>
+														</tr>
+													</thead>
+													<tbody>
+														<?php $itemNames = explode(",",$item ->item_name);
+															$itemCosts = explode(",", $item->cost);
+															$quantities = explode(",", $item->quantity);
+															$imgs = explode(",", $item->img);
+															$itemData = array_combine($itemNames, $quantities);
+															for ($i = 0; $i < count($itemNames); $i++){?>
+														<tr>
+															<td><img src="<?php echo URLROOT;?>/img/food_items/<?php echo $imgs[$i]; ?>.jpg" alt="item image"></td>
+															<td><?php echo $itemNames[$i]; ?></td>
+															<td><?php echo $quantities[$i] ; ?></td>
+															<td><?php echo $itemCosts[$i]?>	</td>
+															
+														</tr>
+														<?php } ?>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</td>
+									<td><?php echo $item->date; ?></td>
+									<td><?php echo $item->item_count; ?></td>
+									<td><?php echo $item->total; ?></td>
+									<td><?php echo $item->status ?></td>
+								<tr>
+							<?php } ?>
+						<?php } ?>
+					</tbody>
+				</table>
+					
+
+		</div>
+		
 	</div>
+
+	
+
+	
+					
+					
+	
 
 
 
