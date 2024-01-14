@@ -13,16 +13,37 @@
                         <select name="roomNo" id="roomNo">
                                                                     <?php if(sizeof($data)==1){ ?>
                                                                         <?php foreach($data as $room){ ?>
-                                                                            <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                                echo "<option hidden value='' >Select Room</option>";
+                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
                                                                         <?php } ?>
                                                                     <?php } 
                                                                     else{ ?>    
                                                                     
                                                                         <option hidden value="" >Select Room</option>
                                                                         <?php foreach($data as $room){ ?>
-                                                                            <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                                
+                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
                                                                         <?php } ?>
-                                                                    <?php } ?> 
+                                                                    <?php } ?>    
+                                                 
                         </select>
 
                         
