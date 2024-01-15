@@ -378,20 +378,19 @@
 
             if(isset($data['order_id'])){
                 $this->db->query('UPDATE foodorders 
-                      SET user_id = :id, 
+                      SET 
+                          user_id = :id, 
                           item_name = :item_name, 
                           roomNo = :roomNo, 
                           cost = :cost, 
                           item_no = :item_id, 
                           quantity =:quantity,
                           img = :img, 
-                          total = :tot, 
-                          reservation_id = (SELECT reservation_id 
-                                           FROM reservations 
-                                           WHERE user_id = :id 
-                                           ORDER BY reservation_id DESC 
-                                           LIMIT 1)
-                      WHERE user_id = :id AND order_id = :order_id');
+                          total = :tot
+
+                    WHERE order_id = :order_id');
+
+                          
                 $this->db->bind(':order_id',$data['order_id']);
 
             }
@@ -418,13 +417,7 @@
             if($this->db->execute()){
                 if($this->deleteallCartitems($id)){
 
-                    //add to bill this order
-                    if($this->addExpenses($data,"Food Order Placed")){
-                        return true;
-                    }
-                    else{
-                        return false;
-                    }
+                    return true;
                     
                 }
                 else{

@@ -49,7 +49,7 @@
 			<div class="box-8">
 			<div class="content-box">
 				<form action="<?php echo URLROOT;?>/Customers/updateOrder" method="POST" >
-				<input type="hidden" name="order_id" value="<?php echo $data[0]->order_id; ?>">
+				<!-- <input type="hidden" name="order_id" value="<?php echo $data[0]->order_id; ?>"> -->
 				<p>Last Order <span><button>Update</button></span></p></form>
 				<br/>
 				<table>
