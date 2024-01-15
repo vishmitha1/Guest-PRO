@@ -36,41 +36,107 @@
         public function reservation(){
             
             if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['place-reservation']) ){
-                $data=[
-                    'user_id'=>$_SESSION['user_id'],
-                    'payment_type' => trim($_POST['payment-radio']),
-                    'indate' =>trim($_POST['indate']),
-                    'outdate' => trim($_POST['outdate']),
-                    'roomcount' => trim($_POST['roomcount']),
-                    'roomNo' => trim($_POST['roomno']),
-                    'price' => trim($_POST['price']),
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-                    'user_id_err'=>'',
-                    'payment_type_err' => '',
-                    
-                ];
+                //Check whethere given post request is for update or place reservation
+
+                if(isset($_POST['reservation_id'])){
+                    $data=[
+
+                        'user_id'=>$_SESSION['user_id'],
+                        'indate' =>trim($_POST['indate']),
+                        'payment_type' => trim($_POST['payment-radio']),
+                        'outdate' => trim($_POST['outdate']),
+                        'roomcount' => trim($_POST['roomcount']),
+                        'roomNo' => trim($_POST['roomno']),
+                        'reservation_id' => trim($_POST['reservation_id']),
+                        'oldroomNo' => trim($_POST['OldroomNo']),
+                        'price' => trim($_POST['price']),
+
+                        'user_id_err'=>'',
+                        'payment_type_err' => '',
+                        
+                    ];
+
             
+                    if(empty($data['user_id'])){
+                        $data['user_id_err']='No User';
+                        $_SESSION['toast_type']='error';
+                        $_SESSION['toast_msg']='No User';
+                        redirect("Customers/reservation");
 
-                if(empty($data['payment_type'])){
-                    $data['payment_type_err']=='Payment Type Error';
-                    $_SESSION['toast_type']='error';
-                    $_SESSION['toast_msg']='Please select a payment type.';
-                    redirect("Customers/reservation");
-                }
-                if(empty($data['payment_type_err'])){
-                    if($data['payment_type']=='paynow'){
-                        $this->view('v_test',$data);
-                        echo("Payment gateway");
-                        print_r($data);
                     }
-                    elseif($data['payment_type']=='paylater'){
-                        if($this->userModel->placereservation($data)){
-                            $_SESSION['toast_type']='success';
-                            $_SESSION['toast_msg']='Reservation placed successfully.';
-                            redirect("Customers/reservation");
+                    if(empty($data['oldroomNo'])){
+                        $_SESSION['toast_type']='error';
+                        $_SESSION['toast_msg']='No Room';
+                        redirect("Customers/reservation");
+                    }
+
+                    if(empty($data['payment_type'])){
+                        $data['payment_type_err']=='Payment Type Error';
+                        $_SESSION['toast_type']='error';
+                        $_SESSION['toast_msg']='Please select a payment type.';
+                        redirect("Customers/reservation");
+                    }
+                    if(empty($data['payment_type_err'])){
+                        if($data['payment_type']=='paynow'){
+                            $this->view('v_test',$data);
+                            echo("Payment gateway");
+                            print_r($data);
+                        }
+                        elseif($data['payment_type']=='paylater'){
+                            if($this->userModel->updateReservation($data)){
+                                $_SESSION['toast_type']='success';
+                                $_SESSION['toast_msg']='Reservation Updated successfully.';
+                                redirect("Customers/reservation");
+                            }
                         }
                     }
+
+
+
                 }
+
+                else{
+                
+                
+                    $data=[
+                        'user_id'=>$_SESSION['user_id'],
+                        'payment_type' => trim($_POST['payment-radio']),
+                        'indate' =>trim($_POST['indate']),
+                        'outdate' => trim($_POST['outdate']),
+                        'roomcount' => trim($_POST['roomcount']),
+                        'roomNo' => trim($_POST['roomno']),
+                        'price' => trim($_POST['price']),
+
+                        'user_id_err'=>'',
+                        'payment_type_err' => '',
+                        
+                    ];
+                
+
+
+                    if(empty($data['payment_type'])){
+                        $data['payment_type_err']=='Payment Type Error';
+                        $_SESSION['toast_type']='error';
+                        $_SESSION['toast_msg']='Please select a payment type.';
+                        redirect("Customers/reservation");
+                    }
+                    if(empty($data['payment_type_err'])){
+                        if($data['payment_type']=='paynow'){
+                            $this->view('v_test',$data);
+                            echo("Payment gateway");
+                            print_r($data);
+                        }
+                        elseif($data['payment_type']=='paylater'){
+                            if($this->userModel->placereservation($data)){
+                                $_SESSION['toast_type']='success';
+                                $_SESSION['toast_msg']='Reservation placed successfully.';
+                                redirect("Customers/reservation");
+                            }
+                        }
+                    }
+                }    
             }
 
             //update reservation
@@ -385,6 +451,7 @@
 
                 if( empty($data['user_id_err']) ){
                     $output=$this->userModel->retrivefoodcart($data['user_id']);
+                    //this output carry all the fields in the cart table
 
                     if($output==false){
                         $output=[200,'null'];
