@@ -12,8 +12,18 @@
 
         //Retrive Last order
         public function retriveLastOrder($data){
-            $this->db->query("SELECT * FROM foodorders WHERE user_id=:id ORDER BY order_id DESC LIMIT 1");
+            $this->db->query("SELECT * FROM foodorders WHERE user_id=:id  ORDER BY order_id DESC LIMIT 1");
             $this->db->bind(':id',$data);
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+        //Retrive order
+        public function retriveOrder($data){
+            $this->db->query("SELECT * FROM foodorders WHERE user_id=:id and order_id=:order_id ");
+            $this->db->bind(':id',$data['user_id']);
+            $this->db->bind(':order_id',$data['order_id']);
             $row = $this->db->single();
 
             return $row;
@@ -365,8 +375,35 @@
             $cost=trim($cost,',');
             $itemid=trim($itemid,',');
             $img=trim($img,',');
+
+            if(isset($data['order_id'])){
+                $this->db->query('UPDATE foodorders 
+                      SET user_id = :id, 
+                          item_name = :item_name, 
+                          roomNo = :roomNo, 
+                          cost = :cost, 
+                          item_no = :item_id, 
+                          quantity =:quantity,
+                          img = :img, 
+                          total = :tot, 
+                          reservation_id = (SELECT reservation_id 
+                                           FROM reservations 
+                                           WHERE user_id = :id 
+                                           ORDER BY reservation_id DESC 
+                                           LIMIT 1)
+                      WHERE user_id = :id AND order_id = :order_id');
+                $this->db->bind(':order_id',$data['order_id']);
+
+            }
+            
+            else{                  
        
-            $this->db->query("INSERT INTO foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total) VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot)");
+                $this->db->query("INSERT INTO 
+                        foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total,reservation_id)
+                        VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot,(SELECT reservation_id FROM reservations WHERE user_id = :id ORDER BY reservation_id DESC LIMIT 1)) ");
+
+            }
+
             // $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
             $this->db->bind(':id',$id);
             $this->db->bind(':quantity', $qty);
@@ -376,6 +413,7 @@
             $this->db->bind(':item_id',$itemid);
             $this->db->bind(':img',$img);
             $this->db->bind(':tot',$data['price']);
+          
             
             if($this->db->execute()){
                 if($this->deleteallCartitems($id)){
@@ -428,8 +466,8 @@
             return $row;
         }
 
-        //Update order
-        public function updateOrder($data,$id){
+        //Re insert items to cart when  customer click update button in te dashboard UI
+        public function reInsertToCart($data,$id){
           
             
                 $item=$data;

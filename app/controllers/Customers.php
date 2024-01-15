@@ -18,14 +18,18 @@
  
 
         public function dashboard(){
-            $data =[ 
-                'user_id'=>$_SESSION['user_id'],
-                'user_id_err'=>'',
-             ];
 
-            $this->view("customers/v_dashboard",[$this->userModel->retriveLastOrder($_SESSION['user_id']), $this->userModel->retriveBill($data),$this->userModel->billTotal($data),
-                        $this->userModel->retriveFoodOrders($data)]);
             
+                $data =[ 
+                    'user_id'=>$_SESSION['user_id'],
+                  
+
+                    'user_id_err'=>'',
+                ];
+
+                $this->view("customers/v_dashboard",[$this->userModel->retriveLastOrder($_SESSION['user_id']), $this->userModel->retriveBill($data),$this->userModel->billTotal($data),
+                            $this->userModel->retriveFoodOrders($data)]);
+              
             
         }
 
@@ -423,7 +427,8 @@
                     // $this->view('v_test', $this->userModel->loadfoodmenu());
                             //''''pass the cart data and food menu data to foodorder UI. in here parameter array containing foodmenu data and cart data 
                     // $this->view('customers/v_foodorder', $this->userModel->loadfoodmenu());
-                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
+                    $orderid='';
+                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id']),$orderid]);
                     
                     if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                         toastFlashMsg();
@@ -543,8 +548,50 @@
 
         //place order
         public function placeOrder(){
+
+            if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['order_id'])  ){
+
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data=[
+
+                    'user_id'=>$_SESSION['user_id'],
+                    'order_id'=>trim($_POST['order_id']),
+                    'roomNo'=>trim($_POST['roomNumber']),
+                    'price'=>trim($_POST['amount']),
+                ];
+
+                if(empty($data['user_id'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='No User';
+                    redirect('Customers/foodorder');
+                }
+
+                if(empty($roomNo)){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a room.';
+                    
+                }
+
+                
+                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
+
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
+
+                    $_SESSION['toast_type']='success';
+                    $_SESSION['toast_msg']='Order Update successfully.';
+                    redirect('Customers/foodorder');
+
+                }
+                else{
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Something went wrong .';
+                    redirect('Customers/foodorder');
+                }
+
+            }
         
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $roomNo=trim($_POST['roomNumber']);
@@ -586,13 +633,34 @@
             }
         }     
         
-        //Update order
+        //Update order from dashboard UI
         public function updateOrder(){
+ 
+            if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['orderStatus'])){
 
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'order_id'=>trim($_POST['order_id']),
+                    'orderStatus'=>trim($_POST['orderStatus']),
+                ];
+
+                $order=$this->userModel->retriveOrder($data);
+                if($this->userModel->reInsertToCart($order,$_SESSION['user_id'])){
+                    $orderid=$data['order_id'];
+                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id']),$orderid]);
+
+                }
+                
+
+            }
+                
+                
+
+            elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
                 $data=$this->userModel->retriveLastOrder($_SESSION['user_id']);
-                if($this->userModel->updateOrder($data,$_SESSION['user_id'])){
+                if($this->userModel->reinsertToCart($data,$_SESSION['user_id'])){
                     
                     redirect('Customers/foodorder');
                 }

@@ -27,7 +27,7 @@
 	<a href="#foodorder_fletch">	
 		<div class="col-div-3">
 			<div class="box">
-				<p>01<br/><span>Active Reservations</span></p>
+				<p>01<br/><span>My Orders</span></p>
 				<i class="fa fa-list box-icon"></i>
 			</div>
 		</div>
@@ -49,6 +49,7 @@
 			<div class="box-8">
 			<div class="content-box">
 				<form action="<?php echo URLROOT;?>/Customers/updateOrder" method="POST" >
+				<input type="hidden" name="order_id" value="<?php echo $data[0]->order_id; ?>">
 				<p>Last Order <span><button>Update</button></span></p></form>
 				<br/>
 				<table>
@@ -146,6 +147,7 @@
 							<th>Item Count</th>
 							<th>Amount</th>
 							<th>Status</th>
+							
 						</tr>
 					</thead>
 					<tbody>
@@ -189,7 +191,25 @@
 									<td><?php echo $item->date; ?></td>
 									<td><?php echo $item->item_count; ?></td>
 									<td><?php echo $item->total; ?></td>
-									<td><?php echo $item->status ?></td>
+									<td class="edit-order">
+										<form action="<?php echo URLROOT;?>/Customers/updateOrder" method="POST" >
+											<input type="hidden" name="order_id" value="<?php echo $item->order_id; ?>">
+											<input type="hidden" name="orderStatus" value="<?php echo $item->status; ?>">
+							
+										<?php if( strtolower($item->status) == 'placed'){?>
+											<button class="placed"  ><span><?php echo $item->status; ?></span></button>
+										<?php }
+										elseif(strtolower($item->status) == 'preparing'){?>
+
+											<button class="preparing" ><span><?php echo $item->status; ?></span></button>
+										<?php }
+										elseif(strtolower($item->status) == 'ready'){?>
+											<button class="complete"  ><span><?php echo $item->status; ?></span></button>
+										<?php }?>
+									
+									</form>
+
+									</td>
 								<tr>
 							<?php } ?>
 						<?php } ?>
