@@ -613,7 +613,7 @@
 }
 
 
-/* table */
+/* table ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
 
 .data-retrive {
     max-width: 1000px;
@@ -624,7 +624,7 @@
     display: block;
   }
   
-  .data-retrive h2 {
+.data-retrive h2 {
     font-size: 26px;
     margin: 20px 0;
     text-align: center;
@@ -634,7 +634,7 @@
     }
   }
   
-  .data-retrive .responsive-table {
+.data-retrive .responsive-table {
     li {
       border-radius: 3px;
       padding: 25px 30px;
@@ -660,17 +660,7 @@
       
     }
 
-    .table-row button{
-        background-color:transparent;
-        border: none;
-        cursor: pointer;
-        color: red;
-        font-size: 15px;
-    }
-    .table-row button:hover{
-        transition: transform .7s ease-in-out;
-        transform: rotate(360deg);
-    }
+    
     .table-row:nth-child(odd){
         background-color: #f2f2f2;
     }
@@ -688,6 +678,26 @@
     }
     .col-5 {
       flex-basis: 10%;
+      gap: 25px;
+      display: flex;
+      text-align: center;
+  
+    }
+    
+    .col-5 button:hover{
+        transition: transform .7s ease-in-out;
+        transform: rotate(360deg);
+    }
+    .col-5 button{
+        
+        font-size: 18px;
+        background-color:transparent;
+        border: none;
+        cursor: pointer;
+        color: red;
+    }
+    .col-5 .edit{
+        color: green;
     }
     
     @media all and (max-width: 767px) {
