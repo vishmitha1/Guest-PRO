@@ -124,6 +124,9 @@
                     
                     <div class="total-cost">
                         <div class="total-cost-title">
+                            <!-- pass the values using ajax 
+                                this one is not work working element eka js walin create karanne -->
+                            <!-- -->
                             <span>Number of items <span id='total_items_in_Popup'> </span></span><br>
                             <span>Tostal Cost</span>
                         </div>
@@ -133,6 +136,7 @@
                             <div class="place-order">
                                 <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
                                     <button type='submit' >PlaceOrder</button>
+                                    <input type="hidden" id="total_items_Price" name="amount"   > 
                                     <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
                                 </form>
                                 
