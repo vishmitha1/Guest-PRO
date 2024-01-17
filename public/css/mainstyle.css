@@ -39,3 +39,27 @@
 @import url("./customer/customer-reviewwaiter.css");
 @import url("./kitchen/kitchen-foodstatus.css"); */
 
+
+
+=======
+@import url("./admin/admin-staffaccounts.css");
+@import url("./admin/admin-generatereports.css");
+@import url("./admin/admin-accountlogs.css");
+
+
+
+
+
+
+
+
+
+
+
+
+@import url("./manager/manager-roomdetails.css");
+
+@import url("./manager/manager-delete-fooditems.css");
+=======
+@import url("./manager/manager-delete-fooditems.css");
+

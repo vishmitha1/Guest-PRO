@@ -137,6 +137,10 @@
                                 <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
                                     <button type='submit' >PlaceOrder</button>
                                     <input type="hidden" id="total_items_Price" name="amount"   > 
+                                    <?php if(!empty($data[3])){?>
+                                        <input type="hidden" name="order_id" value="<?php echo $data[3]; ?>">
+                                    <?php } ?>
+                            
                                     <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
                                 </form>
                                 
