@@ -112,13 +112,22 @@
                 //change room availability
                 if($this->changeRoomAvailability($roomNo,'no')){
 
-                    //add to bill this reservation
-                    if($this->addExpenses($data,"Reservation Cost")){
-                        return true;
+                    if($this->addReservation($data)){
+                        
+                        // //add to bill this reservation
+                        if($this->addExpenses($data,"Reservation Cost")){
+                            return true;
+                        }
+                        else{
+                            return false;
+                        }
+                        
                     }
                     else{
                         return false;
                     }
+              
+                    
                    
                 }
                 else{
@@ -129,6 +138,34 @@
             else{
                 return false;
             }
+        }
+
+
+        //Update reservation ID to rooms table, meka danna hethuwa
+        /* reservation table eke roomNo coulmn eka multivalues..ekaninsa roomNo one by one rooms  */ 
+        public function addReservation($data){
+
+            $this->db->query("SELECT * FROM reservations WHERE user_id=:id ORDER BY reservation_id DESC LIMIT 1;");
+            $this->db->bind(':id',$data['user_id']);
+            $reservation=$this->db->resultSet();
+            $rooms=explode(",",$reservation[0]->roomNo);
+        
+
+        
+            for($i=0;$i<sizeof($rooms);$i++){
+                $this->db->query('UPDATE rooms SET reservation_id=:res_id WHERE roomNo=:roomNo');
+                $this->db->bind('roomNo',$rooms[$i]);
+                $this->db->bind('res_id',$reservation[0]->reservation_id);
+                if($this->db->execute()){
+                    continue;
+                }
+                else{
+                    return false;
+                }
+                
+            }
+            return true;
+
         }
 
 
@@ -497,11 +534,26 @@
 				
         }
 
-        public function test(){
-            $this->db->query("SELECT * FROM carts  ");
-            $row = $this->db->resultSet();
-            $row=array_reverse($row);
-            return $row;
+        public function test($data){
+            $this->db->query("SELECT * FROM reservations WHERE user_id=6 ORDER BY reservation_id DESC LIMIT 1;");
+        
+            $reservation=$this->db->resultSet();
+            $rooms=explode(",",$reservation[0]->roomNo);
+            
+            return $reservation;
+
+        
+            // for($i=0;$i<sizeof($rooms);$i++){
+            //     $this->db->query('UPDATE rooms SET reservation_id=:res_id WHERE roomNo=:roomNo');
+            //     $this->db->bind('roomNo',$rooms[$i]);
+            //     $this->db->bind('res_id',$reservation[0]->reservation_id);
+            //     if($this->db->execute()){
+            //         continue;
+            //     }
+            //     else{
+            //         return false;
+            //     }
+            // }
 
         }
 

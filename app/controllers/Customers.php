@@ -842,12 +842,8 @@
       
        
             $this->view('v_test', $data);
-            if(confirm()){
-                echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvyes";
-            }
-            else{
-                echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvno";
-            }
+            print_r($this->userModel->test($data));
+            
             
         
         
