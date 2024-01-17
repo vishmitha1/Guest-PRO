@@ -12,8 +12,18 @@
 
         //Retrive Last order
         public function retriveLastOrder($data){
-            $this->db->query("SELECT * FROM foodorders WHERE user_id=:id ORDER BY order_id DESC LIMIT 1");
+            $this->db->query("SELECT * FROM foodorders WHERE user_id=:id  ORDER BY order_id DESC LIMIT 1");
             $this->db->bind(':id',$data);
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+        //Retrive order
+        public function retriveOrder($data){
+            $this->db->query("SELECT * FROM foodorders WHERE user_id=:id and order_id=:order_id ");
+            $this->db->bind(':id',$data['user_id']);
+            $this->db->bind(':order_id',$data['order_id']);
             $row = $this->db->single();
 
             return $row;
@@ -102,13 +112,22 @@
                 //change room availability
                 if($this->changeRoomAvailability($roomNo,'no')){
 
-                    //add to bill this reservation
-                    if($this->addExpenses($data,"Reservation Cost")){
-                        return true;
+                    if($this->addReservation($data)){
+                        
+                        // //add to bill this reservation
+                        if($this->addExpenses($data,"Reservation Cost")){
+                            return true;
+                        }
+                        else{
+                            return false;
+                        }
+                        
                     }
                     else{
                         return false;
                     }
+              
+                    
                    
                 }
                 else{
@@ -119,6 +138,34 @@
             else{
                 return false;
             }
+        }
+
+
+        //Update reservation ID to rooms table, meka danna hethuwa
+        /* reservation table eke roomNo coulmn eka multivalues..ekaninsa roomNo one by one rooms  */ 
+        public function addReservation($data){
+
+            $this->db->query("SELECT * FROM reservations WHERE user_id=:id ORDER BY reservation_id DESC LIMIT 1;");
+            $this->db->bind(':id',$data['user_id']);
+            $reservation=$this->db->resultSet();
+            $rooms=explode(",",$reservation[0]->roomNo);
+        
+
+        
+            for($i=0;$i<sizeof($rooms);$i++){
+                $this->db->query('UPDATE rooms SET reservation_id=:res_id WHERE roomNo=:roomNo');
+                $this->db->bind('roomNo',$rooms[$i]);
+                $this->db->bind('res_id',$reservation[0]->reservation_id);
+                if($this->db->execute()){
+                    continue;
+                }
+                else{
+                    return false;
+                }
+                
+            }
+            return true;
+
         }
 
 
@@ -365,8 +412,34 @@
             $cost=trim($cost,',');
             $itemid=trim($itemid,',');
             $img=trim($img,',');
+
+            if(isset($data['order_id'])){
+                $this->db->query('UPDATE foodorders 
+                      SET 
+                          user_id = :id, 
+                          item_name = :item_name, 
+                          roomNo = :roomNo, 
+                          cost = :cost, 
+                          item_no = :item_id, 
+                          quantity =:quantity,
+                          img = :img, 
+                          total = :tot
+
+                    WHERE order_id = :order_id');
+
+                          
+                $this->db->bind(':order_id',$data['order_id']);
+
+            }
+            
+            else{                  
        
-            $this->db->query("INSERT INTO foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total) VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot)");
+                $this->db->query("INSERT INTO 
+                        foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total,reservation_id)
+                        VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot,(SELECT reservation_id FROM reservations WHERE user_id = :id ORDER BY reservation_id DESC LIMIT 1)) ");
+
+            }
+
             // $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
             $this->db->bind(':id',$id);
             $this->db->bind(':quantity', $qty);
@@ -376,17 +449,12 @@
             $this->db->bind(':item_id',$itemid);
             $this->db->bind(':img',$img);
             $this->db->bind(':tot',$data['price']);
+          
             
             if($this->db->execute()){
                 if($this->deleteallCartitems($id)){
 
-                    //add to bill this order
-                    if($this->addExpenses($data,"Food Order Placed")){
-                        return true;
-                    }
-                    else{
-                        return false;
-                    }
+                    return true;
                     
                 }
                 else{
@@ -428,8 +496,8 @@
             return $row;
         }
 
-        //Update order
-        public function updateOrder($data,$id){
+        //Re insert items to cart when  customer click update button in te dashboard UI
+        public function reInsertToCart($data,$id){
           
             
                 $item=$data;
@@ -466,11 +534,26 @@
 				
         }
 
-        public function test(){
-            $this->db->query("SELECT * FROM carts  ");
-            $row = $this->db->resultSet();
-            $row=array_reverse($row);
-            return $row;
+        public function test($data){
+            $this->db->query("SELECT * FROM reservations WHERE user_id=6 ORDER BY reservation_id DESC LIMIT 1;");
+        
+            $reservation=$this->db->resultSet();
+            $rooms=explode(",",$reservation[0]->roomNo);
+            
+            return $reservation;
+
+        
+            // for($i=0;$i<sizeof($rooms);$i++){
+            //     $this->db->query('UPDATE rooms SET reservation_id=:res_id WHERE roomNo=:roomNo');
+            //     $this->db->bind('roomNo',$rooms[$i]);
+            //     $this->db->bind('res_id',$reservation[0]->reservation_id);
+            //     if($this->db->execute()){
+            //         continue;
+            //     }
+            //     else{
+            //         return false;
+            //     }
+            // }
 
         }
 
