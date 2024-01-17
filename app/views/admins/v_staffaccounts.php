@@ -32,19 +32,19 @@
             <h2>Create Staff Account</h2>
             <form  method="POST">
                 <label for="userID">User ID:</label>
-                <input type="text" id="userID" name="userID">
+                <input type="text" id="userID" name="userID" required>
                 <label for="designation">Designation:</label>
-                <input type="text" id="designation" name="designation">
+                <input type="text" id="designation" name="designation" required>
                 <label for="staffName">Name:</label>
-                <input type="text" id="staffName" name="staffName">
+                <input type="text" id="staffName" name="staffName" required>
                 <label for="phoneNumber">Phone Number:</label>
-                <input type="text" id="phoneNumber" name="phoneNumber">
+                <input type="text" id="phoneNumber" name="phoneNumber" required>
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" required>
                 <label for="birthday">Birthday:</label>
-                <input type="date" id="birthday" name="birthday">
+                <input type="date" id="birthday" name="birthday" required>
                 <label for="nicNumber">NIC Number:</label>
-                <input type="text" id="nicNumber" name="nicNumber">
+                <input type="text" id="nicNumber" name="nicNumber" required>
                 <input type="submit" value="Create" name="submit">
             </form>
         </div>
@@ -95,7 +95,7 @@
                                     <td>{$item->birthday}</td>
                                     <td>{$item->nicNumber}</td>
                                     <td><button class=\"update-btn\">Update</button></td>
-                                    <td><button class=\"delete-btn\">Delete</button></td> 
+                                    <td><button class=\"delete-btn\"href=\"<?php echo URLROOT; ?>/staffaccounts/delete\">Delete</button></td>
                                 </tr> ";
                             }
                         ?>  

@@ -37,6 +37,18 @@
             
             return $row;
         }
-        
 
+        //Delete staff account
+        public function delete($data){
+            $this->db->query("DELETE FROM staffaccounts WHERE userID = :u_id ");
+            $this->db->bind(':u_id',$data['userID']);
+        
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     }

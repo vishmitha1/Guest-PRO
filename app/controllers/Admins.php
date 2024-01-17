@@ -23,6 +23,7 @@ class Admins extends Controller{
 
             unset($_POST['submit']);
             $data = [
+                'userID' => trim($_POST['userID']),
                 'designation' => trim($_POST['designation']),
                 'staffName' => trim($_POST['staffName']),
                 'phoneNumber' => trim($_POST['phoneNumber']),
@@ -36,9 +37,9 @@ class Admins extends Controller{
             } else {
                 die("something went wrong");
             }
-        }
-      
 
+        }
+        
         // $results = $this->staffModel->getstaff();
             // echo"<prev>";
             // print_r($results);
@@ -48,6 +49,16 @@ class Admins extends Controller{
         // $details = [$results];
         $this->view('admins/v_staffaccounts',$this->staffModel->getstaff());
     }
+    
+        public function delete($data){
+            if($this->staffModel->delete($data)){
+                redirect('Admins/staffaccounts');
+            }else{
+                die('Something went wrong');
+            }
+        }
+    
+
 
     public function generatereports(){
         $data = [];
