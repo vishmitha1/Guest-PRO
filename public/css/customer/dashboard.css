@@ -14,8 +14,9 @@
 }
 
 .col-div-3{
-	width: 25%;
+	width: 30%;
 	float: left;
+  margin-left: 20px;
 }
 .box{
 	width: 90%;
@@ -34,19 +35,20 @@
     display: inline-block;
 }
 .box p span{
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: 500;
 	color: #cdcdcd;
 }
 .box-icon{
-	font-size: 30px!important;
-    float: right;
+	font-size: 25x;
+  float: right;
 ;
     margin-top: 3px!important;
     color: #cdcdcd;
     padding-right: 10px;
 }
 .col-div-8{
+  height: 310px;
 	width: 70%;
 	float: left;
   overflow: auto;
@@ -65,16 +67,35 @@
 }
 .content-box p span{
 	float: right;
-    background-color: #ddd;
-    padding: 3px 10px;
-    font-size: 15px;
+  background-color:transparent;
+  padding: 3px 10px;
+  font-size: 15px;
 }
+.content-box p span button{
+  background-color: #f7403b;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+.content-box p span button:hover{
+  background-color: #f7403b;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .box-8{
 	width: 95%;
 	background-color: #003366;
-	height: 400px;
-    overflow: auto;
-    border-radius: 5px;
+	height: auto;
+  overflow: auto;
+  border-radius: 5px;
 }
 .box-4{
 	width: 95%;
@@ -89,6 +110,8 @@
 	margin-left: 10px;
 }
 .content-box table {
+  height: auto;
+  border-radius: 5px;
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -146,7 +169,234 @@
   margin-top: 10px;
   margin-left: 10px;
   position: absolute;
-  z-index: 100;
+  z-index: 1;
   font-weight: 700;
   font-size: 2em;
 }
+
+
+.bill_fletch{
+  display: relative;
+  margin-top: 60px;
+  width: calc(100% - 20px);
+  height: 100vh;
+  /* border: 1px solid #000000; */
+}
+
+.bill_fletch_wrapper{
+  /* border: 1px solid #000000; */
+  width: 100%;
+  height: auto;
+}
+
+
+
+.bill_fletch_wrapper h2 {
+  font-size: 26px;
+  margin: 20px 0;
+  text-align: center;
+  font-family: 'Exo 2';
+  small {
+    font-size: 0.5em;
+  }
+}
+
+.bill_fletch_wrapper table{
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.bill_fletch_wrapper thead{
+  vertical-align: middle;
+  display: table-header-group;
+  
+}
+
+.bill_fletch_wrapper {
+  tr{
+    display: table-row;
+    vertical-align: inherit;
+    width: 100%;
+  }
+  th{
+    padding: 15px 5px 15px 5px;
+    font-family: "Lato";
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #6c7ae0;
+    text-align: center;
+    
+  }
+  td{
+    font-family: 'Lato';
+    
+    font-size: 18px;
+    color: gray;
+    line-height: 1.4;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    text-align: center;
+  }
+  tr{
+    padding: 15px 5px 15px 5px;
+  }
+}
+
+/* food order fletch part */
+.foodorder_fletch{
+  display: relative;
+  margin-top: 60px;
+  width: calc(100% - 20px);
+  height: 100vh;
+  z-index: -1;
+  /* border: 1px solid #000000; */
+}
+
+.foodorder_fletch_wrapper{
+  /* border: 1px solid #000000; */
+  position: relative  ;
+  width: 100%;
+  height: auto;
+}
+
+
+
+.foodorder_fletch_wrapper h2 {
+  font-size: 26px;
+  margin: 20px 0;
+  text-align: center;
+  font-family: 'Exo 2';
+  small {
+    font-size: 0.5em;
+  }
+}
+
+.foodorder_fletch_wrapper table{
+  border-collapse: collapse;
+  width: 100%;
+  
+}
+
+.foodorder_fletch_wrapper thead{
+  vertical-align: middle;
+  display: table-header-group;
+  
+}
+
+.foodorder_fletch_wrapper {
+  tr{
+    display: table-row;
+    vertical-align: inherit;
+    width: 100%;
+  }
+  th{
+    padding: 15px 5px 15px 5px;
+    font-family: "Lato";
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #6c7ae0;
+    text-align: center;
+    
+  }
+  td{
+    font-family: 'Lato';
+    text-transform: capitalize;
+    font-size: 18px;
+    color: gray;
+    line-height: 1.4;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    text-align: center;
+  }
+  tr{
+    padding: 15px 5px 15px 5px;
+  }
+}
+
+/* Drop down items'''''''''''''''''''''''''''' '''''''''''''''''''''*/
+
+
+.foodorder_fletch .dropdown {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+
+}
+
+.foodorder_fletch_wrapper .dropdown-content {
+  
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 500px;
+  height: auto;
+  left: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(10%);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.foodorder_fletch_wrapper .dropdown button{
+  padding: 7px;
+  width: 100%;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Lato';
+  font-size: 18px;
+  color: gray;
+  font-weight: 600;
+  border: none;
+  
+}
+
+.foodorder_fletch_wrapper .dropdown button:hover + .dropdown-content{
+  opacity: 1;
+  transform: translateY(0);
+
+}
+
+.foodorder_fletch .dropdown-content table{
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.foodorder_fletch .dropdown-content{
+
+  .heder{
+    height: auto;
+  }
+  th{
+    font-size: 15px;
+  }
+
+  table img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+
+  tr{
+    padding: 0;
+  }
+  
+  td{
+    font-size: 12px;
+    font-family: 'Lato';
+    color: gray;
+    line-height: 1.4;
+    font-weight: 600;
+    font-style: italic;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+  }
+}
+

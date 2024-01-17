@@ -72,10 +72,41 @@
                 <div class="header"  >
                     <span  class="title" >My Cart For </span> <div class="selectRoom">
                     <select  name="roomNumber" form="cart_submit_Form">
-                                                                    <option hidden value="" >Select Room</option>
-                                                                    <?php foreach($data[2] as $room){ ?>
-                                                                        <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
-                                                                    <?php } ?>
+                                                             <!-- change this after db roomNo switch to vachr -->
+
+                                                                    <?php if(sizeof($data[2])==1){ ?>
+                                                                        <?php foreach($data[2] as $room){ ?>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                                echo "<option hidden value='' >Select Room</option>";
+                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
+                                                                        <?php } ?>
+                                                                    <?php } 
+                                                                    else{ ?>    
+                                                                    
+                                                                        <option hidden value="" >Select Room</option>
+                                                                        <?php foreach($data[2] as $room){ ?>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                                
+                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
+                                                                        <?php } ?>
+                                                                    <?php } ?>    
+                                                 
                                                                     
                                                                     </select> 
                     </div>
@@ -93,6 +124,9 @@
                     
                     <div class="total-cost">
                         <div class="total-cost-title">
+                            <!-- pass the values using ajax 
+                                this one is not work working element eka js walin create karanne -->
+                            <!-- -->
                             <span>Number of items <span id='total_items_in_Popup'> </span></span><br>
                             <span>Tostal Cost</span>
                         </div>
@@ -102,6 +136,11 @@
                             <div class="place-order">
                                 <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
                                     <button type='submit' >PlaceOrder</button>
+                                    <input type="hidden" id="total_items_Price" name="amount"   > 
+                                    <?php if(!empty($data[3])){?>
+                                        <input type="hidden" name="order_id" value="<?php echo $data[3]; ?>">
+                                    <?php } ?>
+                            
                                     <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
                                 </form>
                                 
@@ -193,3 +232,4 @@
     
 
 
+    <?php   require APPROOT. "/views/includes/components/footer.php" ?>
