@@ -1,4 +1,4 @@
-/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
+/* CSS for the dashboard section */
 *{
     display: auto;
     font-family: 'Poppins',sans-serif;
@@ -9,8 +9,7 @@ body{
     font-family: 'Poppins',sans-serif;
 }
 
-/* CSS for the dashboard section */
-.dashboard {
+.home {
     margin-left: 275px; /* Adjusted for sidebar width */
     padding: 20px;
 }
@@ -64,18 +63,31 @@ body{
 .search-bar button:hover {
     background-color: #002447;
 }
-.table {
-    border-collapse: collapse;
+
+.table{
     width: 100%;
-    margin-top: 20px;
+    border-collapse: collapse;
 }
 
 .table th, .table td {
     border: 1px solid #E6E7E8;
     padding: 8px;
+    text-align: center;
 }
 
+.view-btn{
+    background-color: #fa2f2f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 20px;
+}
 
+.view-btn:hover{
+    background-color: #870707;
+}
 
 /* CSS for the Logs section */
 .logs {
@@ -89,3 +101,4 @@ body{
     color: #003366;
     font-size: 24px;
 }
+
