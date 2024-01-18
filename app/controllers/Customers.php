@@ -189,7 +189,7 @@
                     ];
                     
                     
-                    //validate each parameter
+                    //validate each parameter one by one
                     
                     if(empty($data['in_date'])){
                         $data['indate_err'] = 'Checkin date empty';
