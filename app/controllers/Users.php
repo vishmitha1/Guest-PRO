@@ -167,10 +167,10 @@
             elseif($_SESSION['role'] == "waiter"){
                 redirect("Waiters/pendingfoodorders/". $_SESSION['username']);
             }
-            elseif($_SESSION['role'] == "receptionist/". $_SESSION['username']){
+            elseif($_SESSION['role'] == "receptionist"){
                 redirect("Receptionists/reservation");
             }
-            elseif($_SESSION['role'] == "supervisor/". $_SESSION['username']){
+            elseif($_SESSION['role'] == "supervisor"){
                 redirect("Supervisors/servicerequest");
             }
             elseif($_SESSION['role'] == "kitchen"){
