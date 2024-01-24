@@ -99,11 +99,13 @@
 
         //function for the place reservation
         public function placereservation($data){
-            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo) VALUES(:id,:indate,:outdate,:roomNo)');
+            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo,cost) VALUES(:id,:indate,:outdate,:roomNo,:cost)');
             $this->db->bind('id',$data["user_id"]);
             $this->db->bind('indate',$data["indate"]);
             $this->db->bind('outdate',$data["outdate"]);
             $this->db->bind('roomNo',$data["roomNo"]);
+            $this->db->bind('cost',$data["price"]);
+            
 
             //split roomNo one by one
             $roomNo = explode(",",$data["roomNo"]);
@@ -115,12 +117,13 @@
                     if($this->addReservation($data)){
                         
                         // //add to bill this reservation
-                        if($this->addExpenses($data,"Reservation Cost")){
-                            return true;
-                        }
-                        else{
-                            return false;
-                        }
+                        // if($this->addExpenses($data,"Reservation Cost")){
+                        //     return true;
+                        // }
+                        // else{
+                        //     return false;
+                        // }
+                        return true;
                         
                     }
                     else{
@@ -533,6 +536,20 @@
 				
 				
         }
+
+        //cancel food order in the dashboard UI. this one use when customer click cancel button in the dashboard UI
+        public function cancelFoodOrder($data){
+            $this->db->query("DELETE FROM foodorders WHERE user_id = :u_id AND order_id = :order_id  ");
+            $this->db->bind('u_id',$data['user_id']);
+            $this->db->bind('order_id',$data['order_id']);
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
 
         public function test($data){
             $this->db->query("SELECT * FROM reservations WHERE user_id=6 ORDER BY reservation_id DESC LIMIT 1;");

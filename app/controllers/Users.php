@@ -167,17 +167,17 @@
             elseif($_SESSION['role'] == "waiter"){
                 redirect("Waiters/pendingfoodorders/". $_SESSION['username']);
             }
-            elseif($_SESSION['role'] == "receptionist/". $_SESSION['username']){
+            elseif($_SESSION['role'] == "receptionist"){
                 redirect("Receptionists/reservation");
             }
-            elseif($_SESSION['role'] == "supervisor/". $_SESSION['username']){
+            elseif($_SESSION['role'] == "supervisor"){
                 redirect("Supervisors/servicerequest");
             }
             elseif($_SESSION['role'] == "kitchen"){
                 redirect("Kitchen/foodmenu/". $_SESSION['username']);
             }
             elseif($_SESSION['role'] == "customer"){
-                redirect("Customers/reservation/". $_SESSION['username'].'/'.$_SESSION['user_id']);
+                redirect("Customers/Dashboard/". $_SESSION['username'].'/'.$_SESSION['user_id']);
             }
             elseif($_SESSION['role'] == "manager"){
                 redirect("Managers/roomdetails/". $_SESSION['username']);

@@ -6,6 +6,7 @@
     <title>Document</title>
    
     <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
     <script src="<?php echo URLROOT;?>/public/js/customers/foodcart.js"></script>

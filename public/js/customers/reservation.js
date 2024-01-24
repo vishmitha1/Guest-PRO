@@ -73,6 +73,9 @@ function showSlides(n) {
 }
 
 
+//animatin for the table 
+
+
 
 
 
