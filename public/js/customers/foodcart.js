@@ -71,6 +71,9 @@ function retrivefoodcart() {
                     var total_cost= document.getElementById('total_cost_inCart');
                     total_cost.textContent=response[1]+' LKR';
 
+                    var send_cost= document.getElementById('total_items_Price');
+                    send_cost.value =response[1];
+
                     // Get the reference to the table body
                     var tableBody = document.getElementById("cart-table").getElementsByTagName('tbody')[0];
                     tableBody.innerHTML = ''; 
