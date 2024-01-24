@@ -1,237 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
-
-.side-bar{
-    position:fixed;
-    background-color: #002447;
-    /* background-color: #003366; */
-    height: 100vh;
-    top: 0;
-    left: 0;
-    width: 275px;
-
-    font-family: "poppins", sans-serif;
-    /* padding: 2.7rem 3rem 0 2rem; */
-   
-
-    
-}
-
-.side-bar a{
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    display: block;
-    padding: 5% ;
-    text-align:left;
-    transition: .3s;
-    font-size: 20px;
-}
-
-
-.links{
-    margin-top: 6%;
-    margin-left: 10%;
-}
-
-
-
-.links i{
-    margin-right: 6%;
-    direction: none;
-}
-
-.logo{
-    padding: 2% 4%;
-    background-color: #003366;
-
-}
-
-.link-items:hover {
-    background: #003366;
-}
-
- .logout{
-    position: absolute;
-    width: 15%;
-    margin-top: 5%;
-    margin-left: 5%;
-    bottom: 1%;
-    
-}
-
-.logout button{
-    margin-left: 50px;
-    padding: 5px 30px;
-    background-color: #ecda0a;
-    border-radius: 20px;
-}
-
-.logout button:hover{
-    background-color: #003366;
-    color: #ecda0a;
-    border: 1px solid #ecda0a;
-    transition: .3s;
-
-}
-.home {
-    position: relative;
-    left: 275px;
-    width: calc(100% - 275px);
-    top: 0;
-    /* background: #0074e8; */
-    background: #ffffff;
-    
-    /* padding-left: 25px; */
-    /* padding-bottom: 5rem; */
-  }
-.profile{
-    top: 0;
-    left: 75%;
-    width: 200px;
-    height: 70px;
-    margin-top: 5px;
-    position: relative;
-    
-  
-   
-}
-
-.profile a {
-    margin-top: 10px;
-    position: relative;
-    text-decoration: none;
-    color: #000000;
-    font-size: 25px;
-}
-.profile i {
-    margin-top: 10px;
-    position: relative;
-    text-decoration: none;
-    color: #000000;
-    font-size: 25px;
-}
-
-
-/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
-
-
-
-/* CSS for the dashboard section */
-.dashboard {
-    margin-left: 275px; /* Adjusted for sidebar width */
-    padding: 20px;
-}
-
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Right-align the user profile section */
-    margin-bottom: 20px;
-}
-
-.user-profile img {
-    width: 50px; /* Adjust the image size */
-    height: 50px; /* Adjust the image size a */
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.user-profile-info {
-    color: black;
-}
-
-.user-profile-info p {
-    margin: 0;
-}
-
-/* CSS for the search bar */
-.search-bar {
-    margin-top: 20px;
-    display: flex;
-}
-
-.search-bar input[type="text"] {
-    flex: 1; /* Take up available space */
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #E6E7E8; /* Add border to the input field */
-}
-
-.search-bar button {
-    background-color: #003366;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-top-right-radius: 0; /* No rounded corners on the button */
-    border-bottom-right-radius: 0;
-}
-
-.search-bar button:hover {
-    background-color: #002447;
-}
-
-
-.reservations {
-    color: black;
-    font-size: 18px;
-    margin-top: 20px; /* Add some spacing between subheading and table */
-}
-
-
-.table {
-    border-collapse: collapse;
+.res-searchbar-wrapper{
     width: 100%;
-    margin-top: 20px;
+    height: 100px;
 }
 
-.table th, .table td {
-    border: 1px solid #E6E7E8;
+.res-searchbar{
+
+    margin-top: 50px;
+    height: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;  
+    align-items: center;
+    margin-bottom: 20px;
+    column-gap: 50px;
+   
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgb(173, 173, 173);
+    
+}
+
+.res-searchbar .items{
+   margin-left: 20px;
+   /* border: 1px solid black; */
+   padding: 15px;
+   font-size: 20px;
+   border-radius: 10px;
+   box-shadow: rgba(23, 225, 44, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.res-searchbar-wrapper .items span{
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    
+}
+
+
+.res-searchbar-wrapper .btn button{
+    font-size: 18px;
+    width: 80px;
+    font-family: 'Lato', sans-serif;
+    padding: 8px;
+    border-radius: 5px;
+    border:none ;
+    background-color: #2ecc71;
+}
+
+.res-searchbar-wrapper .btn button:hover{
+    background-color: #27ae60;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.res-searchbar input{
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px dotted black;
+ 
+    
+}
+
+.res-searchbar .date{
+    width: 150px;
     padding: 8px;
 }
 
-
-/* CSS for the delete and update buttons */
-.delete-button {
-    background-color: #FF0000; /* Red */
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+.res-search-result-wrapper{
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 1px solid black;
 }
 
-.delete-button:hover {
-    background-color: #CC0000; /* Darker red on hover */
+.res-search-result-wrapper .room-block{
+    position: relative;
+    width: 270px;
+    height: 295px;
+    margin: 20px;
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgb(148, 148, 148);
+    /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+    flex-basis:auto;
+    
 }
 
-.update-button {
-    background-color: #FFFF00; /* Yellow */
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+.res-search-result-wrapper .res-room-img{
+    width: 100%;
+    height: 180px;
+    border-radius: 10px 10px 0px 0px;
+    background-color: #2ecc71;
 }
 
-.update-button:hover {
-    background-color: #CCCC00; /* Darker yellow on hover */
+.res-search-result-wrapper .res-room-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px 10px 0px 0px;
 }
 
-/* CSS for the editable input fields */
-.editable-input {
-    border: 1px solid #E6E7E8;
-    padding: 5px;
+.res-search-result-wrapper .res-room-details{
+    width: 100%;
+    /* margin-top: 10px; */
+    /* border: 1px solid black; */
+    text-align: center;
+   
 }
 
-/* CSS for the "New Reservations" button */
-.new-reservations-button {
-    background-color: #228422; /* Green */
-    color: white;
-    border: none;
+.res-room-details .room-type{
+    font-size: 25px;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+}
+
+.res-room-details .room-number{
+    overflow: auto;
+    white-space: nowrap;
+    height: 40px;
+    
+    /* border: 1px solid black; */
+}
+
+.room-number span{
+    color: rgb(98, 154, 234);
+    font-size: 18px;
+    display: inline-block;
+    
+}
+
+
+
+.res-room-details .bottom-part{
+    position: relative;
+    width: 100%;
+    height: auto;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.res-room-details .bottom-part .price{
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+}
+
+.res-room-details .bottom-part .reserve button{
     padding: 10px;
-    cursor: pointer;
-    margin-top: 20px;
+    width: 90px;
+    border-radius: 20px;
+    background-color: #2ecc71;
+    font-size: 15px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    color: #fff;
+    border: none;
 }
 
-.new-reservations-button:hover {
-    background-color: #347034; /* Darker green on hover */
+.res-room-details .bottom-part .reserve button:hover{
+    background-color: #27ae60;
+    cursor: pointer;
+    font-weight: 600;
 }
