@@ -198,13 +198,14 @@
 							
 										<?php if( strtolower($item->status) == 'placed'){?>
 											<button class="placed"  ><span><?php echo $item->status; ?></span></button>
+											<button class="cancel" name="cancel-foododer" >Cancel</button>
 										<?php }
 										elseif(strtolower($item->status) == 'preparing'){?>
 
-											<button class="preparing" ><span><?php echo $item->status; ?></span></button>
+											<span class="preparing" ><span><?php echo $item->status; ?></span></span>
 										<?php }
 										elseif(strtolower($item->status) == 'ready'){?>
-											<button class="complete"  ><span><?php echo $item->status; ?></span></button>
+											<span class="complete"  ><span><?php echo $item->status; ?></span></span>
 										<?php }?>
 									
 									</form>
