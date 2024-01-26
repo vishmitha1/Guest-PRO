@@ -179,7 +179,7 @@
   display: relative;
   margin-top: 60px;
   width: calc(100% - 20px);
-  height: 100vh;
+  height: auto;
   /* border: 1px solid #000000; */
 }
 
@@ -245,7 +245,7 @@
   }
 }
 
-/* food order fletch part */
+/* food order fletch part ''''''''''''''''''''''''''''''''''''''''''''''''''''*/
 .foodorder_fletch{
   display: relative;
   margin-top: 60px;
@@ -335,7 +335,7 @@
   background-color: #f9f9f9;
   width: 500px;
   height: auto;
-  left: 100px;
+  left: 80px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
   z-index: 1;
@@ -344,7 +344,8 @@
   transition: opacity 1s ease, transform 1s ease;
 }
 
-.foodorder_fletch_wrapper .dropdown button{
+.foodorder_fletch_wrapper  button{
+  text-transform: capitalize;
   padding: 7px;
   width: 100%;
   border-radius: 20px;
@@ -398,5 +399,67 @@
     padding-bottom: 5px;
     text-align: center;
   }
+  td:nth-child(4){
+    text-align: right;
+  }
+
+}
+
+
+.foodorder_fletch .edit-order{
+
+  button.placed {
+    width: 100px;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: linear-gradient(to right, #6ce07d 50%, #ef6262 50%);
+    background-size: 200% 200%;
+    transition: background-position 0.2s;
+    letter-spacing: 1px;
+    padding: 3px;
+  }
+
+  button.placed:hover {
+      background-position: -100% 0;
+  }
+
+  button.placed:hover span {
+      display: none;
+  }
+
+  button.placed:hover:before {
+      content: "Edit";
+  }
+
+  /* cancel button */
+  button.cancel {
+    width: 100px;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: linear-gradient(to bottom, #d96de6 0%, #d139cf 100%);
+    background-size: 200% 200%;
+    transition: background-position 0.2s;
+    letter-spacing: 1px;
+    padding: 3px;
+}
+
+button.cancel:hover {
+    background-position: 0 -100%;
+}
+
+button.cancel:hover span {
+    display: none;
+}
+
+
+
+
+
+
+
 }
 

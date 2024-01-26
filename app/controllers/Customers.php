@@ -189,7 +189,7 @@
                     ];
                     
                     
-                    //validate each parameter
+                    //validate each parameter one by one
                     
                     if(empty($data['in_date'])){
                         $data['indate_err'] = 'Checkin date empty';
@@ -635,8 +635,29 @@
         
         //Update order from dashboard UI
         public function updateOrder(){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cancel-foododer'])){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'order_id'=>trim($_POST['order_id']),
+                    'orderStatus'=>trim($_POST['orderStatus']),
+                ];
+
+                if($this->userModel->cancelFoodOrder($data)){
+                    $_SESSION['toast_type']='success';
+                    $_SESSION['toast_msg']='Order canceled successfully.';
+                    redirect('Customers/dashboard');
+                }
+                else{
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Something went wrong .';
+                    redirect('Customers/dashboard');
+                }
+                
+            }
  
-            if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['orderStatus'])){
+            elseif($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['orderStatus'])){
 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $data=[
@@ -657,20 +678,7 @@
                 
                 
 
-            elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
-                
-                $data=$this->userModel->retriveLastOrder($_SESSION['user_id']);
-                if($this->userModel->reinsertToCart($data,$_SESSION['user_id'])){
-                    
-                    redirect('Customers/foodorder');
-                }
-                else{
-                    $_SESSION['toast_type']='warning';
-                    $_SESSION['toast_msg']='Something went wwwrong.';
-                    redirect('Customers/foodorder');
-                }
-                
-            }
+            
 
         }
 
