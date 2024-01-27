@@ -20,10 +20,33 @@
                 <input type="date" id="birthday" name="birthday" required>
                 <label for="nicNumber">NIC Number:</label>
                 <input type="text" id="nicNumber" name="nicNumber" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
                 <input type="submit" value="Create" name="submit">
             </form>
     </div>
     
 </div>
+
+<!-- JavaScript code for generating a random password -->
+<script>
+// Function to generate a random password
+function generateRandomPassword(length = 12) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+    let password = '';
+    for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+}
+
+// Auto-fill password field with a random password when the form loads
+window.addEventListener('DOMContentLoaded', function() {
+    const passwordField = document.getElementById('password');
+    if (passwordField) {
+        passwordField.value = generateRandomPassword();
+    }
+});
+</script>
 
         

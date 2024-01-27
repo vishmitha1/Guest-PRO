@@ -29,6 +29,7 @@ class Admins extends Controller {
                 'email' => trim($_POST['email']),
                 'birthday' => trim($_POST['birthday']),
                 'nicNumber' => trim($_POST['nicNumber']),
+                'password' => password_hash(trim($_POST['password']), PASSWORD_DEFAULT),
             ];
 
             // Call model method to insert staff
@@ -65,7 +66,8 @@ class Admins extends Controller {
                 'phoneNumber' => $_POST['phoneNumber'],
                 'email' => $_POST['email'],
                 'birthday' => $_POST['birthday'],
-                'nicNumber' => $_POST['nicNumber']
+                'nicNumber' => $_POST['nicNumber'],
+
             ];
     
             // Update staff account details in the database

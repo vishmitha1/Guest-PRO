@@ -8,7 +8,7 @@ class M_Admins {
 
     public function insert_staffdetails($data) {
         // Proceed with insertion
-        $this->db->query('INSERT INTO staffaccount(userID, designation, staffName, phoneNumber, email, birthday, nicNumber) VALUES(:userID, :designation, :staffName, :phoneNumber, :email, :birthday, :nicNumber)');
+        $this->db->query('INSERT INTO staffaccount(userID, designation, staffName, phoneNumber, email, birthday, nicNumber,password) VALUES(:userID, :designation, :staffName, :phoneNumber, :email, :birthday, :nicNumber, :password)');
         $this->db->bind(':userID', $data['userID']);
         $this->db->bind(':designation', $data['designation']);
         $this->db->bind(':staffName', $data['staffName']);
@@ -16,6 +16,7 @@ class M_Admins {
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':birthday', $data['birthday']);
         $this->db->bind(':nicNumber', $data['nicNumber']);
+        $this->db->bind(':password', $data['password']);
 
         return $this->db->execute();
     }
