@@ -1,30 +1,6 @@
-/* CSS for the dashboard section */
-.home {
-    margin-left: 275px; /* Adjusted for sidebar width */
-    padding: 20px;
-}
-
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Right-align the user profile section */
-    margin-bottom: 20px;
-}
-
-.user-profile img {
-    width: 50px; /* Adjust the image size */
-    height: 50px; /* Adjust the image size a */
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.user-profile-info {
-    color: black;
-}
-
-.user-profile-info p {
-    margin: 0;
+.title-staffaccounts h1 {
+    margin-top: 0px; /* Adjust as needed */
+    margin-bottom: 20px; /* Adjust as needed */
 }
 
 /* CSS for the search bar */
@@ -41,7 +17,7 @@
 }
 
 .search-bar button {
-    background-color: #003366;
+    background-color: #0154a8;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -54,125 +30,125 @@
     background-color: #002447;
 }
 
-/* Additional CSS for staff account forms and table */
-.staff-form {
-    margin-top: 20px;
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #E6E7E8;
-}
-
-.staff-form form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.staff-form label {
-    font-weight: bold;
-}
-
-.staff-form input[type="text"],
-.staff-form input[type="email"],
-.staff-form input[type="date"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #E6E7E8;
-    border-radius: 5px;
-}
-
-.staff-form input[type="submit"] {
-    background-color: #003366;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.staff-form input[type="submit"]:hover {
-    background-color: #002447;
-}
-
-.table{
-    width: 100%;
-    border-collapse: collapse;
+.table {
+border-collapse: collapse;
+width: 100%;
+margin-top: 20px;
 }
 
 .table th, .table td {
-    border: 1px solid #E6E7E8;
+border: 1px solid #E6E7E8;
+padding: 8px;
+}
+
+/* Styles for the create staff accounts form */
+.create-staffaccounts-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.create-staffaccounts-form form {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.create-staffaccounts-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.create-staffaccounts-form input[type="text"],
+.create-staffaccounts-form input[type="email"],
+.create-staffaccounts-form input[type="date"] {
+    width: calc(100% - 10px);
     padding: 8px;
-    text-align: center;
-}
-
-.update-btn, .delete-btn{
-    background-color: #fa2f2f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+    margin-bottom: 10px;
     border-radius: 5px;
-    margin: 20px;
+    border: 1px solid #ccc;
 }
 
-.update-btn:hover,
-.delete-btn:hover {
-    background-color: #870707;
-}
-
-/*.btn-update {
-    background-color: #fa2f2f;
-    color: white;
+.create-staffaccounts-form input[type="submit"] {
+    background-color: #0154a8;
+    color: #fff;
+    padding: 10px 20px;
     border: none;
-    padding: 5px 10px;
-    cursor: pointer;
     border-radius: 5px;
-    margin: 20px;
+    cursor: pointer;
 }
 
+.create-staffaccounts-form input[type="submit"]:hover {
+    background-color: #002447;
+}
 
+/* Styles for the update staff accounts form */
+.update-staffaccounts-form {
+    max-width: 400px;
+    margin: 20px auto;
+}
 
-
-
-/*.custom-btn {
-    width: 200px;
-    height: 40px;
-    color: #fbf8f8;
+.update-staffaccounts-form form {
+    padding: 20px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 500;
-    background: transparent;
+    background-color: #f9f9f9;
+}
+
+.update-staffaccounts-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.update-staffaccounts-form input[type="text"],
+.update-staffaccounts-form input[type="email"],
+.update-staffaccounts-form input[type="date"] {
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.update-staffaccounts-form input[type="submit"] {
+    background-color: #0154a8;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    display: inline-block;
-        box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-        7px 7px 20px 0px rgba(0,0,0,.1),
-        4px 4px 5px 0px rgba(0,0,0,.1);
-    outline: none;
-}*/
+}
 
-/* 1 */
-/*.btn-1 {
-    background: rgb(230, 42, 4);
-    background: linear-gradient(0deg, rgba(230,42,4) 0%, rgb(198, 64, 62) 100%);
-    border: none;
-  }
-  .btn-1:hover {
-     background: rgb(230, 42, 4);
-  background: linear-gradient(0deg, rgba(230, 42, 4) 0%, rgba(2,126,251,1) 100%);
-  }*/
+.update-staffaccounts-form input[type="submit"]:hover {
+    background-color: #002447;
+}
 
-  /* 2 */
-/*.btn-2 {
-    background: rgb(230, 42, 4);
-    background: linear-gradient(0deg, rgba(6,14,131,1) 0%, rgba(12,25,180,1) 100%);
-    border: none;
-  }
-  .btn-2:hover {
-     background: rgb(0,3,255);
-  background: linear-gradient(0deg, rgba(0,3,255,1) 0%, rgba(2,126,251,1) 100%);
-  } */
+.staff_create_btn a {
+    background-color: #0154a8;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
 
-  
+.staff_create_btn a:hover {
+    background-color: #002447;
+}
+
+/* Styles for the update and delete links */
+.table td a {
+background-color: #d80707; /* Red */
+color: white;
+border: none;
+padding: 5px 10px;
+cursor: pointer;/* Add margin to create space between links */
+text-decoration: none; /* Remove underline */
+display: inline-block; /* Ensure inline-block display to allow text-align property */
+text-align: center; /* Align the button content */
+
+}
+
+.table td a:hover {
+background-color: #9b0505; /* Darker red on hover */
+}
+            
