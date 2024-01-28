@@ -1,4 +1,6 @@
 <?php
+
+
     function toastFlashMsg(){
         if($_SESSION['toast_type']=="success"){
             $iconColor = "#58D68D";
@@ -7,7 +9,7 @@
             $title = $_SESSION['toast_msg'];
         }
         elseif($_SESSION['toast_type']=="error"){
-            $iconColor = "#ffffff";
+            $iconColor = "#FF2400";
             $icon = "error";
             $color = "#EC7063";
             $title = $_SESSION['toast_msg'];
@@ -25,9 +27,9 @@
             $title = $_SESSION['toast_msg'];
         }
         elseif($_SESSION['toast_type']=="question"){
-            $iconColor = "#ffffff";
+            $iconColor = "#9F2B68";
             $icon = "question";
-            $color = "#9254de";
+            $color = "#DE3163";
             $title = $_SESSION['toast_msg'];
         }
         
@@ -53,31 +55,3 @@
     } ?>
 
 
-<?php
-
-    function confirm (){
-        
-
-?>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-  }
-});
-</script>
-
-<?php } ?>

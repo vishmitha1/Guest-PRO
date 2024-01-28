@@ -6,15 +6,45 @@
 <div class="home">
     
     <div class="res-searchbar-wrapper">
+
+         <div class="form-title-searchbar">
+            <span>Reservation</span>
+        </div> 
+        
         <form action="<?php echo URLROOT;?>/Receptionists/reservation" method="post" >
             <div class="res-searchbar">
-                <div class="items">
+            
+                <?php if(isset($_SESSION['Reservation_updateData'])){
+                    $item=$_SESSION['Reservation_updateData'];
+                    ?>
+                    <div class="items">
                     <span>Check In</span><br>
-                    <input class="date"  name="check_in" type="date" placeholder="Check In ">
+                    <input class="date"  name="check_in" type="date" placeholder="Check In "  value="<?php echo $item[0]->checkIn;?>" >
                 </div>
                 <div class="items">
                     <span>Check In</span><br>
-                    <input class="date"  name="check_out" type="date" placeholder="Check Out ">
+                    <input class="date"  name="check_out" type="date" placeholder="Check Out " value="<?php echo $item[0]->checkOut;?>">
+                </div>
+                <div class="items">
+                    <span>Room Count </span><i class="fa-regular fa-calendar-days"></i><br>
+                    <input type="text" name="room_count" value=" <?php echo $item[0]->roomcount;?>" >
+                    
+                </div>
+                    <input type="hidden" name="reservation_id" value="<?php echo $item[0]->reservation_id;?>">
+                <div class="btn">
+                    <button  id="checkAvailability" >Check</button>
+                </div>
+                <?php }
+                else{?>
+                
+
+                <div class="items">
+                    <span>Check In</span><br>
+                    <input class="date"  name="check_in" type="date" placeholder="Check In "  value="2024-01-01" >
+                </div>
+                <div class="items">
+                    <span>Check In</span><br>
+                    <input class="date"  name="check_out" type="date" placeholder="Check Out " value="2024-01-02">
                 </div>
                 <div class="items">
                     <span>Room Count </span><i class="fa-regular fa-calendar-days"></i><br>
@@ -23,20 +53,27 @@
                 </div>
 
                 <div class="btn">
-                    <button>Check</button>
+                    <button  id="checkAvailability" >Check</button>
                 </div>
+                <?php }?>
                 
             </div>
         </form>
+
+
+        
+        
+    
     
     </div>
 
-    <?php if(!empty($data)){?>
+    <?php if(!empty($data[0])){?>
 
     <div class="res-search-result-wrapper">
 
-        <?php foreach ($data as $item){?>
-
+        <?php foreach ($data[0] as $item){?>
+        
+     
         <div class="room-block">
 
             <div class="res-room-img">
@@ -71,14 +108,179 @@
                     </div>
 
                     <div class="reserve">
-                        <button>Reserve</button>
+
+                    
+                        <form action="<?php echo URLROOT;?>/Receptionists/placeReservation" method="post" >
+                            <input type="hidden" name="room_No" value="<?php echo $item->roomNo;?>">
+                            <input type="hidden" name="check_in" value="<?php echo $_SESSION['check_in'];?>">
+                            <input type="hidden" name="check_out" value="<?php echo $_SESSION['check_out'];?>">
+                            <input type="hidden" name="room_count" value="<?php echo $_SESSION['room_count'];?>">
+                            <input type="hidden"  name='price' value="<?php echo $item->price;?>" >
+                            <button>Reserve</button>
+                        </form>
                     </div>
                 </div>
             </div>
 
         </div>
+        
         <?php }?>
 
     </div>
 
     <?php }?>
+
+    <div class="res-searchbar-wrapper">
+
+        <div class="form-title-mngereservation">
+            <span>Reservation</span>
+        </div> 
+        
+        <form action="<?php echo URLROOT;?>/Receptionists/reservation" method="POST" >
+            <div class="res-mngreservation-searchbar">
+            
+                
+
+                <div class="items">
+                    <span>Search By</span><br>
+                    <select name="serachby" id="">
+                        <option hidden>Select One</option>
+                        <option value="roomNo">Room No</option>
+                        <option value="reservation_id">Reservation No</option>
+                        <option value="nic">NIC</option>
+                        <option value="email">Email</option>
+                    </select>
+                </div>
+                <div class="items">
+                    <span>Details</span><br>
+                    <input class="date"  name="details" type="text" placeholder="Enter Value">
+                </div>
+                
+
+                <div class="btn">
+                    <button name="searchReservation" id="searchReservation" >Check</button>
+                </div>
+                
+            </div>
+        </form>
+    
+    
+    </div>
+
+
+    <div class="recep-reservation-history-wrapper">
+
+        <div class="recep-reservation-history">
+
+            <div class="form-title-reservation-history">
+                <span>Reservation History</span>
+            </div> 
+
+            <div class="reservation-history-table-wrapper">
+                <table class="reservation-history-table">
+                    <tr>
+                        <th>Reservation No</th>
+                        <th>Room No</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Price</th>
+              
+                        <th>Customer</th>
+                        
+                
+                        <th>Actions</th>
+                    </tr>
+
+                    <?php if(!empty($data[1])){
+                      
+                        if(count(array($data[1]))==1){
+                            $item=$data[1];
+                        ?>
+                        <tr>
+                            <td><?php echo $item->reservation_id;?></td>
+                            <td><?php echo $item->roomNo;?></td>
+                            <td><?php echo $item->checkIn;?></td>
+                            <td><?php echo $item->checkOut;?></td>
+                            <td><?php echo $item->cost;?></td>
+                    
+                            <td><?php echo $item->customer_name;?></td>
+                        
+                            <td>
+                                <form action="<?php echo URLROOT;?>/Receptionists/updateReservation" method='POST'>
+                                    <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
+                                    <button name="editReservation" >Edit</button>
+                                </form>
+                                <form action="<?php echo URLROOT;?>/Receptionists/cancelReservation" method='POST'>
+                                    <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
+                                    <button>Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        
+                        <?php }
+                        else{ ?>
+                            <?php foreach ($data[1] as $item){?>
+                            <tr>
+                                <td><?php echo $item->reservation_id;?></td>
+                                <td><?php echo $item->roomNo;?></td>
+                                <td><?php echo $item->checkIn;?></td>
+                                <td><?php echo $item->checkOut;?></td>
+                                <td><?php echo $item->cost;?></td>
+                        
+                                <td><?php echo $item->customer_name;?></td>
+                            
+                                <td>
+                                    <form action="<?php echo URLROOT;?>/Receptionists/updateReservation" method='POST'>
+                                        <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
+                                        <button name="editReservation" >Edit</button>
+                                    </form>
+                                    <form action="<?php echo URLROOT;?>/Receptionists/cancelReservation method='POST'">
+                                        <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
+                                        <button>Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php }?>
+                        <?php }?>
+                    <?php }?>    
+                    <!-- <tr>
+                        <td>1</td>
+                        <td>101</td>
+                        <td>2021-10-10</td>
+                        <td>2021-10-12</td>
+                        <td>10000</td>
+                        <td>10000</td>
+                        
+                        <td>
+                            <form action="<?php echo URLROOT;?>/Receptionists/updateReservation">
+                                <input type="hidden" name="reservationid" value="">
+                                <button>Edit</button>
+                            </form>
+                            <form action="<?php echo URLROOT;?>/Receptionists/cancelReservation">
+                                <input type="hidden" name="reservationid" value="">
+                                <button>Delete</button>
+                            </form>
+                        </td>
+                    </tr> -->
+                   
+                  
+
+
+
+                </table>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    
+
+
+
+</div>
+<!-- import js file  -->
+<script src="<?php echo URLROOT;?>/public/js/receptionist/reservation.js"></script>
