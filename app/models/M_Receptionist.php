@@ -52,7 +52,7 @@
         //place reservation
 
         public function placeReservation($data){
-            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo,cost,customer_name,phone,nic) VALUES (:user_id,:check_in,:check_out,:room_no,:price , :customer_name,:phone,:nic)');   
+            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo,cost,customer_name,phone,nic,email,address) VALUES (:user_id,:check_in,:check_out,:room_no,:price , :customer_name,:phone,:nic,:email,:add)');   
             $this->db->bind('user_id',$_SESSION['user_id']);
             $this->db->bind('check_in',$data['check_in']);
             $this->db->bind('check_out',$data['check_out']);
@@ -61,6 +61,8 @@
             $this->db->bind('customer_name',$data['customer_name']);
             $this->db->bind('phone',$data['customer_phone']);
             $this->db->bind('nic',$data['customer_nic']);
+            $this->db->bind('email',$data['customer_email']);
+            $this->db->bind('add',$data['customer_address']);
 
             $roomNo = explode(",",$data["roomNo"]);
             
@@ -154,6 +156,81 @@
                 }
             }
             
+        }
+
+        //reservation eka update karann adala reservation eka fletch karanawa
+        public function getReservationDetails($data){
+            $this->db->query("SELECT *, LENGTH(roomNo) - LENGTH(REPLACE(roomNo, ',', '')) + 1 AS roomcount  FROM reservations WHERE reservation_id=:id");
+            $this->db->bind(':id',$data['reservation_id']);
+            $row=$this->db->resultSet();
+            return $row;
+        }
+
+        //reservation eka manage karanna customesearch ekata
+        public function customSearch($data){
+
+            if($data['serachby']=='roomNo'){
+                $this->db->query("SELECT reservation_id FROM rooms  where roomNo=:data AND availability='no' ");
+                $this->db->bind(':data',$data['details']);
+                if( $row=$this->db->single()){
+                    $data['details']=$row->reservation_id;
+                    $data['serachby']='reservation_id';
+                }
+                else{
+                    return false;
+                }    
+
+            }
+
+            $this->db->query("SELECT * FROM reservations WHERE " . $data['serachby'] . " = :data");
+            $this->db->bind(':data',$data['details']);
+            $row=$this->db->single();
+            return $row;
+        }
+
+        //reservation eka update karanna
+        public  function updateReservation($data){
+
+            $this->db->query('UPDATE reservations SET checkIn=:check_in,checkOut=:check_out,roomNo=:room_no,cost=:price , customer_name=:customer_name,phone=:phone,nic=:nic,email=:email,address=:add WHERE reservation_id=:reservation_id');   
+            $this->db->bind('reservation_id',$data['reservation_id']);
+            $this->db->bind('check_in',$data['check_in']);
+            $this->db->bind('check_out',$data['check_out']);
+            $this->db->bind('room_no',$data['roomNo']);
+            $this->db->bind('price',$data['price']);
+            $this->db->bind('customer_name',$data['customer_name']);
+            $this->db->bind('phone',$data['customer_phone']);
+            $this->db->bind('nic',$data['customer_nic']);
+            $this->db->bind('email',$data['customer_email']);
+            $this->db->bind('add',$data['customer_address']);
+
+            $roomNo = explode(",",$data["roomNo"]);
+            
+            if($this->db->execute()){
+                //change room availability
+                if($this->changeRoomAvailability($roomNo,'no')){
+
+                    if($this->addReservation($data)){
+                        
+                        
+                        return true;
+                        
+                    }
+                    else{
+                        return false;
+                    }
+              
+                    
+                   
+                }
+                else{
+                    return false;
+                }
+                
+            }
+            else{
+                return false;
+            }
+
         }
 
 
