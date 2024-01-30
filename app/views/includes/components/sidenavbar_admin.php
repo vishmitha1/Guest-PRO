@@ -31,3 +31,16 @@
         <a href="<?php echo URLROOT;?>/Users/logout"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
     </div>
+
+
+    <div class="home">
+        <div class="user-profile">
+            <img src="" alt="User Profile Picture"><br>
+            <div class="user-profile-info">
+                <div class='username'><?php echo $_SESSION['name'];?></div>
+                <p>
+                    <?php echo $_SESSION['role'];?>
+                </p>
+            </div>
+        </div>
+    </div>
