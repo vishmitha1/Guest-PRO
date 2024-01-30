@@ -1,111 +1,169 @@
+/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
 
+
+
+/* CSS for the dashboard section */
+.dashboard {
+    margin-left: 275px;
+    padding: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #003366;
+}
+
+.user-profile-info {
+    color: #003366;
+    font-weight: bold;
+}
+
+.user-profile-info p {
+    margin: 0;
+}
+
+.search-bar {
+    margin-top: 20px;
+    margin-bottom: 20px; /* Added margin-bottom */
+    display: flex;
+}
+
+.search-bar input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #E6E7E8;
+}
+
+.search-bar button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.search-bar button:hover {
+    background-color: #002447;
+}
+
+.filter-container {
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.filter-btn:hover {
+    background-color: #002447;
+}
+
+.flavours-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+/* CSS for the food menu page */
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.food-item {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+}
+
+.food-item:hover {
+    transform: scale(1.02);
+}
+
+.food-item img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.food-info {
+    text-align: left;
+}
+
+.food-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.food-price {
+    color: #e44d26;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.food-description {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.category {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #003366;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.view-history-link {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.view-history-link a {
+    color: #989797;
+    text-decoration: none;
     
-    
-            /* CSS for the dashboard section */
-    .dashboard {
-        margin-left: 250px; /* Adjusted for sidebar width */
-        padding: 20px;
-    }
-    
-    
-    .user-profile {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end; /* Right-align the user profile section */
-        margin-bottom: 20px;
-    }
-    
-    .user-profile img {
-        width: 50px; /* Adjust the image size */
-        height: 50px; /* Adjust the image size a */
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-    
-    .user-profile-info {
-        color: black;
-    }
-    
-    .user-profile-info p {
-        margin: 0;
-    }
-    
-    /* CSS for the search bar */
-    .search-bar {
-        margin-top: 20px;
-        display: flex;
-    }
-    
-    .search-bar input[type="text"] {
-        flex: 1; /* Take up available space */
-        padding: 10px;
-        box-sizing: border-box;
-        border: 1px solid #E6E7E8; /* Add border to the input field */
-    }
-    
-    .search-bar button {
-        background-color: #003366;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        border-top-right-radius: 0; /* No rounded corners on the button */
-        border-bottom-right-radius: 0;
-    }
-    
-    .search-bar button:hover {
-        background-color: #002447;
-    }
-    
-            
-            /* CSS for the food menu section */
-.food-menu {
-                margin-top: 20px;
-            }
-    
-.food-item-form {
-                margin-top: 10px;
-                padding: 10px;
-                background-color: #E6E7E8;
-                border-radius: 10px;
-            }
-    
-.food-item-form input {
-                margin: 5px 0;
-                padding: 5px;
-            }
-    
-.food-item-form button {
-                background-color: #003366;
-                color: white;
-                border: none;
-                padding: 5px 10px;
-                cursor: pointer;
-            }
-    
-.food-item-form button:hover {
-                background-color: #002447;
-            }
-    
-            /* .table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-            }
-    
-            .table th, .table td {
-            border: 1px solid #E6E7E8;
-            padding: 8px;
-            } */
-            /* CSS for the delete and update buttons */
-            .delete-button {
-            background-color: #FF0000; /* Red */
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            }
-    
-            .delete-button:hover {
-            background-color: #CC0000; /* Darker red on hover */
-            }
+    display: inline-block;
+}
