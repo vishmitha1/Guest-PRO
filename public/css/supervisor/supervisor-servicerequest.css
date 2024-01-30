@@ -1,112 +1,184 @@
-/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
+<style>
+        /* CSS for the navigation bar */
+        .sidebar {
+            height: 100%;
+            width: 275px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #002447;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        /* CSS for the logo section */
+        .logo-section {
+            background-color: #003366;
+            padding: 10px;
+            text-align: left; /* Align the logo to the left */
+        }
+
+        .logo-section img {
+            display: block;
+            margin: 0 auto; /* Center the logo horizontally */
+        }
+
+        /* CSS for the logout button */
+        .logout-button {
+            position: absolute;
+            bottom: 50px;
+            left: 20px;
+            background-color: #FFD700;
+            padding: 10px;
+            width: 100px;
+            text-align: center;
+            border-radius: 50px; /* Rounded corners */
+        }
+
+        .logout-button a {
+            text-decoration: none; /* Remove underline */
+            color: rgb(0, 0, 0); /* Set the text color to black */
+            font-weight: bold; /* Make text bold */
+            display: block;
+        }
+
+        .logout-button:hover {
+            background-color: #5b503e; /* Another darker shade for hover effect */
+        }
+
+        /* CSS for the navigation links and icons */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            text-align: left;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+        }
+
+        .nav-link:hover {
+            background-color: #003366;
+        }
+
+        /* CSS for the dashboard section */
+        .dashboard {
+            margin-left: 275px; /* Adjust for sidebar width */
+            padding: 20px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Right-align the user profile section */
+            margin-bottom: 20px;
+        }
+
+        .user-profile img {
+            width: 50px; /* Adjust the image size as needed */
+            height: 50px; /* Adjust the image size as needed */
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid #003366; /* Add a border around the profile picture */
+        }
+
+        .user-profile-info {
+            color: #003366;
+            font-weight: bold; /* Make text bold for a professional look */
+        }
+
+        .user-profile-info p {
+            margin: 0;
+        }
+
+        /* CSS for the filter options */
+        .filter-options {
+            margin-top: 20px;
+            display: flex;
+        }
+
+        .filter-options select {
+            margin-right: 10px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        /* CSS for the search bar */
+        .search-bar {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .search-bar input[type="text"] {
+            flex: 1; /* Take up available space */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #E6E7E8; /* Add border to the input field */
+        }
+
+        .search-bar button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-top-right-radius: 0; /* Remove rounded corners on the button */
+            border-bottom-right-radius: 0;
+        }
+
+        .search-bar button:hover {
+            background-color: #002447;
+        }
+
+        /* CSS for the service requests table */
+        #serviceRequestsTable {
+            width: 100%;
+            margin-top: 20px; /* Adjust margin as needed */
+            border-collapse: collapse;
+            border: 2px solid #003366; /* Add a border to the table */
+            background-color: #ffffff; /* Set background color for the table */
+        }
+
+        #serviceRequestsTable th,
+        #serviceRequestsTable td {
+            border: 1px solid #003366; /* Add a border to table cells */
+            padding: 12px;
+            text-align: left;
+        }
+
+        #serviceRequestsTable th {
+            background-color: #002447; /* Set background color for header cells */
+            color: #ffffff; /* Set text color for header cells */
+        }
+
+        #serviceRequestsTable tbody tr:hover {
+            background-color: #f0f0f0; /* Add hover effect to table rows */
+        }
+
+        #serviceRequestsTable button {
+            padding: 8px 12px;
+            cursor: pointer;
+            background-color: #003366; /* Set button background color */
+            color: #ffffff; /* Set button text color */
+            border: none;
+            border-radius: 5px;
+        }
 
 
-
-/* CSS for the dashboard section */
-.dashboard {
-    margin-left: 275px; /* Adjusted for sidebar width */
-    padding: 20px;
+       /* CSS for the service requests table */
+#serviceRequestsTable button.not-completed {
+    background-color: #d3d3d3;
+    color: #333333;
 }
 
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Right-align the user profile section */
-    margin-bottom: 20px;
-}
-
-.user-profile img {
-    width: 50px; /* Adjust the image size */
-    height: 50px; /* Adjust the image size a */
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.user-profile-info {
-    color: black;
-}
-
-.user-profile-info p {
-    margin: 0;
-}
-
-/* CSS for the search bar */
-.search-bar {
-    margin-top: 20px;
-    display: flex;
-}
-
-.search-bar input[type="text"] {
-    flex: 1; /* Take up available space */
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #E6E7E8; /* Add border to the input field */
-}
-
-.search-bar button {
+#serviceRequestsTable button.completed {
     background-color: #003366;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-top-right-radius: 0; /* No rounded corners on the button */
-    border-bottom-right-radius: 0;
+    color: #ffffff;
 }
-
-.search-bar button:hover {
-    background-color: #002447;
-}
-
-
-
-.rooms {
-    color: black;
-    font-size: 18px;
-    margin-top: 20px; /* Add some spacing between subheading and table */
-}
-
-
-
-/* CSS for the table */
-.table-container {
-    margin-top: 20px;
-}
-
-.table-container table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.table-container th, .table-container td {
-    border: 1px solid #E6E7E8;
-    padding: 8px;
-}
-
-.table-container th {
-    background-color: #003366;
-    color: white;
-}
-
-.table-container tr:not(:first-child):hover {
-    background-color: #f0f0f0;
-}
-
-/* CSS for the status buttons */
-.status-button {
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.not-completed {
-    background-color: #FF5733;
-    color: white;
-}
-
-.completed {
-    background-color: #4CAF50;
-    color: white;
-}
+        #serviceRequestsTable button:hover {
+            background-color: #002447;
+        }
+    </style>

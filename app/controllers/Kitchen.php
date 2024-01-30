@@ -7,13 +7,17 @@ class Kitchen extends Controller{
         $this->userModel =$this->model('M_Kitchen');
 
         // Load middleware
-        $this->middleware = new AuthMiddleware();
-        // Check if user is logged in
-        $this->middleware->checkAccess(['kitchen']);
+        // $this->middleware = new AuthMiddleware();
+        // // Check if user is logged in
+        // $this->middleware->checkAccess(['kitchen']);
+    }
+
+    public function index(){
+        $this->pendingfoodorders();
     }
 
     public function foodstatus(){
-        $data =[  ];
+        $data =[];
         $this->view('kitchens/v_foodstatus', $data);
     }
 
@@ -21,166 +25,49 @@ class Kitchen extends Controller{
     public function foodmenu(){
         $data =[ 
         ];
-        $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
+        $this->view('kitchens/v_foodmenu', $data);
         
     }
 
-    public function insertfoodmenu(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            
-            //validate
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data =[
 
-                'food' => trim($_POST['Food']),
-                'category' => trim($_POST['Category']),
-                'price' => trim($_POST['Price']),
-                'food_err' => '',
-                'category_err' => '',
-                'price_err' => '',
-            ];
+    public function pendingfoodorders(){
+        $data =[  ];
+        $orders = $this->userModel->getRows();
+        // print_r($orders);
+        // die();
+        $order = [];
+        foreach($orders as $item){
+            $order['order_id'] = $item->order_id;
+            $order['room_id'] = $item->roomNo;
+            $order['item'] = $item->item_name;
+            $order['quantity'] = $item->quantity;
+            $order['note'] = $item->note;
+            $order['status'] = $item->status;
 
-            //validate each input
-            
-            if(empty($data['food'])){
-                $data['food_err'] = 'Please enter food type';
+            $cost = $item->cost;
+            $cost_arr = explode(',' , $cost);
+            $total = 0;
+            foreach($cost_arr as $cost){
+                $total += floatval($cost);
             }
-           
+            $order['price'] = $total;
 
-            //password validation
-            if(empty($data['category'])){
-                $data['category_err']= 'Please enter food category';
-            }
-            if(empty($data['price'])){
-                $data['price_err']= 'Please enter food price';
-            }
-            
-   
-            //validation is completed and no erros
-            if(empty( $data['category_err']) && empty( $data['food_err']) && empty($data['price_err']) ){
-                
-
-                //place food order
-                
-                if($this->userModel->insertmenu($data)){
-                    
-                    //pass the curent database data to view usig getordermod''''''''''''
-
-
-                    // $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
-                    
-
-                    redirect('Kitchen/foodmenu');
-                }
-                else{
-                    die("someting wrond");
-                }
-
-            }
-            else{
-                $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
-            }
-
+            $data[] = $order;
         }
-        else{
-            $data =[
-                'food' => '',
-                'category' => '',
-                'note' => '',
-                'food_err' => '',
-                'category_err' => '',
-                'note_err' => '',
-                
-            ];
-            
-            // $this->userModel->getorderdetails();
-            $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
-            
-        }
+
+        // print_r($data);
+        // die();
+        $this->view('kitchens/v_foodstatus', $data);
     }
-    public function updatefoodmenu(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            
-            //validate
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data =[
-
-                'food' => trim($_POST['Food']),
-                'category' => trim($_POST['Category']),
-                'price' => trim($_POST['Price']),
-                'food_err' => '',
-                'category_err' => '',
-                'price_err' => '',
-            ];
-
-            //validate each input
-            
-            if(empty($data['food'])){
-                $data['food_err'] = 'Please enter food type';
-            }
-           
-
-            //password validation
-            if(empty($data['category'])){
-                $data['category_err']= 'Please enter food category';
-            }
-            if(empty($data['price'])){
-                $data['price_err']= 'Please enter food price';
-            }
-            
-   
-            //validation is completed and no erros
-            if(empty( $data['category_err']) && empty( $data['food_err']) && empty($data['price_err']) ){
-                
-
-                //place food order
-                
-                if($this->userModel->updatemenu($data)){
-                    
-                    //pass the curent database data to view usig getordermod''''''''''''
-
-
-                    // $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
-                    
-
-                    redirect('Kitchen/foodmenu');
-                }
-                else{
-                    die("someting wrond");
-                }
-
-            }
-            else{
-                $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
-            }
-
-        }
-        else{
-            $data =[
-                'food' => '',
-                'category' => '',
-                'note' => '',
-                'food_err' => '',
-                'category_err' => '',
-                'note_err' => '',
-                
-            ];
-            
-            // $this->userModel->getorderdetails();
-            $this->view('kitchens/v_foodmenu', $this->userModel->getfoodmenudetails());
-            
-        }
+    
+    public function changeStatus(){
+        $status = $_GET['param1'];
+        $id = $_GET['param2'];
+        $this->userModel->changeStatus($status , $id);
     }
-
-    public function deletemenu($param){
-            
-        $this->userModel->deletemenu($param);
-        redirect('Kitchen/foodmenu');
 
     
 
 }
 
    
-
-}
