@@ -54,6 +54,11 @@
             $rows = $this->m_supervisor->changeStatus($id);
         }
     
+        public function cleaninghistory(){
+            $data =[  ];
+            $this->view('supervisors/v_cleaninghistory', $data);
+        }
+        
         }
     
 ?>
