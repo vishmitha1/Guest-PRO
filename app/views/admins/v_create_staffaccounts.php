@@ -18,15 +18,13 @@
             <input type="date" id="birthday" name="birthday" required>
             <label for="nicNumber">NIC Number:</label>
             <input type="text" id="nicNumber" name="nicNumber" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" readonly>
             <input type="submit" value="Create" name="submit">
         </form>
     </div>
 
 </div>
 
-<!-- JavaScript code for generating a random password -->
+<!-- JavaScript code for generating a random password 
 <script>
     // Function to generate a random password
     function generateRandomPassword(length = 12) {
