@@ -19,7 +19,7 @@
         </div>
     </div> -->
 
-    <div class="side-bar">
+    <!-- <div class="side-bar">
         <div class="logo">
             <h1><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>  Guest PRO</h1>
         </div>
@@ -36,8 +36,8 @@
         <div class="logout">
         <a href="<?php echo URLROOT;?>/Users/login"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
         </div>
-    </div>
-
+    </div> -->
+    <?php   require APPROOT. "/views/includes/components/sidenavbar_waiter.php" ?>
 
     <div class="dashboard">
         <div class="user-profile">

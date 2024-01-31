@@ -1,30 +1,35 @@
-/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
-
 
 
 /* CSS for the dashboard section */
 .dashboard {
-    margin-left: 275px; /* Adjusted for sidebar width */
+    margin-left: 275px;
+    /* Adjust for sidebar width */
     padding: 20px;
 }
-
 
 .user-profile {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Right-align the user profile section */
+    justify-content: flex-end;
+    /* Right-align the user profile section */
     margin-bottom: 20px;
 }
 
 .user-profile img {
-    width: 50px; /* Adjust the image size */
-    height: 50px; /* Adjust the image size a */
+    width: 50px;
+    /* Adjust the image size as needed */
+    height: 50px;
+    /* Adjust the image size as needed */
     border-radius: 50%;
     margin-right: 10px;
+    border: 2px solid #003366;
+    /* Add a border around the profile picture */
 }
 
 .user-profile-info {
-    color: black;
+    color: #003366;
+    font-weight: bold;
+    /* Make text bold for a professional look */
 }
 
 .user-profile-info p {
@@ -38,10 +43,12 @@
 }
 
 .search-bar input[type="text"] {
-    flex: 1; /* Take up available space */
+    flex: 1;
+    /* Take up available space */
     padding: 10px;
     box-sizing: border-box;
-    border: 1px solid #E6E7E8; /* Add border to the input field */
+    border: 1px solid #E6E7E8;
+    /* Add border to the input field */
 }
 
 .search-bar button {
@@ -50,7 +57,8 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    border-top-right-radius: 0; /* No rounded corners on the button */
+    border-top-right-radius: 0;
+    /* Remove rounded corners on the button */
     border-bottom-right-radius: 0;
 }
 
@@ -58,53 +66,105 @@
     background-color: #002447;
 }
 
-
-.rooms {
-    color: black;
-    font-size: 18px;
-    margin-top: 20px; /* Add some spacing between subheading and table */
+/* CSS for the cleaning status page */
+.cleaning-status {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-
-/* CSS for the table */
-.table-container {
-    margin-top: 20px;
+.room-filters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-.table-container table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.table-container th, .table-container td {
-    border: 1px solid #E6E7E8;
-    padding: 8px;
-}
-
-.table-container th {
-    background-color: #003366;
-    color: white;
-}
-
-.table-container tr:not(:first-child):hover {
-    background-color: #f0f0f0;
-}
-
-/* CSS for the status buttons */
-.status-button {
-    padding: 5px 10px;
-    border: none;
+.room-filter {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
     cursor: pointer;
-    border-radius: 5px;
     font-weight: bold;
+    color: #003366;
 }
 
-.not-cleaned {
-    background-color: #FF5733;
-    color: white;
+.legend-circle-small {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.cleaned-circle {
+    background-color: #ffd700;
+}
+
+.not-cleaned-circle {
+    background-color: #d3d3d3;
+}
+
+/* CSS for the room container */
+.room-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    padding: 20px;
+}
+
+.room {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 14px;
+    font-weight: bold;
+    border: 2px solid #ccc;
+    background-color: #d3d3d3;
+    /* Default color for not cleaned */
+    cursor: pointer;
+    padding: 10px;
 }
 
 .cleaned {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #ffd700;
+    /* Yellow color for cleaned */
+}
+
+/* CSS for the legend */
+.legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.legend-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.legend-text {
+    font-weight: bold;
+    color: #003366;
+}
+
+.view-history-link {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.view-history-link a {
+    color: #989797;
+    text-decoration: none;
+    
+    display: inline-block;
 }
