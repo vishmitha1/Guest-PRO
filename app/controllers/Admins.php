@@ -1,44 +1,60 @@
 <?php
-class Admins extends Controller {
+class Admins extends Controller
+{
     protected $staffModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         // Load the model
         $this->staffModel = $this->model('M_Admins');
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         $this->view('admins/v_dashboard');
     }
 
-    public function accountlogs() {
+    public function accountlogs()
+    {
         $this->view('admins/v_accountlogs');
     }
 
-    public function create_staffaccounts() {
+    public function create_staffaccounts()
+    {
         // Check if form is submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             // Process form data
             $data = [
-                'userID' => trim($_POST['userID']),
                 'designation' => trim($_POST['designation']),
                 'staffName' => trim($_POST['staffName']),
                 'phoneNumber' => trim($_POST['phoneNumber']),
                 'email' => trim($_POST['email']),
                 'birthday' => trim($_POST['birthday']),
                 'nicNumber' => trim($_POST['nicNumber']),
-                'password' => password_hash(trim($_POST['password']), PASSWORD_DEFAULT),
             ];
+            // Generate random password
+            $password = $this->staffModel->generateRandomPassword();
 
-            // Call model method to insert staff
-            if ($this->staffModel->insert_staffdetails($data)) {
-                // Redirect on success
-                redirect('Admins/staffaccounts');
+            // Send email with password
+            if ($this->staffModel->sendEmail_staff($_POST['email'], $password)) {
+                // Hash password before inserting into the database
+                $data['password']= password_hash($password, PASSWORD_DEFAULT);
+
+                // Log email details into the users table
+                if ($this->staffModel->logEmail_staffdetails($_POST['email'], $data['password'], $_POST['designation'], $_POST['staffName'])) {
+                    // Call model method to insert staff
+                    if ($this->staffModel->insert_staffdetails($data)) {
+                        redirect('Admins/staffaccounts');
+                    } else {
+                        die("Something went wrong");
+                    }
+                } else {
+                    die("Failed to log email details");
+                }
             } else {
-                // Handle failure (e.g., display an error message)
-                die("Something went wrong");
+                die("Failed to send email");
             }
         }
 
@@ -46,7 +62,8 @@ class Admins extends Controller {
         $this->view('admins/v_create_staffaccounts');
     }
 
-    public function delete_staffaccounts($userID) {
+    public function delete_staffaccounts($userID)
+    {
         // Call model method to delete staff
         if ($this->staffModel->delete_staffdetails($userID)) {
             redirect('Admins/staffaccounts');
@@ -55,7 +72,8 @@ class Admins extends Controller {
         }
     }
 
-    public function update_staffaccounts($userID) {
+    public function update_staffaccounts($userID)
+    {
         // Check if form is submitted
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Process the form data and update staff account details
@@ -69,7 +87,7 @@ class Admins extends Controller {
                 'nicNumber' => $_POST['nicNumber'],
 
             ];
-    
+
             // Update staff account details in the database
             if ($this->staffModel->update_staffdetails($updateData)) {
                 // Redirect with a success message
@@ -81,7 +99,7 @@ class Admins extends Controller {
             // Handle GET request to load the update form
             // Retrieve staff account details from the database
             $staffaccount = $this->staffModel->get_staffdetailsBYID($userID);
-    
+
             // Check if the staff account exists
             if ($staffaccount) {
                 // Load the view for updating staff account details and pass the data
@@ -103,8 +121,9 @@ class Admins extends Controller {
             $this->view('admins/v_staffaccounts', $data);
         }
     }*/
-    
-    public function staffaccounts() {
+
+    public function staffaccounts()
+    {
         // Get staff data from model
         $data['staff'] = $this->staffModel->get_staffdetails();
 
@@ -112,9 +131,8 @@ class Admins extends Controller {
         $this->view('admins/v_staffaccounts', $data);
     }
 
-    public function generatereports() {
+    public function generatereports()
+    {
         $this->view('admins/v_generatereports');
     }
-
 }
-?>
