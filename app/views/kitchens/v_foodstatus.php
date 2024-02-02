@@ -1,129 +1,145 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_kitchen.php" ?>
 
-    
-
-    <div class="dashboard">
+<div class="dashboard">
         <div class="user-profile">
-            <img src="https://chefin.com.au/wp-content/uploads/2021/02/chef-hemant-dadlani-profile-1-833x1024.jpg" alt="User Profile Picture">
+            <img src="profile-pic.jpg" alt="User Profile Picture">
             <div class="user-profile-info">
                 <p>John Doe</p>
                 <p>User</p>
             </div>
         </div>
-        
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button>Search</button>
+
+        <div class="filter-options">
+            <label for="floorFilter">Filter by Floor:</label>
+            <select id="floorFilter" onchange="filterOrders()">
+                <option value="all">All Floors</option>
+                <option value="1">Floor 1</option>
+                <option value="2">Floor 2</option>
+                <!-- Add more floor options as needed -->
+            </select>
+
+            <label for="statusFilter">Filter by Status:</label>
+            <select id="statusFilter" onchange="filterOrders()">
+                <option value="all">All Statuses</option>
+                <option value="preparing">Preparing</option>
+                <option value="ready-for-dispatch">Ready for Dispatch</option>
+            </select>
         </div>
 
-        <!-- Food Status Table -->
-        <div class="table-container">
-            <table class="table">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search by Order No...">
+            <button onclick="searchOrders()">Search</button>
+        </div>
+
+        <table id="foodOrdersTable">
+            <thead>
                 <tr>
                     <th>Order No</th>
-                    <th>Description</th>
-                    <th>Total Price</th>
+                    <th>Room No</th>
+                    <th>Items</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Note</th>
                     <th>Status</th>
                 </tr>
-                <tr>
-                    <td>001</td>
-                    <td>Spaghetti Carbonara</td>
-                    <td>LKR2000</td>
-                    <td>
-                        <button class="status-button not-completed" onclick="changeStatus(this)">Not Completed</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>Chicken Alfredo</td>
-                    <td>LKR1800</td>
-                    <td>
-                        <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
-                    </td>
-                </tr>
-                <tr>
-    <td>003</td>
-    <td>Vegetable Stir-Fry</td>
-    <td>LKR1500</td>
-    <td>
-        <button class="status-button not-completed" onclick="changeStatus(this)">Not Completed</button>
-    </td>
-</tr>
-<tr>
-    <td>004</td>
-    <td>Beef Lasagna</td>
-    <td>LKR2200</td>
-    <td>
-        <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
-    </td>
-</tr>
-<tr>
-    <td>005</td>
-    <td>Shrimp Scampi</td>
-    <td>LKR1900</td>
-    <td>
-        <button class="status-button not-completed" onclick="changeStatus(this)">Not Completed</button>
-    </td>
-</tr>
-<tr>
-    <td>006</td>
-    <td>Mushroom Risotto</td>
-    <td>LKR1700</td>
-    <td>
-        <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
-    </td>
-</tr>
-<tr>
-    <td>007</td>
-    <td>Salmon Teriyaki</td>
-    <td>LKR2100</td>
-    <td>
-        <button class="status-button not-completed" onclick="changeStatus(this)">Not Completed</button>
-    </td>
-</tr>
-<tr>
-    <td>008</td>
-    <td>Penne Vodka</td>
-    <td>LKR1600</td>
-    <td>
-        <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
-    </td>
-</tr>
-<tr>
-    <td>009</td>
-    <td>Garlic Butter Shrimp Pasta</td>
-    <td>LKR1950</td>
-    <td>
-        <button class="status-button not-completed" onclick="changeStatus(this)">Not Completed</button>
-    </td>
-</tr>
-<tr>
-    <td>010</td>
-    <td>Spinach and Artichoke Stuffed Chicken</td>
-    <td>LKR2250</td>
-    <td>
-        <button class="status-button completed" onclick="changeStatus(this)">Completed</button>
-    </td>
-</tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach($data as $dt){
+                    if($dt['status']=='dispatch'){
+                        $statusss = 'dispatch';
+                        $dil_checked = 'checked';
+                        $on_checked = '';
+                    }else if($dt['status']=='preparing'){
+                        $statusss = 'preparing';
+                        $dil_checked = '';
+                        $on_checked = 'checked';
 
-                
-                <!-- Add more rows as needed -->
-            </table>
-        </div>
-        
+                    }else{
+                        $statusss = 'order';
+                        $dil_checked = '';
+                        $on_checked = 's';
+                    }
+                    echo '<tr data-floor="1" data-status="'.$statusss.'">
+                    <td>'.$dt['order_id'].'</td>
+                    <td>'.$dt['room_id'].'</td>
+                    <td>'.$dt['item'].'</td>
+                    <td>'.$dt['quantity'].'</td>
+                    <td>'.$dt['price'].'</td>
+                    <td>'.$dt['note'].'</td>
+                    <td class="status-radio">
+                        <input type="radio" name="'.$dt['order_id'].'"value="preparing"
+                            onchange="updateOrderStatus(this , '.$dt['order_id'].')" '.$on_checked.'> Preparing
+                        <input type="radio" name="'.$dt['order_id'].'"value="dispatch" onchange="updateOrderStatus(this ,'.$dt['order_id'].')" '.$dil_checked.'>
+                            Ready for despatch
+                    </td></tr>';
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
 
     <script>
-        // JavaScript function to change the food order status
-        function changeStatus(button) {
-            if (button.classList.contains('not-completed')) {
-                button.innerText = 'Completed';
-                button.classList.remove('not-completed');
-                button.classList.add('completed');
-            } else {
-                button.innerText = 'Not Completed';
-                button.classList.remove('completed');
-                button.classList.add('not-completed');
+        // JavaScript for filtering food orders based on floor and status
+        function filterOrders() {
+            var floorFilter = document.getElementById('floorFilter').value;
+            var statusFilter = document.getElementById('statusFilter').value;
+
+            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                var floor = rows[i].getAttribute('data-floor');
+                var status = rows[i].querySelector('input[type="radio"]:checked').value;
+
+                var showRow = (floorFilter === 'all' || floor === floorFilter) && (statusFilter === 'all' || status === statusFilter);
+                rows[i].style.display = showRow ? '' : 'none';
+            }
+        }
+
+        // JavaScript for updating food order status
+        function updateOrderStatus(radio , id) {
+            var row = radio.closest('tr');
+            var statusValue = radio.value;
+
+            const base_url = window.location.origin;
+            const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus`;
+            
+            // Example parameters
+            const param1 = statusValue;
+            const param2 = id;
+            console.log(param1)
+            console.log(param2)
+
+
+            // Appending parameters to the URL
+            const urlWithParams = `${apiUrl}?param1=${param1}&param2=${param2}`;
+
+            // Using the fetch API to make a GET request
+            fetch(urlWithParams)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                })
+                .then(data => {
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+
+
+            row.setAttribute('data-status', statusValue);
+        }
+
+        // JavaScript for searching orders by Order No
+        function searchOrders() {
+            var searchInput = document.getElementById('searchInput').value.toLowerCase();
+            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                var orderNo = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
+                var showRow = orderNo.includes(searchInput);
+                rows[i].style.display = showRow ? '' : 'none';
             }
         }
     </script>

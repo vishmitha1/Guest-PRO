@@ -2,7 +2,7 @@
 
 <div class="dashboard">
         <div class="user-profile">
-            <img src="https://live-production.wcms.abc-cdn.net.au/829cb70e72fd9cffe51b430b19c13306?impolicy=wcms_crop_resize&cropH=576&cropW=1023&xPos=0&yPos=0&width=862&height=485" alt="User Profile Picture">
+            <img src="profile-pic.jpg" alt="User Profile Picture">
             <div class="user-profile-info">
                 <p>John Doe</p>
                 <p>User</p>
@@ -14,80 +14,94 @@
             <button>Search</button>
         </div>
 
-           
 
-        <!-- Cleaning Status Table -->
-        <div class="table-container">
-            <table class="table">
-                <tr>
-                    <th>Room ID</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Room 101</td>
-                    <td>
-                        <button class="status-button not-cleaned" onclick="changeStatus(this)">Not Cleaned</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Room 102</td>
-                    <td>
-                        <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
-                    </td>
-                </tr>
-                <!-- Additional sample rows -->
-                <tr>
-                    <td>Room 103</td>
-                    <td>
-                        <button class="status-button not-cleaned" onclick="changeStatus(this)">Not Cleaned</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Room 104</td>
-                    <td>
-                        <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
-                    </td>
-                </tr>
-                <tr>
-    <td>Room 105</td>
-    <td>
-        <button class="status-button not-cleaned" onclick="changeStatus(this)">Not Cleaned</button>
-    </td>
-</tr>
-<tr>
-    <td>Room 106</td>
-    <td>
-        <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
-    </td>
-</tr>
-<tr>
-    <td>Room 107</td>
-    <td>
-        <button class="status-button not-cleaned" onclick="changeStatus(this)">Not Cleaned</button>
-    </td>
-</tr>
-<tr>
-    <td>Room 108</td>
-    <td>
-        <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
-    </td>
-</tr>
-<tr>
-    <td>Room 109</td>
-    <td>
-        <button class="status-button not-cleaned" onclick="changeStatus(this)">Not Cleaned</button>
-    </td>
-</tr>
-<tr>
-    <td>Room 110</td>
-    <td>
-        <button class="status-button cleaned" onclick="changeStatus(this)">Cleaned</button>
-    </td>
-</tr>
-
-                <!-- Add more rows for other rooms as needed -->
-            </table>
-        </div>
-    </div>
 
     
+    
+        <!-- Cleaning Status Page -->
+        <div class="cleaning-status">
+            <h2>Room Cleaning Status</h2>
+        </div>
+
+        
+
+        <div class="room-filters">
+            <div class="room-filter" onclick="filterRooms('all')">
+                <div class="legend-circle-small" style="background-color: #ffffff;"></div>
+                <div class="room-filter">All Rooms</div>
+            </div>
+            <div class="room-filter" onclick="filterRooms('cleaned')">
+                <div class="legend-circle-small cleaned-circle"></div>
+                <div class="room-filter">Cleaned Rooms</div>
+            </div>
+            <div class="room-filter" onclick="filterRooms('not-cleaned')">
+                <div class="legend-circle-small not-cleaned-circle"></div>
+                <div class="room-filter">Not Cleaned Rooms</div>
+            </div>
+        </div>
+
+        <!-- Room Container -->
+        <div class="room-container" onclick="changeStatus(event)">
+            <div class="room" data-status="not-cleaned">1</div>
+            <div class="room" data-status="not-cleaned">2</div>
+            <div class="room" data-status="not-cleaned">3</div>
+            <div class="room" data-status="not-cleaned">4</div>
+            <div class="room" data-status="not-cleaned">5</div>
+            <div class="room" data-status="not-cleaned">6</div>
+            <div class="room" data-status="not-cleaned">7</div>
+            <div class="room" data-status="not-cleaned">8</div>
+            <div class="room" data-status="not-cleaned">9</div>
+            <div class="room" data-status="not-cleaned">10</div>
+            <div class="room" data-status="not-cleaned">11</div>
+            <div class="room" data-status="not-cleaned">12</div>
+            <div class="room" data-status="not-cleaned">13</div>
+            <div class="room" data-status="not-cleaned">14</div>
+            <div class="room" data-status="not-cleaned">15</div>
+            <div class="room" data-status="not-cleaned">16</div>
+            <div class="room" data-status="not-cleaned">17</div>
+            <div class="room" data-status="not-cleaned">18</div>
+            <div class="room" data-status="not-cleaned">19</div>
+            <div class="room" data-status="not-cleaned">20</div>
+            <div class="room" data-status="not-cleaned">21</div>
+            <div class="room" data-status="not-cleaned">22</div>
+            <div class="room" data-status="not-cleaned">23</div>
+            <div class="room" data-status="not-cleaned">24</div>
+            <div class="room" data-status="not-cleaned">25</div>
+            <div class="room" data-status="not-cleaned">26</div>
+            <div class="room" data-status="not-cleaned">27</div>
+            <div class="room" data-status="not-cleaned">28</div>
+            <div class="room" data-status="not-cleaned">29</div>
+            <div class="room" data-status="not-cleaned">30</div>
+            <!-- Add more rooms as needed -->
+        </div>
+
+        <!-- Link for View Cleaning History -->
+        <!-- Link for View Cleaning History -->
+        <div class="view-history-link">
+            <a href="#">View Cleaning History</a>
+        </div>
+
+        
+
+        <!-- Your existing script tags go here -->
+        <script>
+            function changeStatus(event) {
+                const room = event.target;
+                if (room.classList.contains('room')) {
+                    room.dataset.status = (room.dataset.status === 'not-cleaned') ? 'cleaned' : 'not-cleaned';
+                    room.classList.toggle('cleaned');
+                }
+            }
+
+            function filterRooms(status) {
+                const rooms = document.querySelectorAll('.room');
+                rooms.forEach(room => {
+                    if (status === 'all' || room.dataset.status === status) {
+                        room.style.display = 'block';
+                    } else {
+                        room.style.display = 'none';
+                    }
+                });
+            }
+        </script>
+    </div>
