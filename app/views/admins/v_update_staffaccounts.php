@@ -7,7 +7,7 @@
         <h2>Update Account Details</h2>
             <form action="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $data['staffaccount']->userID; ?>" method="POST">
                 <label for="userID">User ID:</label>
-                <input type="text" id="userID" name="userID" value="<?php echo $data['staffaccount']->userID;?>" required>
+                <input type="text" id="userID" name="userID" value="<?php echo $data['staffaccount']->userID;?>" readonly>
                 <label for="designation">Designation:</label>
                 <input type="text" id="designation" name="designation" value="<?php echo $data['staffaccount']->designation;?>" required>
                 <label for="staffName">Name:</label>
