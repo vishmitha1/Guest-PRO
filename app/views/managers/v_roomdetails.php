@@ -6,7 +6,14 @@
         <h1>Room Management</h1>
 
         <!-- Add Room button -->
-        <a href="<?php echo URLROOT; ?>/Managers/addroom">Add Room</a>
+        <div class="addnewbutton">
+            <a href=" <?php echo URLROOT; ?>/Managers/addroom">Add Room</a>
+        </div>
+
+        <!-- Add Room Type button -->
+        <div class="addnewbutton">
+            <a href=" <?php echo URLROOT; ?>/Managers/addroomtype ">Add Room Type</a>
+        </div>
 
         <!-- Search bar -->
         <div class="search-bar">
@@ -19,7 +26,7 @@
             <!-- Table headers -->
             <tr>
                 <th>Room NO</th>
-                <th>Floor NO</th>
+                <!-- <th>Floor NO</th> -->
                 <th>Category</th>
                 <th>Price</th>
                 <th>Availability</th>
@@ -33,9 +40,9 @@
                     <td>
                         <?php echo $room->roomNo; ?>
                     </td>
-                    <td>
+                    <!-- <td>
                         <?php echo $room->floor; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?php echo $room->category; ?>
                     </td>
@@ -46,11 +53,17 @@
                         <?php echo $room->availability; ?>
                     </td>
                     <td>
-                        <a href="<?php echo URLROOT; ?>/Managers/editRoom/<?php echo $room->roomNo; ?>">Edit</a>
+                        <div class="editbutton">
+                            <a href="<?php echo URLROOT; ?>/Managers/viewRoom/<?php echo $room->roomNo; ?>">View</a>
+                        </div>
+                        <div class="editbutton">
+                            <a href="<?php echo URLROOT; ?>/Managers/editRoom/<?php echo $room->roomNo; ?>">Edit</a>
+                        </div>
+                        <div class="deletebutton">
+                            <a href="<?php echo URLROOT; ?>/Managers/deleteRoom/<?php echo $room->roomNo; ?>"
+                                onclick="return confirm('Are you sure you want to delete this room?')">Delete</a>
+                        </div>
 
-
-                        <a href="<?php echo URLROOT; ?>/Managers/deleteRoom/<?php echo $room->roomNo; ?>"
-                            onclick="return confirm('Are you sure you want to delete this room?')">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -59,8 +72,7 @@
 
     <script>
         function searchRooms() {
-            // Perform search functionality here
-            // You may use JavaScript to filter/search through the rooms
+
         }
 
     </script>
