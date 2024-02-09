@@ -1,221 +1,136 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
-
-.side-bar{
-    position:fixed;
-    background-color: #002447;
-    /* background-color: #003366; */
-    height: 100vh;
-    top: 0;
-    left: 0;
-    width: 275px;
-
-    font-family: "poppins", sans-serif;
-    /* padding: 2.7rem 3rem 0 2rem; */
-   
-
-    
-}
-
-.side-bar a{
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    display: block;
-    padding: 5% ;
-    text-align:left;
-    transition: .3s;
-    font-size: 20px;
-}
-
-
-.links{
-    margin-top: 6%;
-    margin-left: 10%;
-    
-}
-
-
-
-.links i{
-    margin-right: 6%;
-    direction: none;
-}
-
-.logo{
-    padding: 2% 4%;
-    background-color: #003366;
-
-}
-
-.link-items:hover {
-    background: #003366;
-}
-
- .logout{
-    position: absolute;
-    width: 15%;
-    margin-top: 5%;
-    margin-left: 5%;
-    bottom: 1%;
-    
-}
-
-.logout button{
-    margin-left: 50px;
-    padding: 5px 30px;
-    background-color: #ecda0a;
-    border-radius: 20px;
-}
-
-.logout button:hover{
-    background-color: #003366;
-    color: #ecda0a;
-    border: 1px solid #ecda0a;
-    transition: .3s;
-
-}
-.home {
-    position: relative;
-    left: 275px;
-    width: calc(100% - 275px);
-    top: 0;
-    /* background: #0074e8; */
-    background: #ffffff;
-    
-    /* padding-left: 25px; */
-    /* padding-bottom: 5rem; */
-  }
-.profile{
-    top: 0;
-    left: 75%;
-    width: 200px;
-    height: 70px;
-    margin-top: 5px;
-    position: relative;
-    
-  
-   
-}
-
-.profile a {
-    margin-top: 10px;
-    position: relative;
-    text-decoration: none;
-    color: #000000;
-    font-size: 25px;
-}
-.profile i {
-    margin-top: 10px;
-    position: relative;
-    text-decoration: none;
-    color: #000000;
-    font-size: 25px;
-}
-
-
-/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
-
-
-
-/* CSS for the dashboard section */
-.dashboard {
-    margin-left: 275px; /* Adjusted for sidebar width */
-    padding: 20px;
-}
-
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Right-align the user profile section */
-    margin-bottom: 20px;
-}
-
-.user-profile img {
-    width: 50px; /* Adjust the image size */
-    height: 50px; /* Adjust the image size a */
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.user-profile-info {
-    color: black;
-}
-
-.user-profile-info p {
-    margin: 0;
-}
-
-/* CSS for the search bar */
-.search-bar {
-    margin-top: 20px;
-    display: flex;
-}
-
-.search-bar input[type="text"] {
-    flex: 1; /* Take up available space */
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #E6E7E8; /* Add border to the input field */
-}
-
-.search-bar button {
-    background-color: #003366;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-top-right-radius: 0; /* No rounded corners on the button */
-    border-bottom-right-radius: 0;
-}
-
-.search-bar button:hover {
-    background-color: #002447;
-}
-
-
 
 .payment-details{
     color: black;
-    font-size: 18px;
-    margin-top: 20px; /* Add some spacing between subheading and table */
+    font-size: 25px;
+    margin-top: 20px; 
+    font-family: 'Exo 2', sans-serif;
+    text-align: center;
+}
+
+.payment-table-wrapper{
+    margin-top: 200px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
 }
 
 
-.table {
+.payment-table-wrapper table {
     border-collapse: collapse;
     width: 100%;
     margin-top: 20px;
+    border-bottom: #6086a5;
+    padding: 20px;
+    border: 1px solid #5d89ad;
+    
 }
 
-.table th, .table td {
-    border: 1px solid #E6E7E8;
-    padding: 8px;
+.payment-table-wrapper tr{
+    padding: 20px;
+   
+}
+
+.payment-table-wrapper th {
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px dotted #5d89ad;
+    background: #8099B3;
+}
+
+.payment-table-wrapper td {
+    padding: 10px;
+    font-size: 17px;
+   
+    text-align: center;
+    text-transform: capitalize;
 }
 
 
 
-/* CSS for the "Calculate" button */
-.calculate-button {
-    background-color: #8099B3;
+
+.payment-table-wrapper button {
+    background-color: #4ad540;
     color: white;
     border: none;
-    padding: 10px 20px;
+    font-size: 15px;
+    padding: 8px 10px;
     cursor: pointer;
+    font-family: 'poppins', sans-serif;
+    border-radius: 10px;
 }
 
-.calculate-button:hover {
-    background-color: #627c91;
+.payment-table-wrapper button:hover {
+    background-color: #1bae0b;
 }
 
-/* CSS for the "Proceed to Payment" button */
-.payment-button {
-    background-color: #8099B3;
-    color: white;
-    border: none;
-    padding: 10px 20px;
+
+/* popup content '''''''''''''''''''''''''''''''''''''''''''''''''''''''''' */
+
+.payment-popup .overplay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0,0.5);
+    z-index: 1;
+    display: none;
+}
+
+.payment-popup .content{
+    position: fixed;
+    top:50%;
+    left: 60%;
+    transform: translate(-50% ,-50%)scale(0);
+    background: #fff;
+    width: 850px;
+    height: 490px;
+    
+    z-index: 2;
+    pad: 20px;
+    overflow: auto;
+    
+}
+
+.payment-popup .header{ 
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    background:#d3deea;
+    overflow: hidden;
+}
+
+.payment-popup .header .close-btn{
+    height: 20px;
+    float: right;
+    margin: 10px;
     cursor: pointer;
+    /* border: 2px solid black; */
 }
 
-.payment-button:hover {
-    background-color: #627c91;
+.payment-popup .header .title{
+    position:absolute;
+    color: #000;
+    font-size: 25px;
+    top: 10px;
+    margin-left: 19px;
+    font-family:"Exo 2";
+
+   
 }
+
+.payment-popup.active .overplay{
+    display: block;
+}
+
+.payment-popup.active  .content{
+    transition:all 300ms ease-in-out ;
+    transform: translate(-50% ,-50%)scale(1) ;
+}
+

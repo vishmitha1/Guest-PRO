@@ -358,6 +358,167 @@
         }
 
 
+        //cancelreservation
+        public function cancelReservation(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $data=[
+                    'reservation_id' => trim($_POST['reservation_id']),
+                    'user_id' => $_SESSION['user_id'],
+                ];
+
+                if(empty($data['reservation_id'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Something went wrong';
+                    redirect('receptionists/reservation');
+                }
+
+                elseif($this->receptionistModel->cancelReservation($data)){
+                    header('Content-Type: application/json');
+                    echo json_encode(['success','Reservation cancelled successfully']);
+                    
+                }
+
+                else{
+                    $output=['error','Something went wrong'];
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+            }
+        }
+
+
+
+
+        //payment part''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        public function payment(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['searchReservation'] )){
+
+                $data=[
+                    'serachby' => trim($_POST['serachby']),
+                    'details' => trim($_POST['details']),
+                ];
+
+                if(empty($data['serachby'])){
+                    $data['serachby_err'] = 'Please select a search type';
+                    $_SESSION['toast_type']='info';
+                    $_SESSION['toast_msg']=$data['serachby_err'];
+                    redirect('receptionists/payment');
+                }
+
+                elseif(empty($data['details'])){
+                    $data['details_err'] = 'Please enter details';
+                    $_SESSION['toast_type']='info';
+                    $_SESSION['toast_msg']=$data['details_err'];
+                    redirect('receptionists/payment');
+                }
+
+                else{
+                    if(($output=$this->receptionistModel->customPaymentSearch($data))){
+
+                        $this->view('receptionists/v_payments',[$array=[],$output]);
+                        
+                      
+                    }
+                    else{
+                        $_SESSION['toast_type']='question';
+                        $_SESSION['toast_msg']='No results found';
+                        redirect('receptionists/payment');
+                    }
+                }
+
+            }
+           
+
+            elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+
+            }
+            else{
+                $data=$this->receptionistModel->getPendingPayments();
+                $this->view('receptionists/v_payments',[$data,$array=[]]);
+
+                if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                    toastFlashMsg();
+                }
+            }
+        }
+
+
+        public function calculatePayments(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                $data=[
+                    'reservation_id' => trim($_POST['reservation_id']),
+                    'user_id' => $_SESSION['user_id'],
+                ];
+
+                if(empty($data['reservation_id'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Something went wrong';
+                    redirect('receptionists/payment');
+                }
+                if($output=$this->receptionistModel->getPaymentsDetails($data)){
+                    $this->view('receptionists/v_calculatePayments',$output);
+                }
+                else{
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Something went wrong';
+                    redirect('receptionists/payment');
+                }
+
+            }
+            else{
+                $this->view('receptionists/v_calculatePayments',$pendingPayments=[]);
+                if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                    toastFlashMsg();
+                }
+            }   
+        }
+
+
+        //expenses expand karanawa 
+        public function expandDetails(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                $spotData=json_decode(array_keys($_POST)[0],true);
+
+                $data=[
+                    'reservation_id' => $spotData['reservation_id'],
+                    'description' => $spotData['description'],
+                    'order_id' => $spotData['order_id'],
+                ];
+
+            
+
+
+                if(empty($data['reservation_id'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Something went wrong';
+                    redirect('receptionists/payment');
+                }
+
+                if($output=$this->receptionistModel->getExpandDetails($data)){
+                    
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+                else{
+                    $output=['error','Something went wrong'];
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+
+            }
+            else{
+                $_SESSION['toast_type']='error';
+                $_SESSION['toast_msg']='Something went wrong';
+                redirect('receptionists/payment');
+
+            }
+        }
+
+
 
 
 
