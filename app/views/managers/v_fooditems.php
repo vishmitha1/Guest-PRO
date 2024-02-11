@@ -5,15 +5,16 @@
 
         <h1>Food Items Management</h1>
 
-        Search bar
+        <!-- Search bar-->
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search...">
             <button onclick="searchFoodItems()">Search</button>
         </div>
 
         <!-- Add Food Item button -->
-        <a href="<?php echo URLROOT; ?>/Managers/addfooditem">Add Food Item</a>
-
+        <div class="addnewbutton">
+            <a href="<?php echo URLROOT; ?>/Managers/addfooditem">Add Food Item</a>
+        </div>
         <!-- Display Rooms -->
         <table class="table" id="managerFoodItemsTable">
             <!-- Table headers -->
@@ -46,13 +47,14 @@
                         <?php echo $fooditem->image; ?>
                     </td> -->
                     <td>
-
-                        <a href="<?php echo URLROOT; ?>/Managers/editFoodItem/<?php echo $fooditem->item_id; ?>">Edit</a>
-
-
-                        <a href="<?php echo URLROOT; ?>/Managers/deleteFoodItem/<?php echo $fooditem->item_id; ?>"
-                            onclick="return confirm('Are you sure you want to delete this food item?')">Delete</a>
-
+                        <div class="editbutton">
+                            <a
+                                href="<?php echo URLROOT; ?>/Managers/editFoodItem/<?php echo $fooditem->item_id; ?>">Edit</a>
+                        </div>
+                        <div class="deletebutton">
+                            <a href="<?php echo URLROOT; ?>/Managers/deleteFoodItem/<?php echo $fooditem->item_id; ?>"
+                                onclick="return confirm('Are you sure you want to delete this food item?')">Delete</a>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
