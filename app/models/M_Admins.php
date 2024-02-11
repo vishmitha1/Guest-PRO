@@ -2,6 +2,7 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 class M_Admins
 {
     private $db;
@@ -11,7 +12,7 @@ class M_Admins
         $this->db = new Database;
     }
 
-    
+
     // Function to generate a random password
     public function generateRandomPassword($length = 12)
     {
@@ -83,7 +84,7 @@ class M_Admins
         $this->db->bind(':password', $password);
         $this->db->bind(':role', $role);
         $this->db->bind('name', $name);
-        
+
         return $this->db->execute();
     }
 
@@ -124,9 +125,13 @@ class M_Admins
         return $this->db->execute();
     }
 
-    /*public function search_staffdetails($query) {
+    public function search_staffdetails($query)
+    {
+        // Prepare the query to search for staff accounts
         $this->db->query("SELECT * FROM staffaccount WHERE userID LIKE :query OR designation LIKE :query OR staffName LIKE :query OR phoneNumber LIKE :query OR email LIKE :query OR birthday LIKE :query OR nicNumber LIKE :query");
         $this->db->bind(':query', '%' . $query . '%');
+
+        // Execute the query and return the results
         return $this->db->resultSet();
-    }*/
+    }
 }
