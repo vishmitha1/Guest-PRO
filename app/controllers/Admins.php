@@ -40,7 +40,7 @@ class Admins extends Controller
             // Send email with password
             if ($this->staffModel->sendEmail_staff($_POST['email'], $password)) {
                 // Hash password before inserting into the database
-                $data['password']= password_hash($password, PASSWORD_DEFAULT);
+                $data['password'] = password_hash($password, PASSWORD_DEFAULT);
 
                 // Log email details into the users table
                 if ($this->staffModel->logEmail_staffdetails($_POST['email'], $data['password'], $_POST['designation'], $_POST['staffName'])) {
@@ -111,16 +111,26 @@ class Admins extends Controller
         }
     }
 
-    /*public function search_staffaccounts() {
+    public function search_staffaccounts()
+    {
+         // Check if the request method is GET and if the 'query' parameter is set in the URL
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query'])) {
-            $query = $_GET['query'] ?? '';
-            $staffAccounts = $this->staffModel->search_staffdetails($query);
-            $data['staff'] = $staffAccounts;
-            
-            // Load a partial view to update the table with filtered data
-            $this->view('admins/v_staffaccounts', $data);
+            // Sanitize the search query
+            $query = trim($_GET['query']);
+
+            // Call the model method to search for staff accounts
+            $data['staff'] = $this->staffModel->search_staffdetails($query);
+
+            // Set the "query" key in the $data array
+            $data['query'] = $query;
+
+            // Load the view with the filtered staff data
+            $this->view('admins/v_searchstaff', $data);
+        } else {
+            // Redirect to the staff accounts page if no search query is provided
+            redirect('Admins/staffaccounts');
         }
-    }*/
+    }
 
     public function staffaccounts()
     {
