@@ -1,8 +1,4 @@
-/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
 
-
-
-/* CSS for the dashboard section */
 
 
 
@@ -48,36 +44,9 @@
     background-color: #002447;
 }
             
-            /* CSS for the food menu section */
-            .manager-room-details {
-                margin-top: 20px;
-            }
+        
     
-            .manager-room-details-form {
-                margin-top: 10px;
-                padding: 10px;
-                background-color: #E6E7E8;
-                border-radius: 10px;
-            }
-    
-            .manager-room-details-form input {
-                margin: 5px 0;
-                padding: 5px;
-            }
-    
-            .manager-room-details-form button {
-                background-color: #003366;
-                color: white;
-                border: none;
-                padding: 5px 10px;
-                cursor: pointer;
-            }
-    
-            .manager-room-details-form button:hover {
-                background-color: #002447;
-            }
-    
-            .table {
+ .table {
             border-collapse: collapse;
             width: 100%;
             margin-top: 20px;
@@ -93,23 +62,11 @@
                 color: white;
                 padding: 8px;
                 }
-            /* CSS for the delete and update buttons */
-            .delete-button {
-            background-color: #FF0000; /* Red */
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            }
-    
-            .delete-button:hover {
-            background-color: #CC0000; /* Darker red on hover */
-            }
 
-            .manager-room-details {
-                margin-top: 40px; /* Increase the margin as needed */
-                margin-left: 10px; /* Adjust the left margin as needed */
-            }
+
+            /* CSS for the delete and update buttons */
+
+    
 
 .addnewbutton {
     margin-top: 10px; /* Adjust the top margin as needed */
@@ -119,29 +76,25 @@
     border-radius: 5px
 }
 
-.addnewbutton a {
-    color: white; /* Set the text color of the link */
-    text-decoration: none; /* Remove the default underline on the link */
-    font-weight: bold; /* Make the text bold */
-}
+    .addnewbutton a {
+        color: white; /* Set the text color of the link */
+        text-decoration: none; /* Remove the default underline on the link */
+        font-weight: bold; /* Make the text bold */
+    }
 
-.addnewbutton:hover {
-    background-color: #002447;
-}
+    .addnewbutton:hover {
+        background-color: #002447;
+    }
 
 .editbutton {
     margin-top: 10px; 
     padding: 5px 10px; 
-    background-color: #023f7d; 
+    background-color: #01376e; 
     display: inline-block; 
     border-radius: 5px
 }
 
-.editbutton a {
-    color: white; 
-    text-decoration: none; 
-    font-weight: bold; /
-}
+
 
 .editbutton a:hover {
     background-color: #002447;
@@ -151,7 +104,7 @@
 .deletebutton {
     margin-top: 10px; /* Adjust the top margin as needed */
     padding: 5px 10px; /* Add padding to the container */
-    background-color: #FF6666; /* Set the background color */
+    background-color:  #FF0000; /* Set the background color */
     display: inline-block; /* Ensure the container only takes as much width as necessary */
     border-radius: 5px
 }
@@ -162,8 +115,8 @@
     font-weight: bold; /* Make the text bold */
 }
 
-.deletebutton a:hover {
-    text-decoration: underline; /* Add underline on hover */
+.deletebutton :hover {
+    background-color: #CC0000;
 }
 
 /* Add Food Item Form Styles */
@@ -209,4 +162,13 @@
 
 .add-new-form button:hover {
     background-color: #002447;
+}
+
+
+.room-type-card img {
+    max-width: 100%; /* Ensure the image does not exceed the width of its container */
+    height: auto; /* Maintain the aspect ratio of the image */
+    display: block; /* Ensure proper alignment */
+    margin: 0 auto; /* Center the image horizontally */
+    margin-bottom: 10px; /* Add some spacing between the image and other elements */
 }
