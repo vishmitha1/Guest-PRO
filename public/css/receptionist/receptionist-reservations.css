@@ -200,6 +200,58 @@
 }
 
 
+/* normal retrive karaddi eka box eke css tike , uda tyne search karama ena box wala css tika */
+
+.res-room-details .room-type2{
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    margin-top: 0;
+
+}
+
+.res-room-details .room-amnt{
+    font-size: 13px;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    margin-top: 2px;
+    display: flex;  
+    flex-wrap: wrap;
+    column-gap: 30px;
+    row-gap: 5px;
+}
+
+.room-amnt .child{
+    width: auto;
+    height: auto;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.room-amnt .child i{
+    font-size: 15px;
+    font-weight: 600;
+}
+.res-room-details .price-section{
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 300;
+    font-family: 'popins', sans-serif;
+   
+}
+.res-room-details  .price-section .title{
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    margin-top: 2px;
+    color: rgb(98, 154, 234);
+
+}
+
+
 
 /* walkin reservation form css'''''''''''''''''''''''''''''''''''''''''''''''''''' */
 

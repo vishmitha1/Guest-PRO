@@ -130,42 +130,111 @@
 
     <?php }?>
 
-    <div class="res-searchbar-wrapper">
 
-        <div class="form-title-mngereservation">
-            <span>Reservation</span>
-        </div> 
-        
-        <form action="<?php echo URLROOT;?>/Receptionists/reservation" method="POST" >
-            <div class="res-mngreservation-searchbar">
-            
-                
 
-                <div class="items">
-                    <span>Search By</span><br>
-                    <select name="serachby" id="">
-                        <option hidden value="">Select One</option>
-                        <option value="roomNo">Room No</option>
-                        <option value="reservation_id">Reservation No</option>
-                        <option value="nic">NIC</option>
-                        <option value="email">Email</option>
-                    </select>
-                </div>
-                <div class="items">
-                    <span>Details</span><br>
-                    <input class="date"  name="details" type="text" placeholder="Enter Value">
-                </div>
-                
 
-                <div class="btn">
-                    <button name="searchReservation" id="searchReservation" >Check</button>
+
+<!-- Default view''''''''''''''''''' -->
+
+<div class="res-search-result-wrapper" id='Default-view' >
+
+   <?php if(!empty($data[1])){
+        foreach ($data[1] as $item ){?>
+            <?php $amnt= explode(",",$item->amenities);?>
+ 
+            <div class="room-block">
+
+                <div class="res-room-img">
+                    <img src="<?php echo URLROOT;?>/public/img/rooms/<?php echo $item->mainImg;?>.jpg" alt="">
                 </div>
+
+                <div class="res-room-details">
+                    <span class='room-type2'><?php echo $item->category;?></span>
+                    <div class="room-amnt">
+                        <?php for($i=0;$i<count($amnt);$i++){?>
+                            <div class="child">
+                                <i class="fa-solid fa-check"></i><span> <?php echo $amnt[$i];?></span>
+                            </div>
+                        <?php }?>
+                        
+                    </div>
+                    <div class="price-section">
+                        <span class="title" >Cost Per Night: </span><span><?php echo $item->price;?> LKR </span>
+                    </div>
+                                
+                </div>
+
                 
             </div>
-        </form>
+        <?php }
+    }?>    
+
+</div>
     
+  
+
+</div>
+
+
+
     
-    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- <div class="res-searchbar-wrapper">
+
+            <div class="form-title-mngereservation">
+                <span>Reservation</span>
+            </div> 
+            
+            <form action="<?php echo URLROOT;?>/Receptionists/reservation" method="POST" >
+                <div class="res-mngreservation-searchbar">
+                
+                    
+
+                    <div class="items">
+                        <span>Search By</span><br>
+                        <select name="serachby" id="">
+                            <option hidden value="">Select One</option>
+                            <option value="roomNo">Room No</option>
+                            <option value="reservation_id">Reservation No</option>
+                            <option value="nic">NIC</option>
+                            <option value="email">Email</option>
+                        </select>
+                    </div>
+                    <div class="items">
+                        <span>Details</span><br>
+                        <input class="date"  name="details" type="text" placeholder="Enter Value">
+                    </div>
+                    
+
+                    <div class="btn">
+                        <button name="searchReservation" id="searchReservation" >Check</button>
+                    </div>
+                    
+                </div>
+            </form>
+        
+        
+        </div>
 
 
     <div class="recep-reservation-history-wrapper" id="reload" >
@@ -273,7 +342,7 @@
 
         </div>
 
-    </div>
+    </div> -->
 
 
 
