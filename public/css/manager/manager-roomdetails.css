@@ -13,6 +13,13 @@
     margin-bottom: 20px;
 }
 
+.user-profile img {
+    width: 50px; /* Adjust the image size */
+    height: 50px; /* Adjust the image size a */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 .user-profile-info {
     color: black;
 }
@@ -83,16 +90,10 @@
             margin-top: 20px;
             }
     
-            .table td {
-            border: 1px solid #003366;
+            .table th, .table td {
+            border: 1px solid #E6E7E8;
             padding: 8px;
-
-            }.table th {
-                border: 1px solid #003366;
-                background-color: #003366;
-                color: white;
-                padding: 8px;
-                }
+            }
             /* CSS for the delete and update buttons */
             .delete-button {
             background-color: #FF0000; /* Red */
@@ -105,108 +106,3 @@
             .delete-button:hover {
             background-color: #CC0000; /* Darker red on hover */
             }
-
-            .manager-room-details {
-                margin-top: 40px; /* Increase the margin as needed */
-                margin-left: 10px; /* Adjust the left margin as needed */
-            }
-
-.addnewbutton {
-    margin-top: 10px; /* Adjust the top margin as needed */
-    padding: 10px; /* Add padding to the container */
-    background-color: #01376e; /* Set the background color */
-    display: inline-block; /* Ensure the container only takes as much width as necessary */
-    border-radius: 5px
-}
-
-.addnewbutton a {
-    color: white; /* Set the text color of the link */
-    text-decoration: none; /* Remove the default underline on the link */
-    font-weight: bold; /* Make the text bold */
-}
-
-.addnewbutton:hover {
-    background-color: #002447;
-}
-
-.editbutton {
-    margin-top: 10px; 
-    padding: 5px 10px; 
-    background-color: #023f7d; 
-    display: inline-block; 
-    border-radius: 5px
-}
-
-.editbutton a {
-    color: white; 
-    text-decoration: none; 
-    font-weight: bold; /
-}
-
-.editbutton a:hover {
-    background-color: #002447;
-}
-
-
-.deletebutton {
-    margin-top: 10px; /* Adjust the top margin as needed */
-    padding: 5px 10px; /* Add padding to the container */
-    background-color: #FF6666; /* Set the background color */
-    display: inline-block; /* Ensure the container only takes as much width as necessary */
-    border-radius: 5px
-}
-
-.deletebutton a {
-    color: white; /* Set the text color of the link */
-    text-decoration: none; /* Remove the default underline on the link */
-    font-weight: bold; /* Make the text bold */
-}
-
-.deletebutton a:hover {
-    text-decoration: underline; /* Add underline on hover */
-}
-
-/* Add Food Item Form Styles */
-.add-new-form {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #E6E7E8;
-    border-radius: 10px;
-    width: 50%; /* Adjust the width as needed */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.add-new-form h2 {
-    color: #003366;
-}
-
-.add-new-form label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-    color: #003366;
-}
-
-.add-new-form input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    box-sizing: border-box;
-    border: 1px solid #E6E7E8;
-    border-radius: 5px;
-}
-
-.add-new-form button {
-    background-color: #003366;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.add-new-form button:hover {
-    background-color: #002447;
-}
