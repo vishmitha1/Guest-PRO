@@ -116,13 +116,7 @@
 
                     if($this->addReservation($data)){
                         
-                        // //add to bill this reservation
-                        // if($this->addExpenses($data,"Reservation Cost")){
-                        //     return true;
-                        // }
-                        // else{
-                        //     return false;
-                        // }
+                        
                         return true;
                         
                     }

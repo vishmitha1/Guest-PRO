@@ -248,6 +248,18 @@
         }
 
 
+        //reservation ui eke display wena room types ganna
+        public function getRoomTypes(){
+            $this->db->query('SELECT *, RAND() as rnd 
+                                    FROM roomtype 
+                                    ORDER BY rnd;
+                                    ');
+            $row=$this->db->resultSet();
+           
+            return $row;
+        }
+
+
 
 
         //payment part'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

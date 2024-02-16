@@ -83,7 +83,12 @@
                             <td><?php echo $row->customer_name; ?></td>
                             <td>LKR <?php echo $row->total; ?></td>
                             
-                            <td><button class="calculate-button">Calculate</button></td>
+                            <form target="_blank" action="<?php echo URLROOT;?>/Receptionists/calculatePayments" method="post" >
+                                <td>
+                                    <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                    <button class="calculate-button">Calculate</button>
+                                </td>
+                            </form>
                             <td><button class="payment-button">Proceed to Payment</button></td>
                         </tr>
                     
@@ -96,32 +101,9 @@
             
         </div>
 
-        <div class="payment-popup" id="popup-1" >
-
-            <div class="overplay"></div>
-            <div class="content">
-                <div class="header"  >
-                    <button onclick="closePopup()" ></button>
-                </div>
-                <div class="cart-content">
-
-                </div>
-
-            
-            </div>
-        
-        </div>
+       
     </div>
 
-    <script>
-        function togglePopup(){
-            document.getElementById("popup-1").classList.toggle("active");
-            
-            }
-
-        function closePopup() {
-            document.getElementById("popup-1").classList.remove("active");
-        }
-    </script>
+    
 </body>
 </html>
