@@ -18,7 +18,7 @@
 
         public function reservation(){
 
-            //search reservation
+            //search reservation.. meka anith page ekata damma
             if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['searchReservation'] )){
 
                    
@@ -59,7 +59,7 @@
            
 
             
-
+            //
             
             elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -128,8 +128,11 @@
 
             else{   
                     $data=[];
-                    
-                    $this->view('receptionists/v_reservation',$data);
+
+                    if($defaultData=$this->receptionistModel->getRoomTypes()){
+                        //palaweniarray eken pass wenne search data
+                        $this->view('receptionists/v_reservation',[$data,$defaultData]);
+                    }
 
                     if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                         toastFlashMsg();
@@ -382,6 +385,60 @@
                     $output=['error','Something went wrong'];
                     header('Content-Type: application/json');
                     echo json_encode($output);
+                }
+            }
+        }
+
+
+
+
+
+        //availibility checking part
+
+        public function manageReservation(){
+
+            if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['searchReservation'] )){
+
+                   
+
+                $data=[
+                    'serachby' => trim($_POST['serachby']),
+                    'details' => trim($_POST['details']),
+                ];
+
+                if(empty($data['serachby'])){
+                    $data['serachby_err'] = 'Please select a search type';
+                    $_SESSION['toast_type']='info';
+                    $_SESSION['toast_msg']=$data['serachby_err'];
+                    redirect('receptionists/manageReservation');
+                }
+
+                elseif(empty($data['details'])){
+                    $data['details_err'] = 'Please enter details';
+                    $_SESSION['toast_type']='info';
+                    $_SESSION['toast_msg']=$data['details_err'];
+                    redirect('receptionists/manageReservation');
+                }
+
+                else{
+                    if(($output=$this->receptionistModel->customSearch($data))){
+
+                        $this->view('receptionists/v_manageReservation',[$array=[],$output]);
+                      
+                    }
+                    else{
+                        $_SESSION['toast_type']='question';
+                        $_SESSION['toast_msg']='No results found';
+                        redirect('receptionists/manageReservation');
+                    }
+                }
+            }
+
+            else{
+                $data=[];
+                $this->view('receptionists/v_manageReservation',$data);
+                if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                    toastFlashMsg();
                 }
             }
         }
