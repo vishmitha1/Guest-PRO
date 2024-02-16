@@ -23,7 +23,7 @@
             
             
     
-            <a href="<?php echo URLROOT;?>/Receptionists/checkAvailability"><i class="fa-solid fa-bell-concierge"></i>Room Availability</a>
+            <a href="<?php echo URLROOT;?>/Receptionists/manageReservation"><i class="fa-solid fa-bell-concierge"></i>Room Availability</a>
             
             <a href="<?php echo URLROOT;?>/Receptionists/payment"><i class="fa-regular fa-credit-card"></i>Payments</a>
             

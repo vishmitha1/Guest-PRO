@@ -173,7 +173,7 @@
     
   
 
-</div>
+
 
 
 
@@ -198,8 +198,8 @@
 
 
 
-
-        <!-- <div class="res-searchbar-wrapper">
+<!-- 
+        <div class="res-searchbar-wrapper">
 
             <div class="form-title-mngereservation">
                 <span>Reservation</span>
@@ -312,7 +312,7 @@
                             <?php }?>
                         <?php }?>
                     <?php }?>    
-                    <!-- <tr>
+                    <tr>
                         <td>1</td>
                         <td>101</td>
                         <td>2021-10-10</td>
@@ -330,7 +330,7 @@
                                 <button>Delete</button>
                             </form>
                         </td>
-                    </tr> -->
+                    </tr>
                    
                   
 

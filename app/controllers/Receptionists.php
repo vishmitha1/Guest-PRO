@@ -395,7 +395,7 @@
 
         //availibility checking part
 
-        public function checkAvailability(){
+        public function manageReservation(){
 
             if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['searchReservation'] )){
 
@@ -410,33 +410,33 @@
                     $data['serachby_err'] = 'Please select a search type';
                     $_SESSION['toast_type']='info';
                     $_SESSION['toast_msg']=$data['serachby_err'];
-                    redirect('receptionists/reservation');
+                    redirect('receptionists/manageReservation');
                 }
 
                 elseif(empty($data['details'])){
                     $data['details_err'] = 'Please enter details';
                     $_SESSION['toast_type']='info';
                     $_SESSION['toast_msg']=$data['details_err'];
-                    redirect('receptionists/reservation');
+                    redirect('receptionists/manageReservation');
                 }
 
                 else{
                     if(($output=$this->receptionistModel->customSearch($data))){
 
-                        $this->view('receptionists/v_availability',[$array=[],$output]);
+                        $this->view('receptionists/v_manageReservation',[$array=[],$output]);
                       
                     }
                     else{
                         $_SESSION['toast_type']='question';
                         $_SESSION['toast_msg']='No results found';
-                        redirect('receptionists/reservation');
+                        redirect('receptionists/manageReservation');
                     }
                 }
             }
 
             else{
                 $data=[];
-                $this->view('receptionists/v_availability',$data);
+                $this->view('receptionists/v_manageReservation',$data);
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }
