@@ -15,69 +15,135 @@ class Managers extends Controller
 
 
 
+    // public function addroom()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         // Validate and process form data
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    //         // Handle file upload
+    //         // $uploadResultRoom = $this->handleFileUpload("roomPhotos", "../public/img/rooms/");
+
+    //         // if (!$uploadResultRoom['success']) {
+    //         //     // Handle file upload failure
+    //         //     $data['error_message'] = $uploadResultRoom['error'];
+    //         //     $this->view('managers/v_addroom', $data);
+    //         //     return;
+    //         // }
+
+    //        
+
+    //         $data = [
+    //             'roomno' => trim($_POST['roomno']),
+    //             // 'floor' => trim($_POST['floor']),
+    //             'category' => trim($_POST['category']),
+    //             //'price' => trim($_POST['price']),
+    //             'roomno_err' => '',
+    //             // 'floor_err' => '',
+    //             'category_err' => '',
+    //             // 'price_err' => '',
+    //             //'roomPhotos' => $uploadResultRoom['fileNames'],
+    //         ];
+
+    //         // Validate input fields 
+    //         if (empty($data['roomno'])) {
+    //             $data['roomno_err'] = 'Please enter Room Number';
+    //         }
+    //         // if (empty($data['floor'])) {
+    //         //     $data['floor_err'] = 'Please enter floor number';
+    //         // }
+    //         if (empty($data['category'])) {
+    //             $data['category_err'] = 'Please enter Room category';
+    //         }
+    //         // if (empty($data['price'])) {
+    //         //     $data['price_err'] = 'Please enter price';
+    //         // }
+
+    //         // If there are no errors, insert data into the database
+    //         if (empty($data['roomno_err']) && empty($data['category_err'])) {
+    //             //$data['roomPhotos'] = $uploadResultRoom['fileNames'];
+    //             $result = $this->userModel->insertroomdetails($data);
+    //             if ($result == true) {
+    //                 // Redirect to the room details page or wherever you want
+    //                 redirect('Managers/roomdetails');
+    //             } else {
+    //                 // Handle errors if insertion fails
+    //                 die('something went wrong');
+    //             }
+    //         } else {
+    //             // If there are errors, reload the form with error messages
+    //             $this->view('managers/v_addroom', $data);
+    //         }
+    //     } else {
+    //         // Display the form
+    //         $this->view('managers/v_addroom');
+    //     }
+    // }
+
+
     public function addroom()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Validate and process form data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            // Handle file upload
-            // $uploadResultRoom = $this->handleFileUpload("roomPhotos", "../public/img/rooms/");
-
-            // if (!$uploadResultRoom['success']) {
-            //     // Handle file upload failure
-            //     $data['error_message'] = $uploadResultRoom['error'];
-            //     $this->view('managers/v_addroom', $data);
-            //     return;
-            // }
-
             $data = [
                 'roomno' => trim($_POST['roomno']),
-                // 'floor' => trim($_POST['floor']),
                 'category' => trim($_POST['category']),
-                //'price' => trim($_POST['price']),
                 'roomno_err' => '',
-                // 'floor_err' => '',
                 'category_err' => '',
-                // 'price_err' => '',
-                //'roomPhotos' => $uploadResultRoom['fileNames'],
             ];
 
-            // Validate input fields 
+            // Validate each input fields 
+            //validate room no
             if (empty($data['roomno'])) {
                 $data['roomno_err'] = 'Please enter Room Number';
             }
-            // if (empty($data['floor'])) {
-            //     $data['floor_err'] = 'Please enter floor number';
-            // }
+            else{
+                //check if the room no is already exist
+                $result=$this->userModel->findroombyroomno($data['roomno']);
+                if($result){
+                    $data['roomno_err']='Room number is already exist';
+                }
+            }
             if (empty($data['category'])) {
                 $data['category_err'] = 'Please enter Room category';
             }
-            // if (empty($data['price'])) {
-            //     $data['price_err'] = 'Please enter price';
-            // }
 
             // If there are no errors, insert data into the database
             if (empty($data['roomno_err']) && empty($data['category_err'])) {
-                //$data['roomPhotos'] = $uploadResultRoom['fileNames'];
                 $result = $this->userModel->insertroomdetails($data);
                 if ($result == true) {
-                    // Redirect to the room details page or wherever you want
+                    // Redirect to the room details page 
+                    
                     redirect('Managers/roomdetails');
+                    
                 } else {
                     // Handle errors if insertion fails
                     die('something went wrong');
                 }
             } else {
                 // If there are errors, reload the form with error messages
+
+                // Fetch room types from the model
+                $roomTypes = $this->userModel->getroomtypes();
+
+                // Pass room types data to the view along with form data
+                $data['roomTypes'] = $roomTypes;
+
                 $this->view('managers/v_addroom', $data);
             }
         } else {
+            // Fetch room types from the model
+            $roomTypes = $this->userModel->getroomtypes();
+
+            // Pass room types data to the view
+            $data['roomTypes'] = $roomTypes;
+
             // Display the form
-            $this->view('managers/v_addroom');
+            $this->view('managers/v_addroom', $data);
         }
     }
-
 
 
 
@@ -184,6 +250,8 @@ class Managers extends Controller
                 'roomImg' => $uploadResultRoom['fileNames']
             ];
 
+            
+
             // Call a model method to insert the new room type into the database
             if ($this->userModel->addRoomType($data)) {
                 // Redirect to the room types page after successful insertion
@@ -232,39 +300,79 @@ class Managers extends Controller
         $this->view('managers/v_fooditems', $data);
     }
 
-    public function deleteRoom($roomno)
+    // public function deleteRoom($roomno)
+    // {
+
+    //     // Call a model method to delete the room from the database
+    //     $success = $this->userModel->deleteRoom($roomno);
+
+    //     // Optionally, you can handle success or failure and redirect accordingly
+    //     if ($success) {
+    //         // Room deleted successfully
+    //         // You may want to set a flash message or perform other actions
+    //         header("Location: " . URLROOT . "/Managers/roomdetails");
+    //         exit();
+    //     } else {
+    //         // Room deletion failed
+    //         // You may want to set a flash message or perform other actions
+    //         echo "Error deleting room.";
+    //     }
+    // }
+
+
+
+    public function deleteRoom($roomNo)
     {
+        // Check availability before deletion
+        $room = $this->userModel->viewRoomDetails($roomNo);
+        if ($room->availability === 'yes') {
+            // Call a model method to delete the room type from the database
+            $success = $this->userModel->deleteRoom($roomNo);
 
-        // Call a model method to delete the room from the database
-        $success = $this->userModel->deleteRoom($roomno);
-
-        // Optionally, you can handle success or failure and redirect accordingly
-        if ($success) {
-            // Room deleted successfully
-            // You may want to set a flash message or perform other actions
-            header("Location: " . URLROOT . "/Managers/roomdetails");
-            exit();
+            // Optionally, you can handle success or failure and redirect accordingly
+            if ($success) {
+                // Room type deleted successfully
+                // You may want to set a flash message or perform other actions
+                redirect('Managers/roomdetails'); // Redirect to room details page
+            } else {
+                // Room type deletion failed
+                // You may want to set a flash message or perform other actions
+                echo "Error deleting room type.";
+            }
         } else {
-            // Room deletion failed
+            // Room type cannot be deleted if not available
             // You may want to set a flash message or perform other actions
-            echo "Error deleting room.";
+            echo "Room cannot be deleted as it is already reserved.";
         }
     }
+
+
+
 
     public function editRoom($roomno)
     {
         // Retrieve room details from the database
         $roomDetails = $this->userModel->viewRoomDetails($roomno);
 
+        // Fetch room types from the model
+        $roomTypes = $this->userModel->getroomtypes();
+
+        // Pass room types data and room details to the view
+        $data = [
+            'roomDetails' => $roomDetails,
+            'roomTypes' => $roomTypes
+        ];
+
         // Check if the room exists
         if ($roomDetails) {
+           
             // Load the view for editing room details and pass the data
-            $this->view('managers/v_editroom', ['roomDetails' => $roomDetails]);
+            $this->view('managers/v_editroom', $data);
         } else {
-            // Handle the case where the room doesn't exist
-            // You can redirect or show an error message
+
         }
     }
+
 
 
     public function updateRoom()
@@ -274,9 +382,9 @@ class Managers extends Controller
             // Process the form data and update room details
             $updateData = [
                 'roomNo' => $_POST['roomno'],
-                'floor' => $_POST['floor'],
+                // 'floor' => $_POST['floor'],
                 'category' => $_POST['category'],
-                'price' => $_POST['price'],
+                // 'price' => $_POST['price'],
             ];
 
             // Update room details in the database
