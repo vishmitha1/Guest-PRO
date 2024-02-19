@@ -87,36 +87,41 @@
     }
 
 .editbutton {
-    margin-top: 10px; 
-    padding: 5px 10px; 
-    background-color: #01376e; 
-    display: inline-block; 
-    border-radius: 5px
+    cursor: pointer;
 }
 
-
-
-.editbutton a:hover {
-    background-color: #002447;
+.editbutton i {
+ color:green;
+ font-size:20px;
+ transition: transform 0.5s;  
+ background-color: transparent;
 }
 
+.editbutton:hover i {
+    color: darkgreen;
+    transform:rotate(360deg) ;
+}
 
 .deletebutton {
-    margin-top: 10px; /* Adjust the top margin as needed */
-    padding: 5px 10px; /* Add padding to the container */
-    background-color:  #FF0000; /* Set the background color */
-    display: inline-block; /* Ensure the container only takes as much width as necessary */
-    border-radius: 5px
+    cursor: pointer;
+    margin-left: 10px; 
+    
 }
 
-.deletebutton a {
-    color: white; /* Set the text color of the link */
-    text-decoration: none; /* Remove the default underline on the link */
-    font-weight: bold; /* Make the text bold */
+/* Style the delete icon */
+.deletebutton i {
+    color: #ff0000; 
+    font-size: 20px; 
+    transition: transform 0.5s;
+    background-color: transparent;
+    border: none;
+    
 }
 
-.deletebutton :hover {
-    background-color: #CC0000;
+
+.deletebutton:hover i {
+    color: #cc0000; 
+    transform: rotate(360deg);
 }
 
 /* Add New Form Styles */

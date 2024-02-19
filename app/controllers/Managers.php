@@ -115,12 +115,17 @@ class Managers extends Controller
                 $result = $this->userModel->insertroomdetails($data);
                 if ($result == true) {
                     // Redirect to the room details page 
-                    
+                    //Room added successfully
+                    $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'Room added successfully!';
                     redirect('Managers/roomdetails');
+                    
                     
                 } else {
                     // Handle errors if insertion fails
-                    die('something went wrong');
+                    $_SESSION['toast_type'] = 'error';
+                    $_SESSION['toast_msg'] = 'Error adding room. Please try again.';
+                    $this->view('managers/v_addroom', $data);
                 }
             } else {
                 // If there are errors, reload the form with error messages
@@ -134,6 +139,13 @@ class Managers extends Controller
                 $this->view('managers/v_addroom', $data);
             }
         } else {
+
+            $data = [
+                'roomno' => '',
+                'category' => '',
+                'roomno_err' => '',
+                'category_err' => '',
+            ];
             // Fetch room types from the model
             $roomTypes = $this->userModel->getroomtypes();
 
@@ -142,6 +154,7 @@ class Managers extends Controller
 
             // Display the form
             $this->view('managers/v_addroom', $data);
+            
         }
     }
 
@@ -291,6 +304,11 @@ class Managers extends Controller
         }
         $data = ['rooms' => $rooms];
         $this->view('managers/v_roomdetails', $data);
+
+        //success or erro message adding a room
+        if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+            toastFlashMsg();
+        }
     }
 
     public function fooditems()
@@ -332,17 +350,22 @@ class Managers extends Controller
             // Optionally, you can handle success or failure and redirect accordingly
             if ($success) {
                 // Room type deleted successfully
-                // You may want to set a flash message or perform other actions
+                $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'Room deleted successfully!';
+                // Redirect
                 redirect('Managers/roomdetails'); // Redirect to room details page
             } else {
-                // Room type deletion failed
-                // You may want to set a flash message or perform other actions
-                echo "Error deleting room type.";
+                $_SESSION['toast_type'] = 'error';
+                    $_SESSION['toast_msg'] = 'Error deleting room! Try again';
+                // Redirect
+                header("Location: " . URLROOT . "/Managers/roomdetails");
             }
         } else {
             // Room type cannot be deleted if not available
-            // You may want to set a flash message or perform other actions
-            echo "Room cannot be deleted as it is already reserved.";
+            $_SESSION['toast_type'] = 'error';
+                    $_SESSION['toast_msg'] = 'Error Deleting Room !<br>Room is already reserved!';
+                // Redirect
+                header("Location: " . URLROOT . "/Managers/roomdetails");
         }
     }
 
@@ -389,12 +412,16 @@ class Managers extends Controller
 
             // Update room details in the database
             if ($this->userModel->updateRoomDetails($updateData)) {
+                $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'Room updated successfully!';
                 // Redirect
                 header("Location: " . URLROOT . "/Managers/roomdetails");
                 exit();
             } else {
-                // Handle the case where the update fails
-                // You can redirect or show an error message
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Error updating Room! Please try again';
+            // Redirect
+            header("Location: " . URLROOT . "/Managers/roomdetails");
             }
         }
     }

@@ -24,10 +24,18 @@
     <div id="deleteModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Are you sure you want to delete this room type?</p>
-            <button id="confirmDeleteBtn">Yes, Delete</button>
+            <i class="fa-regular fa-circle-xmark"></i>
+            <div class="modal-message">
+                <h1>Are you sure?</h1>
+                <p>Are you sure you want to delete this room ?</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="confirmDeleteBtn">Delete</button>
+                <button class="cancelBtn">Cancel</button>
+            </div>
         </div>
     </div>
+
 
     <!-- Display Rooms -->
     <table class="table" id="managerRoomDetailsTable">
@@ -62,8 +70,9 @@
                 </td>
                 <td>
 
-                    <a href="<?php echo URLROOT; ?>/Managers/editRoom/<?php echo $room->roomNo; ?>"><i
-                            class="far fa-edit"></i></a>
+
+                    <span onclick="editRoom('<?php echo $room->roomNo; ?>')" class="editbutton"><i
+                            class="far fa-edit"></i></span>
 
 
                     <!-- <a href="<?php echo URLROOT; ?>/Managers/deleteRoom/<?php echo $room->roomNo; ?>"
@@ -74,10 +83,9 @@
                             class="fa-solid fa-trash fa-lg"></i></button> -->
 
 
-                    <!-- Button to trigger modal -->
-                    <button onclick="confirmDelete('<?php echo $room->roomNo; ?>')"><i
-                            class="far fa-trash-alt"></i></button>
 
+                    <span onclick="confirmDelete('<?php echo $room->roomNo; ?>')" class="deletebutton"><i
+                            class="fa-solid fa-trash"></i></span>
 
 
                 </td>
@@ -99,22 +107,26 @@
 
 
         23
-        // Get the <span> element that closes the modal
-        var closeBtn = document.getElementsByClassName("close")[0];
+        // Get the modal element
+        var modal = document.getElementById("deleteModal");
 
         // Function to handle delete confirmation
         function confirmDelete(roomNo) {
             modal.style.display = "block";
-            var confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+            console.log("Delete modal opened for room number: " + roomNo);
+            var confirmDeleteBtn = document.querySelector(".confirmDeleteBtn");
             confirmDeleteBtn.onclick = function () {
                 window.location.href = "<?php echo URLROOT; ?>/Managers/deleteRoom/" + roomNo;
             }
+
+            // Event listener for the "Cancel" button
+            var cancelBtn = document.querySelector(".cancelBtn");
+            cancelBtn.onclick = function () {
+                modal.style.display = "none";
+            }
         }
 
-        // When the user clicks on <span> (x), close the modal
-        closeBtn.onclick = function () {
-            modal.style.display = "none";
-        }
+
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
@@ -123,7 +135,21 @@
             }
         }
 
+        var closeBtn = document.querySelector(".close");
+
+        // Add click event listener to close the modal
+        closeBtn.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+
+        function editRoom(roomNo) {
+            window.location.href = "<?php echo URLROOT; ?>/Managers/editRoom/" + roomNo;
+        }
+
+
 
     </script>
+
+
 
 </div>
