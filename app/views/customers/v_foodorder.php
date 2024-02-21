@@ -3,7 +3,7 @@
 
 
 
-<div class="home">
+<!-- <div class="home"> -->
 
         <div class="cart-inUI" onclick="togglePopup()"  >
             <!-- <i class="fa-solid fa-cart-shopping fa-2xl"></i> -->

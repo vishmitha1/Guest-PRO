@@ -548,6 +548,8 @@
 
             
 
+            
+
 
                 if(empty($data['reservation_id'])){
                     $_SESSION['toast_type']='error';
@@ -563,7 +565,7 @@
                 else{
                     $output=['error','Something went wrong'];
                     header('Content-Type: application/json');
-                    echo json_encode($output);
+                    echo json_encode($data);
                 }
 
             }
@@ -571,6 +573,64 @@
                 $_SESSION['toast_type']='error';
                 $_SESSION['toast_msg']='Something went wrong';
                 redirect('receptionists/payment');
+
+            }
+        }
+
+        //paymnet gateway eka
+        public function paymentGateway(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                $postData = json_decode(file_get_contents('php://input'), true);
+                $data=[
+                    'reservation_id' => $postData['reservation_id'],
+                    
+                ];
+                
+                $customerData=$this->receptionistModel->getCustomerDataForPaymentGateway($data);
+          
+
+                $merchant_secret="xxxxxxx";
+                $currency='LKR';
+                $merchant_id='xxxxxxx';
+                $amount=$customerData[0]->total;
+                $order_id='10';
+
+
+
+
+                $hash = strtoupper(
+                    md5(
+                        $merchant_id . 
+                        $order_id . 
+                        number_format($amount, 2, '.', '') . 
+                        $currency .  
+                        strtoupper(md5($merchant_secret)) 
+                    ) 
+                );
+                
+                $output=[
+                    'merchant_id' => $merchant_id,
+                    'amount' => $amount,
+                    'currency' => $currency,
+                    'hash' => $hash,
+                    'name' => $customerData[0]->name,
+                    'email' => $customerData[0]->email,
+                    'phone' => $customerData[0]->phone,
+                    'address' => 'No 1, Galle Road, Colombo 03',
+                    'city' => 'Colombo',
+                    'country' => 'Sri Lanka',
+                    'order_id' =>'10',
+                    'items' => 'Hotel Reservation',
+
+                ];
+             
+
+                
+
+                $jasonOutput=json_encode($output);
+                echo $jasonOutput;
+
 
             }
         }
@@ -589,13 +649,14 @@
 
         public function test(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
+                // $this->view('v_test');
+                echo 'success';
             }
             else{
                 $this->view('v_test');
-                $_SESSION['toast_type']='question';
-            $_SESSION['toast_msg']='Something went wrong';
-            toastFlashMsg();
+            //     $_SESSION['toast_type']='question';
+            // $_SESSION['toast_msg']='Something went wrong';
+            // toastFlashMsg();
             }
             
         }

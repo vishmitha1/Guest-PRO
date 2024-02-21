@@ -314,6 +314,7 @@
 
         //expand expenses details
         public function getExpandDetails($data){
+
             if($data['description']=='Reservation_Cost'){
                 $this->db->query(" SELECT reservations.roomNo, reservations.cost, reservations.date, rooms.category, roomtype.mainImg 
                                     FROM reservations 
@@ -334,6 +335,17 @@
                 $row=$this->db->resultSet();
                 return $row;
             }
+        }
+
+        
+        //paymnet gatwey eken ena receptionist request ekata adala customer data gannawa
+        public function getCustomerDataForPaymentGateway($data){
+            $this->db->query("SELECT SUM(expenses.amount) as total,reservations.customer_name as name ,reservations.email,reservations.phone 
+                                FROM expenses JOIN reservations ON expenses.reservation_id=reservations.reservation_id   
+                                 WHERE expenses.reservation_id=:id");
+            $this->db->bind(':id',$data['reservation_id']);
+            $row=$this->db->resultSet();
+            return $row;
         }
         
 

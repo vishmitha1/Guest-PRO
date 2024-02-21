@@ -3,11 +3,14 @@
 
     <div class="home">
 
+    <script src="<?php echo URLROOT; ?>/public/js/receptionist/payment.js"></script>
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 
-    <div class="res-searchbar-wrapper">
+    <div class="payment-res-searchbar-wrapper">
+        
 
         <div class="form-title-mngereservation">
-            <span>Manage Payments</span>
+            <ion-icon name="bag-handle-outline"></ion-icon><span>Manage Payments</span>
         </div> 
         
         <form action="<?php echo URLROOT;?>/Receptionists/payment" method="POST" >
@@ -72,7 +75,11 @@
                                     <button class="calculate-button">Calculate</button>
                                 </td>
                             </form>
-                            <td><button class="payment-button">Proceed to Payment</button></td>
+                            
+                            <td>
+                                <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)" >Proceed to Payment</button>
+                            </td>
                         </tr>
                     <?php }
                 }
@@ -89,7 +96,10 @@
                                     <button class="calculate-button">Calculate</button>
                                 </td>
                             </form>
-                            <td><button class="payment-button">Proceed to Payment</button></td>
+                            <td>
+                                <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)"  >Proceed to Payment</button>
+                            </td>
                         </tr>
                     
                 <?php }?>
