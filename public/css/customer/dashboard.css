@@ -55,8 +55,20 @@
 }
 .col-div-4{
 	width: 30%;
-	float: left;
+	float: left;;
 }
+
+.cus-dash-chart{
+  border: 1px solid #000000;
+  min-width: 100px;
+  min-height: 100px;
+  width: 30%;
+  position:relative;
+  margin-top: 2%;
+  margin-left: 10px;
+  
+}
+
 .content-box{
 	padding: 20px;
 }
@@ -98,9 +110,11 @@
   border-radius: 5px;
 }
 .box-4{
-	width: 95%;
+	width: 100%;
 	background-color: #003366;
-	height: 330px;
+	height: 100%;
+  padding-bottom: 10px;
+  color: black;
 }
 .nav2{
 	display: none;

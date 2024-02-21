@@ -1,5 +1,6 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
-    <div class="home">
+    <!-- <div class="home"> -->
+        
         <div class="bill-components">
             <div class="main-title">Bill Values</div>
                 <div class="bill-components-wrapper">
