@@ -55,6 +55,16 @@ class M_Managers
 
     }
 
+    public function getroomtypes()
+    {
+        $this->db->query("SELECT * FROM roomtype ");
+
+        return $this->db->resultSet();
+
+
+    }
+
+
     public function viewRoomDetails($roomno)
     {
         $this->db->query('SELECT * FROM rooms WHERE roomNo = :roomNo');
@@ -89,6 +99,7 @@ class M_Managers
 
     public function addRoomType($data)
     {
+
         // Prepare SQL for inserting room type
         $this->db->query('INSERT INTO roomtype (category, price, amenities, roomImg) VALUES (:category, :price, :amenities, :roomImg)');
 
@@ -97,6 +108,7 @@ class M_Managers
         $this->db->bind(':price', $data['price']);
         $this->db->bind(':amenities', $data['amenities']);
         $this->db->bind(':roomImg', implode(",", $data['roomImg'])); // Concatenate file names
+        // $this->db->bind(':mainImg', implode(",", $data['mainImg']));
 
         // Execute the query
         return $this->db->execute();

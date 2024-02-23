@@ -47,6 +47,9 @@
     </div>
 
     <div class="home">
+        <div class="navigations-controller">
+            <i class="fa-solid fa-list-check" id="navigations-controller"></i>
+        </div>
     <div class="user-profile">
             <img src="" alt="User Profile Picture"><br>
             <div class="user-profile-info">
@@ -57,7 +60,7 @@
          <!-- <div class="profile">
         <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   <?php echo $_SESSION['user_id'];?></a>
         </div> -->
-    </div>
+
     <script>
         var btnContainer = document.getElementById("visal");
 
@@ -72,6 +75,22 @@
             this.className += " active";
         });
         }
+
+        var navigationsController = document.getElementById("navigations-controller");
+        var sideBar = document.querySelector(".side-bar");
+        var home = document.querySelector(".home");
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleSidebarButton = document.getElementById('navigations-controller');
+            const sideBar = document.querySelector('.side-bar');
+
+            toggleSidebarButton.addEventListener('click', function() {
+                sideBar.classList.toggle('sidebar-hidden');
+                home.classList.toggle('home-full');
+            });
+        });
+
+
     </script>
     
 

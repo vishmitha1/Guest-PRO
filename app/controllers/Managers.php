@@ -103,6 +103,64 @@ class Managers extends Controller
 
         return ['success' => true, 'fileNames' => $fileNames];
     }
+
+
+
+
+
+    public function viewroomtype()
+    {
+        $roomtypes = $this->userModel->getroomtypes();
+        $data = ['roomtypes' => $roomtypes];
+        $this->view('managers/v_roomtype', $data);
+    }
+
+    // public function addroomtype()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         // Validate and process form data
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    //         // Handle file upload
+    //         $uploadResultRoom = $this->handleFileUpload("roomImg", "../public/img/rooms/");
+
+    //         if (!$uploadResultRoom['success']) {
+    //             // Handle file upload failure
+    //             $data['error_message'] = $uploadResultRoom['error'];
+    //             $this->view('managers/v_addroomtype', $data);
+    //             return;
+    //         }
+
+    //         // $uploadmainimg = $this->handleFileUpload("mainImg", "../public/img/rooms/");
+    //         // if (!$uploadmainimg['success']) {
+    //         //     // Handle file upload failure
+    //         //     $data['error_message'] = $uploadResultRoom['error'];
+    //         //     $this->view('managers/v_addroomtype', $data);
+    //         //     return;
+    //         // }
+
+    //         $data = [
+    //             'category' => trim($_POST['category']),
+    //             'price' => trim($_POST['price']),
+    //             'amenities' => trim($_POST['amenities']),
+    //             'roomImg' => $uploadResultRoom['fileNames'],
+    //             // 'mainImg' => $uploadResultRoom['fileNames']
+    //         ];
+
+    //         // Call a model method to insert the new room type into the database
+    //         if ($this->userModel->addRoomType($data)) {
+    //             redirect('Managers/viewroomtype');
+    //         } else {
+    //             // Handle errors if insertion fails
+    //             die('Something went wrong');
+    //         }
+    //     } else {
+    //         // Display the form
+    //         $this->view('managers/v_addroomtype');
+    //     }
+    // }
+
+
     public function addroomtype()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -123,21 +181,24 @@ class Managers extends Controller
                 'category' => trim($_POST['category']),
                 'price' => trim($_POST['price']),
                 'amenities' => trim($_POST['amenities']),
-                'roomImg' => $uploadResultRoom['fileNames'],
+                'roomImg' => $uploadResultRoom['fileNames']
             ];
 
             // Call a model method to insert the new room type into the database
             if ($this->userModel->addRoomType($data)) {
-                redirect('Managers/roomtypes');
+                // Redirect to the room types page after successful insertion
+                redirect('Managers/viewroomtype');
             } else {
                 // Handle errors if insertion fails
-                die('Something went wrong');
+                $data['error_message'] = 'Failed to add room type. Please try again later.';
+                $this->view('managers/v_addroomtype', $data);
             }
         } else {
             // Display the form
             $this->view('managers/v_addroomtype');
         }
     }
+
 
 
 

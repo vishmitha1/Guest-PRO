@@ -24,15 +24,19 @@
 
 .foodorder-items{
   position: relative;
-  border: 1px solid black;
+  border: 1px solid rgb(255, 0, 0);
   border-radius: 5px;
   /* width: 23%; */
   width: 240px;
   height:auto;
   padding: 1%;
   box-shadow: 10px 5px 10px  rgba(0, 0, 0, 0.15);
-
   
+}
+
+.foodorder-items:hover{
+  transform: scale(1.03);
+  transition: transform .5s;
 }
 
 

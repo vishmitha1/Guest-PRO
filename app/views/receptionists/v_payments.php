@@ -3,11 +3,14 @@
 
     <div class="home">
 
+    <script src="<?php echo URLROOT; ?>/public/js/receptionist/payment.js"></script>
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 
-    <div class="res-searchbar-wrapper">
+    <div class="payment-res-searchbar-wrapper">
+        
 
         <div class="form-title-mngereservation">
-            <span>Manage Payments</span>
+            <ion-icon name="bag-handle-outline"></ion-icon><span>Manage Payments</span>
         </div> 
         
         <form action="<?php echo URLROOT;?>/Receptionists/payment" method="POST" >
@@ -72,7 +75,11 @@
                                     <button class="calculate-button">Calculate</button>
                                 </td>
                             </form>
-                            <td><button class="payment-button">Proceed to Payment</button></td>
+                            
+                            <td>
+                                <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)" >Proceed to Payment</button>
+                            </td>
                         </tr>
                     <?php }
                 }
@@ -83,8 +90,16 @@
                             <td><?php echo $row->customer_name; ?></td>
                             <td>LKR <?php echo $row->total; ?></td>
                             
-                            <td><button class="calculate-button">Calculate</button></td>
-                            <td><button class="payment-button">Proceed to Payment</button></td>
+                            <form target="_blank" action="<?php echo URLROOT;?>/Receptionists/calculatePayments" method="post" >
+                                <td>
+                                    <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                    <button class="calculate-button">Calculate</button>
+                                </td>
+                            </form>
+                            <td>
+                                <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)"  >Proceed to Payment</button>
+                            </td>
                         </tr>
                     
                 <?php }?>
@@ -96,32 +111,9 @@
             
         </div>
 
-        <div class="payment-popup" id="popup-1" >
-
-            <div class="overplay"></div>
-            <div class="content">
-                <div class="header"  >
-                    <button onclick="closePopup()" ></button>
-                </div>
-                <div class="cart-content">
-
-                </div>
-
-            
-            </div>
-        
-        </div>
+       
     </div>
 
-    <script>
-        function togglePopup(){
-            document.getElementById("popup-1").classList.toggle("active");
-            
-            }
-
-        function closePopup() {
-            document.getElementById("popup-1").classList.remove("active");
-        }
-    </script>
+    
 </body>
 </html>
