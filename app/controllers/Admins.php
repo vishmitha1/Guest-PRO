@@ -11,8 +11,30 @@ class Admins extends Controller
 
     public function dashboard()
     {
-        $this->view('admins/v_dashboard');
+        //$activeStaffAccountsCount = $this->staffModel->getActiveStaffAccountsCount();
+        $totalCustomersRegistered = $this->staffModel->getTotalCustomersRegistered();
+        $totalStaffMembersCount = $this->staffModel->getTotalStaffMembersCount();
+        //$activeCustomersCount = $this->staffModel->getActiveCustomersCount();
+
+        $data = [
+            //'activeStaffAccountsCount' => $activeStaffAccountsCount,
+            'totalCustomersRegistered' => $totalCustomersRegistered,
+            'totalStaffMembersCount' => $totalStaffMembersCount,
+            //'activeCustomersCount' => $activeCustomersCount
+        ];
+
+        // Check if 'activeStaffAccountsCount' is set in the $data array before passing it to the view
+        if (!isset($data['activeStaffAccountsCount'])) {
+            $data['activeStaffAccountsCount'] = 0; // Set a default value if not set
+        }
+        // Check if 'activeCustomersCount' is set in the $data array before passing it to the view
+        if (!isset($data['activeCustomersCount'])) {
+            $data['activeCustomersCount'] = 0; // Set a default value if not set
+        }
+
+        $this->view('admins/v_dashboard', $data);
     }
+
 
     public function accountlogs()
     {
@@ -62,23 +84,23 @@ class Admins extends Controller
         $this->view('admins/v_create_staffaccounts');
     }
 
-    public function delete_staffaccounts($userID)
+    public function delete_staffaccounts($staffID)
     {
         // Call model method to delete staff
-        if ($this->staffModel->delete_staffdetails($userID)) {
+        if ($this->staffModel->delete_staffdetails($staffID)) {
             redirect('Admins/staffaccounts');
         } else {
             die('Something went wrong');
         }
     }
 
-    public function update_staffaccounts($userID)
+    public function update_staffaccounts($staffID)
     {
         // Check if form is submitted
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Process the form data and update staff account details
             $updateData = [
-                'userID' => $userID,
+                'staffID' => $staffID,
                 'designation' => $_POST['designation'],
                 'staffName' => $_POST['staffName'],
                 'phoneNumber' => $_POST['phoneNumber'],
@@ -98,7 +120,7 @@ class Admins extends Controller
         } else {
             // Handle GET request to load the update form
             // Retrieve staff account details from the database
-            $staffaccount = $this->staffModel->get_staffdetailsBYID($userID);
+            $staffaccount = $this->staffModel->get_staffdetailsBYID($staffID);
 
             // Check if the staff account exists
             if ($staffaccount) {
@@ -113,7 +135,7 @@ class Admins extends Controller
 
     public function search_staffaccounts()
     {
-         // Check if the request method is GET and if the 'query' parameter is set in the URL
+        // Check if the request method is GET and if the 'query' parameter is set in the URL
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query'])) {
             // Sanitize the search query
             $query = trim($_GET['query']);
