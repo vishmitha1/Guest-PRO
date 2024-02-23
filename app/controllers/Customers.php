@@ -2,6 +2,7 @@
     class Customers extends Controller{
         protected $userModel;
         protected $middleware;
+        protected $mailer;
        
         
         public function __construct(){
@@ -48,7 +49,10 @@
 
                 //Check whethere given post request is for update or place reservation
 
+                //update karaddi metanin yanawa
                 if(isset($_POST['reservation_id'])){
+
+                   
                     $data=[
 
                         'user_id'=>$_SESSION['user_id'],
@@ -93,11 +97,20 @@
                             print_r($data);
                         }
                         elseif($data['payment_type']=='paylater'){
-                            if($this->userModel->updateReservation($data)){
-                                $_SESSION['toast_type']='success';
-                                $_SESSION['toast_msg']='Reservation Updated successfully.';
-                                redirect("Customers/reservation");
+
+                            if(isset($_POST['reserve-for-others'])){
+                                $_SESSION['update_reserv_others']=$data;
+                                $olddata=$this->userModel->retriveReservationDetails($data);
+                                $this->view("customers/v_reservForOthers",$olddata);
                             }
+
+                            else{
+                                if($this->userModel->updateReservation($data)){
+                                    $_SESSION['toast_type']='success';
+                                    $_SESSION['toast_msg']='Reservation Updated successfully.';
+                                    redirect("Customers/reservation");
+                                }
+                            }    
                         }
                     }
 
@@ -105,6 +118,7 @@
 
                 }
 
+                    //place reservation
                 else{
                 
                 
@@ -137,10 +151,19 @@
                             print_r($data);
                         }
                         elseif($data['payment_type']=='paylater'){
-                            if($this->userModel->placereservation($data)){
-                                $_SESSION['toast_type']='success';
-                                $_SESSION['toast_msg']='Reservation placed successfully.';
-                                redirect("Customers/reservation");
+
+                            if(isset($_POST['reserve-for-others'])){
+                                $_SESSION['reserv_others']=$data;
+                                $this->view("customers/v_reservForOthers",$arr=[]);
+                            }
+
+                            else{
+                                if($this->userModel->placereservation($data)){
+                                    $_SESSION['toast_type']='success';
+                                    $_SESSION['toast_msg']='Reservation placed successfully.';
+                                    redirect("Customers/reservation");
+                                    // sendEmail("visaluni2@gmail.com",'visal');
+                                }
                             }
                         }
                     }
@@ -276,6 +299,66 @@
            
         }
 
+
+        //place reservation for others
+        // v_reservForOthers eke form eken enne mekata
+        public function placeReservationForOthers(){
+
+            if(isset($_SESSION['update_reserv_others'])){
+                $data=$_SESSION['update_reserv_others'];
+                if($_SERVER['REQUEST_METHOD']=='POST'){
+                    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                    $data['customer_name'] = trim($_POST['customer_name']);
+                    $data['customer_email'] = trim($_POST['customer_email']);
+                    $data['customer_address'] = trim($_POST['customer_address']);
+                    $data['customer_phone'] = trim($_POST['customer_phone']);
+                    $data['customer_nic'] = trim($_POST['customer_nic']);
+                    $data['reservation_id'] = trim($_POST['reservation_id']);
+                    if($this->userModel->updateReservation($data)){
+                        $_SESSION['toast_type']='success';
+                        $_SESSION['toast_msg']='Reservation Updated successfully.';
+                        redirect("Customers/reservation");
+                        unset($_SESSION['update_reserv_others']);
+
+                    }
+                    else{
+                        $_SESSION['toast_type']='error';
+                        $_SESSION['toast_msg']='Something went wrong. Please try again.';
+                        redirect("Customers/reservation");
+                    }
+                }
+            }
+
+
+            elseif($_SERVER['REQUEST_METHOD']=='POST'){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data=$_SESSION['reserv_others'];
+               
+                $data['customer_name'] = trim($_POST['customer_name']);
+                $data['customer_email'] = trim($_POST['customer_email']);
+                $data['customer_address'] = trim($_POST['customer_address']);
+                $data['customer_phone'] = trim($_POST['customer_phone']);
+                $data['customer_nic'] = trim($_POST['customer_nic']);
+
+
+                unset($_SESSION['reserv_others']);
+
+                if($this->userModel->placereservation($data)){
+                    $_SESSION['toast_type']='success';
+                    $_SESSION['toast_msg']='Reservation placed successfully.';
+                    redirect("Customers/reservation");
+                    // sendEmail("visaluni2@gmail.com",'visal');
+                }
+                else{
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Something went wrong. Please try again.';
+                    redirect("Customers/reservation");
+                }
+
+
+
+            }       
+        }
         //delete reservation
         public function deleteReservation(){
             
@@ -564,6 +647,7 @@
                     'price'=>trim($_POST['amount']),
                 ];
 
+
                 if(empty($data['user_id'])){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='No User';
@@ -618,10 +702,19 @@
                     
                     if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
                         // $this->userModel->deletecart($_SESSION['user_id']);
-                        // $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id'])]);
-                        $_SESSION['toast_type']='success';
-                        $_SESSION['toast_msg']='Order placed successfully.';
-                        redirect('Customers/foodorder');
+
+                        // customer hotel eke nemeinm inne paymnet ekk karann wenawa order ekata
+                        if($this->userModel->isCustomerCheckedIn($_SESSION['user_id'])){
+                            $this->view('v_test',$data);
+                            echo("Payment gateway");
+                        }
+
+                        else{
+                            $_SESSION['toast_type']='success';
+                            $_SESSION['toast_msg']='Order placed successfully.';
+                            redirect('Customers/foodorder');
+
+                        }
 
                         // $this->view('v_test', $data);
                         // echo 'count'.$count;
@@ -838,30 +931,7 @@
     //Use for testing perpose. When use ajax to debug the code''''''''''''''''''''''''''''''
     
     public function test(){
-        $data=[
-            'user_id'=>$_SESSION['user_id'],
-            'name' => 'test',
-            'price' => 'test',
-            'image' => 'test',
-            'item_id' => 'test',
-            'quantity' => 'test',
-            
-            'user_id_err'=>'',
-            'name_err' => '',
-            'price_err' => '',
-            'quantity_err'=>'',
-        ];
-      
-       
-            $this->view('v_test', $data);
-            print_r($this->userModel->test($data));
-            
-            
+        $this->view('v_test');
         
-        
-        
-        // if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
-        //     toastFlashMsg();
-        // }
     }
 }
