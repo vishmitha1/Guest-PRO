@@ -391,7 +391,7 @@
                         // $_SESSION['toast_type']='success';
                         // $_SESSION['toast_msg']='Reservation deleted successfully.';
                         header('Content-Type: application/json');
-                        echo json_encode('vidsl');
+                        echo json_encode($output);
                         
                         
                         
@@ -698,37 +698,98 @@
 
                     $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
                     
-                
                     
-                    if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
-                        // $this->userModel->deletecart($_SESSION['user_id']);
+                    //customer hotel eke nemeinm inne paymnet ekk karann wenawa order ekata
+                    if($this->userModel->isCustomerCheckedIn($data)){
+                        $_SESSION['schedule_order']=$data;
 
-                        // customer hotel eke nemeinm inne paymnet ekk karann wenawa order ekata
-                        if($this->userModel->isCustomerCheckedIn($_SESSION['user_id'])){
-                            $this->view('v_test',$data);
-                            echo("Payment gateway");
-                        }
+                        $merchant_secret="ytgmail";
+                        $currency='LKR';
+                        $merchant_id='ytgamil';
+                        $amount=$data['price'];
+                        $order_id='10';
 
-                        else{
-                            $_SESSION['toast_type']='success';
-                            $_SESSION['toast_msg']='Order placed successfully.';
-                            redirect('Customers/foodorder');
 
-                        }
 
-                        // $this->view('v_test', $data);
-                        // echo 'count'.$count;
+
+                        $hash = strtoupper(
+                            md5(
+                                $merchant_id . 
+                                $order_id . 
+                                number_format($amount, 2, '.', '') . 
+                                $currency .  
+                                strtoupper(md5($merchant_secret)) 
+                            ) 
+                        );
+                        $output=[
+                            'merchant_id'=>$merchant_id,
+                            'order_id'=>$order_id,
+                            'amount'=>$amount,
+                            'currency'=>$currency,
+                            'hash'=>$hash,
+                            'first_name'=>$_SESSION['name'],
+                            'last_name'=>'',
+                            'email'=>$_SESSION['email'],
+                            'phone'=>'',
+                            'address'=>'',
+                            'city'=>'',
+                            'country'=>'',
+                            'items'=>'Food Order',
+
+                        ];
+                        $this->view('customers/v_paymentGateway',$output);
+                    
                     }
+
                     else{
-                        $_SESSION['toast_type']='warning';
-                        $_SESSION['toast_msg']='Something went wrong .';
-                        redirect('Customers/foodorder');
+                        if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
+
+
+                                $_SESSION['toast_type']='success';
+                                $_SESSION['toast_msg']='Order placed successfully.';
+                                redirect('Customers/foodorder');   
+                            
+    
+                        }
+                        else{
+                            $_SESSION['toast_type']='warning';
+                            $_SESSION['toast_msg']='Something went wrong .';
+                            redirect('Customers/foodorder');
+                        }
                     }
                 
                
                 }
             }
-        }     
+        }  
+        
+        
+        /* food order ekata pay karala iwara unata passe enne mekata */
+        public function foodOrderPayments(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $data=$_SESSION['schedule_order'];
+                unset($_SESSION['schedule_order']);
+
+                $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
+
+
+                    $_SESSION['toast_type']='success';
+                    $_SESSION['toast_msg']='Order placed successfully.';
+                    echo json_encode('Success');
+                
+
+                }
+                else{
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Something went wrong .';
+                    echo json_encode('Warning');
+                }
+
+            }
+
+
+        }
         
         //Update order from dashboard UI
         public function updateOrder(){

@@ -554,8 +554,9 @@
 
         //Retrive Reservation Room number for food order and service request
         public function retriveRoomNo($id){
-            $this->db->query("SELECT roomNo FROM reservations WHERE user_id=:id ");
+            $this->db->query("SELECT roomNo FROM reservations WHERE user_id=:id  ");
             $this->db->bind(':id',$id);
+        
             $row = $this->db->resultSet();
 
             return $row;
@@ -610,6 +611,26 @@
             else{
                 return false;
             }
+        }
+
+        //check whether user in hotel or not
+        public function isCustomerCheckedIn($data){
+            $this->db->query("SELECT rooms.roomNo , reservations.checked as status
+                             FROM reservations INNER JOIN rooms ON reservations.reservation_id=rooms.reservation_id 
+                             WHERE rooms.availability=:avail AND user_id=:id");
+            $this->db->bind(':avail','no');
+            $this->db->bind(':id',$data['user_id']);
+            $row = $this->db->resultSet();
+
+            foreach($row as $r){
+             
+                if($r->roomNo == $data['roomNo'] && $r->status == 'out'){
+                    return true;
+                }
+            }
+            return false;
+            
+            
         }
         
 

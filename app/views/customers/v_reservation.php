@@ -861,22 +861,23 @@ $(document).ready(function () {
                 url: $(this).attr("action"),
                 data: formData,
                 success: function (response) {
-                    $("#reload").load(location.href + " #reload");
+                    
                    
                 
-                    console.log(response);
+                    
                         Swal.fire({
                         title: "Deleted!",
                         text: "Your reservation has been deleted.",
                         icon: "success",
-                            timer: 2000,
-                    });
                             
+                    });
+                    
+                    // $("#reload").load(location.href + " #reload");        
                     //set time out for reload the page
 
-                    // setTimeout(function () {
-                    //     location.reload();
-                    //     }, 2000);
+                    setTimeout(function () {
+                        location.reload();
+                        }, 1500);
 
                     //can use this one for reload section
                     // $("#reservation-retrive").load(location.href + " #reservation-retrive");
