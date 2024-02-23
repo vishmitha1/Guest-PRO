@@ -546,6 +546,68 @@
                                                 </ul>
                                             `;
                         }
+                        else{
+                            fun1Img="fa-shower"
+                            fun2Img="fa-toilet"
+                            fun3Img="fa-vector-square"
+                            fun4Img="fa-bed-pulse"
+                            fun1Title='Shower'
+                            fun2Title='Complete Bathroom' 
+                            fun3Title='250'
+                            fun4Title='King Bed'
+
+                            Intend1=`<i class="fa-solid fa-xmark"></i><span class="intend-name"> Mini Bar</span><br>`;
+                            Intend2=`<i class="fa-solid fa-check"></i><span class="intend-name"> AC</span><br>`;
+                            Intend3=`<i class="fa-solid fa-check"></i><span class="intend-name"> LCD TV</span><br>`;
+                            Intend4=`<i class="fa-solid fa-check"></i><span class="intend-name"> Luggage rack</span><br>`;
+                            Intend5=`<i class="fa-solid fa-xmark"></i><span class="intend-name"> Soundproofed</span><br>`;
+                           
+                            mainImg='StandardroomMain';
+                            price=item.price;
+                            popupID=item.category+'ID';
+                            dyId=item.category+'dyID';
+                            BathroomamenitiesList=`
+                                                <ul>
+                                                    <li>Standard ensuite bathroom</li>
+                                                    <li>Shower/tub combination</li>
+                                                    <li>Basic toiletries</li>
+                                                    <li>Hairdryer</li>
+                                                   
+                                                </ul>
+                                            `;
+                            BedroomAmentitiesList= `
+                                                <ul>
+                                                    <li>Air conditioning</li>
+                                                    <li>Normal-sized bed</li>
+                                                    <li>Bed sheets</li>
+                                                    <li>Pillows</li>
+                                                
+                                                </ul>
+                                            `;
+                            FurnitureAmentitiesList=`
+                                                <ul>
+                                                    <li>Luggage rack</li>
+                                                    <li>Reading lamps</li>
+                                                    <li>Dresser or wardrobe</li>
+                                                
+                                                </ul>
+                                            `; 
+                            EntertainmentAmentitiesList=`
+                                                <ul>
+                                                    <li> LCD TV</li>
+                                                    <li>Tv Chanels</li>
+                                                    <li>Family board games</li>
+                                                </ul>
+                                            `;
+                            AdditionalAmentitiesList=`
+                                                <ul>
+                                                    <li>Daily housekeeping</li>
+                                                    <li>Complimentary continental breakfast</li>
+                                                    <li>childcare services</li>
+                                                </ul>
+                                            `; 
+                        }
+
                         roomComponent.innerHTML = `
                      <div class="room-img">
                     <img src="<?php echo URLROOT;?>/public/img/rooms/`+mainImg+`.jpg" alt="">
@@ -689,46 +751,53 @@
                     </div>
                     <div class="payment-wrapper">
                         <form action='<?php echo URLROOT; ?>/Customers/reservation' method='POST'>
-                        <span class="title">Reservation options</span>
-                        <div class="payment-type">
-                            <label class="rd-btn" ><input type="radio" name='payment-radio' value="paynow"> Pay Now</label><br>
-                            <label class="rd-btn"><input type="radio" name='payment-radio' value="paylater"> Pay at property</label>
-                        </div>
-                        <div class="payment-content">
-                            <div class="left-box">
-                                <p class="termsandcon"><a href="">Terms and Condition <i class="fa-solid fa-circle-info"></i></a></p>
-                                <p class="duration"><i class="fa-solid fa-moon"></i>  `+ (Date.parse(outdate) - Date.parse(indate)) / (24 * 3600 * 1000)+` Night</p>
-                                
-
-                                <p class="duration"><span class="material-symbols-outlined">bed</span>  `+ roomNumbers.length +` Room(s)`+ roomNumbers.map((element) =>  
-                                `<span class="fa-stack ">
-                                    <i class="fa fa-square-o fa-stack-2x"></i>
-                                    <strong class="fa-stack-1x">`+element+`</strong>
-                                </span>` ).join('') + `
-                                 </p><br>
-
-                                <span class="price">`+price+`LKR</span>
-                                <label>includes taxes & fees</label>
-                                <input type="hidden" name="indate" class='indate2' value='' >
-                                <input type='hidden' name='outdate' class='outdate2' value='' >
-                                <input type='hidden' name='roomcount' class='roomcount2' value='' >
-                                <input type='hidden' name='roomno'  value='${item.roomNo}' >
-                                <input type='hidden' name='price'  value='${price}' >
+                            <span class="title">Reservation options</span>
+                            <div class="payment-type">
+                                <label class="rd-btn" ><input type="radio" name='payment-radio' value="paynow"> Pay Now</label><br>
+                                <label class="rd-btn"><input type="radio" name='payment-radio' value="paylater"> Pay at property</label>
                             </div>
-                            <div class="right-box">
-                                <?php if(sizeof($data[1])==0){?>
 
-                                    <input type="hidden"   >
-                                <?php } else{?>
-
-                                    <input type="hidden" id="reservation_id" name="reservation_id"  value='<?php echo $data[1]['reservation_id'];?>'  >
-                                    <input type="hidden" id="OldroomNo" name="OldroomNo"  value='<?php echo $data[1]['roomNo'];?>'  >
+                            <div class="payment-content">
+                                <div class="left-box">
+                                    <p class="termsandcon"><a href="">Terms and Condition <i class="fa-solid fa-circle-info"></i></a></p>
+                                    <p class="duration"><i class="fa-solid fa-moon"></i>  `+ (Date.parse(outdate) - Date.parse(indate)) / (24 * 3600 * 1000)+` Night</p>
                                     
-                                <?php }?>
-                                <button name='place-reservation' >Reserve</button>
-                                
+
+                                    <p class="duration"><span class="material-symbols-outlined">bed</span>  `+ roomNumbers.length +` Room(s)`+ roomNumbers.map((element) =>  
+                                    `<span class="fa-stack ">
+                                        <i class="fa fa-square-o fa-stack-2x"></i>
+                                        <strong class="fa-stack-1x">`+element+`</strong>
+                                    </span>` ).join('') + `
+                                    <div class="reserve-for-others">
+                                        <span><i class="fa-solid fa-person"></i>  Reserve for others </span>
+                                        <input type="checkbox" name="reserve-for-others"  value="other"  >
+                                    </div>
+                                    </p>
+                                    
+                                    
+
+                                    <span class="price">`+price+`LKR</span>
+                                    <label>includes taxes & fees</label>
+                                    <input type="hidden" name="indate" class='indate2' value='' >
+                                    <input type='hidden' name='outdate' class='outdate2' value='' >
+                                    <input type='hidden' name='roomcount' class='roomcount2' value='' >
+                                    <input type='hidden' name='roomno'  value='${item.roomNo}' >
+                                    <input type='hidden' name='price'  value='${price}' >
+                                </div>
+                                <div class="right-box">
+                                    <?php if(sizeof($data[1])==0){?>
+
+                                        <input type="hidden"   >
+                                    <?php } else{?>
+
+                                        <input type="hidden" id="reservation_id" name="reservation_id"  value='<?php echo $data[1]['reservation_id'];?>'  >
+                                        <input type="hidden" id="OldroomNo" name="OldroomNo"  value='<?php echo $data[1]['roomNo'];?>'  >
+                                        
+                                    <?php }?>
+                                    <button name='place-reservation' >Reserve</button>
+                                    
+                                </div>
                             </div>
-                        </div>
                         </form>
 
                     </div>
@@ -792,22 +861,23 @@ $(document).ready(function () {
                 url: $(this).attr("action"),
                 data: formData,
                 success: function (response) {
-                    $("#reload").load(location.href + " #reload");
+                    
                    
                 
-                    console.log(response);
+                    
                         Swal.fire({
                         title: "Deleted!",
                         text: "Your reservation has been deleted.",
                         icon: "success",
-                            timer: 2000,
-                    });
                             
+                    });
+                    
+                    // $("#reload").load(location.href + " #reload");        
                     //set time out for reload the page
 
-                    // setTimeout(function () {
-                    //     location.reload();
-                    //     }, 2000);
+                    setTimeout(function () {
+                        location.reload();
+                        }, 1500);
 
                     //can use this one for reload section
                     // $("#reservation-retrive").load(location.href + " #reservation-retrive");

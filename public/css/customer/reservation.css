@@ -563,6 +563,25 @@
     margin-top: -10px;
     font-size: 10px;
 }
+
+.left-box .reserve-for-others{
+    font-size: 22px;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+
+}
+
+.left-box .reserve-for-others i{
+    font-size: 25px;
+    color: lightslategray;
+}
+
+.left-box .reserve-for-others input{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
 .payment-content .right-box{
     position: absolute;
     

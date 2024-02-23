@@ -261,6 +261,29 @@
 
 
 
+        /* mnge reservation UI eke , give access control in here */
+        public function  giveCustomerAccess($data){
+            $this->db->query('UPDATE reservations SET checked=:access WHERE reservation_id=:id');
+            $this->db->bind(':id',$data['reservation_id']);
+
+            if($data['checked']=='in'){
+                $this->db->bind(':access','out');
+            }
+            else{
+                $this->db->bind(':access','in');
+            }
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+
+
+
 
         //payment part'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 

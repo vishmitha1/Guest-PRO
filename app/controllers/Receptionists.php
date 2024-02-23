@@ -443,6 +443,84 @@
             }
         }
 
+        /* customer hotel ekata awaa kiyala status eka update karanna */
+
+        public function giveCustomerAccess(){
+            //search karananwa
+            if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['customeSearch'])){
+
+                $data=[
+                    'serachby' => trim($_POST['serachby']),
+                    'details' => trim($_POST['details']),
+                ];
+
+                if(empty($data['serachby'])){
+                    $_SESSION['toast_type']='info';
+                    $_SESSION['toast_msg']='Please select a search type';
+                    redirect('receptionists/manageReservation');
+                }
+
+                elseif(empty($data['details'])){
+                    $_SESSION['toast_type']='info';
+                    $_SESSION['toast_msg']='Please enter value';
+                    redirect('receptionists/manageReservation');
+                    
+                  
+                }
+
+                elseif($this->receptionistModel->customSearch($data)){
+                    
+                    $output=$this->receptionistModel->customSearch($data);
+                    $this->view('receptionists/v_manageReservation',[$output,$array=[]]);
+                }
+
+                else{
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Something went wrong';
+                    redirect('receptionists/manageReservation');
+                }
+            }
+
+
+            elseif($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['changeAccess'])){
+
+          
+
+                $data=[
+                    'reservation_id' => trim($_POST['reservation_id']),
+                    'user_id' => $_SESSION['user_id'],
+                    'checked' => trim($_POST['checked']),
+                ];
+
+                if(empty($data['reservation_id'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Something went wrong';
+                    redirect('receptionists/manageReservation');
+                }
+
+                elseif($this->receptionistModel->giveCustomerAccess($data)){
+                    $_SESSION['toast_type']='success';
+                    $_SESSION['toast_msg']='Customer access given successfully';
+                    redirect('receptionists/manageReservation');
+                }
+
+                else{
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Something went wrong';
+                    redirect('receptionists/manageReservation');
+                }
+
+            }
+
+
+            else{
+                $data=[];
+                $this->view('receptionists/v_manageReservation',$data);
+                if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                    toastFlashMsg();
+                }
+            }
+        }
 
 
 
@@ -590,9 +668,9 @@
                 $customerData=$this->receptionistModel->getCustomerDataForPaymentGateway($data);
           
 
-                $merchant_secret="xxxxxxx";
+                $merchant_secret="visalgmail";
                 $currency='LKR';
-                $merchant_id='xxxxxxx';
+                $merchant_id='visalgmail';
                 $amount=$customerData[0]->total;
                 $order_id='10';
 
