@@ -99,12 +99,31 @@
 
         //function for the place reservation
         public function placereservation($data){
-            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo,cost) VALUES(:id,:indate,:outdate,:roomNo,:cost)');
+            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo,cost,email,customer_name,phone,nic,address) VALUES(:id,:indate,:outdate,:roomNo,:cost, :email, :customer_name, :phone, :nic, :address)');
             $this->db->bind('id',$data["user_id"]);
             $this->db->bind('indate',$data["indate"]);
             $this->db->bind('outdate',$data["outdate"]);
             $this->db->bind('roomNo',$data["roomNo"]);
             $this->db->bind('cost',$data["price"]);
+            $this->db->bind('nic',$_SESSION['user_nic']);
+
+            if(isset($data['customer_email'])){
+           
+                $this->db->bind('address',$data["customer_address"]);
+                $this->db->bind('phone',$data["customer_phone"]);
+                $this->db->bind('customer_name',$data["customer_name"]);
+                $this->db->bind('email',$data["customer_email"]);
+                echo "email";
+            
+            }
+
+            else{
+                $this->db->bind('address',$_SESSION['user_address']);
+                $this->db->bind('phone',$_SESSION['user_phone']);
+                $this->db->bind('customer_name',$_SESSION['username']);
+                $this->db->bind('email',$_SESSION['email']);
+               
+            }
             
 
             //split roomNo one by one
@@ -212,6 +231,9 @@
         }
 
 
+
+
+
         //This one use to cancel reservation
         public function deleteReservation($data){
             $this->db->query("DELETE FROM reservations WHERE user_id = :u_id AND reservation_id = :res_id  ");
@@ -245,13 +267,34 @@
         
         //update reservation
         public function updateReservation($data){
-            $this->db->query("UPDATE reservations SET checkIn=:indate,checkOut=:outdate,roomNo=:roomNo WHERE user_id=:id AND reservation_id=:res_id");
+            $this->db->query("UPDATE reservations SET checkIn=:indate,checkOut=:outdate,roomNo=:roomNo ,nic=:nic ,phone=:phone, address=:address, email=:email ,customer_name=:customer_name  WHERE user_id=:id AND reservation_id=:res_id");
             $this->db->bind('id',$data["user_id"]);
             $this->db->bind('indate',$data["indate"]);
             $this->db->bind('outdate',$data["outdate"]);
             $this->db->bind('roomNo',$data["roomNo"]);
             $this->db->bind('res_id',$data["reservation_id"]);
+            $this->db->bind("nic",$_SESSION['user_nic']);
 
+
+            if(isset($data['customer_email']) or isset($data['customer_address']) or isset($data['customer_phone']) or isset($data['customer_name'])){
+           
+                $this->db->bind('address',$data["customer_address"]);
+                $this->db->bind('phone',$data["customer_phone"]);
+                $this->db->bind('customer_name',$data["customer_name"]);
+                $this->db->bind('email',$data["customer_email"]);
+                echo "email";
+            
+            }
+
+            else{
+                $this->db->bind('address',$_SESSION['user_address']);
+                $this->db->bind('phone',$_SESSION['user_phone']);
+                $this->db->bind('customer_name',$_SESSION['username']);
+                $this->db->bind('email',$_SESSION['email']);
+               
+            }
+            echo $data["roomNo"];
+            echo $data["oldroomNo"];    
             
             //split roomNo one by one
             if( (substr_count($data["roomNo"],",")+1) >1 ){
@@ -272,7 +315,20 @@
             if($this->db->execute()){
                 if($this->changeRoomAvailability($roomNo,'no')){
                     
-                    if($this->changeRoomAvailability($oldroomNo,'yes')){
+
+                    // me wede trigger eken karanawa''''''''''''''
+
+                    // if($this->changeRoomAvailability($oldroomNo,'yes')){
+                    //     return true;
+                    // }
+                    // else{
+                    //     return false;
+                    // }
+                        
+                    /*methana wenne rooms wala tyna res_id eka reservation update ehekadi
+                         wena wenama rooms walata dala res id eka change karanawa'''''''''''''''''''''*/
+                         
+                    if($this->addReservation($data)){
                         return true;
                     }
                     else{
@@ -287,6 +343,18 @@
             else{
                 return false;
             }
+        }
+
+
+        //Retrive reservation details to update v_reservForOthers.php
+        //meken reserFOrOthers ekta data retrive karanwa
+        public function retriveReservationDetails($data){
+            $this->db->query("SELECT * FROM reservations WHERE user_id=:id and reservation_id=:res_id ");
+            $this->db->bind(':id',$data['user_id']);
+            $this->db->bind(':res_id',$data['reservation_id']);
+            $row = $this->db->single();
+
+            return $row;
         }
 
 
@@ -486,8 +554,9 @@
 
         //Retrive Reservation Room number for food order and service request
         public function retriveRoomNo($id){
-            $this->db->query("SELECT roomNo FROM reservations WHERE user_id=:id ");
+            $this->db->query("SELECT roomNo FROM reservations WHERE user_id=:id  ");
             $this->db->bind(':id',$id);
+        
             $row = $this->db->resultSet();
 
             return $row;
@@ -542,6 +611,26 @@
             else{
                 return false;
             }
+        }
+
+        //check whether user in hotel or not
+        public function isCustomerCheckedIn($data){
+            $this->db->query("SELECT rooms.roomNo , reservations.checked as status
+                             FROM reservations INNER JOIN rooms ON reservations.reservation_id=rooms.reservation_id 
+                             WHERE rooms.availability=:avail AND user_id=:id");
+            $this->db->bind(':avail','no');
+            $this->db->bind(':id',$data['user_id']);
+            $row = $this->db->resultSet();
+
+            foreach($row as $r){
+             
+                if($r->roomNo == $data['roomNo'] && $r->status == 'out'){
+                    return true;
+                }
+            }
+            return false;
+            
+            
         }
         
 

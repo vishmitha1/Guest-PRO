@@ -1,7 +1,7 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
     
 
-<div class="home">
+<!-- <div class="home"> -->
 
     <div class="review-container">
     <?php foreach( $data as $item){ ?>

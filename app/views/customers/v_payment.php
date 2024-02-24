@@ -8,7 +8,7 @@
             </div>
         </div> -->
         
-<div class="home">
+<!-- <div class="home"> -->
     <div class="main-title">Total Due Payment</div>
                 <div class="payment-components-wrapper">
                     <div class="payment-blocks light-green">

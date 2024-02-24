@@ -1,10 +1,97 @@
-.title{
-    color: black;
-    font-size: 25px;
-    margin-top: 20px; 
-    font-family: 'Exo 2', sans-serif;
+
+
+.payment-res-searchbar-wrapper{
+    width: 100%;
+    height: 100px;
+    margin-top: 50px;
+    display: block;
+    
+}
+
+.payment-res-searchbar-wrapper .res-searchbar{
+
+    /*  */
+    height: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;  
+    align-items: center;
+    margin-bottom: 20px;
+    column-gap: 50px;
+    margin-top: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgb(173, 173, 173);
+    
+}
+
+
+.payment-res-searchbar-wrapper .form-title-mngereservation{
+    font-size: 30px;
+    display:inline-block;
+    position: relative;
+    left: 40%;
+    text-align: center;   
+    height: auto;
+    top: 30px;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+
+    bottom: 4px;
+}
+
+.payment-res-searchbar-wrapper .form-title span{
     text-align: center;
 }
+
+
+.payment-res-searchbar-wrapper .res-searchbar .items{
+   margin-left: 20px;
+   /* border: 1px solid black; */
+   padding: 15px;
+   font-size: 20px;
+   border-radius: 10px;
+   box-shadow: rgba(23, 225, 44, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.payment-res-searchbar-wrapper .res-searchbar .items span{
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    
+}
+
+
+.payment-res-searchbar-wrapper .res-searchbar .btn button{
+    font-size: 18px;
+    width: 80px;
+    font-family: 'Lato', sans-serif;
+    padding: 8px;
+    border-radius: 5px;
+    border:none ;
+    background-color: #2ecc71;
+}
+
+.res-searchbar .btn button:hover{
+    background-color: #27ae60;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.res-searchbar input{
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px dotted black;
+ 
+    
+}
+
+.res-searchbar .date{
+    width: 150px;
+    padding: 8px;
+}
+
+
 
 .calculate-payment-table-wrapper{
     margin-top: 50px;
