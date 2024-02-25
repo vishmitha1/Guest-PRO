@@ -13,6 +13,7 @@
     font-family: "poppins", sans-serif;
     font-weight: 100;
     z-index: 100;
+    transition: transform 0.3s all ease-in-out; ;
     /* padding: 2.7rem 3rem 0 2rem; */
    
 
@@ -120,6 +121,8 @@
     align-items: center;
     justify-content: flex-end; /* Right-align the user profile section */
     margin-bottom: 20px;
+    left: 50%;
+    /* border: 1px solid black; */
 }
 
 .user-profile img {
@@ -143,4 +146,38 @@
 
 .user-profile-info p {
     margin: 0;
+}
+
+
+.navigations-controller{
+    width: 100px;
+    height: 50px;
+    /* border: 1px solid black; */
+    font-size: 33px;
+    
+    position: absolute;
+    font-weight: 600;
+}
+
+.navigations-controller i:hover{
+    color: #003366;
+    transition: .3s;
+    cursor: pointer;
+   
+}
+
+.sidebar-hidden {
+    transform: translateX(-100%); /* Move the sidebar out of the viewport */
+}
+
+.home-full{
+   
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* background: #0074e8; */
+    background: #ffffff;
+    transition: .3s;
+    
 }

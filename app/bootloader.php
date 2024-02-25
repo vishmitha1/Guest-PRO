@@ -19,3 +19,7 @@
     // Load the middleware (checks for the file)
     require_once 'middlewares/AuthMiddleware.php';
     
+
+    //load mailer
+    require_once 'libraries/Mailer.php';
+  

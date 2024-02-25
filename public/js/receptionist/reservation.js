@@ -1,6 +1,8 @@
 var availabilityBtn=document.getElementById("checkAvailability");
 var searchBtn=document.getElementById("searchReservation");
 
+var defaultRoomBlocks=document.getElementsByid('Default-view');
+
 console.log(availabilityBtn);
 
 availabilityBtn.addEventListener("click",function(){
@@ -9,4 +11,7 @@ availabilityBtn.addEventListener("click",function(){
     var div2=document.getElementsByClassName('recep-reservation-history-wrapper');
     div1.style.display="none";
     div2.style.display="none";
+    defaultRoomBlocks.style.display="none";
 })
+
+

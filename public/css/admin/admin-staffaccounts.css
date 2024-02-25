@@ -1,19 +1,21 @@
 .title-staffaccounts h1 {
-    margin-top: 0px; /* Adjust as needed */
-    margin-bottom: 20px; /* Adjust as needed */
+    margin-top: 0px;
+    /* Adjust as needed */
+    margin-bottom: 20px;
+    /* Adjust as needed */
 }
 
 /* CSS for the search bar */
-.search-bar {
-    margin-top: 20px;
+.search-bar form {
     display: flex;
+    width: 100%;
 }
 
 .search-bar input[type="text"] {
-    flex: 1; /* Take up available space */
+    flex: 1;/* Take up available space */
     padding: 10px;
     box-sizing: border-box;
-    border: 1px solid #E6E7E8; /* Add border to the input field */
+    border: 1px solid #E6E7E8;/* Add border to the input field */
 }
 
 .search-bar button {
@@ -22,8 +24,6 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    border-top-right-radius: 0; /* No rounded corners on the button */
-    border-bottom-right-radius: 0;
 }
 
 .search-bar button:hover {
@@ -31,14 +31,15 @@
 }
 
 .table {
-border-collapse: collapse;
-width: 100%;
-margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
 }
 
-.table th, .table td {
-border: 1px solid #E6E7E8;
-padding: 8px;
+.table th,
+.table td {
+    border: 1px solid #E6E7E8;
+    padding: 8px;
 }
 
 /* Styles for the create staff accounts form */
@@ -137,18 +138,28 @@ padding: 8px;
 
 /* Styles for the update and delete links */
 .table td a {
-background-color: #d80707; /* Red */
-color: white;
-border: none;
-padding: 5px 10px;
-cursor: pointer;/* Add margin to create space between links */
-text-decoration: none; /* Remove underline */
-display: inline-block; /* Ensure inline-block display to allow text-align property */
-text-align: center; /* Align the button content */
+    background-color: #d80707;
+    /* Red */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    /* Add margin to create space between links */
+    text-decoration: none;
+    /* Remove underline */
+    display: inline-block;
+    /* Ensure inline-block display to allow text-align property */
+    text-align: center;
+    /* Align the button content */
 
 }
 
 .table td a:hover {
-background-color: #9b0505; /* Darker red on hover */
+    background-color: #9b0505;
+    /* Darker red on hover */
 }
-            
+
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}

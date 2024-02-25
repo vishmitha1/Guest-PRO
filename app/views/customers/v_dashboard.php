@@ -2,7 +2,12 @@
 
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
 
-<div class="home">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
 
 		
 
@@ -10,37 +15,37 @@
 		<br/>
 	<div class="smooth-scrolling">
 
-	<a href="#bill_fletch">	
-		<div class="col-div-3">
-			<div class="box">
-				<p><?php if(empty($data[2])){?>
-						0 LKR<br/><span>Current Bill</span></p>
-					<?php }else{?>	
-						<?php echo ($data[2][0]->cost); ?> LKR<br/><span>Current Bill</span></p>
-					<?php } ?>
-				
-                <i class="fa fa-wallet box-icon"></i>
+		<a href="#bill_fletch">	
+			<div class="col-div-3">
+				<div class="box">
+					<p><?php if(empty($data[2])){?>
+							0 LKR<br/><span>Current Bill</span></p>
+						<?php }else{?>	
+							<?php echo ($data[2][0]->cost); ?> LKR<br/><span>Current Bill</span></p>
+						<?php } ?>
+					
+					<i class="fa fa-wallet box-icon"></i>
+				</div>
 			</div>
-		</div>
-	</a>
+		</a>
 	
-	<a href="#foodorder_fletch">	
-		<div class="col-div-3">
-			<div class="box">
-				<p>01<br/><span>My Orders</span></p>
-				<i class="fa fa-list box-icon"></i>
+		<a href="#foodorder_fletch">	
+			<div class="col-div-3">
+				<div class="box">
+					<p>01<br/><span>My Orders</span></p>
+					<i class="fa fa-list box-icon"></i>
+				</div>
 			</div>
-		</div>
-	</a>
+		</a>
 
-	<a href="#ser_fletch">
-		<div class="col-div-3">
-			<div class="box">
-				<p>0<br/><span>Active Servicerequests</span></p>
-				<i class="fa fa-list box-icon"></i>
+		<a href="#ser_fletch">
+			<div class="col-div-3">
+				<div class="box">
+					<p>0<br/><span>Active Servicerequests</span></p>
+					<i class="fa fa-list box-icon"></i>
+				</div>
 			</div>
-		</div>
-	</a>
+		</a>
 	</div>	
 
 		<div class="clearfix"></div>
@@ -84,27 +89,38 @@
 		</div>
 		</div>
 
-		<div class="col-div-4">
+		<!-- <div class="col-div-4">
 			<div class="box-4">
-			<div class="content-box">
-				<p> </p>
+				<div class="content-box">
+						<p> </p>
 
-				<div class="circle-wrap">
-	    <div class="circle">
-	      <div class="mask full">
-	        <div class="fill"></div>
-	      </div>
-	      <div class="mask half">
-	        <div class="fill"></div>
-	      </div>
-	      <div class="inside-circle"> 70% </div>
-	    </div>
-	  </div>
+					<div class="circle-wrap">
+						<div class="circle">
+							<div class="mask full">
+								<div class="fill"></div>
+							</div>
+							<div class="mask half">
+								<div class="fill"></div>
+							</div>
+							<div class="inside-circle"> 70% </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		<div class="col-div-4">
+			<div class="box-4"  >
+				<canvas id="chart-1" >
+
+				</canvas>
 			</div>
 		</div>
-		</div>
-			
 		<div class="clearfix"></div>
+		<!-- <div class="cus-dash-chart">
+			
+		</div> -->
+			
+		
 
 		<div class="bill_fletch" id='bill_fletch'>
 			<div class="bill_fletch_wrapper">
@@ -248,5 +264,45 @@
 				});
 			};
 		});
+
+
+		//chart-1
+		var ctx = document.getElementById('chart-1');
+		
+		new Chart(ctx, {
+		type: 'doughnut',
+		data: {
+			labels: ['Reservation', 'Food Order'],
+			datasets: [{
+				label: 'My Cost',
+				data: [300, 50],
+				backgroundColor: [
+				'#66b3ff ',
+				'#ffff00',
+				],
+				borderColor:"black",
+				borderWidth: .1
+				// hoverOffset: 4
+			}]
+		},
+		options: {
+			plugins: {
+				title: {
+					display: true,
+					text: 'My Cost', // You can replace this with your desired title
+					font: {
+                        size: 25,
+						color:"#ffff00",
+						
+                    }
+					
+
+				},
+			}	
+    	}
+		
+		});
+		
+
 
 	</script>
