@@ -31,6 +31,10 @@
                 <a href="<?php echo URLROOT; ?>/Managers/generatereports"><i class=" fa-solid fa-file"></i>Generate
                     Reports</a>
             </div>
+            <div class="link-items">
+                <a href="<?php echo URLROOT; ?>/Managers/servicerequests"><i class=" fa-solid fa-file"></i>Service
+                    Requests</a>
+            </div>
         </div>
         <div class="logout">
             <a href="<?php echo URLROOT; ?>/Users/login"><button value="logout"><i

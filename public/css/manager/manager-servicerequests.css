@@ -1,0 +1,25 @@
+.request-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.request-details {
+    flex-grow: 1;
+}
+
+.request-actions button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.request-actions button:hover {
+    background-color: #45a049;
+}
