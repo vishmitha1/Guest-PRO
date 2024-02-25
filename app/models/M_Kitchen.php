@@ -94,5 +94,29 @@
             $this->db->execute();
         }
 
+        public function getAllFoodItems(){
+            $this->db->query("SELECT * FROM fooditems ");
+            
+            $row = $this->db->resultSet();
+
+            $row=array_reverse($row);
+
+            return $row;
+        }
+
+        public function changeFoodItemStatus($id){
+            try {
+                $this->db->query("UPDATE fooditems SET status = CASE WHEN status = 1 THEN 0 WHEN status = 0 THEN 1 ELSE status END WHERE item_id=:id");
+                $this->db->bind(':id', $id);
+                $this->db->execute();
+                return true;
+            } catch (PDOException $e) {
+                echo "Error updating status: " . $e->getMessage();
+            } catch (Exception $e) {
+                echo "An error occurred: " . $e->getMessage();
+            }          
+
+        }
+
 
     }

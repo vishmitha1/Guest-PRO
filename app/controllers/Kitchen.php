@@ -25,8 +25,30 @@ class Kitchen extends Controller{
     public function foodmenu(){
         $data =[ 
         ];
+        $food_items = $this->userModel->getAllFoodItems();
+        $data['food_items'] = $food_items;
         $this->view('kitchens/v_foodmenu', $data);
         
+    }
+
+    public function changeFoodItemStatus($id){
+        try{
+            $change_status = $this->userModel->changeFoodItemStatus($id);
+
+            $msg = [
+                'status'=> 'success',
+            ];
+
+            echo json_encode($msg);
+            exit();
+        }catch(Exception $e){
+            $msg = [
+                'status'=> $e->getMessage(),
+            ];
+
+            echo json_encode($msg);
+            exit();
+        }
     }
 
 
