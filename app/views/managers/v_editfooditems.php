@@ -56,18 +56,26 @@
             $imageFilenames = explode(',', $data['foodItemDetails']->image);
             if (!empty($imageFilenames[0])): // Check if array has elements
                 ?>
-                <div class="existing-photos">
-                    <h4>Existing Photos</h4>
-                    <?php foreach ($imageFilenames as $photo): ?>
-                        <div class="existing-photo">
-                            <img src="<?php echo URLROOT; ?>../public/img/food_items/<?php echo $photo; ?>">
-                            <input type="checkbox" name="remove_photos[]" value="<?php echo $photo; ?>"> Remove
 
+                <h4>Existing Photos</h4>
+                <p>Tick to remove an image</p>
+                <?php foreach ($imageFilenames as $photo): ?>
+                    <?php
+                    $extension = pathinfo($photo, PATHINFO_EXTENSION);
+                    if (empty($extension)) {
+                        // If the filename doesn't have an extension, assume it's a JPEG file
+                        $photo = $photo . '.jpg';
+                    }
+                    $imageSrc = URLROOT . '/public/img/food_items/' . $photo;
+                    ?>
+                    <div class="existing-photos">
+                        <img src="<?php echo $imageSrc; ?>" alt="Food Item Image">
+                        <input type="checkbox" name="remove_photos[]" value="<?php echo $photo; ?>">
+                    </div>
+                <?php endforeach; ?>
 
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+            <?php endif; ?><br><br>
+
 
 
 
@@ -77,7 +85,11 @@
             <div class="new-photos">
                 <h4>New Photos</h4>
                 <input type="file" name="new_photos[]" multiple>
-                <!-- <input type="file" id="fooditemPhotos" name="fooditemPhotos[]" accept="image/*" multiple> -->
+                <?php if (!empty($data['image_err'])): ?>
+                    <span class="error">
+                        <?php echo $data['image_err']; ?>
+                    </span>
+                <?php endif; ?><br><br>
             </div>
 
 

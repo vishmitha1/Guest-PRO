@@ -744,13 +744,13 @@ class Managers extends Controller
             }
         } else {
             $data = [
-                // 'item_id' => trim($_POST['item_id']),
+
                 'item_name' => '',
                 'category' => '',
                 'price' => '',
                 'image' => '',
 
-                // 'id_err' => '',
+
                 'name_err' => '',
                 'category_err' => '',
                 'price_err' => '',
@@ -918,6 +918,19 @@ class Managers extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $item_id = $_POST['item_id'];
+            // $data['item_id'] = $item_id;
+            // Retrieve food item details from the database
+            $foodItemDetails = $this->userModel->getFoodItemDetails($item_id);
+
+            $category = $this->userModel->getfoodcategory();
+
+            // Pass room types data and room details to the view
+            $data = [
+                'foodItemDetails' => $foodItemDetails,
+                'foodcategory' => $category,
+
+            ];
+
 
 
             // Handle file uploads for new photos
@@ -928,11 +941,7 @@ class Managers extends Controller
                 if (!$uploadResult['success']) {
                     // Handle file upload failure
                     $data['image_err'] = $uploadResult['error'];
-                    // Fetch food item categories from the model
-                    $category = $this->userModel->getfoodcategory();
 
-                    // Pass food item category data to the view
-                    $data['category'] = $category;
 
                     $this->view('managers/v_editfooditems', $data);
                     return;
@@ -955,13 +964,27 @@ class Managers extends Controller
 
             $removePhotos = isset($_POST['remove_photos']) ? $_POST['remove_photos'] : [];
 
+            // foreach ($removePhotos as $photoToRemove) {
+            //     $index = array_search($photoToRemove, $existingPhotos);
+            //     if ($index !== false) {
+            //         unset($existingPhotos[$index]);
+            //     }
+            // }
             foreach ($removePhotos as $photoToRemove) {
+                // Check if the photo to remove exists in the $existingPhotos array
+                // with or without an extension
                 $index = array_search($photoToRemove, $existingPhotos);
+                if ($index === false) {
+                    // If not found, try searching without the file extension
+                    $filenameWithoutExtension = pathinfo($photoToRemove, PATHINFO_FILENAME);
+                    $index = array_search($filenameWithoutExtension, $existingPhotos);
+                }
+
+                // If found, remove the photo from the $existingPhotos array
                 if ($index !== false) {
                     unset($existingPhotos[$index]);
                 }
             }
-
             // $image = array_diff(explode(',', $existingPhotos), $removePhotos);
             // $image = array_diff($existingPhotos, $removePhotos);
 
@@ -998,6 +1021,7 @@ class Managers extends Controller
                 $_SESSION['toast_type'] = 'success';
                 $_SESSION['toast_msg'] = 'Food item updated successfully!';
                 redirect('Managers/fooditems');
+
 
 
             } else {
