@@ -96,25 +96,25 @@ class M_Admins
         return $rows;
     }
 
-    public function get_staffdetailsBYID($userID)
+    public function get_staffdetailsBYID($staffID)
     {
-        $this->db->query('SELECT * FROM staffaccount WHERE userID = :userID');
-        $this->db->bind(':userID', $userID);
+        $this->db->query('SELECT * FROM staffaccount WHERE staffID = :staffID');
+        $this->db->bind(':staffID', $staffID);
         return $this->db->single();
     }
 
-    public function delete_staffdetails($userID)
+    public function delete_staffdetails($staffID)
     {
-        $this->db->query('DELETE FROM staffaccount WHERE userID = :userID');
-        $this->db->bind(':userID', $userID);
+        $this->db->query('DELETE FROM staffaccount WHERE staffID = :staffID');
+        $this->db->bind(':staffID', $staffID);
 
         return $this->db->execute();
     }
 
     public function update_staffdetails($data)
     {
-        $this->db->query('UPDATE staffaccount SET designation = :designation, staffName = :staffName, phoneNumber = :phoneNumber, email = :email, birthday = :birthday, nicNumber = :nicNumber WHERE userID = :userID');
-        $this->db->bind(':userID', $data['userID']);
+        $this->db->query('UPDATE staffaccount SET designation = :designation, staffName = :staffName, phoneNumber = :phoneNumber, email = :email, birthday = :birthday, nicNumber = :nicNumber WHERE staffID = :staffID');
+        $this->db->bind(':staffID', $data['staffID']);
         $this->db->bind(':designation', $data['designation']);
         $this->db->bind(':staffName', $data['staffName']);
         $this->db->bind(':phoneNumber', $data['phoneNumber']);
@@ -128,10 +128,47 @@ class M_Admins
     public function search_staffdetails($query)
     {
         // Prepare the query to search for staff accounts
-        $this->db->query("SELECT * FROM staffaccount WHERE userID LIKE :query OR designation LIKE :query OR staffName LIKE :query OR phoneNumber LIKE :query OR email LIKE :query OR birthday LIKE :query OR nicNumber LIKE :query");
+        $this->db->query("SELECT * FROM staffaccount WHERE staffID LIKE :query OR designation LIKE :query OR staffName LIKE :query OR phoneNumber LIKE :query OR email LIKE :query OR birthday LIKE :query OR nicNumber LIKE :query");
         $this->db->bind(':query', '%' . $query . '%');
 
         // Execute the query and return the results
         return $this->db->resultSet();
     }
+
+    // Get the total number of customers registered
+    public function getTotalCustomersRegistered()
+    {
+        $this->db->query('SELECT COUNT(*) AS count FROM users WHERE role = :role');
+        $this->db->bind(':role', 'customer'); // Adjust 'customer' according to your role definition for customers
+        $row = $this->db->single();
+        return $row->count;
+    }
+
+    // Get the total number of staff members
+    public function getTotalStaffMembersCount()
+    {
+        $this->db->query('SELECT COUNT(*) AS count FROM staffaccount');
+        $row = $this->db->single();
+        return $row->count;
+    }
+
+    // Get the count of active customers
+    public function getActiveCustomersCount()
+    {
+        $this->db->query('SELECT COUNT(*) AS count FROM users WHERE role = :role AND active = :active');
+        $this->db->bind(':role', 'customer'); // Adjust 'customer' according to your role definition for customers
+        $this->db->bind(':active', 1);
+        $row = $this->db->single();
+        return $row->count;
+    }
+
+    //Get the count of active staff accounts
+    public function getActiveStaffAccountsCount() {
+        $this->db->query('SELECT COUNT(*) AS count FROM staffaccount WHERE  active = :active');
+        $this->db->bind(':active', 1);
+        $row = $this->db->single();
+        return $row->count;
+    }
+
+
 }

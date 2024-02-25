@@ -1,45 +1,106 @@
 .title-staffaccounts h1 {
     margin-top: 0px;
-    /* Adjust as needed */
     margin-bottom: 20px;
-    /* Adjust as needed */
 }
 
-/* CSS for the search bar */
-.search-bar form {
+.staff-create-btn {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.staff-create-btn a {
+    background-color:  #003366;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.staff-create-btn a:hover {
+    background-color: #002447;
+}
+
+/*.admin-search-bar {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}*/
+
+/* CSS for the search bar form */
+.admin-search-bar form {
     display: flex;
     width: 100%;
 }
 
-.search-bar input[type="text"] {
+.admin-search-bar input[type="text"] {
     flex: 1;/* Take up available space */
     padding: 10px;
     box-sizing: border-box;
     border: 1px solid #E6E7E8;/* Add border to the input field */
 }
 
-.search-bar button {
-    background-color: #0154a8;
+.admin-search-bar button {
+    background-color: #003366;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    border-radius: 0 5px 5px 0;
 }
 
-.search-bar button:hover {
+.admin-search-bar button:hover {
     background-color: #002447;
 }
 
-.table {
+.staffaccounts-table {
     border-collapse: collapse;
     width: 100%;
     margin-top: 20px;
 }
 
-.table th,
-.table td {
+.staffaccounts-table th,
+.staffaccounts-table td {
     border: 1px solid #E6E7E8;
     padding: 8px;
+}
+
+.admin-action-btn {
+    display: flex; /* Use flexbox */
+    justify-content: space-between; /* Align items with space between them */
+}
+
+/* Styles for the update and delete links */
+.admin-action-btn a {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer; /* Add margin to create space between links */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Ensure inline-block display to allow text-align property */
+    text-align: center; /* Align the button content */
+    border-radius: 15px;
+    flex: 1; /* Equal width for both links */
+}
+
+.admin-action-btn .admin-delete-btn a {
+    background-color: #d80707;
+    color: white;
+}
+
+.admin-action-btn .admin-delete-btn a:hover {
+    background-color: #9b0505;
+}
+
+.admin-action-btn .admin-update-btn a {
+    background-color:  #ecda0a;
+    color: black;
+}
+
+.admin-action-btn .admin-update-btn a:hover {
+    background-color:  #d7bb1c;;
+}
+
+.admin_highlight {
+    background-color: yellow;
+    font-weight: bold;
 }
 
 /* Styles for the create staff accounts form */
@@ -71,7 +132,7 @@
 }
 
 .create-staffaccounts-form input[type="submit"] {
-    background-color: #0154a8;
+    background-color: #003366;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -112,7 +173,7 @@
 }
 
 .update-staffaccounts-form input[type="submit"] {
-    background-color: #0154a8;
+    background-color: #003366;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -124,42 +185,3 @@
     background-color: #002447;
 }
 
-.staff_create_btn a {
-    background-color: #0154a8;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.staff_create_btn a:hover {
-    background-color: #002447;
-}
-
-/* Styles for the update and delete links */
-.table td a {
-    background-color: #d80707;
-    /* Red */
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    /* Add margin to create space between links */
-    text-decoration: none;
-    /* Remove underline */
-    display: inline-block;
-    /* Ensure inline-block display to allow text-align property */
-    text-align: center;
-    /* Align the button content */
-
-}
-
-.table td a:hover {
-    background-color: #9b0505;
-    /* Darker red on hover */
-}
-
-.highlight {
-    background-color: yellow;
-    font-weight: bold;
-}
