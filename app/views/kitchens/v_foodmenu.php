@@ -34,120 +34,30 @@
             <button class="filter-btn" onclick="filterCategory('Snacks')">Snacks</button>
         </div>
 
+
         <div class="menu-container">
-            <div class="food-item" data-category="Breakfast">
-                <div class="category">Breakfast</div>
-                <img src="food1.jpg" alt="Food 1">
-                <div class="food-info">
-                    <div class="food-name">Spaghetti Bolognese</div>
-                    <div class="food-price">$12.99</div>
-                    <div class="food-description">Classic Italian pasta with rich meat sauce.</div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="food1" name="food1">
-                        <label class="checkbox-label" for="food1">Include in menu</label>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Add more food items as needed -->
+        <?php
 
-            <div class="food-item" data-category="Main Course">
-                <div class="category">Main Course</div>
-                <img src="food2.jpg" alt="Food 2">
-                <div class="food-info">
-                    <div class="food-name">Chicken Caesar Salad</div>
-                    <div class="food-price">$9.99</div>
-                    <div class="food-description">Fresh romaine lettuce with grilled chicken and Caesar dressing.</div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="food2" name="food2">
-                        <label class="checkbox-label" for="food2">Include in menu</label>
-                    </div>
-                </div>
-            </div>
+                foreach($data['food_items'] as $item){
+                    $isChecked = $item->status == 1 ? 'checked' : '';
 
-            <div class="food-item" data-category="Desserts">
-                <div class="category">Desserts</div>
-                <img src="food3.jpg" alt="Food 3">
-                <div class="food-info">
-                    <div class="food-name">Grilled Salmon</div>
-                    <div class="food-price">$14.99</div>
-                    <div class="food-description">Fresh salmon fillet grilled to perfection.</div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="food3" name="food3">
-                        <label class="checkbox-label" for="food3">Include in menu</label>
+                    echo '<div class="food-item" data-category="'.$item->category.'">
+                    <div class="category">'.$item->category.'</div>
+                    <img src="'.URLROOT.'/public/img/kitchens/food_items/'.$item->image.'.jpg" alt="Food 1">
+                    <div class="food-info">
+                        <div class="food-name">'.$item->name.'</div>
+                        <div class="food-price">$'.$item->price.'</div>
+                        <div class="food-description">'.$item->note.'</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" value="'.$item->item_id.'" name="food" '.$isChecked.'>
+                            <label class="checkbox-label" for="food1">Include in menu</label>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>';
+                }
 
-            <div class="food-item" data-category="Desserts">
-                <div class="category">Desserts</div>
-                <img src="food3.jpg" alt="Food 3">
-                <div class="food-info">
-                    <div class="food-name">Grilled Salmon</div>
-                    <div class="food-price">$14.99</div>
-                    <div class="food-description">Fresh salmon fillet grilled to perfection.</div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="food3" name="food3">
-                        <label class="checkbox-label" for="food3">Include in menu</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item" data-category="Desserts">
-                <div class="category">Desserts</div>
-                <img src="food3.jpg" alt="Food 3">
-                <div class="food-info">
-                    <div class="food-name">Grilled Salmon</div>
-                    <div class="food-price">$14.99</div>
-                    <div class="food-description">Fresh salmon fillet grilled to perfection.</div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="food3" name="food3">
-                        <label class="checkbox-label" for="food3">Include in menu</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item" data-category="Desserts">
-                <div class="category">Desserts</div>
-                <img src="food3.jpg" alt="Food 3">
-                <div class="food-info">
-                    <div class="food-name">Grilled Salmon</div>
-                    <div class="food-price">$14.99</div>
-                    <div class="food-description">Fresh salmon fillet grilled to perfection.</div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="food3" name="food3">
-                        <label class="checkbox-label" for="food3">Include in menu</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item" data-category="Desserts">
-                <div class="category">Desserts</div>
-                <img src="food3.jpg" alt="Food 3">
-                <div class="food-info">
-                    <div class="food-name">Grilled Salmon</div>
-                    <div class="food-price">$14.99</div>
-                    <div class="food-description">Fresh salmon fillet grilled to perfection.</div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="food3" name="food3">
-                        <label class="checkbox-label" for="food3">Include in menu</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item" data-category="Desserts">
-                <div class="category">Desserts</div>
-                <img src="food3.jpg" alt="Food 3">
-                <div class="food-info">
-                    <div class="food-name">Grilled Salmon</div>
-                    <div class="food-price">$14.99</div>
-                    <div class="food-description">Fresh salmon fillet grilled to perfection.</div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="food3" name="food3">
-                        <label class="checkbox-label" for="food3">Include in menu</label>
-                    </div>
-                </div>
-            </div>
+        ?>
 
             <!-- Repeat the food-item structure as needed -->
         </div>
@@ -156,6 +66,35 @@
     </div>
 
     <script>
+        // for food item checkbox
+
+        var checkboxes = document.querySelectorAll('input[name="food"]');
+
+
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                    console.log("Checkbox checked");
+                    console.log("Value:", this.value);
+
+                    let baseLink = window.location.origin;
+                    let url = `${baseLink}/GuestPro/Kitchen/changeFoodItemStatus/${this.value}`
+
+                    fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            });
+        });
+
         function filterCategory(category) {
             const foodItems = document.querySelectorAll('.food-item');
 

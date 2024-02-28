@@ -39,7 +39,7 @@
 
             //
 
-            $rows = $this->m_supervisor->getRooms();
+            // $rows = $this->m_supervisor->getRooms();
             $this->view('supervisors/v_cleaningstatus', $data);
         }
 
@@ -54,6 +54,11 @@
             $rows = $this->m_supervisor->changeStatus($id);
         }
     
+        public function cleaninghistory(){
+            $data =[  ];
+            $this->view('supervisors/v_cleaninghistory', $data);
+        }
+        
         }
     
 ?>

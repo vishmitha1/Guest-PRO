@@ -56,7 +56,7 @@
             $room_id = $this->db->resultset();
             $today = DATE('Y-m-d');
             foreach($room_id as $id){
-                $this->db->query("INSERT INTO room_cleaning(roomID , date , status) VALUES(:roomid , :dt , :status)");
+                // $this->db->query("INSERT INTO room_cleaning(roomID , date , status) VALUES(:roomid , :dt , :status)");
                 // echo($id->roomNo);
                 // die($today);
                 $this->db->bind(':roomid' ,$id->roomNo);

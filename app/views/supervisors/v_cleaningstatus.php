@@ -14,6 +14,11 @@
             <button>Search</button>
         </div>
 
+         <!-- Link for View Cleaning History -->
+         <div class="view-history-link">
+            <a href="<?php echo URLROOT; ?>/Supervisors/cleaninghistory">View Cleaning History</a>
+        </div>
+
 
 
     
@@ -76,10 +81,7 @@
         </div>
 
         <!-- Link for View Cleaning History -->
-        <!-- Link for View Cleaning History -->
-        <div class="view-history-link">
-            <a href="#">View Cleaning History</a>
-        </div>
+       
 
         
 
