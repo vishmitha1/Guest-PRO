@@ -80,6 +80,49 @@ class Managers extends Controller
     //     }
     // }
 
+    public function dashboard()
+    {
+        $totalrooms = $this->userModel->getroomcount();
+        $occupiedrooms = $this->userModel->getoccupiedrooms();
+        $availablerooms = $this->userModel->getavailablerooms();
+        $occupancyrate = round($occupiedrooms / $totalrooms * 100, 2);
+        $checkinCount = $this->userModel->getcheckinCount();
+        $checkoutCount = $this->userModel->getcheckOutCount();
+        $foodOrderCount = $this->userModel->getFoodOrderCount();
+        $placedOrderCount = $this->userModel->getPlacedOrder();
+        $preparingOrderCount = $this->userModel->getPreparingOrder();
+        $dispatchOrderCount = $this->userModel->getDispatchOrder();
+        $serviceRequestsCount = $this->userModel->getServiceRequestCount();
+        $pendingRequestsCount = $this->userModel->getpendingRequests();
+        $completedRequestsCount = $this->userModel->getcompletedRequests();
+        $reservationIncome = $this->userModel->getReservationIncome();
+        $foodOrderIncome = $this->userModel->getFoodOrdersIncome();
+        $foodMenuCount = $this->userModel->getFoodMenuCount();
+        $foodMenu = $this->userModel->getFoodMenu();
+
+        $data = [
+            'totalrooms' => $totalrooms,
+            'occupiedrooms' => $occupiedrooms,
+            'availablerooms' => $availablerooms,
+            'occupancyrate' => $occupancyrate,
+            'checkinCount' => $checkinCount,
+            'checkoutCount' => $checkoutCount,
+            'foodOrderCount' => $foodOrderCount,
+            'placedOrderCount' => $placedOrderCount,
+            'preparingOrderCount' => $preparingOrderCount,
+            'dispatchOrderCount' => $dispatchOrderCount,
+            'serviceRequestsCount' => $serviceRequestsCount,
+            'pendingRequestsCount' => $pendingRequestsCount,
+            'completedRequestsCount' => $completedRequestsCount,
+            'reservationIncome' => $reservationIncome,
+            'foodOrderIncome' => $foodOrderIncome,
+            'foodMenuCount' => $foodMenuCount,
+            'foodMenu' => $foodMenu,
+
+        ];
+        $this->view('managers/v_dashboard', $data);
+
+    }
 
     public function addroom()
     {
@@ -336,18 +379,23 @@ class Managers extends Controller
         }
     }
 
-    public function editRoomType($category)
+    public function editRoomType($roomtypeId)
     {
+        // Process category name (remove spaces)
+        // $categoryWithoutSpaces = str_replace(' ', '', $category);
         // Retrieve room type details from the database
-        $data = $this->userModel->viewRoomTypeDetails($category);
+        $roomtypeDetails = $this->userModel->viewRoomTypeDetails($roomtypeId);
+        $data = [
+            'roomtypeDetails' => $roomtypeDetails,
 
-
+        ];
 
         // Check if the room type 
-        if ($data) {
+        if ($roomtypeDetails) {
 
             // Load the view for editing room type details and pass the data
-            $this->view('managers/v_editroomtype', ['data' => $data]);
+            $this->view('managers/v_editroomtype', $data);
+
         } else {
 
         }
@@ -420,72 +468,113 @@ class Managers extends Controller
     {
         // Check if the form is submitted
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+            $roomtypeId = $_POST['roomtypeId'];
+            $roomtypeDetails = $this->userModel->viewRoomTypeDetails($roomtypeId);
             // Process the form data and update room type details
+            $data = [
+                'roomtypeDetails' => $roomtypeDetails
+            ];
+
+
+
+            // Handle file uploads for new photos
+            if (isset($_FILES['new_photos']) && $_FILES['new_photos']['size'][0] > 0) {
+
+                $uploadResult = $this->handleFileUpload('new_photos', "../public/img/rooms/");
+
+                if (!$uploadResult['success']) {
+                    // Handle file upload failure
+                    $data['image_err'] = $uploadResult['error'];
+
+
+                    $this->view('managers/v_editroomtype', $data);
+                    return;
+                } else {
+                    $newPhotos = $uploadResult['fileNames'];
+
+
+
+                }
+            } else {
+                $newPhotos = [];
+            }
+
+
+            $existingPhotos = $this->userModel->getexistingroomtypeimages($roomtypeId);
+            if ($existingPhotos === null) {
+                $existingPhotos = []; // Initialize as an empty array if null
+            }
+
+
+            $removePhotos = isset($_POST['remove_photos']) ? $_POST['remove_photos'] : [];
+
+            // foreach ($removePhotos as $photoToRemove) {
+            //     $index = array_search($photoToRemove, $existingPhotos);
+            //     if ($index !== false) {
+            //         unset($existingPhotos[$index]);
+            //     }
+            // }
+            foreach ($removePhotos as $photoToRemove) {
+                // Check if the photo to remove exists in the $existingPhotos array
+                // with or without an extension
+                $index = array_search($photoToRemove, $existingPhotos);
+                if ($index === false) {
+                    // If not found, try searching without the file extension
+                    $filenameWithoutExtension = pathinfo($photoToRemove, PATHINFO_FILENAME);
+                    $index = array_search($filenameWithoutExtension, $existingPhotos);
+                }
+
+                // If found, remove the photo from the $existingPhotos array
+                if ($index !== false) {
+                    unset($existingPhotos[$index]);
+                }
+            }
+            // Check if existingPhotos is null or empty
+            if (is_array($existingPhotos) && count(array_filter($existingPhotos)) === 0) {
+                // If there are no existing photos, simply use the new photos
+                $allPhotos = implode(',', $newPhotos);
+            } else {
+                // Concatenate existing photos with new photos, separated by comma
+                $allPhotos = implode(',', array_merge($existingPhotos, $newPhotos));
+            }
+
             $updateData = [
-                'old_category' => $_POST['category'],
-                'new_category' => $_POST['new_category'],
+                'roomtypeId' => $_POST['roomtypeId'],
+                'category' => $_POST['category'],
                 'price' => $_POST['price'],
                 'amenities' => $_POST['amenities'],
+                'roomImg' => $allPhotos,
                 'category_err' => '',
                 'price_err' => '',
                 'amenities_err' => '',
                 'roomImg_err' => ''
             ];
-
             // Validate inputs
-            if (empty($updateData['category'])) {
-                $updateData['category_err'] = 'Please enter category';
-            }
+            // if (empty($updateData['category'])) {
+            //     $updateData['category_err'] = 'Please enter category';
+            // }
 
-            if (empty($updateData['price'])) {
-                $updateData['price_err'] = 'Please enter price';
-            }
+            // if (empty($updateData['price'])) {
+            //     $updateData['price_err'] = 'Please enter price';
+            // }
 
-            if (empty($updateData['amenities'])) {
-                $updateData['amenities_err'] = 'Please enter amenities';
-            }
+            // if (empty($updateData['amenities'])) {
+            //     $updateData['amenities_err'] = 'Please enter amenities';
+            // }
 
             // Check if there are any errors before updating
-            if (empty($updateData['category_err']) && empty($updateData['price_err']) && empty($updateData['amenities_err'])) {
-                // Check if there are photos to remove
-                if (isset($_POST['remove_photos']) && !empty($_POST['remove_photos'])) {
-                    // Remove selected photos
-                    foreach ($_POST['remove_photos'] as $photo) {
-                        // Delete the photo from the server
-                        $photoPath = APPROOT . '../public/img/rooms/' . $photo;
-                        if (file_exists($photoPath)) {
-                            unlink($photoPath);
-                        }
-                    }
-                }
-
-
-
-                // Check if any files were uploaded
-                if (!empty($_FILES['new_photos']['name'][0])) {
-                    // Upload new photos
-                    $uploadResult = $this->handleFileUpload("new_photos", "../public/img/rooms/");
-                    if (!$uploadResult['success']) {
-                        // Handle file upload failure
-                        // Set error message and redirect or render the form again
-                        $updateData['roomImg_err'] = $uploadResult['error'];
-                        //$this->view('managers/v_editroomtype', ['data' => $updateData]);
-                        return; // Stop further execution
-                    }
-                    // Merge existing photos and uploaded photos
-                    $existingPhotos = isset($_POST['existing_photos']) ? $_POST['existing_photos'] : [];
-                    $newPhotos = $uploadResult['fileNames'];
-                    $allPhotos = array_merge($existingPhotos, $newPhotos);
-
-                    // Update $updateData with the roomImg information
-                    $updateData['roomImg'] = implode(',', $allPhotos);
-                } else {
-                    // existing photos after removing 
-                    $allPhotos = isset($_POST['existing_photos']) ? $_POST['existing_photos'] : [];
-                    // Update $updateData with the roomImg information
-                    $updateData['roomImg'] = implode(',', $allPhotos);
-                }
+            // if (empty($updateData['category_err']) && empty($updateData['price_err']) && empty($updateData['amenities_err'])) {
+            //     // Check if there are photos to remove
+            //     if (isset($_POST['remove_photos']) && !empty($_POST['remove_photos'])) {
+            //         // Remove selected photos
+            //         foreach ($_POST['remove_photos'] as $photo) {
+            //             // Delete the photo from the server
+            //             $photoPath = APPROOT . '../public/img/rooms/' . $photo;
+            //             if (file_exists($photoPath)) {
+            //                 unlink($photoPath);
+            //             }
+            //         }
+            //     }
 
 
 
@@ -493,25 +582,52 @@ class Managers extends Controller
 
 
 
-                // Call the model method to update the room type details
-                if ($this->userModel->updateRoomType($updateData)) {
-                    // Success
-                    redirect('Managers/viewroomtype');
-                } else {
-                    // Error updating room type
-                    $this->view('managers/v_editroomtype', $updateData);
-                }
+
+
+
+
+            // Call the model method to update the room type details
+            if ($this->userModel->updateRoomType($updateData)) {
+                // Success
+                $_SESSION['toast_type'] = 'success';
+                $_SESSION['toast_msg'] = 'Room type updated successfully!';
+                redirect('Managers/viewroomtype');
+                //var_dump($updateData);
             } else {
-                // Form validation failed
-                // Render the form again with error messages
+                // Error updating room type
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Error updating Room type! <br>Please try again';
                 $this->view('managers/v_editroomtype', $updateData);
             }
+            // } else {
+            //     // Form validation failed
+            //     // Render the form again with error messages
+            //     $this->view('managers/v_editroomtype', $updateData);
+            // }
         } else {
             // Redirect or handle the case where the form was not submitted
         }
     }
 
+    public function deleteRoomType($Id)
+    {
 
+        // Call a model method to delete the room type from the database
+        $success = $this->userModel->deleteFoodItem($Id);
+
+        // Optionally, you can handle success or failure and redirect accordingly
+        if ($success) {
+            $_SESSION['toast_type'] = 'success';
+            $_SESSION['toast_msg'] = 'Room Type deleted successfully!';
+            redirect('Managers/viewroomtype');
+
+
+        } else {
+            $_SESSION['toast_type'] = 'error';
+            $_SESSION['toast_msg'] = 'Error deleting Room Type!<br>Try again';
+            redirect('Managers/viewroomtype');
+        }
+    }
     public function alerts()
     {
         $data = [];
@@ -779,14 +895,14 @@ class Managers extends Controller
 
         // Optionally, you can handle success or failure and redirect accordingly
         if ($success) {
-            // Food item deleted successfully
-            // You may want to set a flash message or perform other actions
-            header("Location: " . URLROOT . "/Managers/fooditems");
-            exit();
+            $_SESSION['toast_type'] = 'success';
+            $_SESSION['toast_msg'] = 'Food item deleted successfully!';
+            redirect('Managers/fooditems');
+
         } else {
-            // Food item deletion failed
-            // You may want to set a flash message or perform other actions
-            echo "Error deleting food item.";
+            $_SESSION['toast_type'] = 'error';
+            $_SESSION['toast_msg'] = 'Error deleting Food item !';
+            redirect('Managers/fooditems');
         }
     }
 
@@ -815,102 +931,6 @@ class Managers extends Controller
 
 
 
-
-    // public function updateFoodItem()
-    // {
-    //     // Check if the form is submitted
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         // Process the form data and update food item details
-    //         $updateData = [
-    //             'item_id' => $_POST['item_id'],
-    //             'name' => $_POST['item_name'],
-    //             'category' => $_POST['category'],
-    //             'price' => $_POST['price'],
-    //         ];
-
-    //         // Retrieve food item details from the database
-    //         $foodItemDetails = $this->userModel->getFoodItemDetails($updateData['item_id']);
-
-
-
-
-
-    //         // Check if the food item exists
-    //         if ($foodItemDetails) {
-    //             // Remove selected photos
-    //             // if (isset($_POST['remove_photos'])) {
-    //             //     foreach ($_POST['remove_photos'] as $photo) {
-    //             //         // Delete the photo from the server
-    //             //         $photoPath = APPROOT . '../public/img/food_items/' . $photo;
-    //             //         if (file_exists($photoPath)) {
-    //             //             unlink($photoPath);
-    //             //         }
-    //             //     }
-    //             // }
-
-
-
-    //             if (isset($_POST['remove_photos']) && !empty($_POST['remove_photos'])) {
-    //                 // Remove selected photos
-    //                 foreach ($_POST['remove_photos'] as $photo) {
-    //                     // Delete the photo from the server
-    //                     $photoPath = APPROOT . '../public/img/food_items/' . $photo;
-    //                     if (file_exists($photoPath)) {
-    //                         unlink($photoPath);
-    //                     }
-    //                 }
-    //             }
-
-
-
-
-
-
-
-    //             // Upload new photos
-    //             $uploadResult = $this->handleFileUpload("new_photos", "../public/img/food_items/");
-    //             if (!$uploadResult['success']) {
-    //                 // Handle file upload failure
-    //                 header("Location: " . URLROOT . "/Managers/fooditems?error=" . urlencode($uploadResult['error']));
-    //                 exit();
-    //             }
-
-    //             $uploadedPhotos = $uploadResult['fileNames'];
-
-    //             // $existingPhotos = is_array($foodItemDetails->image) ? $foodItemDetails->image : [];
-
-    //             // // If $foodItemDetails->photos is a string, convert it to an array
-    //             // if (is_string($foodItemDetails->image)) {
-    //             //     $existingPhotos[] = $foodItemDetails->image;
-    //             // }
-
-    //             $existingPhotos = is_array($foodItemDetails->image)
-    //                 ? $foodItemDetails->image
-    //                 : (is_string($foodItemDetails->image) ? [$foodItemDetails->image] : []);
-
-
-
-    //             // Merge existing and new photos
-    //             $updateData['photos'] = array_merge($existingPhotos, $uploadedPhotos ?? []);
-
-
-    //             // Update food item details in the database
-    //             if ($this->userModel->updateFoodItemDetails($updateData)) {
-    //                 // Redirect with a success message
-    //                 header("Location: " . URLROOT . "/Managers/fooditems?success=1");
-    //                 exit();
-    //             } else {
-    //                 // Handle the case where the update fails
-    //                 header("Location: " . URLROOT . "/Managers/fooditems?error=1");
-    //                 exit();
-    //             }
-    //         } else {
-    //             // Handle the case where the food item doesn't exist
-    //             header("Location: " . URLROOT . "/Managers/fooditems?error=1");
-    //             exit();
-    //         }
-    //     }
-    // }
 
     public function updateFoodItem()
     {
@@ -1027,22 +1047,23 @@ class Managers extends Controller
             } else {
                 // Handle update failure
                 $_SESSION['toast_type'] = 'error';
-                $_SESSION['toast_msg'] = 'Error updating Food item! Please try again';
+                $_SESSION['toast_msg'] = 'Error updating Food item!<br>Please try again';
                 redirect('Managers/fooditems');
             }
         } else {
             // Redirect or handle the case where the form was not submitted via POST
+            redirect('Managers/v_editfooditems');
         }
     }
 
 
 
-    public function servicerequests()
+    public function complaints()
     {
-        $requests = $this->userModel->getservicerequests();
-        $data = ['requests' => $requests];
+        $complaints = $this->userModel->getcomplaints();
+        $data = ['complaints' => $complaints];
 
-        $this->view('managers/v_servicerequests', $data);
+        $this->view('managers/v_complaints', $data);
 
         //success or error message mark as completed
         if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
@@ -1050,33 +1071,29 @@ class Managers extends Controller
         }
     }
 
-    public function markAsComplete() //change service request status to completed
-    {
-        // Check if it's a POST request
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Check if the request ID is provided
-            if (isset($_POST['request_id'])) {
-                $requestId = $_POST['request_id'];
 
-                // Update status to 'Completed' in the database
-                if ($this->userModel->markRequestAsComplete($requestId)) {
-                    $_SESSION['toast_type'] = 'success';
-                    $_SESSION['toast_msg'] = 'Marked as completed!';
-                    redirect('Managers/servicerequests');
-                } else {
-                    $_SESSION['toast_type'] = 'success';
-                    $_SESSION['toast_msg'] = 'Error mark as completed!';
-                    redirect('Managers/servicerequests');
-                }
-            } else {
+
+    public function changeComplaintStatus()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $complaintId = $_POST['complaint_id'];
+            $newStatus = $_POST['new_status'];
+
+            // Update the complaint status in the database
+            if ($this->userModel->updateComplaintStatus($complaintId, $newStatus)) {
+                // Status updated successfully
                 $_SESSION['toast_type'] = 'success';
-                $_SESSION['toast_msg'] = 'Request Id is not valid';
-                redirect('Managers/servicerequests');
+                $_SESSION['toast_msg'] = 'Complaint status updated successfully!';
+                redirect('Managers/complaints');
+            } else {
+                // Failed to update status
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Error updating complaint status! Please try again.';
+                redirect('Managers/complaints');
             }
-        } else {
-            $_SESSION['toast_type'] = 'success';
-            $_SESSION['toast_msg'] = 'Error mark as completed!';
-            redirect('Managers/servicerequests');
+
+            // Redirect back to the complaints view
+            redirect('Managers/complaints');
         }
     }
 

@@ -130,12 +130,15 @@ class M_Managers
         return $this->db->execute();
     }
 
-    public function viewRoomTypeDetails($category) //edit room type 
+    public function viewRoomTypeDetails($roomtypeId) //edit room type 
     {
-        $this->db->query('SELECT * FROM roomtype WHERE category = :category');
-        $this->db->bind(':category', $category);
+
+
+        $this->db->query('SELECT * FROM roomtype WHERE roomtypeId = :roomtypeId');
+        $this->db->bind(':roomtypeId', $roomtypeId);
 
         return $this->db->single();
+
     }
     public function getfooditems()
     {
@@ -189,23 +192,46 @@ class M_Managers
     public function updateRoomType($data)
     {
         // Prepare SQL for updating room type details
-        $sql = 'UPDATE roomtype SET  category=:new_category,price = :price, amenities = :amenities, roomImg = :roomImg WHERE category = :category';
+        $sql = 'UPDATE roomtype SET  category=:category,price = :price, amenities = :amenities, roomImg = :roomImg WHERE roomtypeId = :roomtypeId';
 
         // Bind parameters
         $this->db->query($sql);
+        $this->db->bind(':roomtypeId', $data['roomtypeId']);
         $this->db->bind(':price', $data['price']);
         $this->db->bind(':amenities', $data['amenities']);
         $this->db->bind(':roomImg', $data['roomImg']); // Updated roomImg field
-        $this->db->bind(':category', $data['new_category']);
+        $this->db->bind(':category', $data['category']);
 
         // Execute the query
-        if ($this->db->execute()) {
-            return true; // Update successful
-        } else {
-            return false; // Update failed
-        }
+        return $this->db->execute();
     }
 
+    public function deleteRoomType($Id)
+    {
+        try {
+            $this->db->query('DELETE FROM roomtype WHERE roomtypeId = :roomtypeId');
+            $this->db->bind(':roomtypeId', $Id);
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            // Log the error or handle it as needed
+            error_log('Error deleting room type: ' . $e->getMessage());
+            return false; // Return false to indicate failure
+        }
+    }
+    public function getexistingroomtypeimages($roomtypeId) //to view in edit roomtype form
+    {
+        $this->db->query('SELECT roomImg FROM roomtype WHERE roomtypeId = :roomtypeId');
+        $this->db->bind(':roomtypeId', $roomtypeId);
+        $row = $this->db->single();
+
+        if ($row) {
+            // Split the comma-separated string into an array of photo names
+            return explode(',', $row->roomImg);
+        } else {
+            // No existing photos found, return an empty array
+            return [];
+        }
+    }
 
     public function getFoodItemDetails($item_id)
     {
@@ -379,22 +405,247 @@ class M_Managers
     }
 
 
-    public function getservicerequests()
+    public function getcomplaints()
     {
-        $this->db->query("SELECT * FROM servicerequests ");
+        $this->db->query("SELECT * FROM complaints ");
 
         return $this->db->resultSet();
     }
-    public function markRequestAsComplete($requestId) //change service request status to completed
-    {
-        // Prepare SQL for updating status
-        $sql = 'UPDATE servicerequests SET status = "Completed" WHERE request_id = :requestId';
-        $this->db->query($sql);
-        $this->db->bind(':requestId', $requestId);
 
-        // Execute the query
+
+    public function updateComplaintStatus($complaintId, $newStatus)
+    {
+        $this->db->query('UPDATE complaints SET status = :status WHERE complaint_id = :complaint_id');
+        $this->db->bind(':status', $newStatus);
+        $this->db->bind(':complaint_id', $complaintId);
         return $this->db->execute();
     }
 
 
+    //---------------------------------dashboard view----------------------------------------------------------------
+    public function getroomcount()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS room_count FROM rooms');
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the room count from the fetched row
+        return $row->room_count;
+    }
+    public function getoccupiedrooms()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS occupied_rooms FROM rooms WHERE availability = :availability');
+
+        // Bind the placeholder value
+        $this->db->bind(':availability', 'no');
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the occupied room count from the fetched row
+        return $row->occupied_rooms;
+    }
+
+    public function getavailablerooms()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS occupied_rooms FROM rooms WHERE availability = :availability');
+
+        // Bind the placeholder value
+        $this->db->bind(':availability', 'yes');
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the occupied room count from the fetched row
+        return $row->occupied_rooms;
+    }
+
+    public function getcheckinCount()
+    {
+        // Get today's date
+        $today = date('Y-m-d');
+
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS checkin_count FROM reservations WHERE checkIn = :checkIn');
+
+        // Bind the placeholder value without quotes
+        $this->db->bind(':checkIn', $today);
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the occupied room count from the fetched row
+        return $row->checkin_count;
+
+    }
+
+    public function getcheckOutCount()
+    {
+        // Get today's date
+        $today = date('Y-m-d');
+
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS checkout_count FROM reservations WHERE checkOut = :checkOut');
+
+        // Bind the placeholder value without quotes
+        $this->db->bind(':checkOut', $today);
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the occupied room count from the fetched row
+        return $row->checkout_count;
+
+    }
+
+    public function getFoodOrderCount()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS foodOrder_count FROM foodorders');
+
+        // Fetch a single row
+        $row = $this->db->single();
+
+        // Return the food order count from the fetched row
+        return $row->foodOrder_count;
+    }
+
+    public function getPlacedOrder()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS placedOrders FROM foodorders WHERE status = :status');
+
+        // Bind the placeholder value
+        $this->db->bind(':status', 'placed');
+
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the placed order count from the fetched row
+        return $row->placedOrders;
+    }
+
+    public function getPreparingOrder()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS preparingOrders FROM foodorders WHERE status = :status');
+
+        // Bind the placeholder value
+        $this->db->bind(':status', 'preparing');
+
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the placed order count from the fetched row
+        return $row->preparingOrders;
+    }
+
+    public function getDispatchOrder()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS dispatchOrders FROM foodorders WHERE status = :status');
+
+        // Bind the placeholder value
+        $this->db->bind(':status', 'dispatch');
+
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the placed order count from the fetched row
+        return $row->dispatchOrders;
+    }
+
+    public function getServiceRequestCount()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS serviceRequests_count FROM servicerequests');
+
+        // Fetch a single row
+        $row = $this->db->single();
+
+        // Return the service requests count from the fetched row
+        return $row->serviceRequests_count;
+    }
+
+    public function getpendingRequests()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS pendingRequests FROM servicerequests WHERE status = :status');
+
+        // Bind the placeholder value
+        $this->db->bind(':status', 'notcompleted');
+
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the pending requests count from the fetched row
+        return $row->pendingRequests;
+    }
+
+
+
+    public function getcompletedRequests()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS completedRequests FROM servicerequests WHERE status = :status');
+
+        // Bind the placeholder value
+        $this->db->bind(':status', 'completed');
+
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the completed requests count from the fetched row
+        return $row->completedRequests;
+    }
+
+    public function getReservationIncome()
+    {
+        // Prepare the query
+        $this->db->query('SELECT SUM(cost) AS reservationIncome FROM reservations');
+
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the sum of reservation cost from the fetched row
+        return $row->reservationIncome;
+    }
+
+    public function getFoodOrdersIncome()
+    {
+        // Prepare the query
+        $this->db->query('SELECT SUM(cost) AS foodOrdersIncome FROM foodorders');
+
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the sum of food orders cost from the fetched row
+        return $row->foodOrdersIncome;
+    }
+
+    public function getFoodMenuCount()
+    {
+        // Prepare the query
+        $this->db->query('SELECT SUM(status) AS foodMenuCount FROM fooditems WHERE status=:status');
+        // Bind the placeholder value
+        $this->db->bind(':status', 1);
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the sum of food orders cost from the fetched row
+        return $row->foodMenuCount;
+    }
+
+    public function getFoodMenu()
+    {
+        // Prepare the query
+        $this->db->query('SELECT * FROM fooditems WHERE status=:status');
+        // Bind the placeholder value
+        $this->db->bind(':status', 1);
+        return $this->db->resultSet();
+    }
 }

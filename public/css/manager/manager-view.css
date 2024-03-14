@@ -37,7 +37,7 @@
 .view-details {
     flex: 1; /* Take remaining space */
    text-indent: 20px;
-   background-color: rgb(253, 245, 95);
+   background-color: #CEE3F6;
 }
  
 .view-details h3 {

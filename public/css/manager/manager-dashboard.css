@@ -1,0 +1,200 @@
+
+.overview-section {
+    margin-bottom: 20px; /* Add some space below the section */
+    background-color: aliceblue;
+    padding: 1px 5px 5px 5px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    max-height: 300px;
+    min-width: 550px;
+    justify-content: space-between;
+}
+
+.overview-heading {
+    margin-bottom: 10px; /* Add space below the heading */
+}
+
+.overview-row {
+    display: flex;
+
+}
+
+.overview-item {
+    /* flex: 1; */
+    border-left: 1px solid #ccc;
+    padding: 10px 20px;
+    flex-shrink: 0;
+    justify-content: space-between;
+   
+}
+
+.overview-item:first-child {
+    border-left: none;
+}
+
+.overview-item:last-child {
+    border-right: none; /* Remove right border for the last item */
+}
+
+
+.overview-col {
+    display: flex;
+    align-items: center;
+   
+    min-width: 210px;
+}
+
+.overview-col-image-1 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #AC58FA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+
+.overview-col i {
+    font-size: 30px;
+    color: white;
+}
+
+.overview-col-details {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.overview-col-value {
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+   
+}
+
+.overview-col-text-1 {
+    color: #AC58FA;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.overview-col-image-2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #0080FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.overview-col-text-2 {
+    color: #0080FF;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.overview-col-image-3 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #FF8000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.overview-col-text-3 {
+    color: #FF8000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.overview-col-image-4 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #01DF3A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.overview-col-text-4 {
+    color: #01DF3A;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.overview-col-image-5 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #A901DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.overview-col-text-5 {
+    color: #A901DB;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.overview-col-image-6 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #08088A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.overview-col-text-6 {
+    color: #08088A;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.overview-col-image-7 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #0B6121;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.overview-col-text-7 {
+    color: #0B6121;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.overview-box{
+    display: flex;
+    max-width: 100%;
+}
+
+.overview-section-2 {
+    margin-bottom: 20px;
+    margin-left: 10px; /* Add some space below the section */
+    background-color: aliceblue;
+    padding: 1px 5px 5px 5px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    max-height: 200px;
+    min-width: 550px;
+    justify-content: space-between;
+
+}
+
+.overview-piechart {
+    background-color: #f0f0f0; /* Set your desired background color */
+    padding: 30px; /* Add padding to create space around the chart */
+    border-radius: 10px;
+    margin-left: 10px;
+    max-height: 400px; /* Limit the maximum height */
+    overflow-y: auto; /* Add vertical scroll if content exceeds max-height */
+    width: 500px;
+}

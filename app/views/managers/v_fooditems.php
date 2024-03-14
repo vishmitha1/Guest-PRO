@@ -89,7 +89,7 @@
                 <i class="fa-regular fa-circle-xmark"></i>
                 <div class="modal-message">
                     <h1>Are you sure?</h1>
-                    <p>Are you sure you want to delete this room ?</p>
+                    <p>Are you sure you want to delete this Food Item ?</p>
                 </div>
                 <div class="modal-buttons">
                     <button class="confirmDeleteBtn">Delete</button>

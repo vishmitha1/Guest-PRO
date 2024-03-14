@@ -20,6 +20,35 @@
             <button onclick="searchRooms()">Search</button>
         </div>
 
+
+        <!-- Search bar -->
+        <div class="search-bar">
+            <!-- Filter options -->
+            <div class="filter-options">
+                <label for="category">Category:</label>
+                <input type="text" id="categoryFilter" name="category">
+
+                <label for="price">Price:</label>
+                <input type="text" id="priceFilter" name="price">
+
+                <label for="roomNo">Room Number:</label>
+                <input type="text" id="roomNoFilter" name="roomNo">
+
+                <label for="availability">Availability:</label>
+                <select id="availabilityFilter" name="availability">
+                    <option value=""> </option>
+                    <option value="Available">Available</option>
+                    <option value="Booked">Booked</option>
+                </select>
+
+                <button onclick="applyFilters()">Apply Filters</button>
+                <button onclick="resetFilters()">Reset Filters</button>
+            </div>
+        </div>
+
+
+
+
         <!-- Modal HTML -->
         <div id="deleteModal" class="modal">
             <div class="modal-content">
