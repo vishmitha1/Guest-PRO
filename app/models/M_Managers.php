@@ -12,15 +12,6 @@ class M_Managers
 
     public function insertroomdetails($data)
     {
-        // Check if the roomNo already exists
-        $this->db->query('SELECT * FROM rooms WHERE roomno = :roomno');
-        $this->db->bind(':roomno', $data['roomno']);
-        $existingRoom = $this->db->single();
-
-        if ($existingRoom) {
-            // Room with the same roomNo already exists, return false or handle accordingly
-            return false;
-        }
 
         // Check if the category is a valid foreign key
         $this->db->query('SELECT * FROM roomtype WHERE category = :category');
@@ -44,6 +35,20 @@ class M_Managers
         // $this->db->bind(':newRoomImg', ',' . implode(",", $data['roomPhotos']));
         // $this->db->bind(':category', $data['category']);
         //return $this->db->execute();
+    }
+
+    public function findroombyroomno($roomno) //when add a new room check whether the room number is already exist
+    {
+        $this->db->query("SELECT roomno FROM rooms WHERE roomno=:roomno");
+        $this->db->bind('roomno', $roomno);
+        $row = $this->db->single();
+
+        if ($this->db->rowCount() > 0) {
+            // Room with the same roomNo already exists
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getroomdetails()
@@ -76,14 +81,13 @@ class M_Managers
 
     public function updateRoomDetails($data)
     {
-        $this->db->query('UPDATE rooms SET  category = :category, price = :price WHERE roomNo = :roomNo');
-        // $this->db->bind(':floor', $data['floor']);
+        $this->db->query('UPDATE rooms SET category = :category, roomNo = :roomNo WHERE roomNo = :roomNo');
         $this->db->bind(':category', $data['category']);
-        $this->db->bind(':price', $data['price']);
         $this->db->bind(':roomNo', $data['roomNo']);
 
         return $this->db->execute();
     }
+
 
 
     // public function addRoomType($data)

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
    
-    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/side-navbar/navbar.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/kitchen/kitchen-foodstatus.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/kitchen/kitchen-foodmenu.css' >
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -16,10 +18,10 @@
         <div class="links">
             
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Kitchen/foodmenu""><i class="fa-solid fa-bell-concierge"></i>Food Menu</a>
+            <a href="<?php echo URLROOT;?>/Kitchen/foodmenu"><i class="fa-solid fa-bell-concierge"></i>Food Menu</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Kitchen/foodstatus"><i class="fa-solid fa-file-invoice"></i>Food Status</a>
+            <a href="<?php echo URLROOT;?>/Kitchen/pendingfoodorders"><i class="fa-solid fa-file-invoice"></i>Food Status</a>
             </div>
             
         </div>

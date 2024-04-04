@@ -72,11 +72,15 @@
 
 
         public function getRows(){ 
-            $this->db->query("SELECT * FROM foodorders WHERE DATE(date) = :dt");
-            $today = DATE('Y-m-d');
+            $this->db->query("SELECT * FROM foodorders WHERE DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') < :dt");
+            date_default_timezone_set('Asia/Colombo');
+            $currentDateTime = date('Y-m-d H:i:s');
+            $futureDateTime = date('Y-m-d H:i:s', strtotime($currentDateTime . ' -5 minutes'));
+            // echo($futureDateTime);
+            // die();
             // echo( $today);
             // die();
-            $this->db->bind(':dt' , $today);
+            $this->db->bind(':dt' , $futureDateTime);
 
             if($this->db->execute()){
                 $row = $this->db->resultSet();
@@ -92,6 +96,30 @@
             $this->db->bind(':status' , $status);
             $this->db->bind(':id' , $id);
             $this->db->execute();
+        }
+
+        public function getAllFoodItems(){
+            $this->db->query("SELECT * FROM fooditems ");
+            
+            $row = $this->db->resultSet();
+
+            $row=array_reverse($row);
+
+            return $row;
+        }
+
+        public function changeFoodItemStatus($id){
+            try {
+                $this->db->query("UPDATE fooditems SET status = CASE WHEN status = 1 THEN 0 WHEN status = 0 THEN 1 ELSE status END WHERE item_id=:id");
+                $this->db->bind(':id', $id);
+                $this->db->execute();
+                return true;
+            } catch (PDOException $e) {
+                echo "Error updating status: " . $e->getMessage();
+            } catch (Exception $e) {
+                echo "An error occurred: " . $e->getMessage();
+            }          
+
         }
 
 
