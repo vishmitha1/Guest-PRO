@@ -6,9 +6,11 @@
 
     <div class="add-new-form">
         <!-- Room Editing Form -->
+
         <center>
             <h1>Edit Room Details</h1>
         </center>
+
         <form action="<?php echo URLROOT; ?>/Managers/updateRoom" method="POST">
             <input type="hidden" name="roomno" value="<?php echo $data['roomDetails']->roomNo; ?>">
 

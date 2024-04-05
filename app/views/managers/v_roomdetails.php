@@ -127,6 +127,7 @@
     </div>
 </div>
 
+
 <script>
     function searchRooms() {
 
@@ -137,7 +138,6 @@
     //         window.location.href = "<?php echo URLROOT; ?>/Managers/deleteRoom/" + roomNo;
     //     }
     // }
-
 
 
     23
@@ -152,6 +152,7 @@
         confirmDeleteBtn.onclick = function () {
             window.location.href = "<?php echo URLROOT; ?>/Managers/deleteRoom/" + roomNo;
         }
+
 
         // Event listener for the "Cancel" button
         var cancelBtn = document.querySelector(".cancelBtn");
@@ -183,3 +184,4 @@
 
 
 </script>
+

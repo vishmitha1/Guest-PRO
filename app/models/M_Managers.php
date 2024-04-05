@@ -50,6 +50,7 @@ class M_Managers
             return false;
         }
     }
+
     public function findroombycategory($category) //when add a new room type check whether the room category is already exist
     {
         $this->db->query("SELECT category FROM roomtype WHERE category=:category");
@@ -62,7 +63,7 @@ class M_Managers
         } else {
             return false;
         }
-    }
+}
     public function getroomdetails()
     {
         $this->db->query("SELECT * FROM rooms ");

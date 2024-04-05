@@ -80,6 +80,7 @@ class Managers extends Controller
     //     }
     // }
 
+
     public function dashboard()
     {
         $totalrooms = $this->userModel->getroomcount();
@@ -124,6 +125,7 @@ class Managers extends Controller
 
     }
 
+
     public function addroom()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -148,6 +150,7 @@ class Managers extends Controller
                     $data['roomno_err'] = 'Room number is already exist';
                 }
             }
+
             if (empty($data['category'])) {
                 $data['category_err'] = 'Please enter Room category';
             }
@@ -162,12 +165,13 @@ class Managers extends Controller
                     $_SESSION['toast_msg'] = 'Room added successfully!';
                     redirect('Managers/roomdetails');
 
-
                 } else {
                     // Handle errors if insertion fails
                     $_SESSION['toast_type'] = 'error';
                     $_SESSION['toast_msg'] = 'Error adding room. Please try again.';
-                    redirect('Managers/roomdetails');
+  
+   $this->view('managers/v_addroom', $data);
+                  redirect('Managers/roomdetails');
                 }
             } else {
                 // If there are errors, reload the form with error messages
@@ -323,8 +327,8 @@ class Managers extends Controller
 
             ];
 
-
-            //validate each input
+  
+  //validate each input
             if (empty($data['category'])) {
                 $data['category_err'] = 'Please enter category';
             } else {
@@ -650,8 +654,10 @@ class Managers extends Controller
         $data = ['rooms' => $rooms];
         $this->view('managers/v_roomdetails', $data);
 
+
         //success or error message adding a room
         if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
+
             toastFlashMsg();
         }
     }
@@ -700,21 +706,27 @@ class Managers extends Controller
             if ($success) {
                 // Room type deleted successfully
                 $_SESSION['toast_type'] = 'success';
+
                 $_SESSION['toast_msg'] = 'Room deleted successfully!';
+
                 // Redirect
                 redirect('Managers/roomdetails'); // Redirect to room details page
             } else {
                 $_SESSION['toast_type'] = 'error';
+
                 $_SESSION['toast_msg'] = 'Error deleting room! Try again';
+
                 // Redirect
                 header("Location: " . URLROOT . "/Managers/roomdetails");
             }
         } else {
             // Room type cannot be deleted if not available
             $_SESSION['toast_type'] = 'error';
+
             $_SESSION['toast_msg'] = 'Error Deleting Room !<br>Room is already reserved!';
             // Redirect
             header("Location: " . URLROOT . "/Managers/roomdetails");
+
         }
     }
 
@@ -762,15 +774,19 @@ class Managers extends Controller
             // Update room details in the database
             if ($this->userModel->updateRoomDetails($updateData)) {
                 $_SESSION['toast_type'] = 'success';
+
                 $_SESSION['toast_msg'] = 'Room updated successfully!';
+
                 // Redirect
                 header("Location: " . URLROOT . "/Managers/roomdetails");
                 exit();
             } else {
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Error updating Room! Please try again';
+
                 // Redirect
                 header("Location: " . URLROOT . "/Managers/roomdetails");
+
             }
         }
     }
