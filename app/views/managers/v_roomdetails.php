@@ -14,13 +14,9 @@
             <a href=" <?php echo URLROOT; ?>/Managers/viewroomtype ">Add Room Type</a>
         </div>
 
-        <!-- Search bar -->
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button onclick="searchRooms()">Search</button>
-        </div>
 
 
+        <br></br>
         <!-- Search bar -->
         <div class="search-bar">
             <!-- Filter options -->

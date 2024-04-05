@@ -1,101 +1,58 @@
-.request-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 20px;
+
+
+.complaint-item {
+    border: 1px solid #ccc;
     margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+.view-container :hover{
+    background-color: #E0ECF8;
+}
+.complaint-details {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 }
-.request-item:hover{
-    background-color:#EFF5FB;
-}
-/* 
-.request-details {
+
+.left-details {
     flex-grow: 1;
-} */
-
-.request-actions button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-right: 10px;
-   
-  
+    padding-right: 10px;
 }
 
-.request-actions button:hover {
-    background-color: #45a049;
-}
-
-.request-details {
-    
-    border-collapse: separate; /* Use separate border-collapse */
-    border-spacing: 0 20px; /* Add vertical spacing between rows */
-    width: 100%;
-    
-}
-.request-details th{
-    padding:25px;
-    background-size: 100%;
-    background-color:  #CEE3F6;
-    font-size: 18px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    font-family: 'Sometype Mono', sans-serif;
-    font-weight: 600;
-    text-align: center;
-    border:none
-}
-.request-details td{
-    padding: 25px;
-    border: none;
-}
-
-.request-details tr{
-    align-items: self-start;
-    padding: 10px; /* Add padding for spacing */
-    background-color: #ffff; /* Add background color for row container */
-    border-radius: 2px; /* Add border-radius for rounded corners */
-    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);/* Add box shadow for depth */
-    color: black;
-}
-
-.complaints {
-    padding: 8px;
-}
-
-
-
-
-
-
-
-.request-details .table {
-    width: 100%;
-}
-
-.request-details .table-header,
-.request-details .table-row {
+.right-details {
+    flex-basis: 150px; /* Adjust width as needed */
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.request-details .table-cell {
-    flex: 1;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
+.detail {
+    margin-bottom: 5px;
 }
 
-.request-details .table-header {
-    font-weight: bold;
+.complaint-content {
+    margin-top: 10px;
 }
 
-.request-details .table-cell:nth-child(odd) {
-    background-color: #f9f9f9;
+.change-status {
+    margin-top: 10px;
 }
 
-.request-details .table-cell:nth-child(even) {
-    background-color: #ffffff;
+
+/* Style for the "Change Status" button */
+.change-status button {
+    background-color: #33cc00 ; 
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px; /* Padding for better appearance */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for color change */
+}
+
+/* Hover effect for the button */
+.change-status button:hover {
+    background-color:   #269900 ; /* Darker blue color on hover */
 }
