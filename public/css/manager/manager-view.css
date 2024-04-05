@@ -37,7 +37,7 @@
 .view-details {
     flex: 1; /* Take remaining space */
    text-indent: 20px;
-   background-color: rgb(253, 245, 95);
+   background-color: #CEE3F6;
 }
  
 .view-details h3 {
@@ -153,3 +153,60 @@
 .cancelBtn:hover {
     background-color: #969696;
 }
+
+
+/*edit view existing imaes*/
+
+.existing-image-container {
+    display: flex; /* Use Flexbox layout */
+    align-items: center; /* Center items vertically */
+}
+
+
+
+.existing-image {
+    width: 290px;
+    height: 220px;
+    padding-right: 20px;
+    
+   
+} 
+
+.existing-image img {
+    max-width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 5px;
+} 
+
+
+
+.food-images {
+    width: 100px;
+    height: 100px;
+    padding-right: 20px;
+   
+}
+
+.food-images img {
+    max-width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 5px;
+}
+
+.existing-photos {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    
+}
+.existing-photos img {
+    max-width: 290px;
+    margin-right: 10px; 
+    height: auto;
+} 
+.existing-photos input[type="checkbox"] {
+    align-self: center; /* Align the checkbox to the top of the container */
+}
+
