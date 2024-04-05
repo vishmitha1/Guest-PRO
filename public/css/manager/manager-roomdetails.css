@@ -1,5 +1,8 @@
 
-
+.manager-page{
+    width:95%;
+    margin: 0 auto;
+}
 
 
 .user-profile {
@@ -45,23 +48,69 @@
 }
             
         
-    
- .table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-            }
-    
-            .table td {
-            border: 1px solid #003366;
-            padding: 8px;
+/* Apply styling to table */
+.table-container {
+    width: 90%; 
+    margin: 0 auto; /* Center the table horizontally */
+}
+.table {
+    border-collapse: separate; /* Use separate border-collapse */
+    border-spacing: 0 20px; /* Add vertical spacing between rows */
+    width: 100%;
+    margin-top: 20px;
+}
 
-            }.table th {
-                border: 1px solid #003366;
-                background-color: #003366;
-                color: white;
-                padding: 8px;
-                }
+/* Apply styling to table data cells */
+.table td {
+    padding: 25px;
+    border: none;
+    
+}
+
+/* Apply styling to table header cells */
+.table th {
+    padding:25px;
+    background-size: 100%;
+    background-color:  #CEE3F6;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-family: 'Sometype Mono', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    border:none
+
+}
+
+/* Apply styling to table rows */
+.row-container{
+    
+    align-items: self-start;
+    padding: 10px; /* Add padding for spacing */
+    background-color: #ffff; /* Add background color for row container */
+    border-radius: 2px; /* Add border-radius for rounded corners */
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);/* Add box shadow for depth */
+    color: black;
+}
+.row-container:hover{
+    background-color: #E0ECF8;
+}
+/* Apply styling to odd rows */
+.row-container:nth-child(odd) {
+    background-color: #f2f2f2; /* Change the background color for odd rows */
+}
+.row-container:nth-child(odd):hover{
+    background-color: #E0ECF8;
+
+}
+
+
+/* Remove margin-top for the first row */
+.table tr:first-child {
+    margin-top: 0;
+}
+
+
 
 
             /* CSS for the delete and update buttons */
@@ -189,3 +238,7 @@
     margin: 0 auto; /* Center the image horizontally */
     margin-bottom: 10px; /* Add some spacing between the image and other elements */
 }
+
+
+
+

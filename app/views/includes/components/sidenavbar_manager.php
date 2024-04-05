@@ -17,6 +17,9 @@
         </div>
         <div class="links">
             <div class="link-items">
+                <a href="<?php echo URLROOT; ?>/Managers/dashboard"><i class="fa-solid fa-grip"></i>Dashboard</a>
+            </div>
+            <div class="link-items">
                 <a href="<?php echo URLROOT; ?>/Managers/roomdetails"><i class="fa-solid fa-bed"></i>Room Details</a>
             </div>
             <div class="link-items">
@@ -30,6 +33,10 @@
             <div class="link-items">
                 <a href="<?php echo URLROOT; ?>/Managers/generatereports"><i class=" fa-solid fa-file"></i>Generate
                     Reports</a>
+            </div>
+            <div class="link-items">
+                <a href="<?php echo URLROOT; ?>/Managers/complaints"><i class="fa-solid fa-user-pen"></i>Complaints
+                </a>
             </div>
         </div>
         <div class="logout">
