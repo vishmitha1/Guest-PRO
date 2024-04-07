@@ -703,9 +703,9 @@
                     if($this->userModel->isCustomerCheckedIn($data)){
                         $_SESSION['schedule_order']=$data;
 
-                        $merchant_secret="ytgmail";
+                        $merchant_secret="MzIzODIxMTg4NjcxNTM0NTA5ODE4NzI5OTU5MjEzMDYyNjMyNTc1";
                         $currency='LKR';
-                        $merchant_id='ytgamil';
+                        $merchant_id='1226068';
                         $amount=$data['price'];
                         $order_id='10';
 
