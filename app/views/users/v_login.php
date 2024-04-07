@@ -16,7 +16,7 @@
         <div class="nav">
             <<a href="<?php echo URLROOT; ?>/Home">Home</a>
             <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="<?php echo URLROOT;?>/Home#contact">Contact</a>
             <a href="<?php echo URLROOT;?>/users/register">SignUp</a>
 
         </div>
