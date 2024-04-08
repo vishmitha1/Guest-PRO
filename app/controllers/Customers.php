@@ -703,9 +703,9 @@
                     if($this->userModel->isCustomerCheckedIn($data)){
                         $_SESSION['schedule_order']=$data;
 
-                        $merchant_secret="ytgmail";
+                        $merchant_secret="MzIzODIxMTg4NjcxNTM0NTA5ODE4NzI5OTU5MjEzMDYyNjMyNTc1";
                         $currency='LKR';
-                        $merchant_id='ytgamil';
+                        $merchant_id='1226068';
                         $amount=$data['price'];
                         $order_id='10';
 
@@ -838,6 +838,33 @@
 
             
 
+        }
+
+
+
+        //validate order date using ajax
+
+        public function getReservationDate(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $spotData=json_decode(array_keys($_POST)[0],true);
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'roomNo'=>trim($spotData['roomNo']),
+                   
+                ];
+
+                $output=$this->userModel->getReservationDate($data);
+                // echo json_encode($output);
+                if($output){
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+                else{
+                    $output=['error','No reservation found'];
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+            }
         }
 
 
