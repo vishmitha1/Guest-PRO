@@ -58,5 +58,25 @@
 
 
 
+
+
+
+
+
+
+
+
+
+@import url("./manager/manager-roomdetails.css");
+
+@import url("./manager/manager-delete-fooditems.css");
+
+@import url("./manager/manager-delete-fooditems.css");
+@import url("./manager/manager-view.css");
+@import url("./manager/manager-complaints.css");
+@import url("./manager/manager-dashboard.css");
+
+
 @import url("./supervisor/supervisor-cleaningstatus.css");
 @import url("./supervisor/supervisor-servicerequest.css");
+
