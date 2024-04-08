@@ -842,6 +842,33 @@
 
 
 
+        //validate order date using ajax
+
+        public function getReservationDate(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $spotData=json_decode(array_keys($_POST)[0],true);
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'roomNo'=>trim($spotData['roomNo']),
+                   
+                ];
+
+                $output=$this->userModel->getReservationDate($data);
+                // echo json_encode($output);
+                if($output){
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+                else{
+                    $output=['error','No reservation found'];
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+            }
+        }
+
+
+
         
         
         
