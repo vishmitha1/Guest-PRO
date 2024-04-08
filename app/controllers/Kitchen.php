@@ -54,31 +54,17 @@ class Kitchen extends Controller{
 
     public function pendingfoodorders(){
         $data =[  ];
-        $orders = $this->userModel->getRows();
-        // print_r($orders);
-        // die();
+        $Ordered= $this->userModel->getOrderedRows();
+        $preparedRows = $this->userModel->getPreparingRows();
+        $dispatchRows = $this->userModel->getDispatchRows();
+
+        
         $order = [];
-        foreach($orders as $item){
-            $order['order_id'] = $item->order_id;
-            $order['room_id'] = $item->roomNo;
-            $order['item'] = $item->item_name;
-            $order['quantity'] = $item->quantity;
-            $order['note'] = $item->note;
-            $order['status'] = $item->status;
 
-            $cost = $item->cost;
-            $cost_arr = explode(',' , $cost);
-            $total = 0;
-            foreach($cost_arr as $cost){
-                $total += floatval($cost);
-            }
-            $order['price'] = $total;
+        array_push($data , $Ordered);
+        array_push($data , $preparedRows);
+        array_push($data , $dispatchRows);
 
-            $data[] = $order;
-        }
-
-        // print_r($data);
-        // die();
         $this->view('kitchens/v_foodstatus', $data);
     }
     

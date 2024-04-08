@@ -45,34 +45,35 @@
             </thead>
             <tbody>
                 <?php
-                foreach($data as $dt){
-                    if($dt['status']=='dispatch'){
-                        $statusss = 'dispatch';
-                        $dil_checked = 'checked';
-                        $on_checked = '';
-                    }else if($dt['status']=='preparing'){
-                        $statusss = 'preparing';
-                        $dil_checked = '';
-                        $on_checked = 'checked';
-
-                    }else{
-                        $statusss = 'order';
-                        $dil_checked = '';
-                        $on_checked = 's';
+                foreach($data as $item){
+                    foreach($item as $dt){
+                        if($dt->status=='dispatch'){
+                            $statusss = 'dispatch';
+                            $dil_checked = 'checked';
+                            $on_checked = '';
+                        }else if($dt->status=='preparing'){
+                            $statusss = 'preparing';
+                            $dil_checked = '';
+                            $on_checked = 'checked';
+                        }else{
+                            $statusss = 'order';
+                            $dil_checked = '';
+                            $on_checked = 's';
+                        }
+                        echo '<tr data-floor="1" data-status="'.$statusss.'">
+                        <td>'.$dt->order_id.'</td>
+                        <td>'.$dt->roomNo.'</td>
+                        <td>'.$dt->item_name.'</td>
+                        <td>'.$dt->quantity.'</td>
+                        <td>'.$dt->cost.'</td>
+                        <td>'.$dt->note.'</td>
+                        <td class="status-radio">
+                            <input type="radio" name="'.$dt->order_id.'"value="preparing"
+                                onchange="updateOrderStatus(this , '.$dt->order_id.')" '.$on_checked.'> Preparing
+                            <input type="radio" name="'.$dt->order_id.'"value="dispatch" onchange="updateOrderStatus(this ,'.$dt->order_id.')" '.$dil_checked.'>
+                                Ready for despatch
+                        </td></tr>';
                     }
-                    echo '<tr data-floor="1" data-status="'.$statusss.'">
-                    <td>'.$dt['order_id'].'</td>
-                    <td>'.$dt['room_id'].'</td>
-                    <td>'.$dt['item'].'</td>
-                    <td>'.$dt['quantity'].'</td>
-                    <td>'.$dt['price'].'</td>
-                    <td>'.$dt['note'].'</td>
-                    <td class="status-radio">
-                        <input type="radio" name="'.$dt['order_id'].'"value="preparing"
-                            onchange="updateOrderStatus(this , '.$dt['order_id'].')" '.$on_checked.'> Preparing
-                        <input type="radio" name="'.$dt['order_id'].'"value="dispatch" onchange="updateOrderStatus(this ,'.$dt['order_id'].')" '.$dil_checked.'>
-                            Ready for despatch
-                    </td></tr>';
                 }
                 ?>
             </tbody>
