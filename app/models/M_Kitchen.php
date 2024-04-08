@@ -71,8 +71,8 @@
         }
 
 
-        public function getRows(){ 
-            $this->db->query("SELECT * FROM foodorders WHERE DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') < :dt");
+        public function getOrderedRows(){ 
+            $this->db->query("SELECT * FROM foodorders WHERE DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') < :dt AND status='ordered'");
             date_default_timezone_set('Asia/Colombo');
             $currentDateTime = date('Y-m-d H:i:s');
             $futureDateTime = date('Y-m-d H:i:s', strtotime($currentDateTime . ' -5 minutes'));
@@ -81,6 +81,38 @@
             // echo( $today);
             // die();
             $this->db->bind(':dt' , $futureDateTime);
+
+            if($this->db->execute()){
+                $row = $this->db->resultSet();
+                return $row;
+            }
+            else{
+                return false;         
+            }
+        }
+
+        public function getPreparingRows(){ 
+            $this->db->query("SELECT * FROM foodorders WHERE status='preparing'");
+            // echo($futureDateTime);
+            // die();
+            // echo( $today);
+            // die();
+
+            if($this->db->execute()){
+                $row = $this->db->resultSet();
+                return $row;
+            }
+            else{
+                return false;         
+            }
+        }
+
+        public function getDispatchRows(){ 
+            $this->db->query("SELECT * FROM foodorders WHERE status='dispatch'");
+            // echo($futureDateTime);
+            // die();
+            // echo( $today);
+            // die();
 
             if($this->db->execute()){
                 $row = $this->db->resultSet();
