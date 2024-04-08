@@ -632,6 +632,19 @@
             
             
         }
+
+
+        //check Reservation date
+        public function getReservationDate($data){
+            $this->db->query("SELECT r.checkIn , r.checkOut FROM reservations r INNER JOIN rooms ON r.reservation_id = rooms.reservation_id 
+                                WHERE rooms.roomNo=:roomNo  AND rooms.availability=:avail ");
+            
+            $this->db->bind(':roomNo',$data['roomNo']);
+            $this->db->bind(':avail','no');
+            $row = $this->db->single();
+
+            return $row;
+        }
         
 
         public function test($data){
