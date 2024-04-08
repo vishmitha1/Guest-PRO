@@ -210,6 +210,77 @@ function totalcartItems(){
 
 
 
+//handle reservation date range for food order schedules''''''''''''''''''''''''''''
+
+addEventListener('DOMContentLoaded', function() {
+    var deliveryDateElement = document.getElementById('delevery_date');
+    var numberElement = document.getElementById('RoomNumberForm');
+    var roomNo = document.getElementById('RoomNumberForm').value;
+
+    deliveryDateElement.addEventListener("click",function(){
+        if (roomNo === '') {
+            toastFlashMsg('info', 'Please select a Room Number');
+            return;
+        }
+    })
+
+    numberElement.addEventListener('click', function() {
+        roomNo = document.getElementById('RoomNumberForm').value;
+        if (roomNo === '') {
+            deliveryDateElement.addEventListener("click",function(){
+                if (roomNo === '') {
+                    toastFlashMsg('info', 'Please select a Room Number');
+                    return;
+                }
+            })
+        }
+        else{
+            
+            getReservationDate(roomNo);
+        }
+    });
+
+    function getReservationDate(roomNo) {
+        console.log(roomNo);
+        $.ajax({
+            url: 'http://localhost/GuestPro/Customers/getReservationDate',
+            method: "POST",
+            data: JSON.stringify({
+                roomNo: roomNo
+            }),
+            success: function(response) {
+                console.log(response);
+
+                // Parse the response data into Date objects
+                var checkInDate = new Date(response.checkIn);
+                var checkOutDate = new Date(response.checkOut);
+
+                // Adjust the dates for minimum and maximum delivery dates
+                checkInDate.setDate(checkInDate.getDate() + 1); // Set to the day after check-in
+                var minDateString = checkInDate.toISOString().split('T')[0];
+                var maxDateString = checkOutDate.toISOString().split('T')[0];
+
+                console.log(minDateString, maxDateString);
+
+                // Set min and max attributes of the delivery date input element
+                deliveryDateElement.setAttribute("min", minDateString);
+                deliveryDateElement.setAttribute("max", maxDateString);
+            },
+            error: function(error) {
+                console.error('error while getting reservation date', error);
+            }
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
 
 
     
