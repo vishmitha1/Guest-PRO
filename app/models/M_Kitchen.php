@@ -154,5 +154,65 @@
 
         }
 
+        public function getTotalOrderCount()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS total_orders_count FROM foodorders');
 
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the room count from the fetched row
+        return $row->total_orders_count;
     }
+
+    public function getDispatchedOrderCount()
+    {
+        // Prepare the query
+        $this->db->query("SELECT COUNT(*) AS dispatched_orders_count FROM foodorders WHERE status = 'dispatch' OR status = 'on the way' OR status = 'complete' ");
+
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the room count from the fetched row
+        return $row->dispatched_orders_count;
+    }
+
+    public function getPreparingOrderCount()
+    {
+        // Prepare the query
+        $this->db->query("SELECT COUNT(*) AS preparing_orders_count FROM foodorders WHERE status = 'preparing'  ");
+
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the room count from the fetched row
+        return $row->preparing_orders_count;
+    }
+
+    public function getReadyForDispatchOrderCount()
+    {
+        // Prepare the query
+        $this->db->query("SELECT COUNT(*) AS readyfordispatch_orders_count FROM foodorders WHERE status = 'ready for dispatch'  ");
+
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the room count from the fetched row
+        return $row->readyfordispatch_orders_count;
+    }
+
+
+
+            
+
+
+    
+    
+    }
+
+
+    

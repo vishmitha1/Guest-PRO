@@ -74,6 +74,27 @@ class Kitchen extends Controller{
         $this->userModel->changeStatus($status , $id);
     }
 
+    public function dashboard(){
+        $totalorders = $this->userModel->getTotalOrderCount();
+        $dispatchedorders = $this->userModel->getDispatchedOrderCount();
+        $preparingorders = $this->userModel->getPreparingOrderCount();
+        $readyfordispatchorders = $this->userModel->getReadyForDispatchOrderCount();
+        
+        $data = [
+            'totalorders' => $totalorders,
+            'dispatchedorders' => $dispatchedorders,
+            'preparingorders' => $preparingorders,
+            'readyfordispatchorders' => $readyfordispatchorders,
+            
+
+        ];
+        $this->view('kitchens/v_dashboard', $data);
+
+    }
+
+    
+
+
     
 
 }
