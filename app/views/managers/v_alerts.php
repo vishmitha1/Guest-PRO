@@ -1,9 +1,10 @@
-<?php   require APPROOT. "/views/includes/components/sidenavbar_manager.php" ?>
+<?php require APPROOT . "/views/includes/components/sidenavbar_manager.php" ?>
 
 
 
-    <div class="dashboard">
-        
+<div class="home">
+    <div class="manager-page">
+
 
         <h1>Send Alerts</h1> <!-- Updated title -->
 
@@ -20,3 +21,4 @@
             <button type="submit">Send Alert</button>
         </form>
     </div>
+</div>

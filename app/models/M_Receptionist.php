@@ -234,6 +234,145 @@
         }
 
 
+        //cancel reservation
+        public function cancelReservation($data){
+            $this->db->query('DELETE FROM reservations WHERE reservation_id=:id');
+            $this->db->bind(':id',$data['reservation_id']);
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+
+        //reservation ui eke display wena room types ganna
+        public function getRoomTypes(){
+            $this->db->query('SELECT *, RAND() as rnd 
+                                    FROM roomtype 
+                                    ORDER BY rnd;
+                                    ');
+            $row=$this->db->resultSet();
+           
+            return $row;
+        }
+
+
+
+        /* mnge reservation UI eke , give access control in here */
+        public function  giveCustomerAccess($data){
+            $this->db->query('UPDATE reservations SET checked=:access WHERE reservation_id=:id');
+            $this->db->bind(':id',$data['reservation_id']);
+
+            if($data['checked']=='in'){
+                $this->db->bind(':access','out');
+            }
+            else{
+                $this->db->bind(':access','in');
+            }
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
+
+
+
+
+        //payment part'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        //get pending payments. payments table eke status eka 'pending' wala checkout wenna asannama rows ganna
+        public function getPendingPayments(){
+            $this->db->query("SELECT expenses.reservation_id, SUM(expenses.amount) as total, reservations.customer_name
+                                FROM expenses
+                                JOIN reservations ON expenses.reservation_id = reservations.reservation_id
+                                WHERE expenses.status = :status
+                                GROUP BY expenses.reservation_id, reservations.customer_name ");
+            $this->db->bind(':status','Not Paid');
+            $row=$this->db->resultSet();
+            return $row;
+        }
+
+        //custome search eka..paymnet check karann receptionist 
+        public function customPaymentSearch($data){
+                
+                if($data['serachby']=='roomNo'){
+                    $this->db->query("SELECT reservation_id FROM rooms  where roomNo=:data AND availability='no' ");
+                    $this->db->bind(':data',$data['details']);
+                    if( $row=$this->db->single()){
+                        $data['details']=$row->reservation_id;
+                        $data['serachby']='reservation_id';
+                    }
+                    else{
+                        return false;
+                    }    
+    
+                }
+    
+                $this->db->query("SELECT expenses.reservation_id, SUM(expenses.amount) as total, reservations.customer_name
+                                    FROM reservations
+                                    JOIN expenses ON reservations.reservation_id = expenses.reservation_id
+                                    WHERE expenses.status = :status AND reservations." . $data['serachby'] . " = :data");
+                $this->db->bind(':data',$data['details']);
+                $this->db->bind(':status','Not Paid');
+                $row=$this->db->single();
+                return $row;
+        }
+
+
+        //calculate paymentpage eke data ganna meken
+        public function getPaymentsDetails($data){
+            $this->db->query("SELECT * FROM expenses WHERE reservation_id=:id");
+            $this->db->bind(':id',$data['reservation_id']);
+            $row=$this->db->resultSet();
+            return $row;
+
+        }
+
+        //expand expenses details
+        public function getExpandDetails($data){
+
+            if($data['description']=='Reservation_Cost'){
+                $this->db->query(" SELECT reservations.roomNo, reservations.cost, reservations.date, rooms.category, roomtype.mainImg 
+                                    FROM reservations 
+                                    INNER JOIN rooms ON rooms.reservation_id = reservations.reservation_id 
+                                    INNER JOIN roomtype ON roomtype.category = rooms.category 
+                                    WHERE rooms.availability = 'no' and reservations.reservation_id=:res_id LIMIT 1; ");
+                
+                $this->db->bind(':res_id',$data['reservation_id']);
+                $row=$this->db->resultSet();
+                return $row;
+
+            }
+
+            else{
+                $this->db->query("SELECT * FROM foodorders WHERE order_id=:id");
+                
+                $this->db->bind(':id',$data['order_id']);
+                $row=$this->db->resultSet();
+                return $row;
+            }
+        }
+
+        
+        //paymnet gatwey eken ena receptionist request ekata adala customer data gannawa
+        public function getCustomerDataForPaymentGateway($data){
+            $this->db->query("SELECT SUM(expenses.amount) as total,reservations.customer_name as name ,reservations.email,reservations.phone 
+                                FROM expenses JOIN reservations ON expenses.reservation_id=reservations.reservation_id   
+                                 WHERE expenses.reservation_id=:id");
+            $this->db->bind(':id',$data['reservation_id']);
+            $row=$this->db->resultSet();
+            return $row;
+        }
+        
+
+
 
 
 

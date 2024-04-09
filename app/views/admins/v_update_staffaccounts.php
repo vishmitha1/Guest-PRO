@@ -5,9 +5,9 @@
     <!-- Update staff account details Form -->
     <div class="update-staffaccounts-form">
         <h2>Update Account Details</h2>
-            <form action="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $data['staffaccount']->userID; ?>" method="POST">
-                <label for="userID">User ID:</label>
-                <input type="text" id="userID" name="userID" value="<?php echo $data['staffaccount']->userID;?>" required>
+            <form action="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $data['staffaccount']->staffID; ?>" method="POST">
+                <label for="staffID">User ID:</label>
+                <input type="text" id="staffID" name="staffID" value="<?php echo $data['staffaccount']->staffID;?>" readonly>
                 <label for="designation">Designation:</label>
                 <input type="text" id="designation" name="designation" value="<?php echo $data['staffaccount']->designation;?>" required>
                 <label for="staffName">Name:</label>

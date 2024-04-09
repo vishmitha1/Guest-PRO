@@ -1,0 +1,212 @@
+.view-container {
+    margin-top: 20px;
+    display: 100%;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.view-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;;
+    flex-direction: row;
+    margin-top: 20px;
+    
+}
+
+
+
+
+.view-image {
+    width: 290px;
+    height: 220px;
+    padding-right: 20px;
+   
+}
+
+.view-image img {
+    max-width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 5px;
+}
+
+.view-details {
+    flex: 1; /* Take remaining space */
+   text-indent: 20px;
+   background-color: #CEE3F6;
+}
+ 
+.view-details h3 {
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+
+.view-actions {
+    margin-bottom: 10px;
+}
+
+.view-actions a {
+    margin-right: 10px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #333;
+}
+
+.view-actions a:hover {
+    background-color: #f4f4f4;
+}
+
+
+
+
+
+
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    max-width: 400px;
+    text-align: center;
+    
+}
+
+.modal-content i{
+    color:red;
+    font-size: 100px;
+    
+}
+
+.modal-message { 
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+}
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+
+.confirmDeleteBtn {
+    background-color: #dc3545;
+    color: white;
+     padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    
+}
+
+.confirmDeleteBtn:hover {
+    background-color: #c82333;
+}
+
+/* Cancel button */
+.cancelBtn {
+    background-color: #9f9f9f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    
+}
+
+.cancelBtn:hover {
+    background-color: #969696;
+}
+
+
+/*edit view existing imaes*/
+
+.existing-image-container {
+    display: flex; /* Use Flexbox layout */
+    align-items: center; /* Center items vertically */
+}
+
+
+
+.existing-image {
+    width: 290px;
+    height: 220px;
+    padding-right: 20px;
+    
+   
+} 
+
+.existing-image img {
+    max-width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 5px;
+} 
+
+
+
+.food-images {
+    width: 100px;
+    height: 100px;
+    padding-right: 20px;
+   
+}
+
+.food-images img {
+    max-width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 5px;
+}
+
+.existing-photos {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    
+}
+.existing-photos img {
+    max-width: 290px;
+    margin-right: 10px; 
+    height: auto;
+} 
+.existing-photos input[type="checkbox"] {
+    align-self: center; /* Align the checkbox to the top of the container */
+}
+

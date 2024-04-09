@@ -24,15 +24,19 @@
 
 .foodorder-items{
   position: relative;
-  border: 1px solid black;
+  border: 1px solid rgb(255, 0, 0);
   border-radius: 5px;
   /* width: 23%; */
   width: 240px;
   height:auto;
   padding: 1%;
   box-shadow: 10px 5px 10px  rgba(0, 0, 0, 0.15);
-
   
+}
+
+.foodorder-items:hover{
+  transform: scale(1.03);
+  transition: transform .5s;
 }
 
 
@@ -317,15 +321,53 @@
   transform: rotate(360deg);
 }
 
+.foodcart-grid1{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  margin-top: 20px;
+}
+
+.foodcart-grid1 .delevery-date-time{
+  padding: 2pxx;
+}
+
+.foodcart-grid1 .delevery-date-time-title{
+  font-family: 'Catamaran';
+  font-weight: 400;
+}
+
+.foodcart-grid1 .delevery-date-time input{
+  border-radius: 5px;
+  border: 2px solid rgb(76, 137, 230);
+  padding: 5px;
+}
+
+.foodcart-grid1 .special-instructions{
+  margin-top: 10px;
+  font-family: 'Catamaran';
+  font-weight: 400;
+}
+
+
+.foodcart-grid1 .special-instructions textarea{
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #E6E7E8;
+}
+
 .total-cost{
-  margin-top: 50px;
+  
   width: 300px;
-  position: absolute;
+ 
   right: 0;
   grid-template-columns: auto auto;
   display: none;
   font-family: 'Catamaran';
   font-weight: 400;
+
 }
 
 .total-cost-title{
@@ -340,6 +382,7 @@
   padding: 10px;
   border-radius: 10px;
   border:none;
+  
 }
 
 .total-cost .place-order button:hover{

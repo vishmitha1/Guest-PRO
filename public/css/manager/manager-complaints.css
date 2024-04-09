@@ -1,0 +1,58 @@
+
+
+.complaint-item {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+.view-container :hover{
+    background-color: #E0ECF8;
+}
+.complaint-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.left-details {
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+.right-details {
+    flex-basis: 150px; /* Adjust width as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.detail {
+    margin-bottom: 5px;
+}
+
+.complaint-content {
+    margin-top: 10px;
+}
+
+.change-status {
+    margin-top: 10px;
+}
+
+
+/* Style for the "Change Status" button */
+.change-status button {
+    background-color: #33cc00 ; 
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px; /* Padding for better appearance */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for color change */
+}
+
+/* Hover effect for the button */
+.change-status button:hover {
+    background-color:   #269900 ; /* Darker blue color on hover */
+}

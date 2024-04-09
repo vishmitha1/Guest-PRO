@@ -1,4 +1,12 @@
+.highlight{
+    background: #cadae9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.15);
 
+}
 
 .reservation-searchbar-wrapper{
     padding: 20px 10px 50px 10px;
@@ -562,6 +570,25 @@
 .left-box label{
     margin-top: -10px;
     font-size: 10px;
+}
+
+.left-box .reserve-for-others{
+    font-size: 22px;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+
+}
+
+.left-box .reserve-for-others i{
+    font-size: 25px;
+    color: lightslategray;
+}
+
+.left-box .reserve-for-others input{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 .payment-content .right-box{
     position: absolute;

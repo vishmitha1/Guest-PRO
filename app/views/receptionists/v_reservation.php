@@ -130,45 +130,114 @@
 
     <?php }?>
 
-    <div class="res-searchbar-wrapper">
 
-        <div class="form-title-mngereservation">
-            <span>Reservation</span>
-        </div> 
-        
-        <form action="<?php echo URLROOT;?>/Receptionists/reservation" method="POST" >
-            <div class="res-mngreservation-searchbar">
-            
-                
 
-                <div class="items">
-                    <span>Search By</span><br>
-                    <select name="serachby" id="">
-                        <option hidden>Select One</option>
-                        <option value="roomNo">Room No</option>
-                        <option value="reservation_id">Reservation No</option>
-                        <option value="nic">NIC</option>
-                        <option value="email">Email</option>
-                    </select>
-                </div>
-                <div class="items">
-                    <span>Details</span><br>
-                    <input class="date"  name="details" type="text" placeholder="Enter Value">
-                </div>
-                
 
-                <div class="btn">
-                    <button name="searchReservation" id="searchReservation" >Check</button>
+
+<!-- Default view''''''''''''''''''' -->
+
+<div class="res-search-result-wrapper" id='Default-view' >
+
+   <?php if(!empty($data[1])){
+        foreach ($data[1] as $item ){?>
+            <?php $amnt= explode(",",$item->amenities);?>
+ 
+            <div class="room-block">
+
+                <div class="res-room-img">
+                    <img src="<?php echo URLROOT;?>/public/img/rooms/<?php echo $item->mainImg;?>.jpg" alt="">
                 </div>
+
+                <div class="res-room-details">
+                    <span class='room-type2'><?php echo $item->category;?></span>
+                    <div class="room-amnt">
+                        <?php for($i=0;$i<count($amnt);$i++){?>
+                            <div class="child">
+                                <i class="fa-solid fa-check"></i><span> <?php echo $amnt[$i];?></span>
+                            </div>
+                        <?php }?>
+                        
+                    </div>
+                    <div class="price-section">
+                        <span class="title" >Cost Per Night: </span><span><?php echo $item->price;?> LKR </span>
+                    </div>
+                                
+                </div>
+
                 
             </div>
-        </form>
+        <?php }
+    }?>    
+
+</div>
     
-    
-    </div>
+  
 
 
-    <div class="recep-reservation-history-wrapper">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+        <div class="res-searchbar-wrapper">
+
+            <div class="form-title-mngereservation">
+                <span>Reservation</span>
+            </div> 
+            
+            <form action="<?php echo URLROOT;?>/Receptionists/reservation" method="POST" >
+                <div class="res-mngreservation-searchbar">
+                
+                    
+
+                    <div class="items">
+                        <span>Search By</span><br>
+                        <select name="serachby" id="">
+                            <option hidden value="">Select One</option>
+                            <option value="roomNo">Room No</option>
+                            <option value="reservation_id">Reservation No</option>
+                            <option value="nic">NIC</option>
+                            <option value="email">Email</option>
+                        </select>
+                    </div>
+                    <div class="items">
+                        <span>Details</span><br>
+                        <input class="date"  name="details" type="text" placeholder="Enter Value">
+                    </div>
+                    
+
+                    <div class="btn">
+                        <button name="searchReservation" id="searchReservation" >Check</button>
+                    </div>
+                    
+                </div>
+            </form>
+        
+        
+        </div>
+
+
+    <div class="recep-reservation-history-wrapper" id="reload" >
 
         <div class="recep-reservation-history">
 
@@ -210,9 +279,9 @@
                                     <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
                                     <button name="editReservation" >Edit</button>
                                 </form>
-                                <form action="<?php echo URLROOT;?>/Receptionists/cancelReservation" method='POST'>
+                                <form class="deleteReservation" action="<?php echo URLROOT;?>/Receptionists/cancelReservation" method='POST'>
                                     <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
-                                    <button>Delete</button>
+                                    <button onclick="DeleteReservation()" >Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -234,16 +303,16 @@
                                         <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
                                         <button name="editReservation" >Edit</button>
                                     </form>
-                                    <form action="<?php echo URLROOT;?>/Receptionists/cancelReservation method='POST'">
+                                    <form class="deleteReservation" action="<?php echo URLROOT;?>/Receptionists/cancelReservation" method='POST'>
                                         <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
-                                        <button>Delete</button>
+                                        <button onclick="DeleteReservation()" >Delete</button>
                                     </form>
                                 </td>
                             </tr>
                             <?php }?>
                         <?php }?>
                     <?php }?>    
-                    <!-- <tr>
+                    <tr>
                         <td>1</td>
                         <td>101</td>
                         <td>2021-10-10</td>
@@ -261,7 +330,7 @@
                                 <button>Delete</button>
                             </form>
                         </td>
-                    </tr> -->
+                    </tr>
                    
                   
 
@@ -273,7 +342,7 @@
 
         </div>
 
-    </div>
+    </div> -->
 
 
 
@@ -283,4 +352,134 @@
 
 </div>
 <!-- import js file  -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?php echo URLROOT;?>/public/js/receptionist/reservation.js"></script>
+
+<script>
+    $(document).ready(function () {
+    console.log('redy');
+
+    $(".deleteReservation").submit(function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        console.log('delete');
+
+        // Serialize form data
+        var formData = $(this).serialize();
+        // var id=$(this).attr("id");
+
+        Swal.fire({
+        title: "Are you sure?",
+        text: " Are you sure you want to delete this reservation? ",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+        if (result.isConfirmed) {
+            // Perform AJAX submission
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost/Guestpro/Receptionists/cancelReservation',
+                data: formData,
+                success: function (response) {
+                    $("#reload").load(location.href + " #reload");
+                    // location.reload();
+                    console.log('success');
+                   
+                
+                    console.log(response);
+                        Swal.fire({
+                        title: "Deleted!",
+                        text: "Your reservation has been deleted.",
+                        icon: "success",
+                            timer: 2000,
+                    });
+                            
+                    //set time out for reload the page
+
+                    // setTimeout(function () {
+                    //     location.reload();
+                    //     }, 2000);
+
+                    //can use this one for reload section
+                    // $("#reservation-retrive").load(location.href + " #reservation-retrive");
+                    
+                    // Handle the response as needed
+                    // console.log(response);
+                },
+                error: function (error) {
+                    // Handle errors if any
+                    console.error(error);
+                }
+            });
+            
+        }
+        });
+        
+
+    });
+});
+
+
+// function DeleteReservation(event){
+    
+
+//         event.preventDefault(); // Prevent the default form submission
+//         console.log('delete');
+
+//         // Serialize form data
+//         var formData = $(this).serialize();
+//         // var id=$(this).attr("id");
+
+//         Swal.fire({
+//         title: "Are you sure?",
+//         text: " Are you sure you want to delete this reservation? ",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "#3085d6",
+//         cancelButtonColor: "#d33",
+//         confirmButtonText: "Yes, delete it!"
+//         }).then((result) => {
+//         if (result.isConfirmed) {
+//             // Perform AJAX submission
+//             $.ajax({
+//                 type: $(this).attr("method"),
+//                 url: $(this).attr("action"),
+//                 data: formData,
+//                 success: function (response) {
+//                     // $("#reload").load(location.href + " #reload");
+//                     // location.reload();
+                   
+                
+//                     // console.log(response);
+//                         Swal.fire({
+//                         title: "Deleted!",
+//                         text: "Your reservation has been deleted.",
+//                         icon: "success",
+//                             timer: 2000,
+//                     });
+                            
+//                     //set time out for reload the page
+
+//                     // setTimeout(function () {
+//                     //     location.reload();
+//                     //     }, 2000);
+
+//                     //can use this one for reload section
+//                     // $("#reservation-retrive").load(location.href + " #reservation-retrive");
+                    
+//                     // Handle the response as needed
+//                     // console.log(response);
+//                 },
+//                 error: function (error) {
+//                     // Handle errors if any
+//                     console.error(error);
+//                 }
+//             });
+            
+//         }
+//         });
+
+// }
+</script>

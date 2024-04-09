@@ -1,0 +1,24 @@
+.admin-dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
+    gap: 20px;
+}
+
+.admin-stat {
+    background-color: #003366;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-stat h2 {
+    margin-top: 0;
+    font-size: 20px;
+    color:  white;
+}
+
+.admin-stat p {
+    margin-bottom: 0;
+    font-size: 28px;
+    color:  white;
+}

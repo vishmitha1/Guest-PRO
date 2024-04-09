@@ -1,159 +1,119 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href='<?php echo URLROOT;?>/public/css/receptionist/receptionist-pendingpayments.css'>
-    <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <!-- <div class="sidebar">
-        <div class="logo-section">
-            <img src="your-logo.png" alt="Your Logo" width="100">
-        </div>
-        <a class="nav-link" href="#">Option 1</a>
-        <a class="nav-link" href="#">Option 2</a>
-        <a class="nav-link" href="#">Option 3</a>
-        <a class="nav-link" href="#">Option 4</a>
-        <a class="nav-link" href="#">Option 5</a>
-        <div class="logout-button">
-            <a href="#">Logout</a>
-        </div>
-    </div> -->
+<?php   require APPROOT. "/views/includes/components/sidenavbar-receptionist.php" ?>
 
-    <div class="side-bar">
-        <div class="logo">
-            <h1><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>  Guest PRO</h1>
-        </div>
-        <div class="links">
-            <div class="link-items">
-                <a href="<?php echo URLROOT;?>/Receptionists/reservation"><i class="fa-solid fa-hotel"></i>Reservations</a>
-            </div>
-            <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Receptionists/availability"><i class="fa-solid fa-bell-concierge"></i>Room Availability</a>
-            </div>
+
+    <div class="home">
+
+    <script src="<?php echo URLROOT; ?>/public/js/receptionist/payment.js"></script>
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+
+    <div class="payment-res-searchbar-wrapper">
+        
+
+        <div class="form-title-mngereservation">
+            <ion-icon name="bag-handle-outline"></ion-icon><span>Manage Payments</span>
+        </div> 
+        
+        <form action="<?php echo URLROOT;?>/Receptionists/payment" method="POST" >
+            <div class="res-mngreservation-searchbar">
             
-            <div class="link-items">
+                
 
-            <a href="<?php echo URLROOT;?>/Receptionists/payment"><i class="fa-regular fa-credit-card"></i>Payments</a>
+                <div class="items">
+                    <span>Search By</span><br>
+                    <select name="serachby" id="">
+                        <option hidden value="">Select One</option>
+                        <option value="roomNo">Room No</option>
+                        <option value="reservation_id">Reservation No</option>
+                        <option value="nic">NIC</option>
+                        <option value="email">Email</option>
+                    </select>
+                </div>
+                <div class="items">
+                    <span>Details</span><br>
+                    <input class="date"  name="details" type="text" placeholder="Enter Value">
+                </div>
+                
+
+                <div class="btn">
+                    <button name="searchReservation" id="searchReservation" >Check</button>
+                </div>
+                
             </div>
-           
+        </form>
+    
+    
+    </div>
+        
+
+
+
+        
+        
+
+        <div class="payment-table-wrapper">
+            <div class="payment-details">Today's Pending Payments</div>
+            <table >
+                <tr>
+                    <th>Reservation No</th>
+                    <th>Guest Name</th>
+                    <th>Total Bill</th>
+                   
+                    <th>Calculate</th>
+                    <th>Pay</th>
+                </tr>
+
+                <?php if(!empty($data[0])) {
+                    foreach($data[0] as $row){ ?>
+                        <tr>
+                            <td><?php echo $row->reservation_id; ?></td>
+                            <td><?php echo $row->customer_name; ?></td>
+                            <td>LKR <?php echo $row->total; ?></td>
+                            
+                            <form action="<?php echo URLROOT;?>/Receptionists/calculatePayments" method="post" >
+                                <td>
+                                    <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                    <button class="calculate-button">Calculate</button>
+                                </td>
+                            </form>
+                            
+                            <td>
+                                <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)" >Proceed to Payment</button>
+                            </td>
+                        </tr>
+                    <?php }
+                }
+                elseif(!empty($data[1])){ 
+                   $row= $data[1]?>
+                        <tr>
+                            <td><?php echo $row->reservation_id; ?></td>
+                            <td><?php echo $row->customer_name; ?></td>
+                            <td>LKR <?php echo $row->total; ?></td>
+                            
+                            <form target="_blank" action="<?php echo URLROOT;?>/Receptionists/calculatePayments" method="post" >
+                                <td>
+                                    <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                    <button class="calculate-button">Calculate</button>
+                                </td>
+                            </form>
+                            <td>
+                                <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)"  >Proceed to Payment</button>
+                            </td>
+                        </tr>
+                    
+                <?php }?>
+                
+
+        
+                
+            </table>
+            
         </div>
-        <div class="logout">
-             <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
-        </div>
+
+       
     </div>
 
-
-
-
-    <div class="dashboard">
-        <div class="user-profile">
-            <img src="https://blog.upbook.com/hubfs/handling-front-desk-receptionist-duties.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
-
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button>Search</button>
-        </div>
-
-
-        <div class="payment-details">Pending Payments</div>
-
-        <table class="table" id="roomDetailsTable">
-            <tr>
-                <th>Reservation No</th>
-                <th>Guest ID</th>
-                <th>Total Bill</th>
-                <th>Pending Bill</th>
-                <th>Calculate</th>
-                <th>Pay</th>
-            </tr>
-            <tr>
-                <td>12345</td>
-                <td>6789</td>
-                <td>LKR 3500.00</td>
-                <td>LKR 500.00</td>
-                <td><button class="calculate-button">Calculate</button></td>
-                <td><button class="payment-button">Proceed to Payment</button></td>
-            </tr>
-            <tr>
-    <td>12346</td>
-    <td>6790</td>
-    <td>LKR 4000.00</td>
-    <td>LKR 1000.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-<tr>
-    <td>12347</td>
-    <td>6791</td>
-    <td>LKR 3500.00</td>
-    <td>LKR 750.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-<tr>
-    <td>12348</td>
-    <td>6792</td>
-    <td>LKR 4500.00</td>
-    <td>LKR 1200.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-<tr>
-    <td>12349</td>
-    <td>6793</td>
-    <td>LKR 3000.00</td>
-    <td>LKR 800.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-<tr>
-    <td>12350</td>
-    <td>6794</td>
-    <td>LKR 6000.00</td>
-    <td>LKR 1500.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-<tr>
-    <td>12351</td>
-    <td>6795</td>
-    <td>LKR 7500.00</td>
-    <td>LKR 2000.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-<tr>
-    <td>12352</td>
-    <td>6796</td>
-    <td>LKR 4200.00</td>
-    <td>LKR 1100.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-<tr>
-    <td>12353</td>
-    <td>6797</td>
-    <td>LKR 3200.00</td>
-    <td>LKR 850.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-<tr>
-    <td>12354</td>
-    <td>6798</td>
-    <td>LKR 2800.00</td>
-    <td>LKR 750.00</td>
-    <td><button class="calculate-button">Calculate</button></td>
-    <td><button class="payment-button">Proceed to Payment</button></td>
-</tr>
-
-            <!-- Add more rows as needed... -->
-        </table>
-    </div>
+    
 </body>
 </html>

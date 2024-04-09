@@ -1,9 +1,8 @@
-/*''''''''''''''''''''''''''''''''''''''''''''' joanne's css classes'''''''''''''''''''''''''' */
 
-
-
-/* CSS for the dashboard section */
-
+.manager-page{
+    width:95%;
+    margin: 0 auto;
+}
 
 
 .user-profile {
@@ -11,13 +10,6 @@
     align-items: center;
     justify-content: flex-end; /* Right-align the user profile section */
     margin-bottom: 20px;
-}
-
-.user-profile img {
-    width: 50px; /* Adjust the image size */
-    height: 50px; /* Adjust the image size a */
-    border-radius: 50%;
-    margin-right: 10px;
 }
 
 .user-profile-info {
@@ -55,54 +47,198 @@
     background-color: #002447;
 }
             
-            /* CSS for the food menu section */
-            .manager-room-details {
-                margin-top: 20px;
-            }
+        
+/* Apply styling to table */
+.table-container {
+    width: 90%; 
+    margin: 0 auto; /* Center the table horizontally */
+}
+.table {
+    border-collapse: separate; /* Use separate border-collapse */
+    border-spacing: 0 20px; /* Add vertical spacing between rows */
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Apply styling to table data cells */
+.table td {
+    padding: 25px;
+    border: none;
     
-            .manager-room-details-form {
-                margin-top: 10px;
-                padding: 10px;
-                background-color: #E6E7E8;
-                border-radius: 10px;
-            }
+}
+
+/* Apply styling to table header cells */
+.table th {
+    padding:25px;
+    background-size: 100%;
+    background-color:  #CEE3F6;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-family: 'Sometype Mono', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    border:none
+
+}
+
+/* Apply styling to table rows */
+.row-container{
     
-            .manager-room-details-form input {
-                margin: 5px 0;
-                padding: 5px;
-            }
-    
-            .manager-room-details-form button {
-                background-color: #003366;
-                color: white;
-                border: none;
-                padding: 5px 10px;
-                cursor: pointer;
-            }
-    
-            .manager-room-details-form button:hover {
-                background-color: #002447;
-            }
-    
-            .table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-            }
-    
-            .table th, .table td {
-            border: 1px solid #E6E7E8;
-            padding: 8px;
-            }
+    align-items: self-start;
+    padding: 10px; /* Add padding for spacing */
+    background-color: #ffff; /* Add background color for row container */
+    border-radius: 2px; /* Add border-radius for rounded corners */
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);/* Add box shadow for depth */
+    color: black;
+}
+.row-container:hover{
+    background-color: #E0ECF8;
+}
+/* Apply styling to odd rows */
+.row-container:nth-child(odd) {
+    background-color: #f2f2f2; /* Change the background color for odd rows */
+}
+.row-container:nth-child(odd):hover{
+    background-color: #E0ECF8;
+
+}
+
+
+/* Remove margin-top for the first row */
+.table tr:first-child {
+    margin-top: 0;
+}
+
+
+
+
             /* CSS for the delete and update buttons */
-            .delete-button {
-            background-color: #FF0000; /* Red */
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            }
+
     
-            .delete-button:hover {
-            background-color: #CC0000; /* Darker red on hover */
-            }
+
+.addnewbutton {
+    margin-top: 10px; /* Adjust the top margin as needed */
+    padding: 10px; /* Add padding to the container */
+    background-color: #01376e; /* Set the background color */
+    display: inline-block; /* Ensure the container only takes as much width as necessary */
+    border-radius: 5px
+}
+
+    .addnewbutton a {
+        color: white; /* Set the text color of the link */
+        text-decoration: none; /* Remove the default underline on the link */
+        font-weight: bold; /* Make the text bold */
+    }
+
+    .addnewbutton:hover {
+        background-color: #002447;
+    }
+
+.editbutton {
+    cursor: pointer;
+}
+
+.editbutton i {
+ color:green;
+ font-size:20px;
+ transition: transform 0.5s;  
+ background-color: transparent;
+}
+
+.editbutton:hover i {
+    color: darkgreen;
+    transform:rotate(360deg) ;
+}
+
+.deletebutton {
+    cursor: pointer;
+    margin-left: 10px; 
+    
+}
+
+/* Style the delete icon */
+.deletebutton i {
+    color: #ff0000; 
+    font-size: 20px; 
+    transition: transform 0.5s;
+    background-color: transparent;
+    border: none;
+    
+}
+
+
+.deletebutton:hover i {
+    color: #cc0000; 
+    transform: rotate(360deg);
+}
+
+/* Add New Form Styles */
+.add-new-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #E6E7E8;
+    border-radius: 10px;
+    width: 50%; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-new-form h2 {
+    color: #003366;
+}
+
+.add-new-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #003366;
+
+}
+
+.add-new-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #E6E7E8;
+    border-radius: 5px;
+    
+}
+.add-new-form input:focus {
+    border-color: #003366; 
+    box-shadow: 0 0 5px rgba(0, 102, 255, 0.5); 
+    outline: none; 
+}
+
+.add-new-form button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.add-new-form button:hover {
+    background-color: #002447;
+}
+
+.error {
+    color: red; 
+    font-size: 14px; 
+    font-weight: bold; 
+}
+
+.room-type-card img {
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+    margin: 0 auto; /* Center the image horizontally */
+    margin-bottom: 10px; /* Add some spacing between the image and other elements */
+}
+
+
+
+

@@ -9,7 +9,7 @@
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
-    <script src="<?php echo URLROOT;?>/public/js/customers/foodcart.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -47,6 +47,9 @@
     </div>
 
     <div class="home">
+        <div class="navigations-controller">
+            <i class="fa-solid fa-list-check" id="navigations-controller"></i>
+        </div>
     <div class="user-profile">
             <img src="" alt="User Profile Picture"><br>
             <div class="user-profile-info">
@@ -57,7 +60,7 @@
          <!-- <div class="profile">
         <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   <?php echo $_SESSION['user_id'];?></a>
         </div> -->
-    </div>
+
     <script>
         var btnContainer = document.getElementById("visal");
 
@@ -72,6 +75,22 @@
             this.className += " active";
         });
         }
+
+        var navigationsController = document.getElementById("navigations-controller");
+        var sideBar = document.querySelector(".side-bar");
+        var home = document.querySelector(".home");
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleSidebarButton = document.getElementById('navigations-controller');
+            const sideBar = document.querySelector('.side-bar');
+
+            toggleSidebarButton.addEventListener('click', function() {
+                sideBar.classList.toggle('sidebar-hidden');
+                home.classList.toggle('home-full');
+            });
+        });
+
+
     </script>
     
 

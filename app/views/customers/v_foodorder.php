@@ -3,7 +3,7 @@
 
 
 
-<div class="home">
+<!-- <div class="home"> -->
 
         <div class="cart-inUI" onclick="togglePopup()"  >
             <!-- <i class="fa-solid fa-cart-shopping fa-2xl"></i> -->
@@ -71,7 +71,7 @@
             <div class="content">
                 <div class="header"  >
                     <span  class="title" >My Cart For </span> <div class="selectRoom">
-                    <select  name="roomNumber" form="cart_submit_Form">
+                    <select  name="roomNumber" form="cart_submit_Form" id="RoomNumberForm" >
                                                              <!-- change this after db roomNo switch to vachr -->
 
                                                                     <?php if(sizeof($data[2])==1){ ?>
@@ -121,33 +121,67 @@
                     </tbody>
                      
                     </table> 
-                    
-                    <div class="total-cost">
-                        <div class="total-cost-title">
-                            <!-- pass the values using ajax 
-                                this one is not work working element eka js walin create karanne -->
-                            <!-- -->
-                            <span>Number of items <span id='total_items_in_Popup'> </span></span><br>
-                            <span>Tostal Cost</span>
-                        </div>
-                        <div class="total-cost-value">
-                            <span></span> <br>
-                            <span class="value" id='total_cost_inCart' > </span>
-                            <div class="place-order">
-                                <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
-                                    <button type='submit' >PlaceOrder</button>
-                                    <input type="hidden" id="total_items_Price" name="amount"   > 
-                                    <?php if(!empty($data[3])){?>
-                                        <input type="hidden" name="order_id" value="<?php echo $data[3]; ?>">
-                                    <?php } ?>
+
+                    <div class="foodcart-grid1">
                             
-                                    <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
-                                </form>
+                        <div class="cart_item1">
+                            <div class="delevery-date-time">
+                                <div class="delevery-date-time-title">
+                                    <span>Delevery Date & Time</span>
+                                </div>
+                                <div class="delevery-date-time-value">
+                                    <input type="date" name="delevery_date" id="delevery_date"  >
+                                    <input type="time" name="delevery_time" id="delevery_time" >
+                                </div>
                                 
                             </div>
+
+
+                            <div class="special-instructions">
+                                <div class="special-instructions-title">
+                                    <span>Special Instructions</span>
+                                </div>
+                                <div class="special-instructions-value">
+                                    <textarea name="special_instructions" id="special_instructions" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>    
+
                         </div>
+
                         
+                        <div class="cart_item2">
+                            <div class="total-cost">
+                                <div class="total-cost-title">
+                                    <!-- pass the values using ajax 
+                                        this one is not work working element eka js walin create karanne -->
+                                    <!-- -->
+                                    <span>Number of items <span id='total_items_in_Popup'> </span></span><br>
+                                    <span>Tostal Cost</span>
+                                </div>
+                                <div class="total-cost-value">
+                                    <span></span> <br>
+                                    <span class="value" id='total_cost_inCart' > </span>
+                                    <div class="place-order">
+                                        <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
+                                            <button type='submit' >PlaceOrder</button>
+                                            <input type="hidden" id="total_items_Price" name="amount"   > 
+                                            <?php if(!empty($data[3])){?>
+                                                <input type="hidden" name="order_id" value="<?php echo $data[3]; ?>">
+                                            <?php } ?>
+                                    
+                                            <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                        
+                             </div>
+
+                        </div>
+                                                                                
                     </div>
+                    
+                    
                     
                 </div>
                 
@@ -162,6 +196,8 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="http://localhost/GuestPro/public/js/customers/toast.js"></script>
+<script src="<?php echo URLROOT;?>/public/js/customers/foodcart.js"></script>
+
 
  <script>
     
@@ -194,9 +230,6 @@
                 resetItemCount(id);
             });
         });
-
-
-
 
 
         
