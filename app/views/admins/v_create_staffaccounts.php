@@ -2,7 +2,7 @@
 
 <div class="home">
 
-    <!--Staff accounts creation Form -->
+  
     <div class="create-staffaccounts-form">
         <h2>Create Account</h2>
         <form action="<?php echo URLROOT; ?>/Admins/create_staffaccounts" method="POST">
