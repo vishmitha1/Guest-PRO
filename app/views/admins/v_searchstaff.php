@@ -52,10 +52,10 @@
                     <td>
                         <div class="admin-action-btn">
                             <div class="admin-update-btn">
-                                <a href="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $account->staffID; ?>">Update</a>
+                                <a href="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $account->staffID; ?>"><i class="far fa-edit"></i></a>
                             </div>
                             <div class="admin-delete-btn">
-                                <a href="<?php echo URLROOT; ?>/Admins/delete_staffaccounts/<?php echo $account->staffID; ?>" onclick="return confirm('Are you sure you want to delete this account?')">Delete</a>
+                                <a href="<?php echo URLROOT; ?>/Admins/delete_staffaccounts/<?php echo $account->staffID; ?>" onclick="return confirm('Are you sure you want to delete this account?')"><i class='fa-solid fa-trash fa-lg'></i></a>
                             </div>
                         </div>
                     </td>

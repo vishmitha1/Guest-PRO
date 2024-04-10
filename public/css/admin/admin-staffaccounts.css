@@ -61,6 +61,7 @@
 .staffaccounts-table td {
     border: 1px solid #E6E7E8;
     padding: 8px;
+    text-align: left;
 }
 
 .admin-action-btn {
