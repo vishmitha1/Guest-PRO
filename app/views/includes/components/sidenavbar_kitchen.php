@@ -8,6 +8,7 @@
     <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/side-navbar/navbar.css' >
     <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/kitchen/kitchen-foodstatus.css' >
     <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/kitchen/kitchen-foodmenu.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/kitchen/kitchen-dashboard.css' >
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -16,6 +17,10 @@
             <h1><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>  Guest PRO</h1>
         </div>
         <div class="links">
+
+        <div class="link-items">
+            <a href="<?php echo URLROOT;?>/Kitchen/dashboard"><i class="fa-solid fa-file-invoice"></i>Dashboard</a>
+            </div>
             
             <div class="link-items">
             <a href="<?php echo URLROOT;?>/Kitchen/foodmenu"><i class="fa-solid fa-bell-concierge"></i>Food Menu</a>
@@ -23,6 +28,8 @@
             <div class="link-items">
             <a href="<?php echo URLROOT;?>/Kitchen/pendingfoodorders"><i class="fa-solid fa-file-invoice"></i>Food Status</a>
             </div>
+           
+            
             
         </div>
         <div class="logout">
