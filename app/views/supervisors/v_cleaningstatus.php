@@ -14,96 +14,111 @@
             <button>Search</button>
         </div>
 
-         <!-- Link for View Cleaning History -->
-         <div class="view-history-link">
-            <a href="<?php echo URLROOT; ?>/Supervisors/cleaninghistory">View Cleaning History</a>
-        </div>
-
+         
 
 
     
     
         <!-- Cleaning Status Page -->
-        <div class="cleaning-status">
-            <h2>Room Cleaning Status</h2>
-        </div>
+        <h1>Hotel Room Cleaning Status</h1>
+    <div class="filter-buttons">
+        <button onclick="showAll()">Show All</button>
+        <button onclick="showCleaned()">Show Cleaned Rooms</button>
+        <button onclick="showNotCleaned()">Show Not Cleaned Rooms</button>
+    </div>
 
+    <div class="container">
+        <!-- First 10 rooms -->
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">1</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">2</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">3</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">4</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">5</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">6</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">7</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">8</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">9</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">10</div>
+    </div>
+    <div class="container">
+        <!-- Second 10 rooms -->
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">11</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">12</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">13</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">14</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">15</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">16</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">17</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">18</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">19</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">20</div>
+    </div>
+    <div class="container">
+        <!-- Third 10 rooms -->
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">21</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">22</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">23</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">24</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">25</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">26</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">27</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">28</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">29</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">30</div>
+    </div>
+    <div class="container">
+        <!-- Third 10 rooms -->
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">21</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">22</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">23</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">24</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">25</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">26</div>
+        <div class="room" data-status="dirty" onclick="changeStatus(this)">27</div>
         
+    </div>
 
-        <div class="room-filters">
-            <div class="room-filter" onclick="filterRooms('all')">
-                <div class="legend-circle-small" style="background-color: #ffffff;"></div>
-                <div class="room-filter">All Rooms</div>
-            </div>
-            <div class="room-filter" onclick="filterRooms('cleaned')">
-                <div class="legend-circle-small cleaned-circle"></div>
-                <div class="room-filter">Cleaned Rooms</div>
-            </div>
-            <div class="room-filter" onclick="filterRooms('not-cleaned')">
-                <div class="legend-circle-small not-cleaned-circle"></div>
-                <div class="room-filter">Not Cleaned Rooms</div>
-            </div>
-        </div>
+    <script>
+        // Function to show all rooms
+        function showAll() {
+            const rooms = document.querySelectorAll('.room');
+            for (let room of rooms) {
+                room.style.display = 'block';
+            }
+        }
 
-        <!-- Room Container -->
-        <div class="room-container" onclick="changeStatus(event)">
-            <div class="room" data-status="not-cleaned">1</div>
-            <div class="room" data-status="not-cleaned">2</div>
-            <div class="room" data-status="not-cleaned">3</div>
-            <div class="room" data-status="not-cleaned">4</div>
-            <div class="room" data-status="not-cleaned">5</div>
-            <div class="room" data-status="not-cleaned">6</div>
-            <div class="room" data-status="not-cleaned">7</div>
-            <div class="room" data-status="not-cleaned">8</div>
-            <div class="room" data-status="not-cleaned">9</div>
-            <div class="room" data-status="not-cleaned">10</div>
-            <div class="room" data-status="not-cleaned">11</div>
-            <div class="room" data-status="not-cleaned">12</div>
-            <div class="room" data-status="not-cleaned">13</div>
-            <div class="room" data-status="not-cleaned">14</div>
-            <div class="room" data-status="not-cleaned">15</div>
-            <div class="room" data-status="not-cleaned">16</div>
-            <div class="room" data-status="not-cleaned">17</div>
-            <div class="room" data-status="not-cleaned">18</div>
-            <div class="room" data-status="not-cleaned">19</div>
-            <div class="room" data-status="not-cleaned">20</div>
-            <div class="room" data-status="not-cleaned">21</div>
-            <div class="room" data-status="not-cleaned">22</div>
-            <div class="room" data-status="not-cleaned">23</div>
-            <div class="room" data-status="not-cleaned">24</div>
-            <div class="room" data-status="not-cleaned">25</div>
-            <div class="room" data-status="not-cleaned">26</div>
-            <div class="room" data-status="not-cleaned">27</div>
-            <div class="room" data-status="not-cleaned">28</div>
-            <div class="room" data-status="not-cleaned">29</div>
-            <div class="room" data-status="not-cleaned">30</div>
-            <!-- Add more rooms as needed -->
-        </div>
-
-        <!-- Link for View Cleaning History -->
-       
-
-        
-
-        <!-- Your existing script tags go here -->
-        <script>
-            function changeStatus(event) {
-                const room = event.target;
-                if (room.classList.contains('room')) {
-                    room.dataset.status = (room.dataset.status === 'not-cleaned') ? 'cleaned' : 'not-cleaned';
-                    room.classList.toggle('cleaned');
+        // Function to show cleaned rooms
+        function showCleaned() {
+            const rooms = document.querySelectorAll('.room');
+            for (let room of rooms) {
+                if (room.getAttribute('data-status') === 'clean') {
+                    room.style.display = 'block';
+                } else {
+                    room.style.display = 'none';
                 }
             }
+        }
 
-            function filterRooms(status) {
-                const rooms = document.querySelectorAll('.room');
-                rooms.forEach(room => {
-                    if (status === 'all' || room.dataset.status === status) {
-                        room.style.display = 'block';
-                    } else {
-                        room.style.display = 'none';
-                    }
-                });
+        // Function to show not cleaned rooms
+        function showNotCleaned() {
+            const rooms = document.querySelectorAll('.room');
+            for (let room of rooms) {
+                if (room.getAttribute('data-status') === 'dirty') {
+                    room.style.display = 'block';
+                } else {
+                    room.style.display = 'none';
+                }
             }
-        </script>
-    </div>
+        }
+
+        // Function to change room status when clicked
+        function changeStatus(room) {
+            if (room.getAttribute('data-status') === 'clean') {
+                room.setAttribute('data-status', 'dirty');
+                room.classList.remove('clean');
+            } else {
+                room.setAttribute('data-status', 'clean');
+                room.classList.add('clean');
+            }
+        }
+    </script>
