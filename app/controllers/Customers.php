@@ -687,12 +687,29 @@
                     'user_id'=>$_SESSION['user_id'],
                     'roomNo'=>trim($_POST['roomNumber']),
                     'price'=>trim($_POST['amount']),
+                    'delevery_date'=>trim($_POST['delevery_date']),
+                    'delevery_time'=>trim($_POST['delevery_time']),
+                    'note'=>trim($_POST['note']),
                 ];
                 if(empty($roomNo)){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please select a room.';
                     redirect('Customers/foodorder');
                 }
+
+                elseif(empty($data['delevery_date'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a delevery date.';
+                    redirect('Customers/foodorder');
+                }
+
+                elseif(empty($data['delevery_time'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a delevery time.';
+                    redirect('Customers/foodorder');
+                }
+                
+
 
                 else{
 

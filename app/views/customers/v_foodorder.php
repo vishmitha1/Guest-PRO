@@ -129,9 +129,13 @@
                                 <div class="delevery-date-time-title">
                                     <span>Delevery Date & Time</span>
                                 </div>
+                                <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
                                 <div class="delevery-date-time-value">
-                                    <input type="date" name="delevery_date" id="delevery_date"  >
-                                    <input type="time" name="delevery_time" id="delevery_time" >
+                                    <!-- <input type="date" name="delevery_date" id="delevery_date"  > -->
+                                    <input type="text" id="date" name="delevery_date">
+                                    <input type="text" id="Deltime" name="delevery_time">
+                                    <!-- <input type="time" name="delevery_time" id="delevery_time" minlength="2.00pm" > -->
+                                    <!-- <input type="time" id="time" name="time" min="08:00 AM" max="18:00"> -->
                                 </div>
                                 
                             </div>
@@ -142,7 +146,7 @@
                                     <span>Special Instructions</span>
                                 </div>
                                 <div class="special-instructions-value">
-                                    <textarea name="special_instructions" id="special_instructions" cols="30" rows="10"></textarea>
+                                    <textarea name="note" id="special_instructions" cols="30" rows="10"></textarea>
                                 </div>
                             </div>    
 
@@ -162,7 +166,7 @@
                                     <span></span> <br>
                                     <span class="value" id='total_cost_inCart' > </span>
                                     <div class="place-order">
-                                        <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
+                                        <!-- <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" > -->
                                             <button type='submit' >PlaceOrder</button>
                                             <input type="hidden" id="total_items_Price" name="amount"   > 
                                             <?php if(!empty($data[3])){?>
@@ -170,7 +174,7 @@
                                             <?php } ?>
                                     
                                             <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
-                                        </form>
+                                </form>
                                         
                                     </div>
                                 </div>
@@ -194,10 +198,15 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="http://localhost/GuestPro/public/js/customers/toast.js"></script>
 <script src="<?php echo URLROOT;?>/public/js/customers/foodcart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+<script>
+
+</script>
 
  <script>
     
@@ -231,9 +240,7 @@
             });
         });
 
-
-        
-</script>>
+</script>
     totalcartItems()
     <!-- <script>
         $(document).ready(function () {
