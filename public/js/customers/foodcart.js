@@ -229,7 +229,7 @@ addEventListener('DOMContentLoaded', function() {
             toastFlashMsg('info', 'Please select a Room Number');
             return;
         }
-    })
+    });
 
     numberElement.addEventListener('click', function() {
         roomNo = document.getElementById('RoomNumberForm').value;

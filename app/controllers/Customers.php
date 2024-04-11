@@ -645,6 +645,9 @@
                     'order_id'=>trim($_POST['order_id']),
                     'roomNo'=>trim($_POST['roomNumber']),
                     'price'=>trim($_POST['amount']),
+                    'delivery_date'=>trim($_POST['delivery_date']),
+                    'delivery_time'=>trim($_POST['delivery_time']),
+                    'note'=>trim($_POST['note']),
                 ];
 
 
@@ -658,6 +661,18 @@
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please select a room.';
                     
+                }
+
+                if(empty($data['delivery_date'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a delevery date.';
+                    redirect('Customers/foodorder');
+                }
+
+                if(empty($data['delivery_time'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a delevery time.';
+                    redirect('Customers/foodorder');
                 }
 
                 
@@ -687,8 +702,8 @@
                     'user_id'=>$_SESSION['user_id'],
                     'roomNo'=>trim($_POST['roomNumber']),
                     'price'=>trim($_POST['amount']),
-                    'delevery_date'=>trim($_POST['delevery_date']),
-                    'delevery_time'=>trim($_POST['delevery_time']),
+                    'delivery_date'=>trim($_POST['delivery_date']),
+                    'delivery_time'=>trim($_POST['delivery_time']),
                     'note'=>trim($_POST['note']),
                 ];
                 if(empty($roomNo)){
@@ -697,13 +712,13 @@
                     redirect('Customers/foodorder');
                 }
 
-                elseif(empty($data['delevery_date'])){
+                elseif(empty($data['delivery_date'])){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please select a delevery date.';
                     redirect('Customers/foodorder');
                 }
 
-                elseif(empty($data['delevery_time'])){
+                elseif(empty($data['delivery_time'])){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please select a delevery time.';
                     redirect('Customers/foodorder');
@@ -844,7 +859,8 @@
                 $order=$this->userModel->retriveOrder($data);
                 if($this->userModel->reInsertToCart($order,$_SESSION['user_id'])){
                     $orderid=$data['order_id'];
-                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id']),$orderid]);
+                    // $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id']),$orderid]);
+                    $this->view('customers/v_updatefoodorder',[$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id']),$order]);
 
                 }
                 
