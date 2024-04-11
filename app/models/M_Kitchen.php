@@ -72,7 +72,7 @@
 
 
         public function getOrderedRows(){ 
-            $this->db->query("SELECT * FROM foodorders WHERE DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') < :dt AND status='ordered'");
+            $this->db->query("SELECT * FROM foodorders WHERE DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') < :dt AND status='placed'");
             date_default_timezone_set('Asia/Colombo');
             $currentDateTime = date('Y-m-d H:i:s');
             $futureDateTime = date('Y-m-d H:i:s', strtotime($currentDateTime . ' -5 minutes'));
