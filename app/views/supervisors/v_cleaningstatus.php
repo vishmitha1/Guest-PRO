@@ -12,13 +12,7 @@
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search...">
             <button>Search</button>
-        </div>
-
-         
-
-
-    
-    
+        </div>    
         <!-- Cleaning Status Page -->
         <h1>Hotel Room Cleaning Status</h1>
     <div class="filter-buttons">
@@ -29,53 +23,23 @@
 
     <div class="container">
         <!-- First 10 rooms -->
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">1</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">2</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">3</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">4</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">5</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">6</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">7</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">8</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">9</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">10</div>
-    </div>
-    <div class="container">
-        <!-- Second 10 rooms -->
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">11</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">12</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">13</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">14</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">15</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">16</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">17</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">18</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">19</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">20</div>
-    </div>
-    <div class="container">
-        <!-- Third 10 rooms -->
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">21</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">22</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">23</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">24</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">25</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">26</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">27</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">28</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">29</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">30</div>
-    </div>
-    <div class="container">
-        <!-- Third 10 rooms -->
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">21</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">22</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">23</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">24</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">25</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">26</div>
-        <div class="room" data-status="dirty" onclick="changeStatus(this)">27</div>
-        
+        <?php
+            foreach($data['rooms'] as $room){
+                if($room->cleaning_status == 1){
+                    $cleaned = 'clean';
+                }else{
+                    $cleaned = '';
+                }
+
+                if($room->cleaning_status == 1){
+                    $data_status = 'clean';
+                }else{
+                    $data_status = 'dirty';
+                }
+                echo '<div class="room '.$cleaned.'" data-status="'.$data_status.'" onclick="changeStatus(this , '.$room->roomNo.')">'.$room->roomNo.'</div>';
+            }
+        ?>
+
     </div>
 
     <script>
@@ -112,12 +76,34 @@
         }
 
         // Function to change room status when clicked
-        function changeStatus(room) {
-            if (room.getAttribute('data-status') === 'clean') {
-                room.setAttribute('data-status', 'dirty');
-                room.classList.remove('clean');
-            } else {
+        function changeStatus(room , id) {
+            if (room.getAttribute('data-status') === 'dirty') {
                 room.setAttribute('data-status', 'clean');
+
+                const baseLink = window.location.origin;
+                const link = `${baseLink}/guestpro/Supervisors/changeRoom/${id}`
+
+                fetch(link)
+                .then(response => {
+                    // Check if response is successful (status code 200)
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    // Parse response JSON data
+                    return response.json();
+                })
+                .then(data => {
+                    // Work with the fetched data
+                    console.log('Fetched data:', data);
+                    // You can perform operations on 'data' here
+                })
+                .catch(error => {
+                    // Handle errors that may occur during fetch
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
+
+
                 room.classList.add('clean');
             }
         }

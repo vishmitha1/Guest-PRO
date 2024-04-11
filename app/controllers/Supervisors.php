@@ -20,26 +20,8 @@
 
         public function cleaningstatus(){
             $data =[  ];
-            // <?php
-
-            // $initialDateTime = new DateTime('2024-01-08 12:00:00');
-
-            // // Current date and time
-            // $currentDateTime = new DateTime();
-
-            // // Calculate the difference between the two dates
-            // $timeDifference = $currentDateTime->diff($initialDateTime);
-
-            // // Check if 24 hours have passed
-            // if ($timeDifference->h >= 24 || $timeDifference->days > 0) {
-            //     echo "24 hours have passed since the initial date and time.";
-            // } else {
-            //     echo "Less than 24 hours have passed since the initial date and time.";
-            // }
-
-            //
-
-            // $rows = $this->m_supervisor->getRooms();
+            $rooms = $this->m_supervisor->getAllrooms();
+            $data['rooms'] = $rooms;
             $this->view('supervisors/v_cleaningstatus', $data);
         }
 
@@ -58,6 +40,41 @@
             $data =[  ];
             $this->view('supervisors/v_cleaninghistory', $data);
         }
+
+
+        //Cleaning status
+
+
+        public function updateRoomStatus($room_number, $status) {
+            // Instantiate the RoomModel
+            $roomModel = new RoomModel();
+            
+            // Call the updateStatus method in RoomModel to update room status
+            $success = $roomModel->updateStatus($room_number, $status);
+    
+            // Check if the update was successful
+            if ($success) {
+                // Redirect or return a success message
+                // For example:
+                // return $this->redirect('/dashboard')->withMessage('Room status updated successfully');
+                // Or return a JSON response if it's an API endpoint
+            } else {
+                // Handle the case where the update failed
+                // For example:
+                // return $this->redirect('/dashboard')->withError('Failed to update room status');
+                // Or return a JSON response if it's an API endpoint
+            }
+        }
+
+        public function changeRoom($id){
+            $this->m_supervisor->changeRoomStatus($id);
+
+            $data['msg'] = "successs";
+
+            echo json_encode($data);
+            exit();
+        }
+        
         
         }
     

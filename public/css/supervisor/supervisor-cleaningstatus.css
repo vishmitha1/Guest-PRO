@@ -72,7 +72,8 @@ h1 {
 }
 
 .container {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
