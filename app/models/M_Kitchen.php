@@ -71,64 +71,9 @@
         }
 
 
-        public function getOrderedRows(){ 
-            $this->db->query("SELECT * FROM foodorders WHERE DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') < :dt AND status='placed'");
-            date_default_timezone_set('Asia/Colombo');
-            $currentDateTime = date('Y-m-d H:i:s');
-            $futureDateTime = date('Y-m-d H:i:s', strtotime($currentDateTime . ' -5 minutes'));
-            // echo($futureDateTime);
-            // die();
-            // echo( $today);
-            // die();
-            $this->db->bind(':dt' , $futureDateTime);
+       
 
-            if($this->db->execute()){
-                $row = $this->db->resultSet();
-                return $row;
-            }
-            else{
-                return false;         
-            }
-        }
-
-        public function getPreparingRows(){ 
-            $this->db->query("SELECT * FROM foodorders WHERE status='preparing'");
-            // echo($futureDateTime);
-            // die();
-            // echo( $today);
-            // die();
-
-            if($this->db->execute()){
-                $row = $this->db->resultSet();
-                return $row;
-            }
-            else{
-                return false;         
-            }
-        }
-
-        public function getDispatchRows(){ 
-            $this->db->query("SELECT * FROM foodorders WHERE status='dispatch'");
-            // echo($futureDateTime);
-            // die();
-            // echo( $today);
-            // die();
-
-            if($this->db->execute()){
-                $row = $this->db->resultSet();
-                return $row;
-            }
-            else{
-                return false;         
-            }
-        }
-
-        public function changeStatus($status , $id){
-            $this->db->query("UPDATE foodorders SET status=:status WHERE order_id=:id");
-            $this->db->bind(':status' , $status);
-            $this->db->bind(':id' , $id);
-            $this->db->execute();
-        }
+        
 
         public function getAllFoodItems(){
             $this->db->query("SELECT * FROM fooditems ");
@@ -204,6 +149,46 @@
         // Return the room count from the fetched row
         return $row->readyfordispatch_orders_count;
     }
+
+
+    //kitchen functions
+
+
+    //retrieve
+
+    public function getTodaysPlacedOrders(){
+        $currentDate = date("Y-m-d");
+        $this->db->query("SELECT * FROM foodorders WHERE delervary_date = :currentDate ORDER BY delervary_time");
+        $this->db->bind(':currentDate', $currentDate);
+        $orders = $this->db->resultset();
+        return $orders;
+    }
+
+    //update
+
+    public function changeOrderStatus($id, $status) {
+        try {
+            // Prepare and execute the update query
+            $this->db->query("UPDATE foodorders SET status = :status WHERE order_id = :id");
+            $this->db->bind(':status', $status);
+            $this->db->bind(':id', $id);
+            $this->db->execute();
+    
+            // Check if any rows were affected
+            if ($this->db->rowCount() > 0) {
+                return true; // Status changed successfully
+            } else {
+                return false; // No rows were affected, possibly the order ID doesn't exist
+            }
+        } catch (PDOException $e) {
+            // Handle any database errors
+            error_log('Database error: ' . $e->getMessage());
+            return false; // Return false to indicate failure
+        }
+    }
+    
+
+    
 
 
 

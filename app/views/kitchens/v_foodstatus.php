@@ -38,44 +38,50 @@
                     <th>Room No</th>
                     <th>Items</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Delivery Time</th>
                     <th>Note</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                foreach($data as $item){
-                    foreach($item as $dt){
-                        if($dt->status=='dispatch'){
-                            $statusss = 'dispatch';
-                            $dil_checked = 'checked';
-                            $on_checked = '';
-                        }else if($dt->status=='preparing'){
-                            $statusss = 'preparing';
-                            $dil_checked = '';
-                            $on_checked = 'checked';
-                        }else{
-                            $statusss = 'order';
-                            $dil_checked = '';
-                            $on_checked = 's';
-                        }
+                <?php 
+                foreach($data['orders'] as $order){
+                    $statusss = '';
+                    $dil_checked = '';
+                    $on_checked = '';
+                    if($order->status == "placed"){
+                        $statusss = 'placed';
+                        $dil_checked = '';
+                        $on_checked = '';
+                    }else if($order->status == "preparing"){
+                        $statusss = 'preparing';
+                        $dil_checked = '';
+                        $on_checked = 'checked';
+                    }else if($order->status == "ready") {
+                        $statusss = 'ready';
+                        $dil_checked = 'checked';
+                        $on_checked = '';
+
+                    }
                         echo '<tr data-floor="1" data-status="'.$statusss.'">
-                        <td>'.$dt->order_id.'</td>
-                        <td>'.$dt->roomNo.'</td>
-                        <td>'.$dt->item_name.'</td>
-                        <td>'.$dt->quantity.'</td>
-                        <td>'.$dt->cost.'</td>
-                        <td>'.$dt->note.'</td>
+                        <td>'.$order->order_id.'</td>
+                        <td>'.$order->roomNo.'</td>
+                        <td>'.$order->item_name.'</td>
+                        <td>'.$order->quantity.'</td>
+                        <td>'.$order->delervary_time.'</td>
+                        <td>'.$order->note.'</td>
                         <td class="status-radio">
-                            <input type="radio" name="'.$dt->order_id.'"value="preparing"
-                                onchange="updateOrderStatus(this , '.$dt->order_id.')" '.$on_checked.'> Preparing
-                            <input type="radio" name="'.$dt->order_id.'"value="dispatch" onchange="updateOrderStatus(this ,'.$dt->order_id.')" '.$dil_checked.'>
+                            <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'"
+                                onchange="updateOrderStatus(this , '.$order->order_id.')" '.$on_checked.'> Preparing
+                            <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'" onchange="updateOrderStatus(this ,'.$order->order_id.')" '.$dil_checked.'>
                                 Ready for despatch
                         </td></tr>';
                     }
-                }
-                ?>
+                
+                     ?>
+        
+            </div>
+                
             </tbody>
         </table>
     </div>
@@ -97,40 +103,44 @@
             }
         }
 
-        // JavaScript for updating food order status
-        function updateOrderStatus(radio , id) {
-            var row = radio.closest('tr');
-            var statusValue = radio.value;
+       // JavaScript for updating food order status
+            function updateOrderStatus(radio, id) {
+                var row = radio.closest('tr');
+                var statusValue = radio.value; // Get the current status value from the radio button
+                
+                if (statusValue === 'placed') {
+                    statusValue = 'preparing'; // Update the status value
+                } else if (statusValue === 'preparing') {
+                    statusValue = 'ready'; // Update the status value
+                }
 
-            const base_url = window.location.origin;
-            const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus`;
-            
-            // Example parameters
-            const param1 = statusValue;
-            const param2 = id;
-            console.log(param1)
-            console.log(param2)
-
-
-            // Appending parameters to the URL
-            const urlWithParams = `${apiUrl}?param1=${param1}&param2=${param2}`;
-
-            // Using the fetch API to make a GET request
-            fetch(urlWithParams)
+                const base_url = window.location.origin;
+                const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus/${id}/${statusValue}`;
+                
+                // Using the fetch API to make a GET request
+                fetch(apiUrl)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
+                    // Optional: handle the response data if needed
+                    return response.json(); // Assuming response is JSON
                 })
                 .then(data => {
+                    // Optional: handle the response data if needed
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                })
+                });
+            }
 
 
-            row.setAttribute('data-status', statusValue);
-        }
+
+           
+
+        
+
+        
 
         // JavaScript for searching orders by Order No
         function searchOrders() {
