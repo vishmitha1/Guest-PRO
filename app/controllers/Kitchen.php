@@ -3,14 +3,17 @@
 class Kitchen extends Controller{
 
     protected $userModel;
+    protected $middleware;
     public function __construct(){
         $this->userModel =$this->model('M_Kitchen');
 
         // Load middleware
-        // $this->middleware = new AuthMiddleware();
+        $this->middleware = new AuthMiddleware();
         // // Check if user is logged in
-        // $this->middleware->checkAccess(['kitchen']);
+        $this->middleware->checkAccess(['kitchen']);
     }
+
+   
 
     public function index(){
         $this->pendingfoodorders();
@@ -52,28 +55,11 @@ class Kitchen extends Controller{
     }
 
 
-    public function pendingfoodorders(){
-        $data =[  ];
-        $Ordered= $this->userModel->getOrderedRows();
-        $preparedRows = $this->userModel->getPreparingRows();
-        $dispatchRows = $this->userModel->getDispatchRows();
-
-        
-        $order = [];
-
-        array_push($data , $Ordered);
-        array_push($data , $preparedRows);
-        array_push($data , $dispatchRows);
-
-        $this->view('kitchens/v_foodstatus', $data);
-    }
     
-    public function changeStatus(){
-        $status = $_GET['param1'];
-        $id = $_GET['param2'];
-        $this->userModel->changeStatus($status , $id);
-    }
 
+    
+    
+   
     public function dashboard(){
         $totalorders = $this->userModel->getTotalOrderCount();
         $dispatchedorders = $this->userModel->getDispatchedOrderCount();
@@ -91,6 +77,45 @@ class Kitchen extends Controller{
         $this->view('kitchens/v_dashboard', $data);
 
     }
+
+
+    //kitchen orders
+
+    //retrieve
+
+
+    public function pendingfoodorders(){
+        $data =[  ];
+        $orders= $this->userModel->getTodaysPlacedOrders();
+        $data['orders'] = $orders;
+        $this->view('kitchens/v_foodstatus', $data);
+    }
+
+    //update
+
+    //public function changeStatus(){
+        //$status = $_GET['param1'];
+        //$id = $_GET['param2'];
+        //$this->userModel->changeStatus($status , $id);
+    //}
+
+    public function changeStatus($id, $status) {
+       
+    
+        // Change order status using the model
+        $this->userModel->changeOrderStatus($id, $status);
+    
+        // Prepare response data
+        $data['msg'] = "success";
+    
+        // Send JSON response
+        echo json_encode($data);
+        exit();
+    }
+
+    
+
+
 
     
 

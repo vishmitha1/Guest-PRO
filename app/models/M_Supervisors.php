@@ -67,4 +67,32 @@
         }
 
 
+        //cleaning status
+        public function updateRoomStatus($room_number, $status) {
+            $this->db->query("UPDATE rooms SET status = :status WHERE room_number = :room_number");
+            $this->db->bind(':room_number', $room_number);
+            $this->db->bind(':status', $status);
+    
+            // Execute the query
+            if ($this->db->execute()) {
+                return true; // Return true if the update was successful
+            } else {
+                return false; // Return false if the update failed
+            }
+        }
+
+        public function getAllrooms(){
+            $this->db->query("SELECT * FROM rooms");
+            $rooms = $this->db->resultset();
+            return $rooms;
+        }
+
+        public function changeRoomStatus($id){
+            $this->db->query("UPDATE rooms SET cleaning_status = :stat WHERE roomNo = :id");
+            $this->db->bind(':id' , $id);
+            $this->db->bind(':stat' , '1');
+            $this->db->execute();
+        }
+
+
     }

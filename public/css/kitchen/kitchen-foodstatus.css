@@ -6,30 +6,6 @@
     padding: 20px;
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Right-align the user profile section */
-    margin-bottom: 20px;
-}
-
-.user-profile img {
-    width: 50px; /* Adjust the image size as needed */
-    height: 50px; /* Adjust the image size as needed */
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 2px solid #003366; /* Add a border around the profile picture */
-}
-
-.user-profile-info {
-    color: #003366;
-    font-weight: bold; /* Make text bold for a professional look */
-}
-
-.user-profile-info p {
-    margin: 0;
-}
-
 /* CSS for the search bar */
 .search-bar {
     margin-top: 20px;
@@ -55,6 +31,13 @@
 
 .search-bar button:hover {
     background-color: #002447;
+}
+
+.flavours-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 10px;
 }
 
 /* CSS for the filters */

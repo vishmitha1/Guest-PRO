@@ -488,7 +488,10 @@
                           item_no = :item_id, 
                           quantity =:quantity,
                           img = :img, 
-                          total = :tot
+                          total = :tot,
+                          note = :note,
+                          delivery_date = :delDate,
+                          delivery_time = :delTime
 
                     WHERE order_id = :order_id');
 
@@ -500,12 +503,17 @@
             else{                  
        
                 $this->db->query("INSERT INTO 
-                        foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total,reservation_id)
-                        VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot,(SELECT reservation_id FROM reservations WHERE user_id = :id ORDER BY reservation_id DESC LIMIT 1)) ");
-
+                        foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total,reservation_id,note,delivery_date,delivery_time,date)
+                        VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot,(SELECT reservation_id FROM reservations WHERE user_id = :id ORDER BY reservation_id DESC LIMIT 1),:note,:delDate,:delTime,:date ) ");
+                    
+                    $date=date("Y-m-d H:i:s");
+           
+                    $this->db->bind(':date',$date);
             }
 
             // $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
+            
+
             $this->db->bind(':id',$id);
             $this->db->bind(':quantity', $qty);
             $this->db->bind(':item_name',$name);
@@ -514,6 +522,9 @@
             $this->db->bind(':item_id',$itemid);
             $this->db->bind(':img',$img);
             $this->db->bind(':tot',$data['price']);
+            $this->db->bind(':note',$data['note']);
+            $this->db->bind(':delDate',$data['delivery_date']);
+            $this->db->bind(':delTime',$data['delivery_time']);
           
             
             if($this->db->execute()){
