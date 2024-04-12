@@ -1,6 +1,6 @@
 <?php
 
-    /* class M_Kitchen{
+    class M_Kitchen{
         private $db;
 
         public function __construct(){
@@ -197,7 +197,7 @@
 
     
     
-    } */
+    } 
 
 
     

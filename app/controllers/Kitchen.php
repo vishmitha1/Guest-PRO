@@ -1,6 +1,6 @@
 <?php
 
-/* class Kitchen extends Controller{
+class Kitchen extends Controller{
 
     protected $userModel;
     protected $middleware;
@@ -118,7 +118,7 @@
 
     
 
-} */
+} 
 
 
    
