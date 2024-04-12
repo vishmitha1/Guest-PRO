@@ -994,23 +994,15 @@
 
                 }
                 else{
-                    $this->view('customers/v_servicerequest', $data);
+                    redirect('Customers/serviceRequest');
                 }
 
             }
             else{
-                $data =[
-                    'food' => '',
-                    'quantity' => '',
-                    'note' => '',
-                    'food_err' => '',
-                    'quantity_err' => '',
-                    'note_err' => '',
-                    
-                ];
-                
+                 
+                $retriveData=$this->userModel->retriveServiceRequests($_SESSION['user_id']);
                 // $this->userModel->getorderdetails();
-                $this->view('customers/v_servicerequest', $this->userModel->retriveRoomNo($_SESSION['user_id']));
+                $this->view('customers/v_servicerequest', [$this->userModel->retriveRoomNo($_SESSION['user_id']), $retriveData]);
 
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();

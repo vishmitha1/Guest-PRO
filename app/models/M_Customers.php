@@ -724,6 +724,16 @@
             }
         }
 
+        //Retrive service request details to service request UI fill service request hostory table
+        public function retriveServiceRequests($data){
+            $this->db->query("SELECT * FROM servicerequests WHERE user_id=:id LIMIT 5");
+            $this->db->bind(':id',$data);
+            
+            $row = $this->db->resultSet();
+           
+            return $row;
+        }
+
 
 
         //Review waiter''''''''''''''''''''''''''''''''''''''''
