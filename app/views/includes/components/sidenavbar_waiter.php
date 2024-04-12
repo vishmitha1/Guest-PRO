@@ -23,4 +23,14 @@
     </div>
 
    <!-- '''''''''''''''''''''''''''''''user account imported'''''''''''''''''''''''''''''''''''''''' -->
-    
+   <div class="user-profile">
+        <img src="" alt="User Profile Picture"><br>
+        <div class="user-profile-info">
+            <div class='username'>
+                <?php echo $_SESSION['name']; ?>
+            </div>
+            <p>
+                <?php echo $_SESSION['role']; ?>
+            </p>
+        </div>
+    </div>

@@ -1,30 +1,21 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_kitchen.php" ?>
 
 <div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
+        
+
+        <div class="flavours-header">Food Orders</div>
 
         <div class="filter-options">
-            <label for="floorFilter">Filter by Floor:</label>
-            <select id="floorFilter" onchange="filterOrders()">
-                <option value="all">All Floors</option>
-                <option value="1">Floor 1</option>
-                <option value="2">Floor 2</option>
-                <!-- Add more floor options as needed -->
-            </select>
 
             <label for="statusFilter">Filter by Status:</label>
             <select id="statusFilter" onchange="filterOrders()">
                 <option value="all">All Statuses</option>
+                <option value="placed">Placed</option>
                 <option value="preparing">Preparing</option>
-                <option value="ready-for-dispatch">Ready for Dispatch</option>
+                <option value="ready">Ready</option>
             </select>
         </div>
+
 
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search by Order No...">
@@ -38,44 +29,50 @@
                     <th>Room No</th>
                     <th>Items</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Delivery Time</th>
                     <th>Note</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                foreach($data as $item){
-                    foreach($item as $dt){
-                        if($dt->status=='dispatch'){
-                            $statusss = 'dispatch';
-                            $dil_checked = 'checked';
-                            $on_checked = '';
-                        }else if($dt->status=='preparing'){
-                            $statusss = 'preparing';
-                            $dil_checked = '';
-                            $on_checked = 'checked';
-                        }else{
-                            $statusss = 'order';
-                            $dil_checked = '';
-                            $on_checked = 's';
-                        }
-                        echo '<tr data-floor="1" data-status="'.$statusss.'">
-                        <td>'.$dt->order_id.'</td>
-                        <td>'.$dt->roomNo.'</td>
-                        <td>'.$dt->item_name.'</td>
-                        <td>'.$dt->quantity.'</td>
-                        <td>'.$dt->cost.'</td>
-                        <td>'.$dt->note.'</td>
+                <?php 
+                foreach($data['orders'] as $order){
+                    $statusss = '';
+                    $dil_checked = '';
+                    $on_checked = '';
+                    if($order->status == "placed"){
+                        $statusss = 'placed';
+                        $dil_checked = '';
+                        $on_checked = '';
+                    }else if($order->status == "preparing"){
+                        $statusss = 'preparing';
+                        $dil_checked = '';
+                        $on_checked = 'checked';
+                    }else if($order->status == "ready") {
+                        $statusss = 'ready';
+                        $dil_checked = 'checked';
+                        $on_checked = '';
+
+                    }
+                        echo '<tr  data-status="'.$statusss.'">
+                        <td>'.$order->order_id.'</td>
+                        <td>'.$order->roomNo.'</td>
+                        <td>'.$order->item_name.'</td>
+                        <td>'.$order->quantity.'</td>
+                        <td>'.$order->delivery_time.'</td>
+                        <td>'.$order->note.'</td>
                         <td class="status-radio">
-                            <input type="radio" name="'.$dt->order_id.'"value="preparing"
-                                onchange="updateOrderStatus(this , '.$dt->order_id.')" '.$on_checked.'> Preparing
-                            <input type="radio" name="'.$dt->order_id.'"value="dispatch" onchange="updateOrderStatus(this ,'.$dt->order_id.')" '.$dil_checked.'>
-                                Ready for despatch
+                            <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'"
+                                onchange="updateOrderStatus(this , '.$order->order_id.')" '.$on_checked.'> Preparing
+                            <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'" onchange="updateOrderStatus(this ,'.$order->order_id.')" '.$dil_checked.'>
+                                Ready
                         </td></tr>';
                     }
-                }
-                ?>
+                
+                     ?>
+        
+            </div>
+                
             </tbody>
         </table>
     </div>
@@ -83,54 +80,60 @@
     <script>
         // JavaScript for filtering food orders based on floor and status
         function filterOrders() {
-            var floorFilter = document.getElementById('floorFilter').value;
-            var statusFilter = document.getElementById('statusFilter').value;
+        var status = document.getElementById("statusFilter").value;
+        var orders = document.querySelectorAll("#foodOrdersTable tbody tr");
 
-            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-            for (var i = 0; i < rows.length; i++) {
-                var floor = rows[i].getAttribute('data-floor');
-                var status = rows[i].querySelector('input[type="radio"]:checked').value;
-
-                var showRow = (floorFilter === 'all' || floor === floorFilter) && (statusFilter === 'all' || status === statusFilter);
-                rows[i].style.display = showRow ? '' : 'none';
-            }
-        }
-
-        // JavaScript for updating food order status
-        function updateOrderStatus(radio , id) {
-            var row = radio.closest('tr');
-            var statusValue = radio.value;
-
-            const base_url = window.location.origin;
-            const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus`;
+        orders.forEach(function(order) {
+            var orderStatus = order.getAttribute("data-status");
             
-            // Example parameters
-            const param1 = statusValue;
-            const param2 = id;
-            console.log(param1)
-            console.log(param2)
+            if (status === "all" || orderStatus === status) {
+                order.style.display = "table-row";
+            } else {
+                order.style.display = "none";
+            }
+        });
+    }
 
 
-            // Appending parameters to the URL
-            const urlWithParams = `${apiUrl}?param1=${param1}&param2=${param2}`;
+       // JavaScript for updating food order status
+            function updateOrderStatus(radio, id) {
 
-            // Using the fetch API to make a GET request
-            fetch(urlWithParams)
+                var row = radio.closest('tr');
+                var statusValue = radio.value; // Get the current status value from the radio button
+                
+                if (statusValue === 'placed') {
+                    statusValue = 'preparing'; // Update the status value
+                } else if (statusValue === 'preparing') {
+                    statusValue = 'ready'; // Update the status value
+                }
+
+                const base_url = window.location.origin;
+                const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus/${id}/${statusValue}`;
+                
+                // Using the fetch API to make a GET request
+                fetch(apiUrl)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
+                    // Optional: handle the response data if needed
+                    return response.json(); // Assuming response is JSON
                 })
                 .then(data => {
+                    // Optional: handle the response data if needed
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                })
+                });
+            }
 
 
-            row.setAttribute('data-status', statusValue);
-        }
+
+           
+
+        
+
+        
 
         // JavaScript for searching orders by Order No
         function searchOrders() {

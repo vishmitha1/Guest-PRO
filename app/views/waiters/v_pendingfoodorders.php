@@ -1,21 +1,9 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_waiter.php" ?>
 <div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>Waiter</p>
-            </div>
-        </div>
+    
 
         <div class="filter-options">
-            <label for="floorFilter">Filter by Floor:</label>
-            <select id="floorFilter" onchange="filterOrders()">
-                <option value="all">All Floors</option>
-                <option value="1">Floor 1</option>
-                <option value="2">Floor 2</option>
-                <!-- Add more floor options as needed -->
-            </select>
+        
 
             <label for="statusFilter">Filter by Status:</label>
             <select id="statusFilter" onchange="filterOrders()">
@@ -30,108 +18,91 @@
             <button onclick="searchOrders()">Search</button>
         </div>
 
-        <table id="foodOrdersTable">
-            <thead>
-                <tr>
-                    <th>Order No</th>
-                    <th>Room No</th>
-                    <th>Items</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Note</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach($data as $dt){
-                    if($dt['status']=='delivered'){
-                        $statusss = 'delivered';
-                        $dil_checked = 'checked';
-                        $on_checked = '';
-                    }else{
-                        $statusss = 'on-the-way';
-                        $dil_checked = '';
-                        $on_checked = 'checked';
+        <h1>Waiter Interface</h1>
+        <div class="filter-buttons">
+            <button class="filter-button show-all-orders" onclick="showAllOrders()">Show All Orders</button>
+            <button class="filter-button show-ongoing-orders" onclick="showOngoingOrders()">Show Ongoing Orders</button>
+        </div>
+        <div class="orders-container">
+            <div class="order-box" onclick="toggleOrderSelection(this)">
+                <div class="room-number"><strong>Room No: 5</strong></div>
+                <div class="order-info">
+                    <p><strong>Order No:</strong> 12345</p>
+                    <p><strong>Delivery Time:</strong> 12:30 PM</p>
+                </div>
+                <div class="order-items">
+                    <p><strong>Items:</strong></p>
+                    <ul>
+                        <li>Item 1 - Quantity: 2</li>
+                        <li>Item 2 - Quantity: 1</li>
+                        <!-- Add more items with quantity if needed -->
+                    </ul>
+                </div>
+                <p class="order-total"><strong>Total:</strong> $XX.XX</p>
+            </div>
+            <div class="order-box" onclick="toggleOrderSelection(this)">
+                <div class="room-number"><strong>Room No: 8</strong></div>
+                <div class="order-info">
+                    <p><strong>Order No:</strong> 54321</p>
+                    <p><strong>Delivery Time:</strong> 1:00 PM</p>
+                </div>
+                <div class="order-items">
+                    <p><strong>Items:</strong></p>
+                    <ul>
+                        <li>Item 3 - Quantity: 3</li>
+                        <li>Item 4 - Quantity: 1</li>
+                        <!-- Add more items with quantity if needed -->
+                    </ul>
+                </div>
+                <p class="order-total"><strong>Total:</strong> $XX.XX</p>
+            </div>
 
-                    }
-                    echo '<tr data-floor="1" data-status="'.$statusss.'">
-                    <td>'.$dt['order_id'].'</td>
-                    <td>'.$dt['room_id'].'</td>
-                    <td>'.$dt['item'].'</td>
-                    <td>'.$dt['quantity'].'</td>
-                    <td>'.$dt['price'].'</td>
-                    <td>'.$dt['note'].'</td>
-                    <td class="status-radio">
-                        <input type="radio" name="'.$dt['order_id'].'" value="on-the-way"
-                            onchange="updateOrderStatus(this , '.$dt['order_id'].')" '.$on_checked.'> On the Way
-                        <input type="radio" name="'.$dt['order_id'].'" value="delivered" onchange="updateOrderStatus(this ,'.$dt['order_id'].')" '.$dil_checked.'>
-                            Delivered
-                    </td></tr>';
-                }
-                ?>
-                <!-- Add more rows for other food orders -->
-            </tbody>
-        </table>
+            
+            <!-- Repeat order-box div for additional ongoing orders -->
+        </div>
+        <div class="clear"></div>
     </div>
 
     <script>
-        // JavaScript for filtering food orders based on floor and status
-        function filterOrders() {
-            var floorFilter = document.getElementById('floorFilter').value;
-            var statusFilter = document.getElementById('statusFilter').value;
+        function toggleOrderSelection(orderBox) {
+            var allOrderBoxes = document.querySelectorAll('.order-box');
+            allOrderBoxes.forEach(function(box) {
+                box.classList.remove('selected');
+                var actions = box.querySelector('.order-actions');
+                if (actions) {
+                    actions.remove();
+                }
+            });
 
-            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            orderBox.classList.add('selected');
 
-            for (var i = 0; i < rows.length; i++) {
-                var floor = rows[i].getAttribute('data-floor');
-                var status = rows[i].querySelector('input[type="radio"]:checked').value;
-
-                var showRow = (floorFilter === 'all' || floor === floorFilter) && (statusFilter === 'all' || status === statusFilter);
-                rows[i].style.display = showRow ? '' : 'none';
-            }
+            var orderActions = document.createElement('div');
+            orderActions.className = 'order-actions';
+            orderActions.innerHTML = `
+                <label><input type="radio" name="orderStatus" value="onTheWay"> On the Way</label>
+                <label><input type="radio" name="orderStatus" value="delivered"> Delivered</label>
+            `;
+            orderBox.appendChild(orderActions);
         }
 
-        // JavaScript for updating food order status
-        function updateOrderStatus(radio , id) {
-            var row = radio.closest('tr');
-            var statusValue = radio.value;
-            const base_url = window.location.origin;
-            const apiUrl = `${base_url}/GuestPro/Waiters/changeStatus`;
-            
-            // Example parameters
-            const param1 = statusValue;
-            const param2 = id;
-            console.log(param1)
-            console.log(param2)
-            // Appending parameters to the URL
-            const urlWithParams = `${apiUrl}?param1=${param1}&param2=${param2}`;
-
-            // Using the fetch API to make a GET request
-            fetch(urlWithParams)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                })
-                .then(data => {
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                })
-
-            row.setAttribute('data-status', statusValue);
+        function showAllOrders() {
+            var allOrderBoxes = document.querySelectorAll('.order-box');
+            allOrderBoxes.forEach(function(box) {
+                box.style.display = 'block';
+            });
         }
 
-        // JavaScript for searching orders by Order No
-        function searchOrders() {
-            var searchInput = document.getElementById('searchInput').value.toLowerCase();
-            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-            for (var i = 0; i < rows.length; i++) {
-                var orderNo = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
-                var showRow = orderNo.includes(searchInput);
-                rows[i].style.display = showRow ? '' : 'none';
-            }
+        function showOngoingOrders() {
+            var allOrderBoxes = document.querySelectorAll('.order-box');
+            allOrderBoxes.forEach(function(box) {
+                if (box.classList.contains('selected')) {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
         }
+
+        
+    
     </script>
