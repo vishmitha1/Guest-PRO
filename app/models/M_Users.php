@@ -79,6 +79,21 @@
                 return false;
             }
         }
+
+        public function updateLastLogin($user_id)
+        {
+            $sql = "UPDATE users SET last_login = CURRENT_TIMESTAMP() WHERE id = :user_id";
+            $this->db->query($sql);
+            $this->db->bind(':user_id', $user_id);
+
+            // Execute
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         
 
 

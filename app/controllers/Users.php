@@ -85,6 +85,7 @@ class Users extends Controller
             $data = [
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
+                'user_id' => $_POST['id'],
                 'email_err' => '',
                 'password_err' => ''
 
@@ -115,6 +116,8 @@ class Users extends Controller
                     $loggeduser = $this->userModel->login($data['email'], $data['password']);
 
                     if ($loggeduser) {
+                        //updating_last_login_time
+                        $this->userModel->updateLastLogin($loggeduser->id);
 
                         $this->createUsersession($loggeduser);
                     } else {
