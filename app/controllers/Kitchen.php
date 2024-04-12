@@ -1,6 +1,6 @@
 <?php
 
-class Kitchen extends Controller{
+/* class Kitchen extends Controller{
 
     protected $userModel;
     protected $middleware;
@@ -93,11 +93,7 @@ class Kitchen extends Controller{
 
     //update
 
-    //public function changeStatus(){
-        //$status = $_GET['param1'];
-        //$id = $_GET['param2'];
-        //$this->userModel->changeStatus($status , $id);
-    //}
+    
 
     public function changeStatus($id, $status) {
        
@@ -122,6 +118,7 @@ class Kitchen extends Controller{
 
     
 
-}
+} */
+
 
    
