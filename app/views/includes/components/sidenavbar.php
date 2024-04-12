@@ -6,6 +6,8 @@
     <title>Document</title>
    
     <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
