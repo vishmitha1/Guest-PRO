@@ -6,14 +6,7 @@
 
 <div class="dashboard">
 
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
-        <h1 style=" margin-top: 50px;">Dashboard</h1>
+        <div class="flavours-header">Dashboard</div>
 
         <div class="dashboard-boxes">
             <div class="dashboard-box">

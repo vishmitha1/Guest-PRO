@@ -1,30 +1,21 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_kitchen.php" ?>
 
 <div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
+        
+
+        <div class="flavours-header">Food Orders</div>
 
         <div class="filter-options">
-            <label for="floorFilter">Filter by Floor:</label>
-            <select id="floorFilter" onchange="filterOrders()">
-                <option value="all">All Floors</option>
-                <option value="1">Floor 1</option>
-                <option value="2">Floor 2</option>
-                <!-- Add more floor options as needed -->
-            </select>
 
             <label for="statusFilter">Filter by Status:</label>
             <select id="statusFilter" onchange="filterOrders()">
                 <option value="all">All Statuses</option>
+                <option value="placed">Placed</option>
                 <option value="preparing">Preparing</option>
-                <option value="ready-for-dispatch">Ready</option>
+                <option value="ready">Ready</option>
             </select>
         </div>
+
 
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search by Order No...">
@@ -63,7 +54,7 @@
                         $on_checked = '';
 
                     }
-                        echo '<tr data-floor="1" data-status="'.$statusss.'">
+                        echo '<tr  data-status="'.$statusss.'">
                         <td>'.$order->order_id.'</td>
                         <td>'.$order->roomNo.'</td>
                         <td>'.$order->item_name.'</td>
@@ -89,22 +80,24 @@
     <script>
         // JavaScript for filtering food orders based on floor and status
         function filterOrders() {
-            var floorFilter = document.getElementById('floorFilter').value;
-            var statusFilter = document.getElementById('statusFilter').value;
+        var status = document.getElementById("statusFilter").value;
+        var orders = document.querySelectorAll("#foodOrdersTable tbody tr");
 
-            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-            for (var i = 0; i < rows.length; i++) {
-                var floor = rows[i].getAttribute('data-floor');
-                var status = rows[i].querySelector('input[type="radio"]:checked').value;
-
-                var showRow = (floorFilter === 'all' || floor === floorFilter) && (statusFilter === 'all' || status === statusFilter);
-                rows[i].style.display = showRow ? '' : 'none';
+        orders.forEach(function(order) {
+            var orderStatus = order.getAttribute("data-status");
+            
+            if (status === "all" || orderStatus === status) {
+                order.style.display = "table-row";
+            } else {
+                order.style.display = "none";
             }
-        }
+        });
+    }
+
 
        // JavaScript for updating food order status
             function updateOrderStatus(radio, id) {
+
                 var row = radio.closest('tr');
                 var statusValue = radio.value; // Get the current status value from the radio button
                 

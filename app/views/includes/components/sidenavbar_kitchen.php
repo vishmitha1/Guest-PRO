@@ -26,7 +26,7 @@
             <a href="<?php echo URLROOT;?>/Kitchen/foodmenu"><i class="fa-solid fa-bell-concierge"></i>Food Menu</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Kitchen/pendingfoodorders"><i class="fa-solid fa-file-invoice"></i>Food Status</a>
+            <a href="<?php echo URLROOT;?>/Kitchen/pendingfoodorders"><i class="fa-solid fa-file-invoice"></i>Food Orders</a>
             </div>
            
             
@@ -41,6 +41,19 @@
         <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   Visal Alwis</a>
         </div>
     </div> -->
+
+
+    <div class="user-profile">
+        <img src="" alt="User Profile Picture"><br>
+        <div class="user-profile-info">
+            <div class='username'>
+                <?php echo $_SESSION['name']; ?>
+            </div>
+            <p>
+                <?php echo $_SESSION['role']; ?>
+            </p>
+        </div>
+    </div>
 
    
 

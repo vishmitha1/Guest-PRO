@@ -3,14 +3,17 @@
 class Kitchen extends Controller{
 
     protected $userModel;
+    protected $middleware;
     public function __construct(){
         $this->userModel =$this->model('M_Kitchen');
 
         // Load middleware
-        // $this->middleware = new AuthMiddleware();
+        $this->middleware = new AuthMiddleware();
         // // Check if user is logged in
-        // $this->middleware->checkAccess(['kitchen']);
+        $this->middleware->checkAccess(['kitchen']);
     }
+
+   
 
     public function index(){
         $this->pendingfoodorders();
