@@ -178,6 +178,9 @@ class Users extends Controller
 
     public function logout()
     {
+        // Update last logout time in the database
+        $this->userModel->updateLastLogout($_SESSION['user_id']);
+        
         unset($_SESSION['user_id']);
         unset($_SESSION['username']);
         unset($_SESSION['email']);

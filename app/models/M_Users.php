@@ -94,6 +94,20 @@
             }
         }
 
+        public function updateLastLogout($user_id)
+        {
+            $sql = "UPDATE users SET last_logout = CURRENT_TIMESTAMP() WHERE id = :user_id";
+            $this->db->query($sql);
+            $this->db->bind(':user_id', $user_id);
+
+            // Execute
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         
 
 

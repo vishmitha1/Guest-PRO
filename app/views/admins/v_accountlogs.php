@@ -25,6 +25,8 @@
                 <th>Designation</th>
                 <!-- <th>Date</th> -->
                 <th>Last Login</th>
+                <th>Last Logout</th>
+                <th>Account Created Date & Time</th>
             </tr>   
             <!-- PHP loop to display account details -->
             <tbody>
@@ -35,6 +37,8 @@
                         <td><?php echo $log->role; ?></td>
                         <!-- <td><?php echo $log->date; ?></td> -->
                         <td><?php echo $log->last_login; ?></td>
+                        <td><?php echo $log->last_logout; ?></td>
+                        <td><?php echo $log->account_created; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
