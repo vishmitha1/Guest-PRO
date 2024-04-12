@@ -7,29 +7,29 @@
             <div class="title">
                 <span>Service Request</span>
             </div>
-            <form action="<?php echo URLROOT;?>/Customers/serviceRequest" method='POST' >
+            <form action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
             <div >
                     <div class="input-box-block">
                     <lable class="material-symbols-outlined">Format_List_Bulleted</lable><span>Room </span> <br>
                         <select name="roomNo" id="roomNo">
                                                                     <?php if(sizeof($data[0])==1){ ?>
                                                                         <?php foreach($data[0] as $room){ ?>
-                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                            <?php if(strlen($room->roomNo)>2){
                                                                                 $roomNo=explode(",",$room->roomNo);
-                                                                                echo "<option hidden value='' >Select Room</option>";
+                                                                              
                                                                                 for($i=0;$i<sizeof($roomNo);$i++){?>
                                                                                     <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
                                                                                 <?php }
                                                                             }
                                                                             else{ ?>    
-                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                    <option value="<?php echo $data[2]->roomNo;?>" selected ><?php echo "Room No: ". $data[2]->roomNo;?></option>
                                                                                 <?php } ?>    
 
                                                                         <?php } ?>
                                                                     <?php } 
                                                                     else{ ?>    
                                                                     
-                                                                        <option hidden value="" >Select Room</option>
+                                                                     
                                                                         <?php foreach($data[0] as $room){ ?>
                                                                             <?php if(strlen($room->roomNo)>1){
                                                                                 $roomNo=explode(",",$room->roomNo);
@@ -39,11 +39,11 @@
                                                                                 <?php }
                                                                             }
                                                                             else{ ?>    
-                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                   <option value="<?php echo $data[2]->roomNo;?>" selected ><?php echo "Room No: ". $data[2]->roomNo;?></option>
                                                                                 <?php } ?>    
 
                                                                         <?php } ?>
-                                                                    <?php } ?>    
+                                                                    <?php } ?>     
                                                  
                         </select>
 
@@ -52,7 +52,8 @@
                     <div class="input-box-block">
                     <lable class="material-symbols-outlined">Format_List_Bulleted</lable><span>Service Type</span> <br>
                         <select name="category" id="category">
-                            <option hidden value=''>Select One</option>
+                            
+                            <option value="<?php echo $data[2]->category; ?>"><?php echo $data[2]->category; ?></option>
                             <option value="Maintenance">Maintenance</option>
                             <option value="Snack Refill">Snack Refill</option>
                             <option value="Health and Wellness">Health and Wellness</option>
@@ -64,15 +65,16 @@
             </div>        
                 <div class="input-box">
                 <lable class="material-symbols-outlined">Text_Snippet</lable><span>Additional Details</span> <br>
-                    <textarea name="AddDetails" id="details" style='width:60%;height:20%' ></textarea>
+                    <textarea name="AddDetails" id="details" style='width:60%;height:20%'  ><?php echo $data[2]->AddDetails; ?></textarea>
                 </div>
                 <div class="input-box">
                 <lable class="material-symbols-outlined">more</lable><span>Special Instructions</span> <br>
-                    <textarea  name="SpecDetails"  ></textarea>
+                    <textarea  name="SpecDetails"  ><?php echo $data[2]->SpecDetails; ?></textarea>
                 </div>
 
                 <div class="send-req">
-                    <button type="submit" class="btn">Send Request</button>
+                    <input type="hidden" name="request_id" value="<?php echo $data[2]->request_id; ?>">
+                    <button type="submit"  name="UpdateServiceRequestSubmit" class="btn">Update Request</button>
                 </div>
 
             </form>
