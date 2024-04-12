@@ -20,42 +20,31 @@
             $this->view('waiters/v_dashboard', $data);
         }
 
-        public function pendingfoodorders(){
-            $data =[  ];
-            $orders = $this->M_waiter->getRows();
-            // print_r($orders);
-            // die();
-            $order = [];
-            foreach($orders as $item){
-                $order['order_id'] = $item->order_id;
-                $order['room_id'] = $item->roomNo;
-                $order['item'] = $item->item_name;
-                $order['quantity'] = $item->quantity;
-                $order['note'] = $item->note;
-                $order['status'] = $item->status;
+        
+
+    //waiter orders
+
+    //retrieve
 
 
+    public function pendingfoodorders(){
+        $data =[  ];
+        $orders= $this->M_waiter->getTodaysReadyOrders();
+        $data['orders'] = $orders;
+        $this->view('waiters/v_pendingfoodorders', $data);
 
-                $cost = $item->cost;
-                $cost_arr = explode(',' , $cost);
-                $total = 0;
-                foreach($cost_arr as $cost){
-                    $total += floatval($cost);
-                }
-                $order['price'] = $total;
-
-                $data[] = $order;
-            }
-
-            // print_r($data);
-            // die();
-            $this->view('waiters/v_pendingfoodorders', $data);
-        }
+    }
         
         public function viewratings(){
             $data =[  ];
             $this->view('waiters/v_viewratings', $data);
         }
+    
+
+
+
+
+
         
         public function changeStatus(){
             $status = $_GET['param1'];
