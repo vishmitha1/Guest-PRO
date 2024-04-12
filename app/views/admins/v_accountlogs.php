@@ -1,40 +1,44 @@
 <?php require APPROOT . "/views/includes/components/sidenavbar_admin.php" ?>
 
-<div calss="home">
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search...">
-        <button>Search</button>
+<div class="home">
+
+    <div class="title-accountlogs">
+        <h1>Account Logs</h1>
     </div>
 
-    <div class="logs">
-        <h2>Account Logs</h2>
-        <table class="table" id="accountlogs">
-            <thead>
-                <tr>
-                    <th>UserID</th>
-                    <th>Designation</th>
-                    <th>Date</th>
-                    <th>Join Time</th>
-                    <th>Logout Time</th>
-                    <th>Details</th>
-                </tr>
-            </thead>
+
+    <!-- Search bar -->
+    <div class="admin-search-bar">
+        <form action="<?php echo URLROOT; ?>/Admins/search_staffaccounts" method="GET">
+            <input type="text" name="query" id="searchInput" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Display Accounts -->
+    <div class="accountlogs-table-container">
+        <table class="accountlogs-table" id="staffaccountsTable">
+            <!-- Table headers -->
+            <tr>
+                <th>User Name</th>
+                <th>UserID</th>
+                <th>Designation</th>
+                <!-- <th>Date</th> -->
+                <th>Last Login</th>
+            </tr>   
+            <!-- PHP loop to display account details -->
             <tbody>
-                <?php
-                foreach ($data as $item) {
-                    echo "
-                                <tr>
-                                    <td>{$item->userID}</td>
-                                    <td>{$item->designation}</td>                 
-                                    <td>{$item->date}</td>
-                                    <td>{$item->joinTime}</td>
-                                    <td>{$item->logoutTime}</td>
-                                    <td><button class=\"view-btn\">Update</button></td>
-                                </tr> ";
-                }
-                ?>
+                <?php foreach ($data['logs'] as $log): ?>
+                    <tr>
+                        <td><?php echo $log->name; ?></td>
+                        <td><?php echo $log->id; ?></td>
+                        <td><?php echo $log->role; ?></td>
+                        <!-- <td><?php echo $log->date; ?></td> -->
+                        <td><?php echo $log->last_login; ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
-            <!-- Add more rows as needed -->
         </table>
     </div>
+
 </div>

@@ -38,8 +38,12 @@ class Admins extends Controller
 
     public function accountlogs()
     {
-        $this->view('admins/v_accountlogs');
+        // Get logs data from model
+        $data['logs'] = $this->staffModel->getAccountsLogs();
+
+        $this->view('admins/v_accountlogs', $data);
     }
+
 
     public function create_staffaccounts()
     {
