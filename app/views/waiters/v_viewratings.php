@@ -40,13 +40,7 @@
     <?php   require APPROOT. "/views/includes/components/sidenavbar_waiter.php" ?>
 
     <div class="dashboard">
-        <div class="user-profile">
-            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
+        
 
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search...">
