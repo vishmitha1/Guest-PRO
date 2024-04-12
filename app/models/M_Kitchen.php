@@ -140,7 +140,7 @@
     public function getReadyForDispatchOrderCount()
     {
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS readyfordispatch_orders_count FROM foodorders WHERE status = 'ready for dispatch'  ");
+        $this->db->query("SELECT COUNT(*) AS readyfordispatch_orders_count FROM foodorders WHERE status = 'ready'  ");
 
 
         // Fetch a single row (since we are selecting only one value)
@@ -158,7 +158,7 @@
 
     public function getTodaysPlacedOrders(){
         $currentDate = date("Y-m-d");
-        $this->db->query("SELECT * FROM foodorders WHERE delervary_date = :currentDate ORDER BY delervary_time");
+        $this->db->query("SELECT * FROM foodorders WHERE delivery_date = :currentDate ORDER BY delivery_time");
         $this->db->bind(':currentDate', $currentDate);
         $orders = $this->db->resultset();
         return $orders;

@@ -22,7 +22,7 @@
             <select id="statusFilter" onchange="filterOrders()">
                 <option value="all">All Statuses</option>
                 <option value="preparing">Preparing</option>
-                <option value="ready-for-dispatch">Ready for Dispatch</option>
+                <option value="ready-for-dispatch">Ready</option>
             </select>
         </div>
 
@@ -68,13 +68,13 @@
                         <td>'.$order->roomNo.'</td>
                         <td>'.$order->item_name.'</td>
                         <td>'.$order->quantity.'</td>
-                        <td>'.$order->delervary_time.'</td>
+                        <td>'.$order->delivery_time.'</td>
                         <td>'.$order->note.'</td>
                         <td class="status-radio">
                             <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'"
                                 onchange="updateOrderStatus(this , '.$order->order_id.')" '.$on_checked.'> Preparing
                             <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'" onchange="updateOrderStatus(this ,'.$order->order_id.')" '.$dil_checked.'>
-                                Ready for despatch
+                                Ready
                         </td></tr>';
                     }
                 

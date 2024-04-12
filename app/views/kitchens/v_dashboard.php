@@ -34,7 +34,7 @@
             <div class="dashboard-box">
                 <i class="fas fa-money-bill-wave"></i>
                 <h2><?php echo $data['readyfordispatchorders']; ?></h2>
-                <p>Orders dispatched</p>
+                <p>Orders Ready</p>
             </div>
         </div>
         <h2 style="text-align: center; margin-top: 50px;">Charts</h2>
