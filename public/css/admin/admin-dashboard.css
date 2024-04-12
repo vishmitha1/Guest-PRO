@@ -1,3 +1,6 @@
+.title-admindash h1{
+    text-align: center;
+}
 .admin-dashboard-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */

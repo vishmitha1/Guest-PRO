@@ -1,6 +1,7 @@
 .title-staffaccounts h1 {
     margin-top: 0px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .staff-create-btn {
@@ -64,6 +65,11 @@
     text-align: left;
 }
 
+.staffaccounts-table th{
+    background-color: #003366; /* Set background color for header cells */
+    color: #ffffff; /* Set text color for header cells */
+}
+
 .admin-action-btn {
     display: flex; /* Use flexbox */
     justify-content: space-between; /* Align items with space between them */
@@ -82,21 +88,23 @@
 }
 
 .admin-action-btn .admin-delete-btn a {
-    background-color: #d80707;
-    color: white;
+    background-color: white;
+    color: #d80707;
 }
 
 .admin-action-btn .admin-delete-btn a:hover {
-    background-color: #9b0505;
+    background-color: white;
+    color: #9b0505;
 }
 
 .admin-action-btn .admin-update-btn a {
-    background-color:  #ecda0a;
-    color: black;
+    background-color:  white;
+    color: blue;
 }
 
 .admin-action-btn .admin-update-btn a:hover {
-    background-color:  #d7bb1c;;
+    background-color: white;
+    color: #002447;
 }
 
 .admin_highlight {
