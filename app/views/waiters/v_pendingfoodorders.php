@@ -18,7 +18,7 @@
         <div class="orders-container">
             <?php foreach($data['orders'] as $order){
                 echo '<div class="order-box" onclick="toggleOrderSelection(this)">
-                <div class="room-number"><strong>Room No:'.$order->roomNo.'</strong></div>
+                <div class="room-number"><strong>Room '.$order->roomNo.'</strong></div>
                 <div class="order-info">
                     <p><strong>Order No:</strong>'.$order->order_id.'</p>
                     <p><strong>Delivery Time:</strong>'.$order->delivery_time.'</p>
