@@ -42,11 +42,7 @@
     <div class="dashboard">
         
 
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button>Search</button>
-        </div>
-        
+
         <!-- Monthly Rating Section -->
         <div class="monthly-rating">
             <div class="monthly-rating-title">
@@ -55,7 +51,12 @@
             <div class="waiter-image">
                 <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Waiter Image">
                 <div class="waiter-rating">
-                    4.7 stars
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <p>3 stars</p>
                 </div>
             </div>
         </div>
@@ -66,7 +67,7 @@
                 <img src="https://icons-for-free.com/iconfiles/png/512/customer+information+personal+profile+user+icon-1320086045331670685.png" alt="Customer 1 Image">
                 <div class="customer-comment-info">
                     <p>Customer 1</p>
-                    <p>Great service!</p>
+                    <p>Great service! </p>
                 </div>
             </div>
             <div class="customer-comment">
