@@ -40,18 +40,27 @@
                     $statusss = '';
                     $dil_checked = '';
                     $on_checked = '';
+
                     if($order->status == "placed"){
                         $statusss = 'placed';
                         $dil_checked = '';
                         $on_checked = '';
+                        $hide_preparing= '';
+                        $hide_ready= 'hidden-radio';
+
                     }else if($order->status == "preparing"){
                         $statusss = 'preparing';
                         $dil_checked = '';
                         $on_checked = 'checked';
+                        $hide_preparing= '';
+                        $hide_ready= '';
+
                     }else if($order->status == "ready") {
                         $statusss = 'ready';
                         $dil_checked = 'checked';
                         $on_checked = '';
+                        $hide_preparing= 'hidden-radio';
+                        $hide_ready= '';
 
                     }
                         echo '<tr  data-status="'.$statusss.'">
@@ -62,9 +71,9 @@
                         <td>'.$order->delivery_time.'</td>
                         <td>'.$order->note.'</td>
                         <td class="status-radio">
-                            <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'"
+                            <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'"class="'.$hide_preparing.'"
                                 onchange="updateOrderStatus(this , '.$order->order_id.')" '.$on_checked.'> Preparing
-                            <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'" onchange="updateOrderStatus(this ,'.$order->order_id.')" '.$dil_checked.'>
+                            <input type="radio" name="'.$order->order_id.'"value="'.$order->status.'"class="'.$hide_ready.'" onchange="updateOrderStatus(this ,'.$order->order_id.')" '.$dil_checked.'>
                                 Ready
                         </td></tr>';
                     }
@@ -107,6 +116,8 @@
                     statusValue = 'ready'; // Update the status value
                 }
 
+                
+
                 const base_url = window.location.origin;
                 const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus/${id}/${statusValue}`;
                 
@@ -129,11 +140,6 @@
 
 
 
-           
-
-        
-
-        
 
         // JavaScript for searching orders by Order No
         function searchOrders() {

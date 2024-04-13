@@ -65,11 +65,21 @@
     background-color: #ffffff; /* Set background color for the table */
 }
 
+/* CSS for the kitchen food orders table */
+#foodOrdersTable {
+    width: 100%;
+    margin-top: 20px; /* Adjust margin as needed */
+    border-collapse: collapse;
+    border: 2px solid #003366; /* Add a border to the table */
+    background-color: #ffffff; /* Set background color for the table */
+}
+
 #foodOrdersTable th,
 #foodOrdersTable td {
-    border: 1px solid #003366; /* Add a border to table cells */
+    border: 1px solid #003366;
     padding: 12px;
     text-align: left;
+    width: 100px; /* Adjust the width as needed */
 }
 
 #foodOrdersTable th {
@@ -89,4 +99,7 @@
 
 .status-radio input {
     margin-right: 5px;
+}
+.hidden-radio {
+    display: none; /* Hide the radio button */
 }

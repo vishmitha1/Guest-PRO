@@ -8,21 +8,18 @@
         }
 
         
-        public function getRows(){ 
-            $this->db->query("SELECT * FROM foodorders WHERE DATE(date) = :dt");
-            $today = DATE('Y-m-d');
-            // echo( $today);
-            // die();
-            $this->db->bind(':dt' , $today);
+         //kitchen functions
 
-            if($this->db->execute()){
-                $row = $this->db->resultSet();
-                return $row;
-            }
-            else{
-                return false;         
-            }
-        }
+
+    //retrieve
+
+    public function getTodaysReadyOrders(){
+        $currentDate = date("Y-m-d");
+        $this->db->query("SELECT * FROM foodorders WHERE delivery_date = :currentDate AND (status ='ready' OR status ='ontheway' OR status='delivered') ORDER BY delivery_time");
+        $this->db->bind(':currentDate', $currentDate);
+        $orders = $this->db->resultset();
+        return $orders;
+    }
 
         public function changeStatus($status , $id){
             $this->db->query("UPDATE foodorders SET status=:status WHERE order_id=:id");

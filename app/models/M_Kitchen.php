@@ -99,22 +99,31 @@
 
         }
 
+
+        //dashboard functions
+
         public function getTotalOrderCount()
-    {
+{
+        // Get today's date
+        $currentDate = date("Y-m-d");
+
         // Prepare the query
-        $this->db->query('SELECT COUNT(*) AS total_orders_count FROM foodorders');
+        $this->db->query('SELECT COUNT(*) AS total_orders_count FROM foodorders WHERE delivery_date = :currentDate');
+
+        // Bind the current date parameter
+        $this->db->bind(':currentDate', $currentDate);
 
         // Fetch a single row (since we are selecting only one value)
         $row = $this->db->single();
 
-        // Return the room count from the fetched row
+        // Return the order count from the fetched row
         return $row->total_orders_count;
     }
 
     public function getDispatchedOrderCount()
     {
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS dispatched_orders_count FROM foodorders WHERE status = 'dispatch' OR status = 'on the way' OR status = 'complete' ");
+        $this->db->query("SELECT COUNT(*) AS dispatched_orders_count FROM foodorders WHERE status = 'dispatch' OR status = 'ontheway' OR status = 'delivered' ");
 
 
         // Fetch a single row (since we are selecting only one value)
@@ -158,7 +167,7 @@
 
     public function getTodaysPlacedOrders(){
         $currentDate = date("Y-m-d");
-        $this->db->query("SELECT * FROM foodorders WHERE delivery_date = :currentDate ORDER BY delivery_time");
+        $this->db->query("SELECT * FROM foodorders WHERE delivery_date = :currentDate AND (status ='placed' OR status ='preparing' OR status='ready') ORDER BY delivery_time");
         $this->db->bind(':currentDate', $currentDate);
         $orders = $this->db->resultset();
         return $orders;
@@ -197,7 +206,7 @@
 
     
     
-    }
+    } 
 
 
     
