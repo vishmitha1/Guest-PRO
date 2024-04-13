@@ -163,12 +163,20 @@ class M_Admins
     }
 
     //Get the count of active staff accounts
-    public function getActiveStaffAccountsCount() {
+    public function getActiveStaffAccountsCount()
+    {
         $this->db->query('SELECT COUNT(*) AS count FROM staffaccount WHERE  active = :active');
         $this->db->bind(':active', 1);
         $row = $this->db->single();
         return $row->count;
     }
 
+    //Get the account logs
+    public function getAccountsLogs()
+    {
+        $this->db->query("SELECT * FROM users");
 
+        $rows = $this->db->resultSet();
+        return $rows;
+    }
 }

@@ -1,7 +1,9 @@
 <?php require APPROOT . "/views/includes/components/sidenavbar_admin.php" ?>
 
 <div class="home">
-    <h1>Dashboard</h1>
+    <div class= "title-admindash">
+        <h1>Dashboard</h1>
+    </div>
     <div class="admin-dashboard-stats">
         <div class="admin-stat">
             <h2>Active Staff Accounts</h2>
