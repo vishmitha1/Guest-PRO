@@ -40,6 +40,7 @@
     <?php   require APPROOT. "/views/includes/components/sidenavbar_waiter.php" ?>
 
     <div class="dashboard">
+    <div class="flavours-header">My Ratings</div>
         
 
 
