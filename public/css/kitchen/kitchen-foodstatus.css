@@ -76,10 +76,9 @@
 
 #foodOrdersTable th,
 #foodOrdersTable td {
-    border: 1px solid #003366;
+    border: 1px solid #003366; /* Add a border to table cells */
     padding: 12px;
     text-align: left;
-    width: 100px; /* Adjust the width as needed */
 }
 
 #foodOrdersTable th {
@@ -91,15 +90,37 @@
     background-color: #f0f0f0; /* Add hover effect to table rows */
 }
 
-.status-radio {
+.status-button {
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100px; /* Set a fixed width for the status button */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Display an ellipsis (...) when text overflows */
 }
 
-.status-radio input {
-    margin-right: 5px;
+.status-button.placed {
+    background-color: #FFA500; /* Orange color for placed status */
 }
-.hidden-radio {
-    display: none; /* Hide the radio button */
+
+.status-button.preparing {
+    background-color: #FF4500; /* OrangeRed color for preparing status */
+}
+
+.status-button.ready {
+    background-color: #32CD32; /* LimeGreen color for ready status */
+}
+
+.status-button:hover {
+    background-color: #003366; /* Darker shade for hover effect */
+}
+
+.status-button-container {
+    width: 100px; /* Set a fixed width for the status button container */
+    overflow: hidden; /* Hide overflow */
 }
