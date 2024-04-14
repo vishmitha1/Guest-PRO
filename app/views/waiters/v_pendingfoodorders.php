@@ -30,11 +30,15 @@
                     </ul>
                 </div>
                 <p class="order-total"><strong>Total:</strong> '.$order->total.'</p>
+                <div class="delivered-checkbox">
+                    <label><input type="checkbox" onclick="markAsDelivered(event)"> Delivered</label>
+                </div>
             </div>';
         }
             
            
          ?>
+         
          </div>
         <div class="clear"></div>
 
@@ -46,21 +50,25 @@
             var allOrderBoxes = document.querySelectorAll('.order-box');
             allOrderBoxes.forEach(function(box) {
                 box.classList.remove('selected');
-                var actions = box.querySelector('.order-actions');
-                if (actions) {
-                    actions.remove();
+                var deliveredCheckbox = box.querySelector('.delivered-checkbox');
+                if (deliveredCheckbox) {
+                    deliveredCheckbox.style.display = 'none';
                 }
             });
 
             orderBox.classList.add('selected');
+            var selectedDeliveredCheckbox = orderBox.querySelector('.delivered-checkbox');
+            if (selectedDeliveredCheckbox) {
+                selectedDeliveredCheckbox.style.display = 'block';
+            }
+        }
 
-            var orderActions = document.createElement('div');
-            orderActions.className = 'order-actions';
-            orderActions.innerHTML = `
-                <label><input type="radio" name="orderStatus" value="onTheWay"> On the Way</label>
-                <label><input type="radio" name="orderStatus" value="delivered"> Delivered</label>
-            `;
-            orderBox.appendChild(orderActions);
+        function markAsDelivered(event) {
+            event.stopPropagation();
+            var selectedOrderBox = document.querySelector('.order-box.selected');
+            if (selectedOrderBox) {
+                selectedOrderBox.classList.toggle('delivered');
+            }
         }
 
         function showAllOrders() {
