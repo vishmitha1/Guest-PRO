@@ -1,20 +1,15 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_supervisor.php" ?>
 
 <div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
+
+    <div class="flavours-header">Room Cleaning</div>
+        
 
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search...">
             <button>Search</button>
         </div>    
-        <!-- Cleaning Status Page -->
-        <h1>Hotel Room Cleaning Status</h1>
+        
     <div class="filter-buttons">
         <button onclick="showAll()">Show All</button>
         <button onclick="showCleaned()">Show Cleaned Rooms</button>

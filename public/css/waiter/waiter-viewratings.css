@@ -234,3 +234,7 @@
 .customer-comment-info p {
     margin: 0;
 }
+
+.checked {
+    color: orange;
+  }
