@@ -93,7 +93,7 @@ h1 {
 }
 
 .room-number {
-    background-color: #2243a8;
+    background-color: #003366;
     color: #ffffff;
     text-align: center;
     padding: 5px;
@@ -156,5 +156,7 @@ h1 {
 .delivered-checkbox {
     text-align: center;
     margin-top: 10px;
-    display: none; /* Initially hide the checkbox */
+    display: block; /* Initially hide the checkbox */
 }
+
+
