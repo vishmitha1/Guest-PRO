@@ -1,21 +1,11 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_supervisor.php" ?>
 
 <div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
+
+<div class="flavours-header">Service Requests</div>
+        
         <div class="filter-options">
-            <label for="floorFilter">Filter by Floor:</label>
-            <select id="floorFilter" onchange="filterRequests()">
-                <option value="all">All Floors</option>
-                <option value="1">Floor 1</option>
-                <option value="2">Floor 2</option>
-                <!-- Add more floor options as needed -->
-            </select>
+           
 
             <label for="statusFilter">Filter by Status:</label>
             <select id="statusFilter" onchange="filterRequests()">
@@ -54,7 +44,7 @@
                         $class = 'not-completed';
                     }
 
-                    echo '<tr data-floor="1" data-status="'.$data_stat.'">
+                    echo '<tr data-status="'.$data_stat.'">
                      <td>'.$dt->roomNo.'</td>
                      <td>'.$dt->request_id.'</td>
                      <td>'.$dt->category.'</td>

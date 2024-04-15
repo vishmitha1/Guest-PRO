@@ -6,7 +6,7 @@
         
     
 
-        <div class="flavours-header">Flavours of the day</div>
+        <div class="flavours-header">Food Menu</div>
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search by food name...">
