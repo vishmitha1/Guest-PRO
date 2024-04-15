@@ -17,8 +17,8 @@
                 <tr>
                     <form id="search-form" action="<?php echo URLROOT;?>/Customers/reservation" method="POST" >
                     <?php if(sizeof($data[1])==0){?>
-                        <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date" value='2023-09-14' ></th>
-                        <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date" value='2023-09-17'></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date" value='2024-04-14' ></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date" value='2024-04-20'></th>
                         <th><div class="img"><i class="fa-solid fa-people-group"></i></div><input type="text" id="roomcount" name="roomcount" placeholder="Rooms"></th>
                     <?php } else{?>
                         

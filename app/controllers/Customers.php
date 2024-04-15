@@ -645,6 +645,9 @@
                     'order_id'=>trim($_POST['order_id']),
                     'roomNo'=>trim($_POST['roomNumber']),
                     'price'=>trim($_POST['amount']),
+                    'delivery_date'=>trim($_POST['delivery_date']),
+                    'delivery_time'=>trim($_POST['delivery_time']),
+                    'note'=>trim($_POST['note']),
                 ];
 
 
@@ -658,6 +661,18 @@
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please select a room.';
                     
+                }
+
+                if(empty($data['delivery_date'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a delevery date.';
+                    redirect('Customers/foodorder');
+                }
+
+                if(empty($data['delivery_time'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a delevery time.';
+                    redirect('Customers/foodorder');
                 }
 
                 
@@ -687,12 +702,29 @@
                     'user_id'=>$_SESSION['user_id'],
                     'roomNo'=>trim($_POST['roomNumber']),
                     'price'=>trim($_POST['amount']),
+                    'delivery_date'=>trim($_POST['delivery_date']),
+                    'delivery_time'=>trim($_POST['delivery_time']),
+                    'note'=>trim($_POST['note']),
                 ];
                 if(empty($roomNo)){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please select a room.';
                     redirect('Customers/foodorder');
                 }
+
+                elseif(empty($data['delivery_date'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a delevery date.';
+                    redirect('Customers/foodorder');
+                }
+
+                elseif(empty($data['delivery_time'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a delevery time.';
+                    redirect('Customers/foodorder');
+                }
+                
+
 
                 else{
 
@@ -827,7 +859,8 @@
                 $order=$this->userModel->retriveOrder($data);
                 if($this->userModel->reInsertToCart($order,$_SESSION['user_id'])){
                     $orderid=$data['order_id'];
-                    $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id']),$orderid]);
+                    // $this->view('customers/v_foodorder', [$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id']),$orderid]);
+                    $this->view('customers/v_updatefoodorder',[$this->userModel->loadfoodmenu(),$this->userModel->cartTotal($_SESSION['user_id']),$this->userModel->retriveRoomNo($_SESSION['user_id']),$order]);
 
                 }
                 
@@ -838,6 +871,33 @@
 
             
 
+        }
+
+
+
+        //validate order date using ajax
+
+        public function getReservationDate(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $spotData=json_decode(array_keys($_POST)[0],true);
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'roomNo'=>trim($spotData['roomNo']),
+                   
+                ];
+
+                $output=$this->userModel->getReservationDate($data);
+                // echo json_encode($output);
+                if($output){
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+                else{
+                    $output=['error','No reservation found'];
+                    header('Content-Type: application/json');
+                    echo json_encode($output);
+                }
+            }
         }
 
 
@@ -934,28 +994,98 @@
 
                 }
                 else{
-                    $this->view('customers/v_servicerequest', $data);
+                    redirect('Customers/serviceRequest');
                 }
 
             }
             else{
-                $data =[
-                    'food' => '',
-                    'quantity' => '',
-                    'note' => '',
-                    'food_err' => '',
-                    'quantity_err' => '',
-                    'note_err' => '',
-                    
-                ];
-                
+                 
+                $retriveData=$this->userModel->retriveServiceRequests($_SESSION['user_id']);
                 // $this->userModel->getorderdetails();
-                $this->view('customers/v_servicerequest', $this->userModel->retriveRoomNo($_SESSION['user_id']));
+                $this->view('customers/v_servicerequest', [$this->userModel->retriveRoomNo($_SESSION['user_id']), $retriveData]);
 
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }
                 
+            }
+        }
+
+        //update and cancel service request
+        public function updateServiceRequests(){
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cancel-servicerequest'])){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'request_id'=>trim($_POST['request_id']),
+                
+                ];
+
+                if($this->userModel->cancelServiceRequest($data)){
+                    $_SESSION['toast_type']='success';
+                    $_SESSION['toast_msg']='Service request canceled successfully.';
+                    redirect('Customers/serviceRequest');
+                }
+                else{
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Something went wrong .';
+                    redirect('Customers/serviceRequest');
+                }
+                
+            }
+ 
+            elseif($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editServcieRequest'])){
+
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data=[
+                    'user_id'=>$_SESSION['user_id'],
+                    'request_id'=>trim($_POST['request_id']),
+   
+                ];
+
+                $request=$this->userModel->retriveServiceRequestForUpdate($data);
+                if($request){
+                    $retriveData=$this->userModel->retriveServiceRequests($_SESSION['user_id']);
+                    // $this->userModel->getorderdetails();
+                    $this->view('customers/v_updateServiceRequest', [$this->userModel->retriveRoomNo($_SESSION['user_id']), $retriveData, $request]);
+                }
+                else{
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Something went wrong .';
+                    redirect('Customers/serviceRequest');
+                }
+                
+
+            }
+
+            elseif($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['UpdateServiceRequestSubmit'])){
+                
+    
+
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data=[
+                    'category' => trim($_POST['category']),
+                    'AddDetails' => trim($_POST['AddDetails']),
+                    'SpecDetails' => trim($_POST['SpecDetails']),
+                    'user_id'=>$_SESSION['user_id'],
+                    'roomNo' => trim($_POST['roomNo']),
+                    'request_id'=>trim($_POST['request_id']),
+                ];
+                
+                if($this->userModel->updateServiceRequest($data)){
+                    $_SESSION['toast_type']='success';
+                    $_SESSION['toast_msg']='Service request updated successfully.';
+                    redirect('Customers/serviceRequest');
+                    
+                }
+                else{
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Something went wrong .';
+                    redirect('Customers/serviceRequest');
+                }
+                
+
             }
         }
 

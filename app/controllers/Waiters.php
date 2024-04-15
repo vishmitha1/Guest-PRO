@@ -2,14 +2,15 @@
     class Waiters extends Controller{
         protected $userModel;
         protected $M_waiter;
+        protected $middleware;
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
             $this->M_waiter = $this->model('M_Waiters');
 
             // // Load middleware
-            // $this->middleware = new AuthMiddleware();
+            $this->middleware = new AuthMiddleware();
             // // Check if user is logged in
-            // $this->middleware->checkAccess(['waiter']);
+            $this->middleware->checkAccess(['waiter']);
         }
 
  
@@ -19,48 +20,78 @@
             $this->view('waiters/v_dashboard', $data);
         }
 
-        public function pendingfoodorders(){
-            $data =[  ];
-            $orders = $this->M_waiter->getRows();
-            // print_r($orders);
-            // die();
-            $order = [];
-            foreach($orders as $item){
-                $order['order_id'] = $item->order_id;
-                $order['room_id'] = $item->roomNo;
-                $order['item'] = $item->item_name;
-                $order['quantity'] = $item->quantity;
-                $order['note'] = $item->note;
-                $order['status'] = $item->status;
+        
+
+    //waiter orders
+
+    //retrieve
+
+
+    public function pendingfoodorders(){
+        $data =[  ];
+        $waiterId = $this->getCurrentUserId();
+        $orders= $this->M_waiter->getTodaysReadyOrders($waiterId);
+        $data['orders'] = $orders;
+        $this->view('waiters/v_pendingfoodorders', $data);
+
+    }
 
 
 
-                $cost = $item->cost;
-                $cost_arr = explode(',' , $cost);
-                $total = 0;
-                foreach($cost_arr as $cost){
-                    $total += floatval($cost);
-                }
-                $order['price'] = $total;
+    //assign
 
-                $data[] = $order;
-            }
+    
 
-            // print_r($data);
-            // die();
-            $this->view('waiters/v_pendingfoodorders', $data);
+    public function assignOrder($orderId) {
+        $waiterId = $this->getCurrentUserId(); // Retrieve waiter ID
+        $this->M_waiter->insertWaiterId($orderId, $waiterId);
+        // Optionally, you may redirect the user to another page after assigning the order.
+        // Example:
+        // header("Location: /dashboard");
+        // exit();
+    }
+
+    public function getCurrentUserId() {
+        // Check if the user is logged in and their ID is stored in the session
+        if(isset($_SESSION['user_id'])) {
+            // Return the user ID from the session
+            return $_SESSION['user_id'];
+        } else {
+            // If user is not logged in or ID is not found in session, return null or handle the situation accordingly
+            return null;
         }
+    }
+
+    //update
+    public function changeStatus($id) {
+       
+    
+        // Change order status using the model
+        $this->M_waiter->changeOrderStatus($id);
+    
+        // Prepare response datas
+        $data['msg'] = "success";
+    
+        // Send JSON response
+        echo json_encode($data);
+        exit();
+    }
+
+
+
+
         
         public function viewratings(){
             $data =[  ];
             $this->view('waiters/v_viewratings', $data);
         }
+    
+
+
+
+
+
         
-        public function changeStatus(){
-            $status = $_GET['param1'];
-            $id = $_GET['param2'];
-            $this->M_waiter->changeStatus($status , $id);
-        }
         
         }
     

@@ -71,32 +71,9 @@
         }
 
 
-        public function getRows(){ 
-            $this->db->query("SELECT * FROM foodorders WHERE DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') < :dt");
-            date_default_timezone_set('Asia/Colombo');
-            $currentDateTime = date('Y-m-d H:i:s');
-            $futureDateTime = date('Y-m-d H:i:s', strtotime($currentDateTime . ' -5 minutes'));
-            // echo($futureDateTime);
-            // die();
-            // echo( $today);
-            // die();
-            $this->db->bind(':dt' , $futureDateTime);
+       
 
-            if($this->db->execute()){
-                $row = $this->db->resultSet();
-                return $row;
-            }
-            else{
-                return false;         
-            }
-        }
-
-        public function changeStatus($status , $id){
-            $this->db->query("UPDATE foodorders SET status=:status WHERE order_id=:id");
-            $this->db->bind(':status' , $status);
-            $this->db->bind(':id' , $id);
-            $this->db->execute();
-        }
+        
 
         public function getAllFoodItems(){
             $this->db->query("SELECT * FROM fooditems ");
@@ -123,4 +100,113 @@
         }
 
 
+        //dashboard functions
+
+        public function getTotalOrderCount()
+{
+        // Get today's date
+        $currentDate = date("Y-m-d");
+
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS total_orders_count FROM foodorders WHERE delivery_date = :currentDate');
+
+        // Bind the current date parameter
+        $this->db->bind(':currentDate', $currentDate);
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the order count from the fetched row
+        return $row->total_orders_count;
     }
+
+    public function getDispatchedOrderCount()
+    {
+        // Prepare the query
+        $this->db->query("SELECT COUNT(*) AS dispatched_orders_count FROM foodorders WHERE status = 'dispatch' OR status = 'ontheway' OR status = 'delivered' ");
+
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the room count from the fetched row
+        return $row->dispatched_orders_count;
+    }
+
+    public function getPreparingOrderCount()
+    {
+        // Prepare the query
+        $this->db->query("SELECT COUNT(*) AS preparing_orders_count FROM foodorders WHERE status = 'preparing'  ");
+
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the room count from the fetched row
+        return $row->preparing_orders_count;
+    }
+
+    public function getReadyForDispatchOrderCount()
+    {
+        // Prepare the query
+        $this->db->query("SELECT COUNT(*) AS readyfordispatch_orders_count FROM foodorders WHERE status = 'ready'  ");
+
+
+        // Fetch a single row (since we are selecting only one value)
+        $row = $this->db->single();
+
+        // Return the room count from the fetched row
+        return $row->readyfordispatch_orders_count;
+    }
+
+
+    //kitchen functions
+
+
+    //retrieve
+
+    public function getTodaysPlacedOrders(){
+        $currentDate = date("Y-m-d");
+        $this->db->query("SELECT * FROM foodorders WHERE delivery_date = :currentDate AND (status ='placed' OR status ='preparing' OR status='ready') ORDER BY delivery_time");
+        $this->db->bind(':currentDate', $currentDate);
+        $orders = $this->db->resultset();
+        return $orders;
+    }
+
+    //update
+
+    public function changeOrderStatus($id, $status) {
+        try {
+            // Prepare and execute the update query
+            $this->db->query("UPDATE foodorders SET status = :status WHERE order_id = :id");
+            $this->db->bind(':status', $status);
+            $this->db->bind(':id', $id);
+            $this->db->execute();
+    
+            // Check if any rows were affected
+            if ($this->db->rowCount() > 0) {
+                return true; // Status changed successfully
+            } else {
+                return false; // No rows were affected, possibly the order ID doesn't exist
+            }
+        } catch (PDOException $e) {
+            // Handle any database errors
+            error_log('Database error: ' . $e->getMessage());
+            return false; // Return false to indicate failure
+        }
+    }
+    
+
+    
+
+
+
+            
+
+
+    
+    
+    } 
+
+
+    

@@ -6,10 +6,12 @@
     <title>Document</title>
    
     <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
-    <script src="<?php echo URLROOT;?>/public/js/customers/foodcart.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -50,16 +52,17 @@
         <div class="navigations-controller">
             <i class="fa-solid fa-list-check" id="navigations-controller"></i>
         </div>
+
     <div class="user-profile">
-            <img src="" alt="User Profile Picture"><br>
-            <div class="user-profile-info">
-                <div class='username'><?php echo $_SESSION['name'];?></div>
-                <p><?php echo $_SESSION['role'];?></p>
-            </div>
+        <a href="<?php echo URLROOT;?>/Users/profile">
+            <img src="<?php echo URLROOT;?>/img/users/<?php echo $_SESSION['user_img'];?> " alt="User Profile Picture"><br>
+        </a>
+        <div class="user-profile-info">
+            <div class='username'><?php echo $_SESSION['name'];?></div>
+            <p><?php echo $_SESSION['role'];?></p>
         </div>
-         <!-- <div class="profile">
-        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   <?php echo $_SESSION['user_id'];?></a>
-        </div> -->
+    </div>
+        
 
     <script>
         var btnContainer = document.getElementById("visal");

@@ -4,26 +4,14 @@
 
 <div class="dashboard">
         
-        
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
+    
+
+        <div class="flavours-header">Food Menu</div>
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search by food name...">
             <button onclick="searchFood()">Search</button>
         </div>
-
-        <!-- Link for View Cleaning History -->
-        <div class="view-history-link">
-            <a href="#">View Food Menu History</a>
-        </div>
-
-        <div class="flavours-header">Flavours of the day</div>
 
         <div class="filter-container">
             <button class="filter-btn" onclick="filterCategory('All')">All</button>

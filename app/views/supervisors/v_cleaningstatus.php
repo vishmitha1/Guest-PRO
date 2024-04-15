@@ -1,109 +1,105 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar_supervisor.php" ?>
 
 <div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
+
+    <div class="flavours-header">Room Cleaning</div>
+        
 
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search...">
             <button>Search</button>
-        </div>
-
-         <!-- Link for View Cleaning History -->
-         <div class="view-history-link">
-            <a href="<?php echo URLROOT; ?>/Supervisors/cleaninghistory">View Cleaning History</a>
-        </div>
-
-
-
-    
-    
-        <!-- Cleaning Status Page -->
-        <div class="cleaning-status">
-            <h2>Room Cleaning Status</h2>
-        </div>
-
+        </div>    
         
+    <div class="filter-buttons">
+        <button onclick="showAll()">Show All</button>
+        <button onclick="showCleaned()">Show Cleaned Rooms</button>
+        <button onclick="showNotCleaned()">Show Not Cleaned Rooms</button>
+    </div>
 
-        <div class="room-filters">
-            <div class="room-filter" onclick="filterRooms('all')">
-                <div class="legend-circle-small" style="background-color: #ffffff;"></div>
-                <div class="room-filter">All Rooms</div>
-            </div>
-            <div class="room-filter" onclick="filterRooms('cleaned')">
-                <div class="legend-circle-small cleaned-circle"></div>
-                <div class="room-filter">Cleaned Rooms</div>
-            </div>
-            <div class="room-filter" onclick="filterRooms('not-cleaned')">
-                <div class="legend-circle-small not-cleaned-circle"></div>
-                <div class="room-filter">Not Cleaned Rooms</div>
-            </div>
-        </div>
+    <div class="container">
+        <!-- First 10 rooms -->
+        <?php
+            foreach($data['rooms'] as $room){
+                if($room->cleaning_status == 1){
+                    $cleaned = 'clean';
+                }else{
+                    $cleaned = '';
+                }
 
-        <!-- Room Container -->
-        <div class="room-container" onclick="changeStatus(event)">
-            <div class="room" data-status="not-cleaned">1</div>
-            <div class="room" data-status="not-cleaned">2</div>
-            <div class="room" data-status="not-cleaned">3</div>
-            <div class="room" data-status="not-cleaned">4</div>
-            <div class="room" data-status="not-cleaned">5</div>
-            <div class="room" data-status="not-cleaned">6</div>
-            <div class="room" data-status="not-cleaned">7</div>
-            <div class="room" data-status="not-cleaned">8</div>
-            <div class="room" data-status="not-cleaned">9</div>
-            <div class="room" data-status="not-cleaned">10</div>
-            <div class="room" data-status="not-cleaned">11</div>
-            <div class="room" data-status="not-cleaned">12</div>
-            <div class="room" data-status="not-cleaned">13</div>
-            <div class="room" data-status="not-cleaned">14</div>
-            <div class="room" data-status="not-cleaned">15</div>
-            <div class="room" data-status="not-cleaned">16</div>
-            <div class="room" data-status="not-cleaned">17</div>
-            <div class="room" data-status="not-cleaned">18</div>
-            <div class="room" data-status="not-cleaned">19</div>
-            <div class="room" data-status="not-cleaned">20</div>
-            <div class="room" data-status="not-cleaned">21</div>
-            <div class="room" data-status="not-cleaned">22</div>
-            <div class="room" data-status="not-cleaned">23</div>
-            <div class="room" data-status="not-cleaned">24</div>
-            <div class="room" data-status="not-cleaned">25</div>
-            <div class="room" data-status="not-cleaned">26</div>
-            <div class="room" data-status="not-cleaned">27</div>
-            <div class="room" data-status="not-cleaned">28</div>
-            <div class="room" data-status="not-cleaned">29</div>
-            <div class="room" data-status="not-cleaned">30</div>
-            <!-- Add more rooms as needed -->
-        </div>
+                if($room->cleaning_status == 1){
+                    $data_status = 'clean';
+                }else{
+                    $data_status = 'dirty';
+                }
+                echo '<div class="room '.$cleaned.'" data-status="'.$data_status.'" onclick="changeStatus(this , '.$room->roomNo.')">'.$room->roomNo.'</div>';
+            }
+        ?>
 
-        <!-- Link for View Cleaning History -->
-       
+    </div>
 
-        
+    <script>
+        // Function to show all rooms
+        function showAll() {
+            const rooms = document.querySelectorAll('.room');
+            for (let room of rooms) {
+                room.style.display = 'block';
+            }
+        }
 
-        <!-- Your existing script tags go here -->
-        <script>
-            function changeStatus(event) {
-                const room = event.target;
-                if (room.classList.contains('room')) {
-                    room.dataset.status = (room.dataset.status === 'not-cleaned') ? 'cleaned' : 'not-cleaned';
-                    room.classList.toggle('cleaned');
+        // Function to show cleaned rooms
+        function showCleaned() {
+            const rooms = document.querySelectorAll('.room');
+            for (let room of rooms) {
+                if (room.getAttribute('data-status') === 'clean') {
+                    room.style.display = 'block';
+                } else {
+                    room.style.display = 'none';
                 }
             }
+        }
 
-            function filterRooms(status) {
-                const rooms = document.querySelectorAll('.room');
-                rooms.forEach(room => {
-                    if (status === 'all' || room.dataset.status === status) {
-                        room.style.display = 'block';
-                    } else {
-                        room.style.display = 'none';
-                    }
-                });
+        // Function to show not cleaned rooms
+        function showNotCleaned() {
+            const rooms = document.querySelectorAll('.room');
+            for (let room of rooms) {
+                if (room.getAttribute('data-status') === 'dirty') {
+                    room.style.display = 'block';
+                } else {
+                    room.style.display = 'none';
+                }
             }
-        </script>
-    </div>
+        }
+
+        // Function to change room status when clicked
+        function changeStatus(room , id) {
+            if (room.getAttribute('data-status') === 'dirty') {
+                room.setAttribute('data-status', 'clean');
+
+                const baseLink = window.location.origin;
+                const link = `${baseLink}/guestpro/Supervisors/changeRoom/${id}`
+
+                fetch(link)
+                .then(response => {
+                    // Check if response is successful (status code 200)
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    // Parse response JSON data
+                    return response.json();
+                })
+                .then(data => {
+                    // Work with the fetched data
+                    console.log('Fetched data:', data);
+                    // You can perform operations on 'data' here
+                })
+                .catch(error => {
+                    // Handle errors that may occur during fetch
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
+
+
+                room.classList.add('clean');
+            }
+        }
+    </script>

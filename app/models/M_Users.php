@@ -79,6 +79,88 @@
                 return false;
             }
         }
+
+        public function updateLastLogin($user_id)
+        {
+            $sql = "UPDATE users SET last_login = CURRENT_TIMESTAMP() WHERE id = :user_id";
+            $this->db->query($sql);
+            $this->db->bind(':user_id', $user_id);
+
+            // Execute
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function updateLastLogout($user_id)
+        {
+            $sql = "UPDATE users SET last_logout = CURRENT_TIMESTAMP() WHERE id = :user_id";
+            $this->db->query($sql);
+            $this->db->bind(':user_id', $user_id);
+
+            // Execute
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        //profile prt''
+        //profile part''''''''''''''''
+        public function getProfileDetails($id){
+            $this->db->query("SELECT name,email,phone,address,img FROM users WHERE id=:id");
+            $this->db->bind(':id',$id);
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+        //update profile
+        public function updateProfile($data,$img){
+              
+            
+            if($img !=''){
+                $this->db->query("UPDATE users SET name=:name,email=:email,phone=:phone,address=:address,img=:propic WHERE id=:id");
+                $this->db->bind(':propic',$img);
+            }
+            else{
+                $this->db->query("UPDATE users SET name=:name,email=:email,phone=:phone,address=:address WHERE id=:id");
+            }
+           
+            $this->db->bind(':name',$data['name']);
+            $this->db->bind(':email',$data['email']);
+            $this->db->bind(':phone',$data['phone']);
+            $this->db->bind(':address',$data['address']);
+            $this->db->bind(':id',$data['id']);
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+
+        //check updated email is already exist or not.. allow if the email is same as the previous one
+        public function isEmailExist($email,$id){
+            $this->db->query("SELECT * FROM users WHERE email=:email AND id!=:id");
+            $this->db->bind(':email',$email);
+            $this->db->bind(':id',$id);
+            $row = $this->db->single();
+
+            if($this->db->rowCount() > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
         
 
 

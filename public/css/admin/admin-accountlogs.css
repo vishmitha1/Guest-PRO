@@ -1,65 +1,56 @@
-/* CSS for the search bar */
-.search-bar {
-    margin-top: 20px;
-    display: flex;
+.title-accountlogs h1{
+    text-align: center;
 }
 
-.search-bar input[type="text"] {
+/* CSS for the search bar form */
+.admin-search-bar form {
+    display: flex;
+    width: 100%;
+}
+
+.admin-search-bar input[type="text"] {
     flex: 1; /* Take up available space */
     padding: 10px;
     box-sizing: border-box;
     border: 1px solid #E6E7E8; /* Add border to the input field */
 }
 
-.search-bar button {
+.admin-search-bar button {
     background-color: #003366;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    border-top-right-radius: 0; /* No rounded corners on the button */
-    border-bottom-right-radius: 0;
+    border-radius: 0 5px 5px 0;
 }
 
-.search-bar button:hover {
+.admin-search-bar button:hover {
     background-color: #002447;
 }
 
-.table{
-    width: 100%;
-    border-collapse: collapse;
+/* Apply styling to table */
+.accountlogs-table-container {
+    display: flex;
+    width: 100%; 
+    margin: 0 auto; /* Center the table horizontally */
+    justify-content: center;
+    /* margin: auto; */
 }
 
-.table th, .table td {
+.accountlogs-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.accountlogs-table th,
+.accountlogs-table td {
     border: 1px solid #E6E7E8;
     padding: 8px;
-    text-align: center;
+    text-align: left;
 }
 
-/*.view-btn{
-    background-color: #fa2f2f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 20px;
+.accountlogs-table th{
+    background-color: #003366; /* Set background color for header cells */
+    color: #ffffff; /* Set text color for header cells */
 }
-
-.view-btn:hover{
-    background-color: #870707;
-}*/
-
-/* CSS for the Logs section */
-.logs {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #E6E7E8;
-    border-radius: 10px;
-}
-
-.logs h2 {
-    color: #003366;
-    font-size: 24px;
-}
-

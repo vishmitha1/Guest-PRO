@@ -1,137 +1,134 @@
-<?php   require APPROOT. "/views/includes/components/sidenavbar_waiter.php" ?>
+<?php require APPROOT. "/views/includes/components/sidenavbar_waiter.php"; ?>
 <div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>Waiter</p>
-            </div>
-        </div>
-
-        <div class="filter-options">
-            <label for="floorFilter">Filter by Floor:</label>
-            <select id="floorFilter" onchange="filterOrders()">
-                <option value="all">All Floors</option>
-                <option value="1">Floor 1</option>
-                <option value="2">Floor 2</option>
-                <!-- Add more floor options as needed -->
-            </select>
-
-            <label for="statusFilter">Filter by Status:</label>
-            <select id="statusFilter" onchange="filterOrders()">
-                <option value="all">All Statuses</option>
-                <option value="on-the-way">On the Way</option>
-                <option value="delivered">Delivered</option>
-            </select>
-        </div>
-
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search by Order No...">
-            <button onclick="searchOrders()">Search</button>
-        </div>
-
-        <table id="foodOrdersTable">
-            <thead>
-                <tr>
-                    <th>Order No</th>
-                    <th>Room No</th>
-                    <th>Items</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Note</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach($data as $dt){
-                    if($dt['status']=='delivered'){
-                        $statusss = 'delivered';
-                        $dil_checked = 'checked';
-                        $on_checked = '';
-                    }else{
-                        $statusss = 'on-the-way';
-                        $dil_checked = '';
-                        $on_checked = 'checked';
-
-                    }
-                    echo '<tr data-floor="1" data-status="'.$statusss.'">
-                    <td>'.$dt['order_id'].'</td>
-                    <td>'.$dt['room_id'].'</td>
-                    <td>'.$dt['item'].'</td>
-                    <td>'.$dt['quantity'].'</td>
-                    <td>'.$dt['price'].'</td>
-                    <td>'.$dt['note'].'</td>
-                    <td class="status-radio">
-                        <input type="radio" name="'.$dt['order_id'].'" value="on-the-way"
-                            onchange="updateOrderStatus(this , '.$dt['order_id'].')" '.$on_checked.'> On the Way
-                        <input type="radio" name="'.$dt['order_id'].'" value="delivered" onchange="updateOrderStatus(this ,'.$dt['order_id'].')" '.$dil_checked.'>
-                            Delivered
-                    </td></tr>';
-                }
-                ?>
-                <!-- Add more rows for other food orders -->
-            </tbody>
-        </table>
+    <div class="flavours-header">Food Orders</div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by Order No...">
+        <button onclick="searchOrders()">Search</button>
     </div>
-
+    <div class="filter-buttons">
+        <button class="filter-button show-ongoing-orders" onclick="showOngoingOrders()">Show Ongoing Orders</button>
+        <button class="filter-button show-all-orders" onclick="showAllOrders()">Show All Orders</button>
+    </div>
+    <div class="orders-container">
+        <?php foreach($data['orders'] as $index => $order): ?>
+            <div class="order-box <?php echo $order->status === 'ontheway' && $index === 0 ? 'selected delivered' : ''; ?>" data-orderid="<?php echo $order->order_id; ?>" onclick="selectOrder(this, '<?php echo $order->order_id; ?>')">
+                <div class="room-number"><strong>Room <?php echo $order->roomNo; ?></strong></div>
+                <div class="order-info">
+                    <p><strong>Order No:</strong><?php echo $order->order_id; ?></p>
+                    <p><strong>Delivery Time:</strong><?php echo $order->delivery_time; ?></p>
+                </div>
+                <div class="order-items">
+                    <p><strong>Items:</strong></p>
+                    <ul>
+                        <li><?php echo $order->item_name; ?> <?php echo $order->quantity; ?></li>
+                    </ul>
+                </div>
+                <p class="order-total"><strong>Total:</strong> <?php echo $order->total; ?></p>
+                <div class="delivered-checkbox" style="<?php echo $order->status === 'ontheway' ? 'display: block;' : 'display: none;'; ?>">
+                    <label><input type="checkbox" onclick="markAsDelivered(event, '<?php echo $order->order_id; ?>')"> Delivered</label>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="clear"></div>
     <script>
-        // JavaScript for filtering food orders based on floor and status
-        function filterOrders() {
-            var floorFilter = document.getElementById('floorFilter').value;
-            var statusFilter = document.getElementById('statusFilter').value;
+        function selectOrder(clickedOrderBox, orderId) {
+            if (clickedOrderBox === document.querySelector('.order-box')) {
+                // Deselect all other order boxes
+                var orderBoxes = document.querySelectorAll('.order-box');
+                orderBoxes.forEach(function(orderBox) {
+                    if (orderBox !== clickedOrderBox) {
+                        orderBox.classList.remove('selected');
+                        var deliveredCheckbox = orderBox.querySelector('.delivered-checkbox');
+                        deliveredCheckbox.style.display = 'none';
+                    }
+                });
 
-            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+                // Select the clicked order box
+                clickedOrderBox.classList.add('selected');
 
-            for (var i = 0; i < rows.length; i++) {
-                var floor = rows[i].getAttribute('data-floor');
-                var status = rows[i].querySelector('input[type="radio"]:checked').value;
+                // Show the 'Delivered' checkbox
+                var deliveredCheckbox = clickedOrderBox.querySelector('.delivered-checkbox');
+                deliveredCheckbox.style.display = 'block';
 
-                var showRow = (floorFilter === 'all' || floor === floorFilter) && (statusFilter === 'all' || status === statusFilter);
-                rows[i].style.display = showRow ? '' : 'none';
-            }
-        }
+                // Call the API to assign the order
+                const base_url = window.location.origin;
+                const apiUrl = `${base_url}/GuestPro/waiters/assignOrder/${orderId}`;
 
-        // JavaScript for updating food order status
-        function updateOrderStatus(radio , id) {
-            var row = radio.closest('tr');
-            var statusValue = radio.value;
-            const base_url = window.location.origin;
-            const apiUrl = `${base_url}/GuestPro/Waiters/changeStatus`;
-            
-            // Example parameters
-            const param1 = statusValue;
-            const param2 = id;
-            console.log(param1)
-            console.log(param2)
-            // Appending parameters to the URL
-            const urlWithParams = `${apiUrl}?param1=${param1}&param2=${param2}`;
-
-            // Using the fetch API to make a GET request
-            fetch(urlWithParams)
+                // Fetch API call to assign the order
+                fetch(apiUrl, {
+                    method: 'POST', // or 'GET', 'PUT', 'DELETE', etc.
+                    // Add headers if required
+                    // body: JSON.stringify(data), // You can send data in the request body if needed
+                })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
+                        throw new Error('Network response was not ok');
                     }
-                })
-                .then(data => {
+                    // Handle the response if needed
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                })
-
-            row.setAttribute('data-status', statusValue);
-        }
-
-        // JavaScript for searching orders by Order No
-        function searchOrders() {
-            var searchInput = document.getElementById('searchInput').value.toLowerCase();
-            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-            for (var i = 0; i < rows.length; i++) {
-                var orderNo = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
-                var showRow = orderNo.includes(searchInput);
-                rows[i].style.display = showRow ? '' : 'none';
+                    console.error('There was an error!', error);
+                    // Handle errors
+                });
             }
         }
+
+        function markAsDelivered(event, orderId) {
+            event.stopPropagation();
+            var selectedOrderBox = document.querySelector('.order-box.selected');
+            if (selectedOrderBox) {
+                selectedOrderBox.classList.toggle('delivered');
+
+                // Call the API to change the status to delivered
+                const base_url = window.location.origin;
+                const apiUrl = `${base_url}/GuestPro/waiters/changeStatus/${orderId}`;
+
+                // Fetch API call to change the status
+                fetch(apiUrl, {
+                    method: 'POST', // or 'GET', 'PUT', 'DELETE', etc.
+                    // Add headers if required
+                    // body: JSON.stringify(data), // You can send data in the request body if needed
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Parse JSON response
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.msg === "success") {
+                        // Success message, handle as needed
+                        console.log("Order status changed successfully");
+                    } else {
+                        // Handle other responses or errors
+                        console.error('Unexpected response:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                    // Handle errors
+                });
+            }
+        }
+
+        function showAllOrders() {
+            var allOrderBoxes = document.querySelectorAll('.order-box');
+            allOrderBoxes.forEach(function(box) {
+                box.style.display = 'block';
+            });
+        }
+
+        function showOngoingOrders() {
+            var allOrderBoxes = document.querySelectorAll('.order-box');
+            allOrderBoxes.forEach(function(box) {
+                if (box.classList.contains('selected')) {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        }
     </script>
+</div>

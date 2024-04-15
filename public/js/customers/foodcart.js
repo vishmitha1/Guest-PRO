@@ -210,6 +210,138 @@ function totalcartItems(){
 
 
 
+//handle reservation date range for food order schedules''''''''''''''''''''''''''''
+
+
+
+
+
+
+
+
+addEventListener('DOMContentLoaded', function() {
+    var deliveryDateElement = document.getElementById('date');
+    var numberElement = document.getElementById('RoomNumberForm');
+    var roomNo = document.getElementById('RoomNumberForm').value;
+
+    deliveryDateElement.addEventListener("click",function(){
+        if (roomNo === '') {
+            toastFlashMsg('info', 'Please select a Room Number');
+            return;
+        }
+    });
+
+    numberElement.addEventListener('click', function() {
+        roomNo = document.getElementById('RoomNumberForm').value;
+        if (roomNo === '') {
+            deliveryDateElement.addEventListener("click",function(){
+                if (roomNo === '') {
+                    toastFlashMsg('info', 'Please select a Room Number');
+                    return;
+                }
+            })
+        }
+        else{
+            
+            getReservationDate(roomNo);
+        }
+    });
+
+    function getReservationDate(roomNo) {
+        console.log(roomNo);
+        $.ajax({
+            url: 'http://localhost/GuestPro/Customers/getReservationDate',
+            method: "POST",
+            data: JSON.stringify({
+                roomNo: roomNo
+            }),
+            success: function(response) {
+                console.log(response);
+
+                // Parse the response data into Date objects
+                var checkInDate = new Date(response.checkIn);
+                var checkOutDate = new Date(response.checkOut);
+
+                // Adjust the dates for minimum and maximum delivery dates
+                checkInDate.setDate(checkInDate.getDate() + 1); // Set to the day after check-in
+                var minDateString = checkInDate.toISOString().split('T')[0];
+                var maxDateString = checkOutDate.toISOString().split('T')[0];
+
+                console.log(minDateString, maxDateString);
+
+                // Set min and max attributes of the delivery date input element
+                // deliveryDateElement.setAttribute("min", minDateString);
+                // deliveryDateElement.setAttribute("max", maxDateString);
+
+                
+                // Define kitchen opening and closing times
+                var openingHour = 6; // 6 AM
+                var closingHour = 23; // 11 PM
+                var preparationTime = 30; // 30 minutes
+                
+
+                // Calculate the minimum selectable time from the current time
+                var currentTime = new Date();
+                var currentHour = currentTime.getHours();
+                var currentMinutes = currentTime.getMinutes();
+                var minSelectableTime = new Date(currentTime.getTime() + preparationTime * 60000);
+                var mintime,maxtime;
+                var seconds = new Date().getTime() 
+                if(currentHour>6 && currentHour<23){
+                    mintime=currentHour+':'+(currentMinutes+30);
+                }
+                else{
+                    mintime='6:00';
+                }
+
+                if(currentHour>22 && currentHour<=23){
+                    maxtime='23:30'
+                }
+                else{
+                    maxtime:'23:00'
+                }
+                var maxtime=(closingHour < 10 ? "0" + closingHour : closingHour) + ":00" // Closing time
+                console.log(seconds)
+
+                const myInput = document.getElementById("date");
+                flatpickr(myInput, {
+                    enableTime: false,
+                    dateFormat: "Y-m-d H:i",
+                    minDate: checkInDate,
+                    maxDate: checkOutDate, // Set maximum date range (7 days from today)
+                    
+                });
+                const mytime = document.getElementById("Deltime");
+                flatpickr(mytime, {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "H:i",
+                    time_24hr: false,
+                    minuteIncrement: 30,
+                    maxTime: maxtime,
+                    minTime: mintime
+                   
+                });
+                
+
+
+
+            },
+            error: function(error) {
+                console.error('error while getting reservation date', error);
+            }
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
 
 
     

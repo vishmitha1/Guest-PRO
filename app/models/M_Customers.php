@@ -488,7 +488,10 @@
                           item_no = :item_id, 
                           quantity =:quantity,
                           img = :img, 
-                          total = :tot
+                          total = :tot,
+                          note = :note,
+                          delivery_date = :delDate,
+                          delivery_time = :delTime
 
                     WHERE order_id = :order_id');
 
@@ -500,12 +503,17 @@
             else{                  
        
                 $this->db->query("INSERT INTO 
-                        foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total,reservation_id)
-                        VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot,(SELECT reservation_id FROM reservations WHERE user_id = :id ORDER BY reservation_id DESC LIMIT 1)) ");
-
+                        foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total,reservation_id,note,delivery_date,delivery_time,date)
+                        VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot,(SELECT reservation_id FROM reservations WHERE user_id = :id ORDER BY reservation_id DESC LIMIT 1),:note,:delDate,:delTime,:date ) ");
+                    
+                    $date=date("Y-m-d H:i:s");
+           
+                    $this->db->bind(':date',$date);
             }
 
             // $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
+            
+
             $this->db->bind(':id',$id);
             $this->db->bind(':quantity', $qty);
             $this->db->bind(':item_name',$name);
@@ -514,6 +522,9 @@
             $this->db->bind(':item_id',$itemid);
             $this->db->bind(':img',$img);
             $this->db->bind(':tot',$data['price']);
+            $this->db->bind(':note',$data['note']);
+            $this->db->bind(':delDate',$data['delivery_date']);
+            $this->db->bind(':delTime',$data['delivery_time']);
           
             
             if($this->db->execute()){
@@ -632,6 +643,19 @@
             
             
         }
+
+
+        //check Reservation date
+        public function getReservationDate($data){
+            $this->db->query("SELECT r.checkIn , r.checkOut FROM reservations r INNER JOIN rooms ON r.reservation_id = rooms.reservation_id 
+                                WHERE rooms.roomNo=:roomNo  AND rooms.availability=:avail ");
+            
+            $this->db->bind(':roomNo',$data['roomNo']);
+            $this->db->bind(':avail','no');
+            $row = $this->db->single();
+
+            return $row;
+        }
         
 
         public function test($data){
@@ -690,6 +714,57 @@
             $this->db->bind('category',$data["category"]);
             $this->db->bind('AddDetails',$data["AddDetails"]);
             $this->db->bind('SpecDetails',$data["SpecDetails"]);
+            $this->db->bind('roomNo',$data["roomNo"]);
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        //Retrive service request details to service request UI fill service request hostory table
+        public function retriveServiceRequests($data){
+            $this->db->query("SELECT * FROM servicerequests WHERE user_id=:id LIMIT 5");
+            $this->db->bind(':id',$data);
+            
+            $row = $this->db->resultSet();
+           
+            return $row;
+        }
+
+        //cancel service request
+        public function cancelServiceRequest($data){
+            $this->db->query("DELETE FROM servicerequests WHERE user_id = :u_id AND request_id = :req_id  ");
+            $this->db->bind('u_id',$data['user_id']);
+            $this->db->bind('req_id',$data['request_id']);
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        //retrive service request for update
+        public function retriveServiceRequestForUpdate($data){
+            $this->db->query("SELECT * FROM servicerequests WHERE user_id=:id and request_id=:req_id ");
+            $this->db->bind(':id',$data['user_id']);
+            $this->db->bind(':req_id',$data['request_id']);
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+        //update service request
+        public function updateServiceRequest($data){
+            $this->db->query("UPDATE servicerequests SET roomNo=:roomNo, category=:category,AddDetails=:AddDetails,SpecDetails=:SpecDetails WHERE request_id=:req_id");
+         
+            $this->db->bind('category',$data["category"]);
+            $this->db->bind('AddDetails',$data["AddDetails"]);
+            $this->db->bind('SpecDetails',$data["SpecDetails"]);
+            $this->db->bind('req_id',$data["request_id"]);
             $this->db->bind('roomNo',$data["roomNo"]);
             
             if($this->db->execute()){

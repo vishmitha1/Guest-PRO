@@ -1,36 +1,21 @@
-<?php   require APPROOT. "/views/includes/components/sidenavbar_kitchen.php" ?>
+<?php
+echo require APPROOT . "/views/includes/components/sidenavbar_kitchen.php";
 
-<div class="dashboard">
-        <div class="user-profile">
-            <img src="profile-pic.jpg" alt="User Profile Picture">
-            <div class="user-profile-info">
-                <p>John Doe</p>
-                <p>User</p>
-            </div>
-        </div>
-
+echo '<div class="dashboard">
+        <div class="flavours-header">Food Orders</div>
         <div class="filter-options">
-            <label for="floorFilter">Filter by Floor:</label>
-            <select id="floorFilter" onchange="filterOrders()">
-                <option value="all">All Floors</option>
-                <option value="1">Floor 1</option>
-                <option value="2">Floor 2</option>
-                <!-- Add more floor options as needed -->
-            </select>
-
             <label for="statusFilter">Filter by Status:</label>
             <select id="statusFilter" onchange="filterOrders()">
                 <option value="all">All Statuses</option>
+                <option value="placed">Placed</option>
                 <option value="preparing">Preparing</option>
-                <option value="ready-for-dispatch">Ready for Dispatch</option>
+                <option value="ready">Ready</option>
             </select>
         </div>
-
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search by Order No...">
             <button onclick="searchOrders()">Search</button>
         </div>
-
         <table id="foodOrdersTable">
             <thead>
                 <tr>
@@ -38,108 +23,97 @@
                     <th>Room No</th>
                     <th>Items</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Delivery Time</th>
                     <th>Note</th>
                     <th>Status</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php
-                foreach($data as $dt){
-                    if($dt['status']=='dispatch'){
-                        $statusss = 'dispatch';
-                        $dil_checked = 'checked';
-                        $on_checked = '';
-                    }else if($dt['status']=='preparing'){
-                        $statusss = 'preparing';
-                        $dil_checked = '';
-                        $on_checked = 'checked';
+            <tbody>';
 
-                    }else{
-                        $statusss = 'order';
-                        $dil_checked = '';
-                        $on_checked = 's';
-                    }
-                    echo '<tr data-floor="1" data-status="'.$statusss.'">
-                    <td>'.$dt['order_id'].'</td>
-                    <td>'.$dt['room_id'].'</td>
-                    <td>'.$dt['item'].'</td>
-                    <td>'.$dt['quantity'].'</td>
-                    <td>'.$dt['price'].'</td>
-                    <td>'.$dt['note'].'</td>
-                    <td class="status-radio">
-                        <input type="radio" name="'.$dt['order_id'].'"value="preparing"
-                            onchange="updateOrderStatus(this , '.$dt['order_id'].')" '.$on_checked.'> Preparing
-                        <input type="radio" name="'.$dt['order_id'].'"value="dispatch" onchange="updateOrderStatus(this ,'.$dt['order_id'].')" '.$dil_checked.'>
-                            Ready for despatch
-                    </td></tr>';
-                }
-                ?>
-            </tbody>
+foreach ($data['orders'] as $order) {
+    echo '<tr data-status="' . $order->status . '">
+            <td>' . $order->order_id . '</td>
+            <td>' . $order->roomNo . '</td>
+            <td>' . $order->item_name . '</td>
+            <td>' . $order->quantity . '</td>
+            <td>' . $order->delivery_time . '</td>
+            <td>' . $order->note . '</td>
+            <td class="status-button-container">
+                <button class="status-button ' . $order->status . '" onclick="toggleOrderStatus(this, \'' . $order->order_id . '\')">' . $order->status . '</button>
+            </td>
+        </tr>';
+}
+
+echo '</tbody>
         </table>
-    </div>
+    </div>';
+?>
+<script>
+    // JavaScript for filtering food orders based on floor and status
+    function filterOrders() {
+        var status = document.getElementById("statusFilter").value;
+        var orders = document.querySelectorAll("#foodOrdersTable tbody tr");
 
-    <script>
-        // JavaScript for filtering food orders based on floor and status
-        function filterOrders() {
-            var floorFilter = document.getElementById('floorFilter').value;
-            var statusFilter = document.getElementById('statusFilter').value;
+        orders.forEach(function(order) {
+            var orderStatus = order.getAttribute("data-status");
 
-            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-            for (var i = 0; i < rows.length; i++) {
-                var floor = rows[i].getAttribute('data-floor');
-                var status = rows[i].querySelector('input[type="radio"]:checked').value;
-
-                var showRow = (floorFilter === 'all' || floor === floorFilter) && (statusFilter === 'all' || status === statusFilter);
-                rows[i].style.display = showRow ? '' : 'none';
+            if (status === "all" || orderStatus === status) {
+                order.style.display = "table-row";
+            } else {
+                order.style.display = "none";
             }
+        });
+    }
+
+    // JavaScript for searching orders by Order No
+    function searchOrders() {
+        var searchInput = document.getElementById('searchInput').value.toLowerCase();
+        var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+        for (var i = 0; i < rows.length; i++) {
+            var orderNo = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
+            var showRow = orderNo.includes(searchInput);
+            rows[i].style.display = showRow ? '' : 'none';
+        }
+    }
+
+    // JavaScript function to toggle order status and send the update to the server
+    function toggleOrderStatus(button, orderId) {
+        var currentStatus = button.textContent.toLowerCase();
+        var newStatus;
+
+        if (currentStatus === 'placed') {
+            newStatus = 'preparing';
+        } else if (currentStatus === 'preparing') {
+            newStatus = 'ready';
+        } else {
+            return; // If the current status is 'ready' or any other value, do nothing
         }
 
-        // JavaScript for updating food order status
-        function updateOrderStatus(radio , id) {
-            var row = radio.closest('tr');
-            var statusValue = radio.value;
+        button.textContent = newStatus;
+        button.classList.remove(currentStatus);
+        button.classList.add(newStatus);
 
-            const base_url = window.location.origin;
-            const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus`;
-            
-            // Example parameters
-            const param1 = statusValue;
-            const param2 = id;
-            console.log(param1)
-            console.log(param2)
+        const base_url = window.location.origin;
+        const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus/${orderId}/${newStatus}`;
 
-
-            // Appending parameters to the URL
-            const urlWithParams = `${apiUrl}?param1=${param1}&param2=${param2}`;
-
-            // Using the fetch API to make a GET request
-            fetch(urlWithParams)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                })
-                .then(data => {
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                })
-
-
-            row.setAttribute('data-status', statusValue);
-        }
-
-        // JavaScript for searching orders by Order No
-        function searchOrders() {
-            var searchInput = document.getElementById('searchInput').value.toLowerCase();
-            var rows = document.getElementById('foodOrdersTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-            for (var i = 0; i < rows.length; i++) {
-                var orderNo = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
-                var showRow = orderNo.includes(searchInput);
-                rows[i].style.display = showRow ? '' : 'none';
-            }
-        }
-    </script>
+        fetch(apiUrl, {
+                method: 'POST', // or 'PUT' depending on your API
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can add additional headers if needed
+                },
+                // You can include a body if your API requires data
+                // body: JSON.stringify({ orderId: orderId, newStatus: newStatus }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // You can handle success response here if needed
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
+</script>

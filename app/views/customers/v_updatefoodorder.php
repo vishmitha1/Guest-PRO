@@ -5,6 +5,8 @@
 
 <!-- <div class="home"> -->
 
+
+
         <div class="cart-inUI" onclick="togglePopup()"  >
             <!-- <i class="fa-solid fa-cart-shopping fa-2xl"></i> -->
             <!-- <span class="material-symbols-outlined">shopping_cart</span> -->
@@ -14,18 +16,7 @@
                 <span id="Cart-item-Count" ><?php echo $data[1]->{'COUNT(*)'};?></span>
             </div>
         </div>
-            <!-- <form id="cartForm" method="POST" action="Customers">
-            <div class="cart-inUI" onclick="togglePopup()" >
-                <div class="img" >
-                    <img src="<?php echo URLROOT;?>/public/img/svgs/shopping_cart.svg" class="svg-large" ></img>
-                </div>
-                <div class="cart-total">
-                    <span id="cartTotal">25</span>
-                </div>
-            </div>
-
-            <input type="hidden" id="cartPopup" name="cart_popup" value="0">
-            </form> -->
+            
            
     <div class="foodorder-container">
         <div class="main-title">
@@ -76,32 +67,21 @@
 
                                                                     <?php if(sizeof($data[2])==1){ ?>
                                                                         <?php foreach($data[2] as $room){ ?>
-                                                                            <?php if(strlen($room->roomNo)>1){
-                                                                                $roomNo=explode(",",$room->roomNo);
-                                                                                echo "<option hidden value='' >Select Room</option>";
-                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
-                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
-                                                                                <?php }
-                                                                            }
-                                                                            else{ ?>    
-                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
-                                                                                <?php } ?>    
-
-                                                                        <?php } ?>
-                                                                    <?php } 
-                                                                     else{ ?>    
-                                                                    
-                                                                        <option hidden value="" >Select Room</option>
-                                                                        <?php foreach($data[2] as $room){ ?>
-                                                                            <?php if(strlen($room->roomNo)>1){
-                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                            <?php if(strlen($room->roomNo)>2){
+                                                                                $roomNo=explode(",",$room->roomNo);?>
                                                                                 
-                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
-                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php 
+                                                                                    for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <?php if($data[3]->roomNo==$roomNo[$i]){?>
+                                                                                            <option value="<?php echo $roomNo[$i];?>" selected ><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                        <?php }
+                                                                                        else{ ?>
+                                                                                            <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                    <?php } ?>
                                                                                 <?php }
                                                                             }
                                                                             else{ ?>    
-                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                    <option value='<?php echo$data[3]->roomNo;?>' selected ><?php echo  "Room No: ".$data[3]->roomNo;?></option>
                                                                                 <?php } ?>    
 
                                                                         <?php } ?>
@@ -128,15 +108,14 @@
                         <div class="cart_item1">
                             <div class="delevery-date-time">
                                 <div class="delevery-date-time-title">
-                                    <span>Delevery Date & Time</span>
+                                    <span>Delivery Date & Time</span>
                                 </div>
                                 <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" >
                                 <div class="delevery-date-time-value">
                                     <!-- <input type="date" name="delevery_date" id="delevery_date"  > -->
-                                    <input type="text" id="date" name="delivery_date">
-                                    <input type="text" id="Deltime" name="delivery_time">
-                                    <!-- <input type="time" name="delevery_time" id="delevery_time" minlength="2.00pm" > -->
-                                    <!-- <input type="time" id="time" name="time" min="08:00 AM" max="18:00"> -->
+                                    <input type="text" id="date" name="delivery_date" value="<?php echo $data[3]->delivery_date; ?>" >
+                                    <input type="text" id="Deltime" name="delivery_time" value="<?php echo $data[3]->delivery_time; ?>">
+                                    
                                 </div>
                                 
                             </div>
@@ -147,7 +126,7 @@
                                     <span>Special Instructions</span>
                                 </div>
                                 <div class="special-instructions-value">
-                                    <textarea name="note" id="special_instructions" cols="30" rows="10"></textarea>
+                                    <textarea name="note" id="special_instructions" cols="30" rows="10"  ><?php echo $data[3]->note;?></textarea>
                                 </div>
                             </div>    
 
@@ -170,9 +149,9 @@
                                         <!-- <form id='cart_submit_Form' action="http://localhost/GuestPro/Customers/placeOrder" method="POST" > -->
                                             <button type='submit' >PlaceOrder</button>
                                             <input type="hidden" id="total_items_Price" name="amount"   > 
-                                            <!-- <?php if(!empty($data[3])){?>
-                                                <input type="hidden" name="order_id" value="<?php echo $data[3]; ?>">
-                                            <?php } ?> -->
+                                            
+                                                <input type="hidden" name="order_id" value="<?php echo $data[3]->order_id; ?>">
+                                        
                                     
                                             <!-- <button type='submit' onclick="submitForm()" >PlaceOrder</button> -->
                                 </form>

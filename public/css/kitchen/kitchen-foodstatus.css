@@ -6,30 +6,6 @@
     padding: 20px;
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Right-align the user profile section */
-    margin-bottom: 20px;
-}
-
-.user-profile img {
-    width: 50px; /* Adjust the image size as needed */
-    height: 50px; /* Adjust the image size as needed */
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 2px solid #003366; /* Add a border around the profile picture */
-}
-
-.user-profile-info {
-    color: #003366;
-    font-weight: bold; /* Make text bold for a professional look */
-}
-
-.user-profile-info p {
-    margin: 0;
-}
-
 /* CSS for the search bar */
 .search-bar {
     margin-top: 20px;
@@ -57,6 +33,13 @@
     background-color: #002447;
 }
 
+.flavours-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
 /* CSS for the filters */
 .filter-options {
     display: flex;
@@ -71,6 +54,15 @@
     margin-right: 10px;
     padding: 5px;
     border-radius: 5px;
+}
+
+/* CSS for the kitchen food orders table */
+#foodOrdersTable {
+    width: 100%;
+    margin-top: 20px; /* Adjust margin as needed */
+    border-collapse: collapse;
+    border: 2px solid #003366; /* Add a border to the table */
+    background-color: #ffffff; /* Set background color for the table */
 }
 
 /* CSS for the kitchen food orders table */
@@ -98,12 +90,37 @@
     background-color: #f0f0f0; /* Add hover effect to table rows */
 }
 
-.status-radio {
+.status-button {
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100px; /* Set a fixed width for the status button */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Display an ellipsis (...) when text overflows */
 }
 
-.status-radio input {
-    margin-right: 5px;
+.status-button.placed {
+    background-color: #FFA500; /* Orange color for placed status */
+}
+
+.status-button.preparing {
+    background-color: #FF4500; /* OrangeRed color for preparing status */
+}
+
+.status-button.ready {
+    background-color: #32CD32; /* LimeGreen color for ready status */
+}
+
+.status-button:hover {
+    background-color: #003366; /* Darker shade for hover effect */
+}
+
+.status-button-container {
+    width: 100px; /* Set a fixed width for the status button container */
+    overflow: hidden; /* Hide overflow */
 }

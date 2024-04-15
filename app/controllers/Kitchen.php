@@ -3,14 +3,17 @@
 class Kitchen extends Controller{
 
     protected $userModel;
+    protected $middleware;
     public function __construct(){
         $this->userModel =$this->model('M_Kitchen');
 
         // Load middleware
-        // $this->middleware = new AuthMiddleware();
+        $this->middleware = new AuthMiddleware();
         // // Check if user is logged in
-        // $this->middleware->checkAccess(['kitchen']);
+        $this->middleware->checkAccess(['kitchen']);
     }
+
+   
 
     public function index(){
         $this->pendingfoodorders();
@@ -52,44 +55,70 @@ class Kitchen extends Controller{
     }
 
 
+    
+
+    
+    
+   
+    public function dashboard(){
+        $totalorders = $this->userModel->getTotalOrderCount();
+        $dispatchedorders = $this->userModel->getDispatchedOrderCount();
+        $preparingorders = $this->userModel->getPreparingOrderCount();
+        $readyfordispatchorders = $this->userModel->getReadyForDispatchOrderCount();
+        
+        $data = [
+            'totalorders' => $totalorders,
+            'dispatchedorders' => $dispatchedorders,
+            'preparingorders' => $preparingorders,
+            'readyfordispatchorders' => $readyfordispatchorders,
+            
+
+        ];
+        $this->view('kitchens/v_dashboard', $data);
+
+    }
+
+
+    //kitchen orders
+
+    //retrieve
+
+
     public function pendingfoodorders(){
         $data =[  ];
-        $orders = $this->userModel->getRows();
-        // print_r($orders);
-        // die();
-        $order = [];
-        foreach($orders as $item){
-            $order['order_id'] = $item->order_id;
-            $order['room_id'] = $item->roomNo;
-            $order['item'] = $item->item_name;
-            $order['quantity'] = $item->quantity;
-            $order['note'] = $item->note;
-            $order['status'] = $item->status;
-
-            $cost = $item->cost;
-            $cost_arr = explode(',' , $cost);
-            $total = 0;
-            foreach($cost_arr as $cost){
-                $total += floatval($cost);
-            }
-            $order['price'] = $total;
-
-            $data[] = $order;
-        }
-
-        // print_r($data);
-        // die();
+        $orders= $this->userModel->getTodaysPlacedOrders();
+        $data['orders'] = $orders;
         $this->view('kitchens/v_foodstatus', $data);
     }
+
+    //update
+
     
-    public function changeStatus(){
-        $status = $_GET['param1'];
-        $id = $_GET['param2'];
-        $this->userModel->changeStatus($status , $id);
+
+    public function changeStatus($id, $status) {
+       
+    
+        // Change order status using the model
+        $this->userModel->changeOrderStatus($id, $status);
+    
+        // Prepare response data
+        $data['msg'] = "success";
+    
+        // Send JSON response
+        echo json_encode($data);
+        exit();
     }
 
     
 
-}
+
+
+    
+
+
+    
+
+} 
+
 
    

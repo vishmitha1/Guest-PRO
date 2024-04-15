@@ -6,29 +6,13 @@
     padding: 20px;
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Right-align the user profile section */
-    margin-bottom: 20px;
-}
-
-.user-profile img {
-    width: 50px; /* Adjust the image size as needed */
-    height: 50px; /* Adjust the image size as needed */
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 2px solid #003366; /* Add a border around the profile picture */
-}
-
-.user-profile-info {
+.flavours-header {
+    font-size: 30px;
+    font-weight: bold;
     color: #003366;
-    font-weight: bold; /* Make text bold for a professional look */
+    margin-bottom: 10px;
 }
 
-.user-profile-info p {
-    margin: 0;
-}
 
 /* CSS for the search bar */
 .search-bar {
@@ -57,53 +41,122 @@
     background-color: #002447;
 }
 
-/* CSS for the filters */
-.filter-options {
-    display: flex;
+h1 {
+    color: #333333;
+    text-align: center;
+}
+
+.filter-buttons {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.show-all-orders {
+    background-color: #003366;
+    color: #ffffff;
+}
+
+.show-ongoing-orders {
+    background-color: #00cc44;
+    color: #ffffff;
+}
+
+
+.orders-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 20px; /* Gap between order boxes */
     margin-top: 20px;
 }
 
-.filter-options label {
-    margin-right: 10px;
-}
-
-.filter-options select {
-    margin-right: 10px;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-/* CSS for the waiter food orders table */
-#foodOrdersTable {
-    width: 100%;
-    margin-top: 20px; /* Adjust margin as needed */
-    border-collapse: collapse;
-    border: 2px solid #003366; /* Add a border to the table */
-    background-color: #ffffff; /* Set background color for the table */
-}
-
-#foodOrdersTable th,
-#foodOrdersTable td {
-    border: 1px solid #003366; /* Add a border to table cells */
-    padding: 12px;
-    text-align: left;
-}
-
-#foodOrdersTable th {
-    background-color: #002447; /* Set background color for header cells */
-    color: #ffffff; /* Set text color for header cells */
-}
-
-#foodOrdersTable tbody tr:hover {
-    background-color: #f0f0f0; /* Add hover effect to table rows */
-}
-
-.status-radio {
+.order-box {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    transition: all 0.3s ease;
     cursor: pointer;
-    display: flex;
-    align-items: center;
 }
 
-.status-radio input {
-    margin-right: 5px;
+.order-box.selected {
+    border: 2px solid #00ff00;
 }
+
+.room-number {
+    background-color: #003366;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.order-info {
+    margin-bottom: 15px;
+}
+
+.order-info p {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.order-info p:first-child {
+    margin-top: 0;
+}
+
+.order-info p:last-child {
+    margin-bottom: 0;
+}
+
+.order-items {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.order-items ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.order-items li {
+    margin-bottom: 5px;
+}
+
+.order-total {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.order-actions {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.order-actions label {
+    margin-right: 10px;
+}
+
+.clear {
+    clear: both;
+}
+
+.delivered-checkbox {
+    text-align: center;
+    margin-top: 10px;
+    display: block; /* Initially hide the checkbox */
+}
+
+
