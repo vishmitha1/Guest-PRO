@@ -51,23 +51,49 @@ transition: transform 0.3s ease;
     color: #333;
 }
 
-.chart-container {
-background: #fff;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-border-radius: 10px;
-padding: 20px;
-margin: 20px auto; /* Center-align horizontally by setting left and right margin to auto */
-width: calc(100% - 40px);
-max-width: 800px;
-}
-footer {
-    background: #002447;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+/* CSS for ongoing order section */
+.ongoing-order {
+    margin-top: 50px;
+    background: #f3f4f6;
+    padding: 20px;
+    border-radius: 10px;
 }
 
+.order-details {
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    width: 80%; /* Adjust width as needed */
+    max-width: 600px; /* Set maximum width */
+    margin: 0 auto; /* Center horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-details h3 {
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.order-details p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.view-order-btn {
+    background-color: #002447;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.view-order-btn:hover {
+    background-color: #003366;
+}
 

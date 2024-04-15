@@ -30,53 +30,46 @@
                 <p>Orders Ready</p>
             </div>
         </div>
-        <h2 style="text-align: center; margin-top: 50px;">Charts</h2>
-    <div class="chart-container">
-        <canvas id="averageOrdersChart"></canvas>
-    </div>
         
 
-        <script>
-            // Data for average orders chart
-            var averageOrdersData = {
-                labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                datasets: [{
-                    label: 'Average Orders',
-                    data: [30, 40, 50, 45, 55, 65, 60],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            };
-    
-            // Chart configuration
-            var averageOrdersConfig = {
-                type: 'bar',
-                data: averageOrdersData,
-                options: {
-                    indexAxis: 'x',
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            };
-    
-            // Create average orders chart
-            var averageOrdersChartCtx = document.getElementById('averageOrdersChart').getContext('2d');
-            var averageOrdersChart = new Chart(averageOrdersChartCtx, averageOrdersConfig);
-        </script>
+         <!-- Today's Menu Section -->
+         <div class="todays-menu">
+            <h2>Today's Menu</h2>
 
+            <div class="menu-category">
+                <h3>Breakfast</h3>
+                <p class="menu-item">Item 1</p>
+                <p class="menu-item">Item 2</p>
+                <p class="menu-item">Item 3</p>
+            </div>
 
-        
+            <div class="menu-category">
+                <h3>Main Course</h3>
+                <p class="menu-item">Item 4</p>
+                <p class="menu-item">Item 5</p>
+                <p class="menu-item">Item 6</p>
+            </div>
 
-        
+            <div class="menu-category">
+                <h3>Desserts</h3>
+                <p class="menu-item">Item 7</p>
+                <p class="menu-item">Item 8</p>
+                <p class="menu-item">Item 9</p>
+            </div>
 
+            <div class="menu-category">
+                <h3>Beverages</h3>
+                <p class="menu-item">Item 10</p>
+                <p class="menu-item">Item 11</p>
+                <p class="menu-item">Item 12</p>
+            </div>
 
+            <div class="menu-category">
+                <h3>Snacks</h3>
+                <p class="menu-item">Item 13</p>
+                <p class="menu-item">Item 14</p>
+                <p class="menu-item">Item 15</p>
+            </div>
 
+            <button class="view-menu-btn">View Menu</button>
+        </div>

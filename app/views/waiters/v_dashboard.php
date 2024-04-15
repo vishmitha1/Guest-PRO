@@ -30,53 +30,18 @@
                 <p>Orders Delivered</p>
             </div>
         </div>
-        <h2 style="text-align: center; margin-top: 50px;">Charts</h2>
-    <div class="chart-container">
-        <canvas id="averageOrdersChart"></canvas>
-    </div>
-        
-
-        <script>
-            // Data for average orders chart
-            var averageOrdersData = {
-                labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                datasets: [{
-                    label: 'Average Orders',
-                    data: [30, 40, 50, 45, 55, 65, 60],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            };
-    
-            // Chart configuration
-            var averageOrdersConfig = {
-                type: 'bar',
-                data: averageOrdersData,
-                options: {
-                    indexAxis: 'x',
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            };
-    
-            // Create average orders chart
-            var averageOrdersChartCtx = document.getElementById('averageOrdersChart').getContext('2d');
-            var averageOrdersChart = new Chart(averageOrdersChartCtx, averageOrdersConfig);
-        </script>
-
-
-        
-
-        
-
-
-
+        <!-- Ongoing Order Section -->
+        <div class="ongoing-order">
+            <h2 style="text-align: center;">Ongoing Order</h2>
+            <div class="order-details">
+                <h3>Order ID: 123</h3>
+                <p>Room No: 101</p>
+                <p>User Name: John Doe</p>
+                <p>Items with Quantity: Item 1 (x2), Item 2 (x3)</p>
+                <p>Order Placed Date: April 15, 2024</p>
+                <p>Delivery Time: 7:00 PM</p>
+                <p>Note: Special instructions here...</p>
+                <p>Total: $50.00</p>
+                <button class="view-order-btn">View Order</button>
+            </div>
+        </div>
