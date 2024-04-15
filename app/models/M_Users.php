@@ -145,6 +145,22 @@
             }
         }
 
+
+        //check updated email is already exist or not.. allow if the email is same as the previous one
+        public function isEmailExist($email,$id){
+            $this->db->query("SELECT * FROM users WHERE email=:email AND id!=:id");
+            $this->db->bind(':email',$email);
+            $this->db->bind(':id',$id);
+            $row = $this->db->single();
+
+            if($this->db->rowCount() > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
         
 
 
