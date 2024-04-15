@@ -52,16 +52,17 @@
         <div class="navigations-controller">
             <i class="fa-solid fa-list-check" id="navigations-controller"></i>
         </div>
+
     <div class="user-profile">
-            <img src="" alt="User Profile Picture"><br>
-            <div class="user-profile-info">
-                <div class='username'><?php echo $_SESSION['name'];?></div>
-                <p><?php echo $_SESSION['role'];?></p>
-            </div>
+        <a href="<?php echo URLROOT;?>/Users/profile">
+            <img src="<?php echo URLROOT;?>/img/users/<?php echo $_SESSION['user_img'];?> " alt="User Profile Picture"><br>
+        </a>
+        <div class="user-profile-info">
+            <div class='username'><?php echo $_SESSION['name'];?></div>
+            <p><?php echo $_SESSION['role'];?></p>
         </div>
-         <!-- <div class="profile">
-        <a href="#"><i class="fa-solid fa-user fa-2xl"></i>   <?php echo $_SESSION['user_id'];?></a>
-        </div> -->
+    </div>
+        
 
     <script>
         var btnContainer = document.getElementById("visal");
