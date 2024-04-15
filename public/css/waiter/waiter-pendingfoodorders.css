@@ -153,6 +153,10 @@ h1 {
     clear: both;
 }
 
-.checked {
-  color: orange;
+.delivered-checkbox {
+    text-align: center;
+    margin-top: 10px;
+    display: block; /* Initially hide the checkbox */
 }
+
+
