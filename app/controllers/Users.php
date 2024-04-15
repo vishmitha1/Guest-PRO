@@ -150,10 +150,17 @@ class Users extends Controller
     public function createUsersession($user)
     {
         $_SESSION['user_id'] = $user->id;
-        $_SESSION['username'] = $user->name;
+        $_SESSION['username'] = $user->username;
         $_SESSION['email'] = $user->email;
         $_SESSION['role'] = $user->role;
-        $_SESSION['name'] = $user->name;
+        if(str_contains($user->name, ' ')){
+            $name = explode(' ', $user->name);
+            $_SESSION['name'] = $name[0];
+        }
+        else{
+            $_SESSION['name'] = $user->name;
+        }
+      
         $_SESSION['user_nic'] = $user->nic;
         $_SESSION['user_phone'] = $user->phone;
         $_SESSION['user_address'] = $user->address;
