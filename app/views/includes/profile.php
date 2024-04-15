@@ -1,12 +1,11 @@
 <?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
 
-
-<form action="">
+<form action="<?php echo URLROOT;?>/Users/profile" method="post" enctype="multipart/form-data">
     <div class="profile-container">
         <div class="profile-head">
             <p>Profile</p>
             <div class="profile-img">
-                <img src="<?php echo URLROOT; ?>/img/users/profile.jpg" alt="profile"> <br>
+                <img src="<?php echo URLROOT; ?>/img/users/<?php echo $data->img;?>" alt="profile"> <br>
 
                 <input type="file" name="propic" id="propic"  >
             </div>

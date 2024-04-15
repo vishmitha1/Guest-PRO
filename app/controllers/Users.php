@@ -195,9 +195,75 @@ class Users extends Controller
 
     }
 
+    //profile part''''
+    public function profile(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+           $img = $_FILES['propic']['name'];
+            $data = [
+                'name' => trim($_POST['name']),
+                'email' => trim($_POST['email']),
+                'phone' => trim($_POST['phone']),
+                'address' => trim($_POST['address']),
+                'id' => $_SESSION['user_id'],
+            ];
 
+            // print_r($data);
+            // print_r($_FILES);
+          
+            if(empty($data['name'])){
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter name';
+                redirect('Users/profile');
 
+            }
+            if(empty($data['email'])){
 
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter email';
+                redirect('Users/profile');
 
+            }
+            if(empty($data['phone'])){
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter phone number';
+                redirect('Users/profile');
 
+            }
+            if(empty($data['address'])){
+                $data['address_err'] = 'Please enter address';
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter address';
+                redirect('Users/profile');
+            }
+
+            if(isset($img)){
+                
+                $target = "img/users/".basename($img);
+                move_uploaded_file($_FILES['propic']['tmp_name'],$target);
+            }
+            if($this->userModel->updateProfile($data,$img)){
+                $_SESSION['toast_type'] = 'success';
+                $_SESSION['toast_msg'] = 'Profile updated successfully';
+                redirect('Users/profile');
+            }
+            else{
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Something went wrong';
+                redirect('Users/profile');
+            }
+
+           
+     
+    }
+
+        else{
+            $data=$this->userModel->getProfileDetails($_SESSION['user_id']);
+            $this->view('includes/profile',$data);
+            if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                toastFlashMsg();
+            }
+        }
+
+    }
 }
