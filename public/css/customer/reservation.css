@@ -1,4 +1,12 @@
+.highlight{
+    background: #cadae9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.15);
 
+}
 
 .reservation-searchbar-wrapper{
     padding: 20px 10px 50px 10px;

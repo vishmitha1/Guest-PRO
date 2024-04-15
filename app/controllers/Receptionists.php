@@ -668,9 +668,9 @@
                 $customerData=$this->receptionistModel->getCustomerDataForPaymentGateway($data);
           
 
-                $merchant_secret="visalgmail";
+                $merchant_secret="kjudhttwggggggggggggggggaffsteggetsggggggggggggggalldjufhy";
                 $currency='LKR';
-                $merchant_id='visalgmail';
+                $merchant_id='1226064';
                 $amount=$customerData[0]->total;
                 $order_id='10';
 

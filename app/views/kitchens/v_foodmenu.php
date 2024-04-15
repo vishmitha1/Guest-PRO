@@ -44,7 +44,7 @@
 
                     echo '<div class="food-item" data-category="'.$item->category.'">
                     <div class="category">'.$item->category.'</div>
-                    <img src="'.URLROOT.'/public/img/kitchens/food_items/'.$item->image.'.jpg" alt="Food 1">
+                    <img src="'.URLROOT.'/public/img/food_items/'.$item->image.'.jpg" alt="Food 1">
                     <div class="food-info">
                         <div class="food-name">'.$item->name.'</div>
                         <div class="food-price">$'.$item->price.'</div>

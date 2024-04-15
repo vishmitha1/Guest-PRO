@@ -39,7 +39,7 @@ function paymentGateway(id){
                 // Put the payment variables here
                 var payment = {
                     "sandbox": true,
-                    "merchant_id": "xxxxxx",    // Replace your Merchant ID
+                    "merchant_id": "1226064",    // Replace your Merchant ID
                     "return_url": "http://localhost/GuestPro/Receptionists/paymet",     // Important
                     "cancel_url": "http://localhost/GuestPro/Receptionists/paymet",     // Important
                     "notify_url": "http://sample.com/notify",
