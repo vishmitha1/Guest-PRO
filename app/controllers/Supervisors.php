@@ -2,15 +2,21 @@
     class Supervisors extends Controller{
         protected $userModel;
         protected $m_supervisor;
+        protected $middleware;
 
         public function __construct(){
             $this->userModel =$this->model('M_Customers');
             $this->m_supervisor = $this->model('M_Supervisors');
 
             // // Load middleware  
-            // $this->middleware = new AuthMiddleware();
+            $this->middleware = new AuthMiddleware();
             // // Check if user is logged in
-            // $this->middleware->checkAccess(['supervisor']);
+            $this->middleware->checkAccess(['supervisor']);
+        }
+
+        public function dashboard(){
+            $data =[  ];
+            $this->view('supervisors/v_dashboard', $data);
         }
 
  
