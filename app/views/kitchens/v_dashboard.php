@@ -30,46 +30,37 @@
                 <p>Orders Ready</p>
             </div>
         </div>
+
+        
         
 
          <!-- Today's Menu Section -->
-         <div class="todays-menu">
+        <div class="todays-menu">
             <h2>Today's Menu</h2>
 
-            <div class="menu-category">
-                <h3>Breakfast</h3>
-                <p class="menu-item">Item 1</p>
-                <p class="menu-item">Item 2</p>
-                <p class="menu-item">Item 3</p>
-            </div>
+            <?php
+            // Check if there are menu items to display
+            if (!empty($data['menu'])) {
+                // Group menu items by category
+                $groupedMenu = [];
+                foreach ($data['menu'] as $item) {
+                    $category = $item->category; // Access object property with ->
+                    $groupedMenu[$category][] = $item->name; // Access object property with ->
+                }
 
-            <div class="menu-category">
-                <h3>Main Course</h3>
-                <p class="menu-item">Item 4</p>
-                <p class="menu-item">Item 5</p>
-                <p class="menu-item">Item 6</p>
-            </div>
-
-            <div class="menu-category">
-                <h3>Desserts</h3>
-                <p class="menu-item">Item 7</p>
-                <p class="menu-item">Item 8</p>
-                <p class="menu-item">Item 9</p>
-            </div>
-
-            <div class="menu-category">
-                <h3>Beverages</h3>
-                <p class="menu-item">Item 10</p>
-                <p class="menu-item">Item 11</p>
-                <p class="menu-item">Item 12</p>
-            </div>
-
-            <div class="menu-category">
-                <h3>Snacks</h3>
-                <p class="menu-item">Item 13</p>
-                <p class="menu-item">Item 14</p>
-                <p class="menu-item">Item 15</p>
-            </div>
+                // Loop through each category and display its items
+                foreach ($groupedMenu as $category => $items) {
+                    echo '<div class="menu-category">';
+                    echo '<h3>' . $category . '</h3>';
+                    foreach ($items as $itemName) {
+                        echo '<p class="menu-item">' . $itemName . '</p>';
+                    }
+                    echo '</div>';
+                }
+            } else {
+                echo '<p>No menu items available for today.</p>';
+            }
+            ?>
 
             <button class="view-menu-btn">View Menu</button>
         </div>

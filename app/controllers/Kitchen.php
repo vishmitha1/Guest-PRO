@@ -65,12 +65,14 @@ class Kitchen extends Controller{
         $dispatchedorders = $this->userModel->getDispatchedOrderCount();
         $preparingorders = $this->userModel->getPreparingOrderCount();
         $readyfordispatchorders = $this->userModel->getReadyForDispatchOrderCount();
+        $menu= $this->userModel->getTodaysMenu();
         
         $data = [
             'totalorders' => $totalorders,
             'dispatchedorders' => $dispatchedorders,
             'preparingorders' => $preparingorders,
             'readyfordispatchorders' => $readyfordispatchorders,
+            'menu'=> $menu,
             
 
         ];

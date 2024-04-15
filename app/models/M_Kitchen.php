@@ -122,8 +122,11 @@
 
     public function getDispatchedOrderCount()
     {
+        $currentDate = date("Y-m-d");
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS dispatched_orders_count FROM foodorders WHERE status = 'dispatch' OR status = 'ontheway' OR status = 'delivered' ");
+        $this->db->query("SELECT COUNT(*) AS dispatched_orders_count FROM foodorders WHERE (status = 'dispatch' OR status = 'ontheway' OR status = 'delivered') AND delivery_date = :currentDate");
+
+        $this->db->bind(':currentDate', $currentDate);
 
 
         // Fetch a single row (since we are selecting only one value)
@@ -135,8 +138,12 @@
 
     public function getPreparingOrderCount()
     {
+        $currentDate = date("Y-m-d");
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS preparing_orders_count FROM foodorders WHERE status = 'preparing'  ");
+        $this->db->query("SELECT COUNT(*) AS preparing_orders_count FROM foodorders WHERE status = 'preparing' AND delivery_date = :currentDate");
+
+
+        $this->db->bind(':currentDate', $currentDate);
 
 
         // Fetch a single row (since we are selecting only one value)
@@ -148,8 +155,12 @@
 
     public function getReadyForDispatchOrderCount()
     {
+        $currentDate = date("Y-m-d");
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS readyfordispatch_orders_count FROM foodorders WHERE status = 'ready'  ");
+        $this->db->query("SELECT COUNT(*) AS readyfordispatch_orders_count FROM foodorders WHERE status = 'ready' AND delivery_date = :currentDate");
+
+
+        $this->db->bind(':currentDate', $currentDate);
 
 
         // Fetch a single row (since we are selecting only one value)
@@ -158,6 +169,14 @@
         // Return the room count from the fetched row
         return $row->readyfordispatch_orders_count;
     }
+
+    public function getTodaysMenu(){
+        $this->db->query("SELECT * FROM fooditems WHERE status = '1'");
+        $menu = $this->db->resultset(); // Assign the fetched data to $menu
+        return $menu;
+    }
+
+
 
 
     //kitchen functions
