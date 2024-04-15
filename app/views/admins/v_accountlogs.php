@@ -9,7 +9,7 @@
 
     <!-- Search bar -->
     <div class="admin-search-bar">
-        <form action="<?php echo URLROOT; ?>/Admins/search_staffaccounts" method="GET">
+        <form action="<?php echo URLROOT; ?>/Admins/search_accountlogs" method="GET">
             <input type="text" name="query" id="searchInput" placeholder="Search...">
             <button type="submit">Search</button>
         </form>

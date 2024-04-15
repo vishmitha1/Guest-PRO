@@ -135,6 +135,16 @@ class M_Admins
         return $this->db->resultSet();
     }
 
+    public function search_logsdetails($query)
+    {
+        // Prepare the query to search for accountlogs
+        $this->db->query("SELECT * FROM users WHERE id LIKE :query OR name LIKE :query OR role LIKE :query OR last_login LIKE :query OR last_logout LIKE :query OR account_created LIKE :query");
+        $this->db->bind(':query', '%' . $query . '%');
+
+        // Execute the query and return the results
+        return $this->db->resultSet();
+    }
+
     // Get the total number of customers registered
     public function getTotalCustomersRegistered()
     {

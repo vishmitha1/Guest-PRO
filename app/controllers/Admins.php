@@ -158,6 +158,27 @@ class Admins extends Controller
         }
     }
 
+    public function search_accountlogs()
+    {
+        // Check if the request method is GET and if the 'query' parameter is set in the URL
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query'])) {
+            // Sanitize the search query
+            $query = trim($_GET['query']);
+
+            // Call the model method to search for accountlogs
+            $data['logs'] = $this->staffModel->search_logsdetails($query);
+
+            // Set the "query" key in the $data array
+            $data['query'] = $query;
+
+            // Load the view with the filtered logs data
+            $this->view('admins/v_searchlogs', $data);
+        } else {
+            // Redirect to the accountlogs page if no search query is provided
+            redirect('Admins/accountlogs');
+        }
+    }
+
     public function staffaccounts()
     {
         // Get staff data from model
