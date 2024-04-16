@@ -709,13 +709,14 @@
 
         //ServiceRequest
         public function placeserviceRequest($data){
-            $this->db->query('INSERT INTO servicerequests (roomNo,user_id,category,AddDetails,SpecDetails,status) VALUES(:roomNo,:id,:category,:AddDetails,:SpecDetails,:status)');
+            $this->db->query('INSERT INTO servicerequests (roomNo,user_id,service_type,AddDetails,SpecDetails,status,service_requested) VALUES(:roomNo,:id,:category,:AddDetails,:SpecDetails,:status,:service_requested)');
             $this->db->bind('id',$data["user_id"]);
-            $this->db->bind('category',$data["category"]);
+            $this->db->bind('category',$data["service_type"]);
             $this->db->bind('AddDetails',$data["AddDetails"]);
             $this->db->bind('SpecDetails',$data["SpecDetails"]);
             $this->db->bind('roomNo',$data["roomNo"]);
             $this->db->bind('status','pending');
+            $this->db->bind('service_requested',$data["service_requested"]);
             
             if($this->db->execute()){
                 return true;
@@ -760,14 +761,15 @@
 
         //update service request
         public function updateServiceRequest($data){
-            $this->db->query("UPDATE servicerequests SET roomNo=:roomNo, category=:category,AddDetails=:AddDetails,SpecDetails=:SpecDetails,status=:stat WHERE request_id=:req_id");
+            $this->db->query("UPDATE servicerequests SET roomNo=:roomNo, service_type=:category,AddDetails=:AddDetails,SpecDetails=:SpecDetails,status=:stat,service_requested=:service_requested WHERE request_id=:req_id");
          
-            $this->db->bind('category',$data["category"]);
+            $this->db->bind('category',$data["service_type"]);
             $this->db->bind('AddDetails',$data["AddDetails"]);
             $this->db->bind('SpecDetails',$data["SpecDetails"]);
             $this->db->bind('req_id',$data["request_id"]);
             $this->db->bind('roomNo',$data["roomNo"]);
             $this->db->bind('stat','pending');
+            $this->db->bind('service_requested',$data["service_requested"]);
             
             if($this->db->execute()){
                 return true;
