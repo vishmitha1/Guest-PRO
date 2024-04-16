@@ -100,17 +100,26 @@
             <div class="col col-4" data-label="CheckOut Date"><?php echo $item->status; ?></div>
             <div class="col col-5" data-label="Action">
                 
-                <form class="cancelRequest" id="<?php echo $item->request_id.'formId';?> " action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
-                    <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
-    
-                    <button type="submit" name="cancel-servicerequest"   ><i class='fa-solid fa-trash fa-lg'></i></button>
-                </form>
-
-                <form class="editRequest" action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
-                    <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
+                <?php if($item->status=='pending'){ ?>
                     
-                    <button type="submit" name="editServcieRequest" class="edit"   ><i class="fa-regular fa-pen-to-square"></i></button>
-                </form>
+                    <form class="cancelRequest" id="<?php echo $item->request_id.'formId';?> " action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
+                        <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
+        
+                        <button type="submit" name="cancel-servicerequest"   ><i class='fa-solid fa-trash fa-lg'></i></button>
+                    </form>
+
+                    <form class="editRequest" action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
+                        <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
+                        
+                        <button type="submit" name="editServcieRequest" class="edit"   ><i class="fa-regular fa-pen-to-square"></i></button>
+                    </form>
+
+                <?php } 
+                else {?>
+
+                    Completed
+                <?php } ?>
+
             </div>
             </li>
             <?php } ?>

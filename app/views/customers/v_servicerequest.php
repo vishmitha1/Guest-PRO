@@ -95,8 +95,12 @@
             <div class="col col-1" data-label="Reservation Id"><?php echo $item->request_id; ?></div>
             <div class="col col-2" data-label="Room No"><?php echo $item->roomNo; ?></div>
             <div class="col col-3" data-label="CheckIn Date"><?php echo $item->date; ?></div>
-            <div class="col col-4" data-label="CheckOut Date"><?php echo $item->status; ?></div>
+            <div class="col col-4" data-label="CheckOut Date"><?php echo ucfirst($item->status); ?></div>
             <div class="col col-5" data-label="Action">
+
+                
+            
+            <?php if($item->status=='pending'){ ?>
                 
                 <form class="cancelRequest" id="<?php echo $item->request_id.'formId';?> " action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
                     <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
@@ -109,6 +113,14 @@
                     
                     <button type="submit" name="editServcieRequest" class="edit"   ><i class="fa-regular fa-pen-to-square"></i></button>
                 </form>
+
+            <?php } 
+            else {?>
+
+                Completed
+            <?php } ?>
+
+
             </div>
             </li>
             <?php } ?>

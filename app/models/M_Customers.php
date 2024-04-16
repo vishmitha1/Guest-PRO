@@ -120,7 +120,7 @@
             else{
                 $this->db->bind('address',$_SESSION['user_address']);
                 $this->db->bind('phone',$_SESSION['user_phone']);
-                $this->db->bind('customer_name',$_SESSION['username']);
+                $this->db->bind('customer_name',$_SESSION['name']);
                 $this->db->bind('email',$_SESSION['email']);
                
             }
@@ -709,12 +709,13 @@
 
         //ServiceRequest
         public function placeserviceRequest($data){
-            $this->db->query('INSERT INTO servicerequests (roomNo,user_id,category,AddDetails,SpecDetails) VALUES(:roomNo,:id,:category,:AddDetails,:SpecDetails)');
+            $this->db->query('INSERT INTO servicerequests (roomNo,user_id,category,AddDetails,SpecDetails,status) VALUES(:roomNo,:id,:category,:AddDetails,:SpecDetails,:status)');
             $this->db->bind('id',$data["user_id"]);
             $this->db->bind('category',$data["category"]);
             $this->db->bind('AddDetails',$data["AddDetails"]);
             $this->db->bind('SpecDetails',$data["SpecDetails"]);
             $this->db->bind('roomNo',$data["roomNo"]);
+            $this->db->bind('status','pending');
             
             if($this->db->execute()){
                 return true;
@@ -759,13 +760,14 @@
 
         //update service request
         public function updateServiceRequest($data){
-            $this->db->query("UPDATE servicerequests SET roomNo=:roomNo, category=:category,AddDetails=:AddDetails,SpecDetails=:SpecDetails WHERE request_id=:req_id");
+            $this->db->query("UPDATE servicerequests SET roomNo=:roomNo, category=:category,AddDetails=:AddDetails,SpecDetails=:SpecDetails,status=:stat WHERE request_id=:req_id");
          
             $this->db->bind('category',$data["category"]);
             $this->db->bind('AddDetails',$data["AddDetails"]);
             $this->db->bind('SpecDetails',$data["SpecDetails"]);
             $this->db->bind('req_id',$data["request_id"]);
             $this->db->bind('roomNo',$data["roomNo"]);
+            $this->db->bind('stat','pending');
             
             if($this->db->execute()){
                 return true;
