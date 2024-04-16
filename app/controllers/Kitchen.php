@@ -111,6 +111,21 @@ class Kitchen extends Controller{
         exit();
     }
 
+    //cancel
+
+
+    public function cancelOrder($id) {
+       
+    
+        // Change order status using the model
+        $this->userModel->cancelOrder($id);
+    
+        
+        exit();
+    }
+
+
+
     
 
 

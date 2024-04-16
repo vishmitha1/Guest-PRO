@@ -214,6 +214,14 @@
             return false; // Return false to indicate failure
         }
     }
+
+    //delete
+
+    public function cancelOrder($id) {
+        $this->db->query("UPDATE foodorders SET status = 'cancelled' WHERE order_id = :id");
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+    }
     
 
     
