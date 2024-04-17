@@ -2,11 +2,18 @@
 class Admins extends Controller
 {
     protected $staffModel;
+    protected $middleware;
 
     public function __construct()
     {
         // Load the model
         $this->staffModel = $this->model('M_Admins');
+
+        // Load middleware
+        $this->middleware = new AuthMiddleware();
+
+        // // Check if user is logged in
+        $this->middleware->checkAccess(['admin']);
     }
 
     public function dashboard()
@@ -188,8 +195,5 @@ class Admins extends Controller
         $this->view('admins/v_staffaccounts', $data);
     }
 
-    public function generatereports()
-    {
-        $this->view('admins/v_generatereports');
-    }
+
 }
