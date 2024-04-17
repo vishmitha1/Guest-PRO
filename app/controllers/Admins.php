@@ -196,4 +196,35 @@ class Admins extends Controller
     }
 
 
+    public function generatereports(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'reportType' => trim($_POST['reportType']),
+                'startDate' => trim($_POST['startDate']),
+                'endDate' => trim($_POST['endDate']),
+            ];
+
+          
+            $report = $this->staffModel->generateReports($data);
+
+ 
+            if($report){
+                
+
+                $this->view('admins/v_reports', ['report' => $report]);
+            } else {
+                die('Failed to generate report');
+            }
+        } 
+        
+        else {
+
+            $this->view('admins/v_generatereports');
+        }
+    }
+
+
 }
