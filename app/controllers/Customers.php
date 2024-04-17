@@ -916,13 +916,14 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $data =[
 
-                    'category' => trim($_POST['category']),
+                    'service_type' => trim($_POST['service_type']),
                     'AddDetails' => trim($_POST['AddDetails']),
                     'SpecDetails' => trim($_POST['SpecDetails']),
                     'user_id'=>$_SESSION['user_id'],
                     'roomNo' => trim($_POST['roomNo']),
+                    'service_requested'=>trim($_POST['service_requested']),
                     
-                    'category_err' => '',
+                    'service_type_err' => '',
                     'AddDetails_err' => '',
                     'SpecDetails_err' => '',
                     'user_id_err'=>'',
@@ -931,25 +932,19 @@
 
                 //validate each input
                 
-                if(empty($data['category'])){
-                    $data['category_err'] = 'Please Select a category';
+                if(empty($data['service_type'])){
+                    $data['service_type_err'] = 'Please Select a service_type';
                     $_SESSION['toast_type']='warning';
-                    $_SESSION['toast_msg']='Please Select a  Service category';
+                    $_SESSION['toast_msg']='Please Select a  Service service_type';
                     redirect('Customers/serviceRequest');
                 }
 
-                if(empty($data['AddDetails'])){
-                    $data['AddDetails_err'] = 'Please Enter Additional Details';
-                    $_SESSION['toast_type']='warning';
-                    $_SESSION['toast_msg']='Please Enter Additional Details';
+                if(empty($data['service_requested'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please Select a Service';
                     redirect('Customers/serviceRequest');
                 }
-                if(empty($data['AddDetails'])){
-                    $data['AddDetails_err'] = 'Please Enter Additional Details';
-                    $_SESSION['toast_type']='warning';
-                    $_SESSION['toast_msg']='Please Enter Additional Details';
-                    redirect('Customers/serviceRequest');
-                }
+
 
                 //check user id
                 if(empty($data['user_id'])){
@@ -969,7 +964,7 @@
                 
 
                 //validation is completed and no erros
-                if(empty( $data['category_err']) && empty( $data['AddDetails_err']) && empty( $data['user_id_err'])  ){
+                if(empty( $data['service_type_err']) && empty( $data['AddDetails_err']) && empty( $data['user_id_err'])  ){
                     
 
                    
@@ -1065,12 +1060,13 @@
 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $data=[
-                    'category' => trim($_POST['category']),
+                    'service_type' => trim($_POST['service_type']),
                     'AddDetails' => trim($_POST['AddDetails']),
                     'SpecDetails' => trim($_POST['SpecDetails']),
                     'user_id'=>$_SESSION['user_id'],
                     'roomNo' => trim($_POST['roomNo']),
                     'request_id'=>trim($_POST['request_id']),
+                    'service_requested'=>trim($_POST['service_requested']),
                 ];
                 
                 if($this->userModel->updateServiceRequest($data)){
