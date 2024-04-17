@@ -62,14 +62,14 @@ class Kitchen extends Controller{
    
     public function dashboard(){
         $totalorders = $this->userModel->getTotalOrderCount();
-        $dispatchedorders = $this->userModel->getDispatchedOrderCount();
+        $cancelledorders = $this->userModel->getCancelledOrderCount();
         $preparingorders = $this->userModel->getPreparingOrderCount();
         $readyfordispatchorders = $this->userModel->getReadyForDispatchOrderCount();
         $menu= $this->userModel->getTodaysMenu();
         
         $data = [
             'totalorders' => $totalorders,
-            'dispatchedorders' => $dispatchedorders,
+            'cancelledorders' => $cancelledorders,
             'preparingorders' => $preparingorders,
             'readyfordispatchorders' => $readyfordispatchorders,
             'menu'=> $menu,

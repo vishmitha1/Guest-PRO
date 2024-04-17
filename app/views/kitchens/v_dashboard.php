@@ -16,8 +16,8 @@
             </div>
             <div class="dashboard-box">
                 <i class="fas fa-shopping-cart"></i>
-                <h2><?php echo $data['dispatchedorders']; ?></h2>
-                <p>Orders Dispatched</p>
+                <h2><?php echo $data['cancelledorders']; ?></h2>
+                <p>Orders Cancelled</p>
             </div>
             <div class="dashboard-box">
                 <i class="fas fa-chart-line"></i>
@@ -62,5 +62,5 @@
             }
             ?>
 
-            <button class="view-menu-btn">View Menu</button>
+            <button class="view-menu-btn" onclick="window.location.href='<?php echo URLROOT;?>/Kitchen/foodmenu'">View Menu</button>
         </div>

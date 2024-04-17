@@ -120,11 +120,11 @@
         return $row->total_orders_count;
     }
 
-    public function getDispatchedOrderCount()
+    public function getCancelledOrderCount()
     {
         $currentDate = date("Y-m-d");
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS dispatched_orders_count FROM foodorders WHERE (status = 'dispatch' OR status = 'ontheway' OR status = 'delivered') AND delivery_date = :currentDate");
+        $this->db->query("SELECT COUNT(*) AS cancelled_orders_count FROM foodorders WHERE status = 'cencelled'  AND delivery_date = :currentDate");
 
         $this->db->bind(':currentDate', $currentDate);
 
@@ -133,7 +133,7 @@
         $row = $this->db->single();
 
         // Return the room count from the fetched row
-        return $row->dispatched_orders_count;
+        return $row->cancelled_orders_count;
     }
 
     public function getPreparingOrderCount()
