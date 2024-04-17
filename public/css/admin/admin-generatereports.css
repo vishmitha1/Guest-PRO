@@ -1,51 +1,5 @@
-/* CSS for the search bar */
-.search-bar {
-    margin-top: 20px;
-    display: flex;
-}
-
-.search-bar input[type="text"] {
-    flex: 1; /* Take up available space */
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #E6E7E8; /* Add border to the input field */
-}
-
-.search-bar button {
-    background-color: #003366;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-top-right-radius: 0; /* No rounded corners on the button */
-    border-bottom-right-radius: 0;
-}
-
-.search-bar button:hover {
-    background-color: #002447;
-}
-
-.table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.table th, .table td {
-    border: 1px solid #E6E7E8;
-    padding: 8px;
-}
-
-/* CSS for the Generate Reports section */
-.generate-reports {
-    margin-top: 20px;
-    background-color: #ffffff;
-    border: 1px solid #E6E7E8;
-    padding: 20px;
-}
-
-.generate-reports h2 {
-    color: #003366;
+.title-generate_reports h1 {
+    text-align: center;
 }
 
 .report-types {

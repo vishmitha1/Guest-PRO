@@ -8,7 +8,7 @@
         <form action="<?php echo URLROOT; ?>/Admins/create_staffaccounts" method="POST">
             <label for="designation">Designation:</label>
             <input type="text" id="designation" name="designation" required>
-            <label for="staffName">Name:</label>
+            <label for="staffName">Full Name:</label>
             <input type="text" id="staffName" name="staffName" required>
             <label for="phoneNumber">Phone Number:</label>
             <input type="text" id="phoneNumber" name="phoneNumber" required>
