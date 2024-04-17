@@ -2,22 +2,22 @@
 
 <div class="home">
 
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search...">
-        <button>Search</button>
+    <div class="title-generate_reports">
+        <h1>Generate Reports</h1>
     </div>
-
-
-    <!-- New Generate Reports Section -->
-    <div class="generate-reports">
-        <h2>Generate Reports</h2>
-        <div class="report-types">
-            <div class="report-type">Reservation Summary</div>
-            <div class="report-type">Revenue Report</div>
-            <div class="report-type">Occupancy Report</div>
-            <div class="report-type">Guest Feedback Report</div>
-            <div class="report-type">Employee Performance Report</div>
-            <!-- Add more report types as needed -->
+    <div class="report-types">
+        <div class="report-type">
+            <a href="<?php echo URLROOT; ?>/Reports/reservation_report">Reservation Report</a>
         </div>
+        <div class="report-type">
+            <a href="<?php echo URLROOT; ?>/Reports/revenue_report">Revenue Report</a>
+        </div>
+        <div class="report-type">
+            <a href="<?php echo URLROOT; ?>/Reports/foodorders_report">Food Orders Report</a>
+        </div>
+        <div class="report-type">
+            <a href="<?php echo URLROOT; ?>/Reports/payment_report">Payment Report</a>
+        <!-- Add more report types as needed -->
     </div>
+
 </div>
