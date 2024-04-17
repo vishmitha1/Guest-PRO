@@ -35,7 +35,7 @@
     <h2 style="text-align: center;">Ongoing Order</h2>
     <div class="order-details">
     <?php
-        if ($data['ongoingorderdetails']) {
+        if (!empty($data['ongoingorderdetails'])) {
             foreach ($data['ongoingorderdetails'] as $order) {
                 echo '<h3>Order ID: ' . $order->order_id . '</h3>' .
                     '<p>Room No: ' . $order->roomNo . '</p>' .
@@ -44,12 +44,13 @@
                     '<p>Delivery Time: ' . $order->delivery_time . '</p>' .
                     '<p>Note: ' . $order->note . '</p>' .
                     '<p>Total: $' . number_format($order->total, 2) . '</p>' .
-                    '<button class="view-order-btn">View Order</button>';
+                    '<button class="view-order-btn" onclick="window.location.href=\''.URLROOT.'/Waiters/pendingfoodorders\'">View Order</button>';
             }
         } else {
             echo '<p>No ongoing orders found.</p>';
         }
         ?>
+                
 
     </div>
 </div>
