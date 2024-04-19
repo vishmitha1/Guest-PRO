@@ -159,26 +159,68 @@
         }
 
         #serviceRequestsTable button {
-            padding: 8px 12px;
-            cursor: pointer;
-            background-color: #003366; /* Set button background color */
-            color: #ffffff; /* Set button text color */
+            padding: 8px 20px; /* Adjust padding as needed */
+            border-radius: 20px; /* Rounded corners */
             border: none;
-            border-radius: 5px;
+            color: #ffffff;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: 120px; /* Set fixed width for buttons */
         }
 
+        #serviceRequestsTable button.pending {
+            background-color: #FF6347; /* Red color for not completed */
+        }
 
-       /* CSS for the service requests table */
-#serviceRequestsTable button.not-completed {
-    background-color: #d3d3d3;
-    color: #333333;
-}
+        #serviceRequestsTable button.completed {
+            background-color: #32CD32; /* Green color for completed */
+        }
 
-#serviceRequestsTable button.completed {
-    background-color: #003366;
-    color: #ffffff;
-}
         #serviceRequestsTable button:hover {
-            background-color: #002447;
+            background-color: #003366; /* Darker shade for hover effect */
         }
-    </style>
+
+        /* Modal styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%; /* Adjusted width */
+        border-radius: 5px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .submit-button {
+        background-color: #002b5e; /* Dark blue */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }

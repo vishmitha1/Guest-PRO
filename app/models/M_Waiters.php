@@ -57,6 +57,90 @@
     
             
         }
+
+    
+        //dashboard functions
+
+
+        public function getOngoingOrderNo($waiterId)
+        {
+            // Get today's date
+            $currentDate = date("Y-m-d");
+
+            // Prepare the query
+            $this->db->query('SELECT order_id FROM foodorders WHERE status="ontheway" AND waiter_id=:waiterId AND delivery_date = :currentDate');
+
+            // Bind parameters
+            $this->db->bind(':waiterId', $waiterId);
+            $this->db->bind(':currentDate', $currentDate);
+
+            // Fetch a single row
+            $row = $this->db->single();
+
+            // Return the order_id of the ongoing order
+            return $row ? $row->order_id : null;
+        }
+
+        public function getAwaitingOrderCount()
+{
+            // Get today's date
+            $currentDate = date("Y-m-d");
+
+            // Prepare the query
+            $this->db->query('SELECT COUNT(order_id) AS awaiting_orders_count FROM foodorders WHERE status="ready" AND delivery_date = :currentDate');
+
+            // Bind parameters
+            $this->db->bind(':currentDate', $currentDate);
+
+            // Fetch a single row
+            $row = $this->db->single();
+
+            // Return the count of awaiting orders
+            return $row->awaiting_orders_count;
+        }
+
+        public function getDeliveredOrderCount($waiterId)
+        {
+            // Get today's date
+            $currentDate = date("Y-m-d");
+
+            // Prepare the query
+            $this->db->query('SELECT COUNT(order_id) AS delivered_orders_count FROM foodorders WHERE status="delivered" AND waiter_id=:waiterId AND delivery_date = :currentDate');
+
+            // Bind parameters
+            $this->db->bind(':waiterId', $waiterId);
+            $this->db->bind(':currentDate', $currentDate);
+
+            // Fetch a single row
+            $row = $this->db->single();
+
+            // Return the count of delivered orders
+            return $row->delivered_orders_count;
+        }
+
+        public function getOngoingOrderDetails($waiterId)
+        {
+            // Get today's date
+            $currentDate = date("Y-m-d");
+
+            // Prepare the query
+            $this->db->query('SELECT * FROM foodorders WHERE status="ontheway" AND waiter_id=:waiterId AND delivery_date = :currentDate');
+
+            // Bind parameters
+            $this->db->bind(':waiterId', $waiterId);
+            $this->db->bind(':currentDate', $currentDate);
+
+            // Execute the query
+            $this->db->execute();
+
+            // Fetch all rows
+            $ongoingOrderDetails = $this->db->resultSet();
+
+            // Return the ongoing order details
+            return $ongoingOrderDetails;
+        }
+
+
     }
 
 

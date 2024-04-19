@@ -26,6 +26,7 @@ echo '<div class="dashboard">
                     <th>Delivery Time</th>
                     <th>Note</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>';
@@ -40,6 +41,9 @@ foreach ($data['orders'] as $order) {
             <td>' . $order->note . '</td>
             <td class="status-button-container">
                 <button class="status-button ' . $order->status . '" onclick="toggleOrderStatus(this, \'' . $order->order_id . '\')">' . $order->status . '</button>
+            </td>
+            <td class="status-button-container">
+                <button class="status-button" onclick="cancelOrder(\'' . $order->order_id . '\')" ' . ($order->status !== 'placed' ? 'disabled' : '') . '>Cancel</button>
             </td>
         </tr>';
 }
@@ -98,13 +102,10 @@ echo '</tbody>
         const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus/${orderId}/${newStatus}`;
 
         fetch(apiUrl, {
-                method: 'POST', // or 'PUT' depending on your API
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // You can add additional headers if needed
                 },
-                // You can include a body if your API requires data
-                // body: JSON.stringify({ orderId: orderId, newStatus: newStatus }),
             })
             .then(response => {
                 if (!response.ok) {
@@ -116,4 +117,28 @@ echo '</tbody>
                 console.error('There was a problem with your fetch operation:', error);
             });
     }
+
+    // JavaScript function to handle cancel button click event
+    function cancelOrder(orderId) {
+        const base_url = window.location.origin;
+        const apiUrl = `${base_url}/GuestPro/kitchen/cancelOrder/${orderId}`;
+
+        fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // You can handle success response here if needed
+                location.reload();
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+            });
+    }
 </script>
+
