@@ -457,13 +457,13 @@
                 if(empty($data['serachby'])){
                     $_SESSION['toast_type']='info';
                     $_SESSION['toast_msg']='Please select a search type';
-                    redirect('receptionists/manageReservation');
+                    redirect('receptionists/giveCustomerAccess');
                 }
 
                 elseif(empty($data['details'])){
                     $_SESSION['toast_type']='info';
                     $_SESSION['toast_msg']='Please enter value';
-                    redirect('receptionists/manageReservation');
+                    redirect('receptionists/giveCustomerAccess');
                     
                   
                 }
@@ -471,13 +471,13 @@
                 elseif($this->receptionistModel->customSearch($data)){
                     
                     $output=$this->receptionistModel->customSearch($data);
-                    $this->view('receptionists/v_manageReservation',[$output,$array=[]]);
+                    $this->view('receptionists/v_giveAccess',[$output,$ar=[]]);
                 }
 
                 else{
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Something went wrong';
-                    redirect('receptionists/manageReservation');
+                    redirect('receptionists/giveCustomerAccess');
                 }
             }
 
@@ -495,19 +495,19 @@
                 if(empty($data['reservation_id'])){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Something went wrong';
-                    redirect('receptionists/manageReservation');
+                    redirect('receptionists/giveCustomerAccess');
                 }
 
                 elseif($this->receptionistModel->giveCustomerAccess($data)){
                     $_SESSION['toast_type']='success';
                     $_SESSION['toast_msg']='Customer access given successfully';
-                    redirect('receptionists/manageReservation');
+                    redirect('receptionists/giveCustomerAccess');
                 }
 
                 else{
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Something went wrong';
-                    redirect('receptionists/manageReservation');
+                    redirect('receptionists/giveCustomerAccess');
                 }
 
             }
@@ -515,7 +515,7 @@
 
             else{
                 $data=[];
-                $this->view('receptionists/v_manageReservation',$data);
+                $this->view('receptionists/v_giveAccess',[$data,$this->receptionistModel->getAllReservations()]);
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }
@@ -712,6 +712,42 @@
 
             }
         }
+
+            //give access to the customer
+            public function giveAccess(){
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                    $data=[
+                        'reservation_id' => trim($_POST['reservation_id']),
+                        'user_id' => $_SESSION['user_id'],
+                    ];
+    
+                    if(empty($data['reservation_id'])){
+                        $_SESSION['toast_type']='error';
+                        $_SESSION['toast_msg']='Something went wrong';
+                        redirect('receptionists/payment');
+                    }
+                    if($this->receptionistModel->giveAccess($data)){
+                        $_SESSION['toast_type']='success';
+                        $_SESSION['toast_msg']='Customer access given successfully';
+                        redirect('receptionists/payment');
+                    }
+                    else{
+                        $_SESSION['toast_type']='error';
+                        $_SESSION['toast_msg']='Something went wrong';
+                        redirect('receptionists/payment');
+                    }
+    
+                }
+                else{
+                    $data=[];
+                   $this->view('receptionists/v_giveAccess',$data);
+    
+                }
+            }
+        
+
+    
 
 
 
