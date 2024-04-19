@@ -222,7 +222,7 @@
 
         //This one use to retrive reservation details to reservation UI fill reservation hostory table
         public function retriveReservations($data){
-            $this->db->query("SELECT  (LENGTH(roomNo) - LENGTH(REPLACE(roomNo, ',', '')) + 1)AS roomcount ,reservation_id,checkIn,checkOut,roomNo FROM reservations WHERE user_id=:id LIMIT 5");
+            $this->db->query("SELECT  (LENGTH(roomNo) - LENGTH(REPLACE(roomNo, ',', '')) + 1)AS roomcount ,reservation_id,checkIn,checkOut,roomNo,checked FROM reservations WHERE user_id=:id LIMIT 5");
             $this->db->bind(':id',$data['user_id']);
             
             $row = $this->db->resultSet();

@@ -218,12 +218,19 @@
 										<?php }
 										elseif(strtolower($item->status) == 'preparing'){?>
 
-											<span class="preparing" ><span><?php echo $item->status; ?></span></span>
+											<span class="preparing" ><span>preparing</span></span>
 										<?php }
 										elseif(strtolower($item->status) == 'ready'){?>
-											<span class="complete"  ><span><?php echo $item->status; ?></span></span>
-										<?php }?>
-									
+											<span class="complete"  ><span>Ready</span></span>
+										<?php }
+											elseif( strtolower($item->status) == 'Delivered'){ ?>
+											<span class="complete"  ><span>Delivered</span></span>
+
+										<?php }
+										else{ ?>
+											<span class="complete"  ><span>Canceled</span></span>
+
+										<?php } ?>	
 									</form>
 
 									</td>
