@@ -120,23 +120,30 @@
         return $row->total_orders_count;
     }
 
-    public function getDispatchedOrderCount()
+    public function getCancelledOrderCount()
     {
+        $currentDate = date("Y-m-d");
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS dispatched_orders_count FROM foodorders WHERE status = 'dispatch' OR status = 'ontheway' OR status = 'delivered' ");
+        $this->db->query("SELECT COUNT(*) AS cancelled_orders_count FROM foodorders WHERE status = 'cencelled'  AND delivery_date = :currentDate");
+
+        $this->db->bind(':currentDate', $currentDate);
 
 
         // Fetch a single row (since we are selecting only one value)
         $row = $this->db->single();
 
         // Return the room count from the fetched row
-        return $row->dispatched_orders_count;
+        return $row->cancelled_orders_count;
     }
 
     public function getPreparingOrderCount()
     {
+        $currentDate = date("Y-m-d");
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS preparing_orders_count FROM foodorders WHERE status = 'preparing'  ");
+        $this->db->query("SELECT COUNT(*) AS preparing_orders_count FROM foodorders WHERE status = 'preparing' AND delivery_date = :currentDate");
+
+
+        $this->db->bind(':currentDate', $currentDate);
 
 
         // Fetch a single row (since we are selecting only one value)
@@ -148,8 +155,12 @@
 
     public function getReadyForDispatchOrderCount()
     {
+        $currentDate = date("Y-m-d");
         // Prepare the query
-        $this->db->query("SELECT COUNT(*) AS readyfordispatch_orders_count FROM foodorders WHERE status = 'ready'  ");
+        $this->db->query("SELECT COUNT(*) AS readyfordispatch_orders_count FROM foodorders WHERE status = 'ready' AND delivery_date = :currentDate");
+
+
+        $this->db->bind(':currentDate', $currentDate);
 
 
         // Fetch a single row (since we are selecting only one value)
@@ -158,6 +169,14 @@
         // Return the room count from the fetched row
         return $row->readyfordispatch_orders_count;
     }
+
+    public function getTodaysMenu(){
+        $this->db->query("SELECT * FROM fooditems WHERE status = '1'");
+        $menu = $this->db->resultset(); // Assign the fetched data to $menu
+        return $menu;
+    }
+
+
 
 
     //kitchen functions
@@ -194,6 +213,14 @@
             error_log('Database error: ' . $e->getMessage());
             return false; // Return false to indicate failure
         }
+    }
+
+    //delete
+
+    public function cancelOrder($id) {
+        $this->db->query("UPDATE foodorders SET status = 'cancelled' WHERE order_id = :id");
+        $this->db->bind(':id', $id);
+        $this->db->execute();
     }
     
 

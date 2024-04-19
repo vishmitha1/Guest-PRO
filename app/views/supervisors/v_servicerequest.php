@@ -1,131 +1,102 @@
-<?php   require APPROOT. "/views/includes/components/sidenavbar_supervisor.php" ?>
+<?php require APPROOT . "/views/includes/components/sidenavbar_supervisor.php" ?>
 
 <div class="dashboard">
 
-<div class="flavours-header">Service Requests</div>
-        
-        <div class="filter-options">
-           
+    <div class="flavours-header">Service Requests</div>
 
-            <label for="statusFilter">Filter by Status:</label>
-            <select id="statusFilter" onchange="filterRequests()">
-                <option value="all">All Requests</option>
-                <option value="completed">Completed</option>
-                <option value="not-completed">Not Completed</option>
-            </select>
-        </div>
+    <div class="filter-options">
+        <label for="statusFilter">Filter by Status:</label>
+        <select id="statusFilter" onchange="filterRequests()">
+            <option value="all">All Requests</option>
+            <option value="completed">Completed</option>
+            <option value="not-completed">Not Completed</option>
+        </select>
+    </div>
 
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search by Room ID...">
-            <button onclick="searchRequests()">Search</button>
-        </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by Room ID...">
+        <button onclick="searchRequests()">Search</button>
+    </div>
 
-        <table id="serviceRequestsTable">
+    <table id="serviceRequestsTable">
             <thead>
                 <tr>
-                    <th>Room ID</th>
-                    <th>Request ID</th>
-                    <th>Request</th>
-                    <th>Additional Note</th>
-                    <th>Current Status</th>
-
+                    <th>Service Request ID</th>
+                    <th>Service Type</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                foreach($data['rows'] as $dt){
-                    if($dt->status=='1'){
-                        $status_text = "Completed";
-                        $data_stat = 'completed';
-                        $class = 'completed';
-                    }else{
-                        $status_text = "Not Completed";
-                        $data_stat = "not-completed";
-                        $class = 'not-completed';
-                    }
-
-                    echo '<tr data-status="'.$data_stat.'">
-                     <td>'.$dt->roomNo.'</td>
-                     <td>'.$dt->request_id.'</td>
-                     <td>'.$dt->category.'</td>
-                     <td>'.$dt->AddDetails.'</td>
-                     <td><button onclick="changeRequestStatus(this ,'.$dt->request_id.' )" class="'.$class.'">'.$status_text.'</button></td>';
-                }        
-                ?>
-                <!-- Add more rows for other requests -->
+                <tr>
+                    <td>SR001</td>
+                    <td>Service Type A</td>
+                    <td>Normal</td>
+                    <td><button class="pending" onclick="toggleStatus(this)">Pending</button></td>
+                    <td>
+                        <button onclick="openCancelModal('SR001')">Cancel</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SR002</td>
+                    <td>Service Type B</td>
+                    <td>Priority</td>
+                    <td><button class="completed" onclick="toggleStatus(this)">Completed</button></td>
+                    <td>
+                        <button onclick="openCancelModal('SR002')">Cancel</button>
+                    </td>
+                </tr>
+                <!-- More rows here -->
             </tbody>
         </table>
-</div>
+    </div>
 
-<script>
-// JavaScript for filtering requests based on floor and status
-function filterRequests() {
-    var floorFilter = document.getElementById('floorFilter').value;
-    var statusFilter = document.getElementById('statusFilter').value;
+    <!-- Modal -->
+    <div id="cancelModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCancelModal()">&times;</span>
+            <h2>Cancel Request</h2>
+            <p>Please enter the reason for cancellation:</p>
+            <textarea id="cancelReason" rows="4" cols="50"></textarea>
+            <button class="submit-button" onclick="submitCancellation()">Submit</button>
+        </div>
+    </div>
 
-    var rows = document.getElementById('serviceRequestsTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-    for (var i = 0; i < rows.length; i++) {
-        var floor = rows[i].getAttribute('data-floor');
-        var status = rows[i].getAttribute('data-status');
-
-        var showRow = (floorFilter === 'all' || floor === floorFilter) && (statusFilter === 'all' || status === statusFilter);
-        rows[i].style.display = showRow ? '' : 'none';
-    }
-}
-
-        // JavaScript for changing request status
-function changeRequestStatus(button , id) {
-    var row = button.closest('tr');
-    var currentStatus = row.getAttribute('data-status');
-    console.log(id);
-    const base_url = window.location.origin;
-    const apiUrl = `${base_url}/GuestPro/Supervisors/changeStatus/`+id;
-
-    fetch(apiUrl)
-    .then(response => {
-        if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        // Parse the JSON response
-        return response.json();
-    })
-    .then(data => {
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-    if (currentStatus === 'completed') {
-        row.setAttribute('data-status', 'not-completed');
-        button.textContent = 'Not Completed';
-        button.className = 'not-completed';
-    } else {
-        row.setAttribute('data-status', 'completed');
-        button.textContent = 'Completed';
-        button.className = 'completed';
-    }
-}
-
-// Set default status for each row when the page loads
-// document.addEventListener('DOMContentLoaded', function () {
-//     var rows = document.getElementById('serviceRequestsTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-//     for (var i = 0; i < rows.length; i++) {
-//         rows[i].setAttribute('data-status', 'not-completed');
-//         rows[i].getElementsByTagName('button')[0].textContent = 'Not Completed';
-//         rows[i].getElementsByTagName('button')[0].className = 'not-completed';
-//     }
-// });
-
-        // JavaScript for searching requests by Room ID
-        function searchRequests() {
-            var searchInput = document.getElementById('searchInput').value.toLowerCase();
-            var rows = document.getElementById('serviceRequestsTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-            for (var i = 0; i < rows.length; i++) {
-                var roomId = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
-                var showRow = roomId.includes(searchInput);
-                rows[i].style.display = showRow ? '' : 'none';
+    <script>
+        function toggleStatus(button) {
+            if (button.classList.contains("pending")) {
+                button.classList.remove("pending");
+                button.classList.add("completed");
+                button.textContent = "Completed";
+            } else {
+                button.classList.remove("completed");
+                button.classList.add("pending");
+                button.textContent = "Pending";
             }
         }
-</script>
+
+        function openCancelModal(requestId) {
+            var modal = document.getElementById("cancelModal");
+            modal.style.display = "block";
+            // Set a custom attribute to store the requestId
+            modal.setAttribute("data-requestId", requestId);
+        }
+
+        function closeCancelModal() {
+            var modal = document.getElementById("cancelModal");
+            modal.style.display = "none";
+        }
+
+        function submitCancellation() {
+            var modal = document.getElementById("cancelModal");
+            var requestId = modal.getAttribute("data-requestId");
+            var reason = document.getElementById("cancelReason").value;
+            if (reason.trim() !== "") {
+                console.log("Request ID: " + requestId + ", Reason: " + reason);
+                closeCancelModal();
+            } else {
+                alert("Please enter a reason for cancellation.");
+            }
+        }
+    </script>
