@@ -367,6 +367,7 @@
                 $data=[
                     'reservation_id' => trim($_POST['reservation_id']),
                     'user_id' => $_SESSION['user_id'],
+                    'roomNo' => trim($_POST['roomNo']),
                 ];
 
                 if(empty($data['reservation_id'])){

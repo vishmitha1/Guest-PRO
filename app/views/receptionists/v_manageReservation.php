@@ -155,6 +155,7 @@
                                     </form>
                                     <form class="deleteReservation" action="<?php echo URLROOT;?>/Receptionists/cancelReservation" method='POST'>
                                         <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
+                                        <input type="hidden" name='roomNo' value="<?PHP echo $item->roomNO?>" >
                                         <button onclick="DeleteReservation()" >Delete</button>
                                     </form>
                                 </td>
