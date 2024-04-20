@@ -42,7 +42,7 @@
 
 
     
-    <div class="manege-res-searchbar-wrapper">
+    <!-- <div class="manege-res-searchbar-wrapper">
 
         <div class="form-title-mngereservation">
             <span>Give Access </span>
@@ -77,7 +77,7 @@
         </form>
 
 
-    </div>
+    </div> -->
 
 
     <div class="recep-reservation-history-wrapper" id="reload"  >
@@ -90,7 +90,7 @@
 
             <div class="reservation-history-table-wrapper">
                 <table class="reservation-history-table">
-                    <?php if(!empty($data[1])){?>
+                    
                         <tr>
                             <th>Reservation No</th>
                             <th>Room No</th>
@@ -103,9 +103,11 @@
                             
                             <th>Actions</th>
                         </tr>
+                    <?php if(!empty($data[1])){?>
+                        
 
                         <?php
-                        if(count(array($data[1]))==1){
+                        
                             $item=$data[1];
                             ?>
                             
@@ -132,9 +134,11 @@
                             </td>
                         </tr>
                         
-                        <?php }
-                        else {?>
-                            <?php foreach ($data[1] as $item){?>
+                    <?php }
+                    
+                    else{?>
+           
+                            <?php foreach ($data[0] as $item){?>
                             <tr>
                                 <td><?php echo $item->reservation_id;?></td>
                                 <td><?php echo $item->roomNo;?></td>
@@ -157,75 +161,7 @@
                             </tr>
                             <?php }?>
                         <?php }?>
-                    <?php }
-                    
-                    elseif(!empty($data[0])){?>
-
-                        <tr>
-                            <th>Reservation No</th>
-                            <th>Room No</th>
-                            <th>Check In</th>
-                            <th>Check Out</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        
-                        <?php
-                            if(count(array($data[0]))==1){
-                                $item=$data[0];
-                            
-                            ?>
-
-                        <tr>
-                            <td><?php echo $item->reservation_id;?></td>
-                            <td><?php echo $item->roomNo;?></td>
-                            <td><?php echo $item->checkIn;?></td>
-                            <td><?php echo $item->checkOut;?></td>
-                            <td><?php 
-                                    if( $item->checked=='out'){
-                                        echo "Not In";
-                                    } 
-                                    else{
-                                        echo "Check-In";
-                                    }   
-                                    ?></td>
-
-                            <form action="<?php echo URLROOT;?>/Receptionists/giveCustomerAccess"  method="POST" >  
-                                <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>" >  
-                                <input type="hidden" name="checked" value="<?php echo $item->checked;?>" > 
-                                <td><Button name="changeAccess" >Update</Button></td>
-                            </form>      
-                        </tr> 
-                        
-                        <?php }
-                        else {?>
-                            <?php foreach ($data[0] as $item){?>
-                            <tr>
-                                <td><?php echo $item->reservation_id;?></td>
-                                <td><?php echo $item->roomNo;?></td>
-                                <td><?php echo $item->checkIn;?></td>
-                                <td><?php echo $item->checkOut;?></td>
-                                <td><?php 
-                                    if( $item->checked=='out'){
-                                        echo "Not In";
-                                    } 
-                                    else{
-                                        echo "Check-In";
-                                    }   
-                                    ?></td>
-                                <form action="<?php echo URLROOT;?>/Receptionists/giveCustomerAccess" method="POST" >  
-                                    <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>" > 
-                                    <input type="hidden" name="checked" value="<?php echo $item->checked;?>" >  
-                                    <td>
-                                        
-                                        <Button name="changeAccess" >Update</Button>
-                                    </td>
-                                </form> 
-                            </tr>
-                            <?php }?>
-                        <?php }?>
-                
-                    <?php }?>       
+                     
 
                     
                     

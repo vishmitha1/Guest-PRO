@@ -436,7 +436,7 @@
 
             else{
                 $data=[];
-                $this->view('receptionists/v_manageReservation',$data);
+                $this->view('receptionists/v_manageReservation',[$this->receptionistModel->getAllReservations(),$data]);
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }
