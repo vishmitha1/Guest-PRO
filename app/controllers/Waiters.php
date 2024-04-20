@@ -13,13 +13,32 @@
             $this->middleware->checkAccess(['waiter']);
         }
 
+
+
+        //dashboard
+
  
 
         public function dashboard(){
-            $data =[  ];
+            $waiterId = $this->getCurrentUserId();
+            $ongoingorder=$this->M_waiter->getOngoingOrderNo($waiterId);
+            $awaitingorders=$this->M_waiter->getAwaitingOrderCount();
+            $deliveredorders=$this->M_waiter->getDeliveredOrderCount($waiterId);
+            $ongoingorderdetails = $this->M_waiter->getOngoingOrderDetails($waiterId);
+
+
+            $data =[
+                'ongoingorder' => $ongoingorder,
+                'awaitingorders' => $awaitingorders,
+                'deliveredorders' => $deliveredorders,
+                'ongoingorderdetails' => $ongoingorderdetails,
+
+              ];
             $this->view('waiters/v_dashboard', $data);
         }
 
+
+        
         
 
     //waiter orders

@@ -62,15 +62,17 @@ class Kitchen extends Controller{
    
     public function dashboard(){
         $totalorders = $this->userModel->getTotalOrderCount();
-        $dispatchedorders = $this->userModel->getDispatchedOrderCount();
+        $cancelledorders = $this->userModel->getCancelledOrderCount();
         $preparingorders = $this->userModel->getPreparingOrderCount();
         $readyfordispatchorders = $this->userModel->getReadyForDispatchOrderCount();
+        $menu= $this->userModel->getTodaysMenu();
         
         $data = [
             'totalorders' => $totalorders,
-            'dispatchedorders' => $dispatchedorders,
+            'cancelledorders' => $cancelledorders,
             'preparingorders' => $preparingorders,
             'readyfordispatchorders' => $readyfordispatchorders,
+            'menu'=> $menu,
             
 
         ];
@@ -108,6 +110,21 @@ class Kitchen extends Controller{
         echo json_encode($data);
         exit();
     }
+
+    //cancel
+
+
+    public function cancelOrder($id) {
+       
+    
+        // Change order status using the model
+        $this->userModel->cancelOrder($id);
+    
+        
+        exit();
+    }
+
+
 
     
 

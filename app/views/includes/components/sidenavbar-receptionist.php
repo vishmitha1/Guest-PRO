@@ -21,7 +21,7 @@
             <div class="link-items" id="visal">
             <a href="<?php echo URLROOT;?>/Receptionists/reservation"><i class="fa-solid fa-hotel"></i>Reservations</a>
             
-            
+            <a href="<?php echo URLROOT;?>/Receptionists/giveCustomerAccess"><i class="fa-solid fa-door-open"></i>Give Access</a>
     
             <a href="<?php echo URLROOT;?>/Receptionists/manageReservation"><i class="fa-solid fa-bell-concierge"></i>Room Availability</a>
             

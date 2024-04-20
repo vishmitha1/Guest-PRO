@@ -16,8 +16,8 @@
             </div>
             <div class="dashboard-box">
                 <i class="fas fa-shopping-cart"></i>
-                <h2><?php echo $data['dispatchedorders']; ?></h2>
-                <p>Orders Dispatched</p>
+                <h2><?php echo $data['cancelledorders']; ?></h2>
+                <p>Orders Cancelled</p>
             </div>
             <div class="dashboard-box">
                 <i class="fas fa-chart-line"></i>
@@ -30,53 +30,37 @@
                 <p>Orders Ready</p>
             </div>
         </div>
-        <h2 style="text-align: center; margin-top: 50px;">Charts</h2>
-    <div class="chart-container">
-        <canvas id="averageOrdersChart"></canvas>
-    </div>
+
+        
         
 
-        <script>
-            // Data for average orders chart
-            var averageOrdersData = {
-                labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                datasets: [{
-                    label: 'Average Orders',
-                    data: [30, 40, 50, 45, 55, 65, 60],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            };
-    
-            // Chart configuration
-            var averageOrdersConfig = {
-                type: 'bar',
-                data: averageOrdersData,
-                options: {
-                    indexAxis: 'x',
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
+         <!-- Today's Menu Section -->
+        <div class="todays-menu">
+            <h2>Today's Menu</h2>
+
+            <?php
+            // Check if there are menu items to display
+            if (!empty($data['menu'])) {
+                // Group menu items by category
+                $groupedMenu = [];
+                foreach ($data['menu'] as $item) {
+                    $category = $item->category; // Access object property with ->
+                    $groupedMenu[$category][] = $item->name; // Access object property with ->
                 }
-            };
-    
-            // Create average orders chart
-            var averageOrdersChartCtx = document.getElementById('averageOrdersChart').getContext('2d');
-            var averageOrdersChart = new Chart(averageOrdersChartCtx, averageOrdersConfig);
-        </script>
 
+                // Loop through each category and display its items
+                foreach ($groupedMenu as $category => $items) {
+                    echo '<div class="menu-category">';
+                    echo '<h3>' . $category . '</h3>';
+                    foreach ($items as $itemName) {
+                        echo '<p class="menu-item">' . $itemName . '</p>';
+                    }
+                    echo '</div>';
+                }
+            } else {
+                echo '<p>No menu items available for today.</p>';
+            }
+            ?>
 
-        
-
-        
-
-
-
+            <button class="view-menu-btn" onclick="window.location.href='<?php echo URLROOT;?>/Kitchen/foodmenu'">View Menu</button>
+        </div>

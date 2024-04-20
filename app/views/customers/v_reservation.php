@@ -129,21 +129,29 @@
                     <div class="col col-3" data-label="CheckIn Date"><?php echo $item->checkIn; ?></div>
                     <div class="col col-4" data-label="CheckOut Date"><?php echo $item->checkOut; ?></div>
                     <div class="col col-5" data-label="Action">
-                        
-                        <form class="deleteReservation" id="<?php echo $item->reservation_id.'formId';?> " action="<?php echo URLROOT;?>/Customers/deleteReservation" method='POST' >
-                            <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id; ?>">
-                            <input type="hidden" name="roomNo" value="<?php echo $item->roomNo; ?>">
-                            <button type="submit" name="delete"   ><i class='fa-solid fa-trash fa-lg'></i></button>
-                        </form>
 
-                        <form class="editReservation" action="<?php echo URLROOT;?>/Customers/reservation" method='POST' >
-                            <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id; ?>">
-                            <input type="hidden" name="roomNo" value="<?php echo $item->roomNo; ?>">
-                            <input type="hidden" name="indate" value="<?php echo $item->checkIn; ?>">
-                            <input type="hidden" name="outdate" value="<?php echo $item->checkOut; ?>">
-                            <input type="hidden" name="roomcount" value="<?php echo $item->roomcount; ?>">
-                            <button type="submit" name="edit-reservation" class="edit"   ><i class="fa-regular fa-pen-to-square"></i></button>
-                        </form>
+                        <?php if($item->checked=='out'){  ?>
+                        
+                            <form class="deleteReservation" id="<?php echo $item->reservation_id.'formId';?> " action="<?php echo URLROOT;?>/Customers/deleteReservation" method='POST' >
+                                <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id; ?>">
+                                <input type="hidden" name="roomNo" value="<?php echo $item->roomNo; ?>">
+                                <button type="submit" name="delete"   ><i class='fa-solid fa-trash fa-lg'></i></button>
+                            </form>
+
+                            <form class="editReservation" action="<?php echo URLROOT;?>/Customers/reservation" method='POST' >
+                                <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id; ?>">
+                                <input type="hidden" name="roomNo" value="<?php echo $item->roomNo; ?>">
+                                <input type="hidden" name="indate" value="<?php echo $item->checkIn; ?>">
+                                <input type="hidden" name="outdate" value="<?php echo $item->checkOut; ?>">
+                                <input type="hidden" name="roomcount" value="<?php echo $item->roomcount; ?>">
+                                <button type="submit" name="edit-reservation" class="edit"   ><i class="fa-regular fa-pen-to-square"></i></button>
+                            </form>
+                        
+                        <?php } 
+                        else{ ?>
+                            CheckedIn
+                        <?php } ?>        
+                        
                     </div>
                     </li>
                     <?php } ?>
