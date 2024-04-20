@@ -14,89 +14,112 @@
     </div>
 
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search by Room ID...">
-        <button onclick="searchRequests()">Search</button>
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button>Search</button>
     </div>
 
     <table id="serviceRequestsTable">
-            <thead>
+        <thead>
+            <tr>
+                <th>Service Request ID</th>
+                <th>Room Number</th>
+                <th>Service Type</th>
+                <th>Service Requested</th>
+                <th>Additional Details</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($data['servicerequests'] as $servicerequest): ?>
                 <tr>
-                    <th>Service Request ID</th>
-                    <th>Service Type</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>SR001</td>
-                    <td>Service Type A</td>
-                    <td>Normal</td>
-                    <td><button class="pending" onclick="toggleStatus(this)">Pending</button></td>
+                    <td><?php echo $servicerequest->request_id; ?></td>
+                    <td><?php echo $servicerequest->roomNo; ?></td>
+                    <td><?php echo $servicerequest->service_type; ?></td>
+                    <td><?php echo $servicerequest->service_requested; ?></td>
+                    <td><?php echo $servicerequest->AddDetails; ?></td>
                     <td>
-                        <button onclick="openCancelModal('SR001')">Cancel</button>
+                        <?php if ($servicerequest->status == 'completed'): ?>
+                            <button class="completed" disabled>Completed</button>
+                        <?php elseif($servicerequest->status == 'pending'): ?>
+                            <button class="pending" onclick="changeStatus(this, '<?php echo $servicerequest->request_id; ?>', 'pending')">Pending</button>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <button onclick="openCancelModal('<?php echo $servicerequest->request_id; ?>')">Cancel</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>SR002</td>
-                    <td>Service Type B</td>
-                    <td>Priority</td>
-                    <td><button class="completed" onclick="toggleStatus(this)">Completed</button></td>
-                    <td>
-                        <button onclick="openCancelModal('SR002')">Cancel</button>
-                    </td>
-                </tr>
-                <!-- More rows here -->
-            </tbody>
-        </table>
-    </div>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
-    <!-- Modal -->
-    <div id="cancelModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeCancelModal()">&times;</span>
-            <h2>Cancel Request</h2>
-            <p>Please enter the reason for cancellation:</p>
-            <textarea id="cancelReason" rows="4" cols="50"></textarea>
-            <button class="submit-button" onclick="submitCancellation()">Submit</button>
-        </div>
+<!-- Modal -->
+<div id="cancelModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeCancelModal()">&times;</span>
+        <h2>Cancel Request</h2>
+        <p>Please enter the reason for cancellation:</p>
+        <textarea id="cancelReason" rows="4" cols="50"></textarea>
+        <button class="submit-button" onclick="submitCancellation()">Submit</button>
     </div>
+</div>
 
-    <script>
-        function toggleStatus(button) {
-            if (button.classList.contains("pending")) {
-                button.classList.remove("pending");
-                button.classList.add("completed");
-                button.textContent = "Completed";
-            } else {
+<script>
+    function changeStatus(button, requestId, currentStatus) {
+        if (currentStatus === 'pending') {
+            button.classList.remove("pending");
+            button.classList.add("completed");
+            button.textContent = "Completed";
+
+            const apiUrl = `/GuestPro/supervisors/changeServiceRequestStatus/${requestId}`;
+
+            fetch(apiUrl, {
+                method: 'POST',
+                
+               
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update status');
+                }
+                console.log('Status updated to completed');
+                // Optionally, you can handle response data here if needed
+            })
+            .catch(error => {
+                console.error('Error updating status:', error.message);
+                // Revert UI changes if there's an error
                 button.classList.remove("completed");
                 button.classList.add("pending");
                 button.textContent = "Pending";
-            }
+                // Inform the user about the error
+                alert('Failed to update status. Please try again.');
+            });
         }
+    }
 
-        function openCancelModal(requestId) {
-            var modal = document.getElementById("cancelModal");
-            modal.style.display = "block";
-            // Set a custom attribute to store the requestId
-            modal.setAttribute("data-requestId", requestId);
-        }
+    function openCancelModal(requestId) {
+        var modal = document.getElementById("cancelModal");
+        modal.style.display = "block";
+        modal.setAttribute("data-requestId", requestId);
+    }
 
-        function closeCancelModal() {
-            var modal = document.getElementById("cancelModal");
-            modal.style.display = "none";
-        }
+    function closeCancelModal() {
+        var modal = document.getElementById("cancelModal");
+        modal.style.display = "none";
+    }
 
-        function submitCancellation() {
-            var modal = document.getElementById("cancelModal");
-            var requestId = modal.getAttribute("data-requestId");
-            var reason = document.getElementById("cancelReason").value;
-            if (reason.trim() !== "") {
-                console.log("Request ID: " + requestId + ", Reason: " + reason);
-                closeCancelModal();
-            } else {
-                alert("Please enter a reason for cancellation.");
-            }
+    function submitCancellation() {
+        var modal = document.getElementById("cancelModal");
+        var requestId = modal.getAttribute("data-requestId");
+        var reason = document.getElementById("cancelReason").value;
+        if (reason.trim() !== "") {
+            console.log("Request ID: " + requestId + ", Reason: " + reason);
+            closeCancelModal();
+            // Optionally, provide a confirmation message
+            alert("Cancellation request submitted successfully.");
+        } else {
+            alert("Please enter a reason for cancellation.");
         }
-    </script>
+    }
+</script>
