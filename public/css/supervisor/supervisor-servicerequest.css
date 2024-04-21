@@ -1,4 +1,4 @@
-<style>
+
         /* CSS for the navigation bar */
         .sidebar {
             height: 100%;
@@ -224,3 +224,8 @@
         border-radius: 5px;
         cursor: pointer;
     }
+
+       /* CSS to disable hover effect for disabled cancel button */
+#serviceRequestsTable button[disabled] {
+    pointer-events: none;
+}

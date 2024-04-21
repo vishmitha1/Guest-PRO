@@ -29,11 +29,22 @@
 
 
         public function changeServiceRequestStatus($id) {
-    $query = "UPDATE servicerequests SET `status` = 'completed' WHERE request_id = :id";
-    $this->db->query($query);
-    $this->db->bind(':id', $id);
-    $this->db->execute();
-}
+            $query = "UPDATE servicerequests SET `status` = 'completed' WHERE request_id = :id";
+            $this->db->query($query);
+            $this->db->bind(':id', $id);
+            $this->db->execute();
+        }
+
+        //cancel
+        public function cancelServiceRequest($id, $reason) {
+            $query = "UPDATE servicerequests SET `status` = 'canceled', `cancellation_reason` = :reason WHERE request_id = :id";
+            $this->db->query($query);
+            $this->db->bind(':id', $id);
+            $this->db->bind(':reason', $reason); // bind the cancellation reason
+            $this->db->execute();
+        }
+
+
 
 
 

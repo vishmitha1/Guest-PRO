@@ -46,7 +46,11 @@
                         <?php endif; ?>
                     </td>
                     <td>
-                        <button onclick="openCancelModal('<?php echo $servicerequest->request_id; ?>')">Cancel</button>
+                        <?php if ($servicerequest->status == 'pending'): ?>
+                            <button onclick="openCancelModal('<?php echo $servicerequest->request_id; ?>')">Cancel</button>
+                        <?php else: ?>
+                            <button disabled>Cancel</button>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -76,23 +80,18 @@
 
             fetch(apiUrl, {
                 method: 'POST',
-                
-               
             })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to update status');
                 }
                 console.log('Status updated to completed');
-                // Optionally, you can handle response data here if needed
             })
             .catch(error => {
                 console.error('Error updating status:', error.message);
-                // Revert UI changes if there's an error
                 button.classList.remove("completed");
                 button.classList.add("pending");
                 button.textContent = "Pending";
-                // Inform the user about the error
                 alert('Failed to update status. Please try again.');
             });
         }
@@ -115,9 +114,31 @@
         var reason = document.getElementById("cancelReason").value;
         if (reason.trim() !== "") {
             console.log("Request ID: " + requestId + ", Reason: " + reason);
+
+            // Construct the API URL
+            const base_url = window.location.origin;
+            const apiUrl = `${base_url}/GuestPro/supervisors/cancelServiceRequest/${requestId}/${reason}`;
+
+            // Fetch API call to submit cancellation
+            fetch(apiUrl, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to submit cancellation');
+                }
+                console.log('Cancellation submitted successfully');
+                const cancelButton = document.querySelector(`button[data-request-id="${requestId}"]`);
+                const row = cancelButton.closest('tr');
+                row.remove();
+                alert('Cancellation request submitted successfully.');
+            })
+            .catch(error => {
+                console.error('Error submitting cancellation:', error.message);
+                
+            });
+
             closeCancelModal();
-            // Optionally, provide a confirmation message
-            alert("Cancellation request submitted successfully.");
         } else {
             alert("Please enter a reason for cancellation.");
         }

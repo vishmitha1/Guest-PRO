@@ -55,6 +55,16 @@
             echo json_encode($data);
             exit(); // Make sure to exit after sending JSON response
         }
+
+        //cancel
+
+        public function cancelServiceRequest($id, $reason) {
+            // Change service request status using the model
+            $this->m_supervisor->cancelServiceRequest($id, $reason);
+            exit();
+        
+            
+        }
     
         public function cleaninghistory(){
             $data =[  ];
@@ -101,6 +111,8 @@
             echo json_encode($data);
             exit();
         }
+
+
 
       
 
