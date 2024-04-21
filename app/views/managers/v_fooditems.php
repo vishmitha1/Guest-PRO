@@ -4,17 +4,54 @@
     <div class="manager-page">
 
         <h1>Food Items Management</h1>
-
-        <!-- Search bar-->
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button onclick="searchFoodItems()">Search</button>
-        </div>
-
         <!-- Add Food Item button -->
         <div class="addnewbutton">
             <a href="<?php echo URLROOT; ?>/Managers/addfooditem">Add Food Item</a>
+        </div> <br></br>
+
+        <!-- Filter options -->
+        <div class="filter-box">
+
+            <form action="<?php echo URLROOT; ?>/Managers/searchfooditems" method="GET">
+                <input type="text" name="query" id="searchInput" placeholder="Search by name...">
+                <button type="submit">Search</button>
+            </form>
         </div>
+
+
+        <form action="<?php echo URLROOT; ?>/Managers/applyFoodFilters" method="post">
+            <div class="filter-options">
+                <div class="filter-box">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="">select</option>
+                        <?php foreach ($data['foodtypes'] as $foodtype): ?>
+                            <option value="<?php echo $foodtype->category; ?>">
+                                <?php echo $foodtype->category; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="filter-box">
+                    <label for="price"> Max-Price</label>
+                    <input type="text" id="pricefilter" name="price">
+                </div>
+
+                <div class="filter-box">
+                    <form action="<?php echo URLROOT; ?>/Managers/applyFoodFilters" method="post">
+                        <button type="submit">Apply</button>
+                    </form>
+                    <form action="<?php echo URLROOT; ?>/Managers/resetfoodFilters" method="post">
+                        <button type="submit">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </form>
+
+
+
+
         <!-- Display food items -->
         <div class="table-container">
             <table class="table" id="managerFoodItemsTable">

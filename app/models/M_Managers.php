@@ -63,7 +63,7 @@ class M_Managers
         } else {
             return false;
         }
-}
+    }
     public function getroomdetails()
     {
         $this->db->query("SELECT * FROM rooms ");
@@ -422,6 +422,93 @@ class M_Managers
         return $this->db->execute();
     }
 
+    public function getFilteredRooms($category, $maxPrice, $roomNo, $availability)
+    {
+        // Build the SQL query with placeholders for the filters
+        $sql = "SELECT r.*, rt.price 
+    FROM rooms r 
+    JOIN roomtype rt ON r.category = rt.category
+    WHERE 1=1"; // Start with a base query
+
+        // Add filters based on provided parameters
+        if (!empty($category)) {
+            $sql .= " AND r.category = :category";
+        }
+        if (!empty($maxPrice)) {
+            $sql .= " AND rt.price <= :maxPrice";
+        }
+        if (!empty($roomNo)) {
+            $sql .= " AND r.roomNo = :roomNo";
+        }
+        if (!empty($availability)) {
+            $sql .= " AND r.availability = :availability";
+        }
+
+        // Prepare the SQL query
+        $this->db->query($sql);
+
+        // Bind parameters based on provided filters
+        if (!empty($category)) {
+            $this->db->bind(':category', $category);
+        }
+        if (!empty($maxPrice)) {
+            $this->db->bind(':maxPrice', $maxPrice);
+        }
+        if (!empty($roomNo)) {
+            $this->db->bind(':roomNo', $roomNo);
+        }
+        if (!empty($availability)) {
+            $this->db->bind(':availability', $availability);
+        }
+
+        // Execute the query and return the result set
+        return $this->db->resultSet();
+
+    }
+
+
+    public function getFilteredfood($category, $maxPrice)
+    {
+        $sql = "SELECT * FROM fooditems WHERE 1=1";
+
+        // Check if category filter is provided
+        if (!empty($category)) {
+            $sql .= " AND category = :category";
+        }
+
+        // Check if maxPrice filter is provided
+        if (!empty($maxPrice)) {
+            $sql .= " AND price <= :maxPrice";
+        }
+
+        // Prepare the SQL query
+        $this->db->query($sql);
+
+        // Bind parameters based on provided filters
+        if (!empty($category)) {
+            $this->db->bind(':category', $category);
+        }
+        if (!empty($maxPrice)) {
+            $this->db->bind(':maxPrice', $maxPrice);
+        }
+
+        // Execute the query and return the results
+        $this->db->execute();
+        return $this->db->resultSet();
+
+
+    }
+
+    public function searchfooditems($query)
+    {
+        // Prepare the query to search for staff accounts
+        $this->db->query("SELECT * FROM fooditems WHERE name LIKE :query");
+        $this->db->bind(':query', '%' . $query . '%');
+
+        // Execute the query and return the results
+        return $this->db->resultSet();
+    }
+
 
     //---------------------------------dashboard view----------------------------------------------------------------
     public function getroomcount()
@@ -606,21 +693,31 @@ class M_Managers
 
     public function getReservationIncome()
     {
+        // Get the current month and year
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
         // Prepare the query
-        $this->db->query('SELECT SUM(cost) AS reservationIncome FROM reservations');
+        $this->db->query('SELECT SUM(cost) AS monthlyIncome FROM reservations WHERE MONTH(checkIn) = :currentMonth AND YEAR(checkIn) = :currentYear');
+        $this->db->bind(':currentMonth', $currentMonth);
+        $this->db->bind(':currentYear', $currentYear);
 
         // Fetch a single row 
         $row = $this->db->single();
 
         // Return the sum of reservation cost from the fetched row
-        return $row->reservationIncome;
+        return $row->monthlyIncome;
     }
 
     public function getFoodOrdersIncome()
     {
+        $currentMonth = date('m');
+        $currentYear = date('Y');
         // Prepare the query
-        $this->db->query('SELECT SUM(cost) AS foodOrdersIncome FROM foodorders');
+        $this->db->query('SELECT SUM(cost) AS foodOrdersIncome FROM foodorders WHERE MONTH(date) = :currentMonth AND YEAR(date) = :currentYear');
 
+        $this->db->bind(':currentMonth', $currentMonth);
+        $this->db->bind(':currentYear', $currentYear);
         // Fetch a single row 
         $row = $this->db->single();
 
