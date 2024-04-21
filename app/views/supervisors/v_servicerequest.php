@@ -85,7 +85,7 @@
                 if (!response.ok) {
                     throw new Error('Failed to update status');
                 }
-                console.log('Status updated to completed');
+                location.reload();
             })
             .catch(error => {
                 console.error('Error updating status:', error.message);
@@ -112,9 +112,7 @@
         var modal = document.getElementById("cancelModal");
         var requestId = modal.getAttribute("data-requestId");
         var reason = document.getElementById("cancelReason").value;
-        if (reason.trim() !== "") {
-            console.log("Request ID: " + requestId + ", Reason: " + reason);
-
+        
             // Construct the API URL
             const base_url = window.location.origin;
             const apiUrl = `${base_url}/GuestPro/supervisors/cancelServiceRequest/${requestId}/${reason}`;
@@ -122,25 +120,22 @@
             // Fetch API call to submit cancellation
             fetch(apiUrl, {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Failed to submit cancellation');
+                    throw new Error('Network response was not ok');
                 }
-                console.log('Cancellation submitted successfully');
-                const cancelButton = document.querySelector(`button[data-request-id="${requestId}"]`);
-                const row = cancelButton.closest('tr');
-                row.remove();
-                alert('Cancellation request submitted successfully.');
+                location.reload();
+                // You can handle success response here if needed
             })
             .catch(error => {
-                console.error('Error submitting cancellation:', error.message);
-                
+                console.error('There was a problem with your fetch operation:', error);
             });
 
-            closeCancelModal();
-        } else {
-            alert("Please enter a reason for cancellation.");
+           
         }
-    }
+    
 </script>
