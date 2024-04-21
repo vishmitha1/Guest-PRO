@@ -18,16 +18,20 @@ class Admins extends Controller
 
     public function dashboard()
     {
-        //$activeStaffAccountsCount = $this->staffModel->getActiveStaffAccountsCount();
+        $monthlyReservations = $this->staffModel->getMonthlyReservations();
         $totalCustomersRegistered = $this->staffModel->getTotalCustomersRegistered();
         $totalStaffMembersCount = $this->staffModel->getTotalStaffMembersCount();
-        //$activeCustomersCount = $this->staffModel->getActiveCustomersCount();
+        $monthlyFoodOrders = $this->staffModel->getMonthlyFoodOrders();
+        $reservationIncome = $this->staffModel->getTotalReservationIncome();
+        $foodOrderIncome = $this->staffModel->getTotalFoodOrderIncome();
 
         $data = [
-            //'activeStaffAccountsCount' => $activeStaffAccountsCount,
+            'monthlyReservations' => $monthlyReservations,
             'totalCustomersRegistered' => $totalCustomersRegistered,
             'totalStaffMembersCount' => $totalStaffMembersCount,
-            //'activeCustomersCount' => $activeCustomersCount
+            'monthlyFoodOrders' => $monthlyFoodOrders,
+            'reservationIncome' => $reservationIncome, 
+            'foodOrderIncome' => $foodOrderIncome
         ];
 
         // Check if 'activeStaffAccountsCount' is set in the $data array before passing it to the view
@@ -42,7 +46,6 @@ class Admins extends Controller
         $this->view('admins/v_dashboard', $data);
     }
 
-
     public function accountlogs()
     {
         // Get logs data from model
@@ -50,7 +53,6 @@ class Admins extends Controller
 
         $this->view('admins/v_accountlogs', $data);
     }
-
 
     public function create_staffaccounts()
     {
