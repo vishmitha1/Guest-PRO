@@ -1,0 +1,37 @@
+.filter-options {
+    display: flex;
+    align-items: stretch;
+}
+
+.filter-box {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.filter-box:last-child {
+    margin-right: 0;
+}
+
+.filter-box label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filter-box input[type="text"],
+.filter-box select 
+{
+    width: 70%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+.filter-box button{
+    background-color: #01376e;
+   width: 60px;
+   height: 30px;
+   border-radius: 5px;
+   color: white;
+    
+}
+.filter-box button:hover{
+    background-color: #002447;
+}

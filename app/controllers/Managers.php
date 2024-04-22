@@ -14,73 +14,6 @@ class Managers extends Controller
     }
 
 
-
-    // public function addroom()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         // Validate and process form data
-    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-    //         // Handle file upload
-    //         // $uploadResultRoom = $this->handleFileUpload("roomPhotos", "../public/img/rooms/");
-
-    //         // if (!$uploadResultRoom['success']) {
-    //         //     // Handle file upload failure
-    //         //     $data['error_message'] = $uploadResultRoom['error'];
-    //         //     $this->view('managers/v_addroom', $data);
-    //         //     return;
-    //         // }
-
-    //        
-
-    //         $data = [
-    //             'roomno' => trim($_POST['roomno']),
-    //             // 'floor' => trim($_POST['floor']),
-    //             'category' => trim($_POST['category']),
-    //             //'price' => trim($_POST['price']),
-    //             'roomno_err' => '',
-    //             // 'floor_err' => '',
-    //             'category_err' => '',
-    //             // 'price_err' => '',
-    //             //'roomPhotos' => $uploadResultRoom['fileNames'],
-    //         ];
-
-    //         // Validate input fields 
-    //         if (empty($data['roomno'])) {
-    //             $data['roomno_err'] = 'Please enter Room Number';
-    //         }
-    //         // if (empty($data['floor'])) {
-    //         //     $data['floor_err'] = 'Please enter floor number';
-    //         // }
-    //         if (empty($data['category'])) {
-    //             $data['category_err'] = 'Please enter Room category';
-    //         }
-    //         // if (empty($data['price'])) {
-    //         //     $data['price_err'] = 'Please enter price';
-    //         // }
-
-    //         // If there are no errors, insert data into the database
-    //         if (empty($data['roomno_err']) && empty($data['category_err'])) {
-    //             //$data['roomPhotos'] = $uploadResultRoom['fileNames'];
-    //             $result = $this->userModel->insertroomdetails($data);
-    //             if ($result == true) {
-    //                 // Redirect to the room details page or wherever you want
-    //                 redirect('Managers/roomdetails');
-    //             } else {
-    //                 // Handle errors if insertion fails
-    //                 die('something went wrong');
-    //             }
-    //         } else {
-    //             // If there are errors, reload the form with error messages
-    //             $this->view('managers/v_addroom', $data);
-    //         }
-    //     } else {
-    //         // Display the form
-    //         $this->view('managers/v_addroom');
-    //     }
-    // }
-
-
     public function dashboard()
     {
         $totalrooms = $this->userModel->getroomcount();
@@ -169,9 +102,9 @@ class Managers extends Controller
                     // Handle errors if insertion fails
                     $_SESSION['toast_type'] = 'error';
                     $_SESSION['toast_msg'] = 'Error adding room. Please try again.';
-  
-   $this->view('managers/v_addroom', $data);
-                  redirect('Managers/roomdetails');
+
+                    $this->view('managers/v_addroom', $data);
+                    redirect('Managers/roomdetails');
                 }
             } else {
                 // If there are errors, reload the form with error messages
@@ -250,50 +183,6 @@ class Managers extends Controller
         }
     }
 
-    // public function addroomtype()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         // Validate and process form data
-    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-    //         // Handle file upload
-    //         $uploadResultRoom = $this->handleFileUpload("roomImg", "../public/img/rooms/");
-
-    //         if (!$uploadResultRoom['success']) {
-    //             // Handle file upload failure
-    //             $data['error_message'] = $uploadResultRoom['error'];
-    //             $this->view('managers/v_addroomtype', $data);
-    //             return;
-    //         }
-
-    //         // $uploadmainimg = $this->handleFileUpload("mainImg", "../public/img/rooms/");
-    //         // if (!$uploadmainimg['success']) {
-    //         //     // Handle file upload failure
-    //         //     $data['error_message'] = $uploadResultRoom['error'];
-    //         //     $this->view('managers/v_addroomtype', $data);
-    //         //     return;
-    //         // }
-
-    //         $data = [
-    //             'category' => trim($_POST['category']),
-    //             'price' => trim($_POST['price']),
-    //             'amenities' => trim($_POST['amenities']),
-    //             'roomImg' => $uploadResultRoom['fileNames'],
-    //             // 'mainImg' => $uploadResultRoom['fileNames']
-    //         ];
-
-    //         // Call a model method to insert the new room type into the database
-    //         if ($this->userModel->addRoomType($data)) {
-    //             redirect('Managers/viewroomtype');
-    //         } else {
-    //             // Handle errors if insertion fails
-    //             die('Something went wrong');
-    //         }
-    //     } else {
-    //         // Display the form
-    //         $this->view('managers/v_addroomtype');
-    //     }
-    // }
 
 
     public function addroomtype()
@@ -327,8 +216,8 @@ class Managers extends Controller
 
             ];
 
-  
-  //validate each input
+
+            //validate each input
             if (empty($data['category'])) {
                 $data['category_err'] = 'Please enter category';
             } else {
@@ -405,68 +294,7 @@ class Managers extends Controller
         }
     }
 
-    // public function updateRoomType()
-    // {
-    //     // Check if the form is submitted
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         // Process the form data and update room type details
-    //         $updateData = [
-    //             'category' => $_POST['category'],
-    //             'price' => $_POST['price'],
-    //             'amenities' => $_POST['amenities'],
-    //             'roomImg' => '',
-    //             'category_err' => '',
-    //             'price_err' => '',
-    //             'amenities_err' => '',
-    //             'roomImg_err' => ''
-    //         ];
 
-    //         $roomtypes = $this->$this->userModel->viewRoomTypeDetails($updateData['category']);
-
-    //         if (isset($_POST['remove_photos']) && !empty($_POST['remove_photos'])) {
-    //             // Remove selected photos
-    //             foreach ($_POST['remove_photos'] as $photo) {
-    //                 // Delete the photo from the server
-    //                 $photoPath = APPROOT . '../public/img/rooms/' . $photo;
-    //                 if (file_exists($photoPath)) {
-    //                     unlink($photoPath);
-    //                 }
-    //             }
-    //         }
-
-    //         // Upload new photos
-    //         $uploadResult = $this->handleFileUpload("new_photos", "../public/img/rooms/");
-    //         if (!$uploadResult['success']) {
-    //             // Handle file upload failure
-    //             header("Location: " . URLROOT . "/Managers/fooditems?error=" . urlencode($uploadResult['error']));
-    //             exit();
-    //         }
-
-    //         $uploadedPhotos = $uploadResult['fileNames'];
-
-    //         $existingPhotos = is_array($roomtypes->roomImg)
-    //             ? $roomtypes->roomImg
-    //             : (is_string($roomtypes->roomImg) ? [$roomtypes->roomImg] : []);
-
-    //         // Merge existing and new photos
-    //         $updateData['roomImg'] = array_merge($existingPhotos, $uploadedPhotos ?? []);
-
-    //         // Update room type details in the database
-    //         if ($this->userModel->updateRoomType($updateData)) {
-    //             $_SESSION['toast_type'] = 'success';
-    //             $_SESSION['toast_msg'] = 'Room Type updated successfully!';
-    //             // Redirect
-
-    //             header("Location: " . URLROOT . "/Managers/roomdetails");
-    //             exit();
-    //         } else {
-    //             $_SESSION['toast_type'] = 'error';
-    //             $_SESSION['toast_msg'] = 'Error updating Room! Please try again';
-    //             // Redirect
-    //             header("Location: " . URLROOT . "/Managers/roomdetails");
-    //         }
-    //     }
-    // }
 
     public function updateRoomType()
     {
@@ -613,11 +441,11 @@ class Managers extends Controller
         }
     }
 
-    public function deleteRoomType($Id)
+    public function deleteRoomType($roomtypeId)
     {
 
         // Call a model method to delete the room type from the database
-        $success = $this->userModel->deleteFoodItem($Id);
+        $success = $this->userModel->deleteRoomType($roomtypeId);
 
         // Optionally, you can handle success or failure and redirect accordingly
         if ($success) {
@@ -648,11 +476,17 @@ class Managers extends Controller
     public function roomdetails()
     {
         $rooms = $this->userModel->getroomdetails();
+        $roomTypes = $this->userModel->getroomtypes();
         foreach ($rooms as &$room) {
             $room->price = $this->userModel->getRoomPriceByCategory($room->category);
         }
-        $data = ['rooms' => $rooms];
+        $data = [
+            'rooms' => $rooms,
+            'roomTypes' => $roomTypes
+        ];
+
         $this->view('managers/v_roomdetails', $data);
+
 
 
         //success or error message adding a room
@@ -665,7 +499,11 @@ class Managers extends Controller
     public function fooditems()
     {
         $fooditems = $this->userModel->getfooditems();
-        $data = ['fooditems' => $fooditems];
+        $foodtypes = $this->userModel->getfoodcategory();
+        $data = [
+            'fooditems' => $fooditems,
+            'foodtypes' => $foodtypes
+        ];
         $this->view('managers/v_fooditems', $data);
         //success or error message adding a food item
         if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
@@ -1113,6 +951,123 @@ class Managers extends Controller
         }
     }
 
+    public function applyFilters()
+    {
+        // Retrieve filter criteria from the request
+        $category = $_POST['category'];
+        $maxPrice = $_POST['price'];
+        $roomNo = $_POST['roomNo'];
+        $availability = $_POST['availability'];
+
+        if ($availability == 'Available') {
+            $availability = 'yes';
+        } else
+            $availability = 'no';
+
+        // Call the model method to fetch filtered room data
+        $filteredRooms = $this->userModel->getFilteredRooms($category, $maxPrice, $roomNo, $availability);
+
+        $roomTypes = $this->userModel->getroomtypes();
+        foreach ($filteredRooms as &$room) {
+            $room->price = $this->userModel->getRoomPriceByCategory($room->category);
+        }
+        $data = [
+            'rooms' => $filteredRooms,
+            'roomTypes' => $roomTypes
+        ];
+
+        $this->view('managers/v_roomdetails', $data);
+
+
+
+
+    }
+
+    public function resetFilters()
+    {
+        // Redirect to the default view without any filters
+        redirect('Managers/roomdetails');
+    }
+
+    public function applyFoodFilters()
+    {
+        // Retrieve filter criteria from the request
+        $category = $_POST['category'];
+        $maxPrice = $_POST['price'];
+
+
+        // Call the model method to fetch filtered room data
+        $filteredfood = $this->userModel->getFilteredfood($category, $maxPrice);
+
+        $foodTypes = $this->userModel->getfoodcategory();
+
+        $data = [
+            'fooditems' => $filteredfood,
+            'foodtypes' => $foodTypes
+        ];
+
+        $this->view('managers/v_fooditems', $data);
+
+
+
+
+    }
+
+    public function resetfoodFilters()
+    {
+        // Redirect to the default view without any filters
+        redirect('Managers/fooditems');
+    }
+    public function searchfooditems()
+    {
+        // Check if the request method is GET and if the 'query' parameter is set in the URL
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query'])) {
+            // Sanitize the search query
+            $query = trim($_GET['query']);
+
+            // Call the model method to search 
+            $data['fooditems'] = $this->userModel->searchfooditems($query);
+
+            // Set the "query" key in the $data array
+            $data['query'] = $query;
+
+            // Load the view with the filtered data
+            $this->view('managers/v_fooditems', $data);
+        } else {
+
+            redirect('Managers/fooditems');
+        }
+    }
 
 }
+
+
+
+?>
+
+<?php
+class AlertController
+{
+    public function sendAlert()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
+            $_SESSION['alert'] = $_POST['message'];
+            echo "Alert sent successfully";
+        }
+    }
+
+    public function checkAlert()
+    {
+        if (isset($_SESSION['alert'])) {
+            echo json_encode(['alert' => $_SESSION['alert']]);
+            unset($_SESSION['alert']); // Clear the alert after sending
+        } else {
+            echo json_encode(['alert' => null]);
+        }
+    }
+}
+
+
+
+
 ?>
