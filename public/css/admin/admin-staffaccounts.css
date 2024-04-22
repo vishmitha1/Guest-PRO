@@ -70,6 +70,10 @@
     color: #ffffff; /* Set text color for header cells */
 }
 
+.staffaccounts-table tbody tr:hover{
+    background-color: #f0f0f0; /* Add hover effect to table rows */
+}
+
 .admin-action-btn {
     display: flex; /* Use flexbox */
     justify-content: space-between; /* Align items with space between them */
