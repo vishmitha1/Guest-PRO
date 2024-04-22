@@ -34,17 +34,15 @@
 
 
     <div class="user-profile">
-        <img src="" alt="User Profile Picture"><br>
+        <a href="<?php echo URLROOT;?>/Users/profile">
+            <img src="<?php echo URLROOT;?>/img/users/<?php echo $_SESSION['user_img'];?> " alt="User Profile Picture"><br>
+        </a>
+
         <div class="user-profile-info">
-            <div class='username'>
-                <?php echo $_SESSION['name']; ?>
-            </div>
-            <p>
-                <?php echo $_SESSION['role']; ?>
-            </p>
+            <div class='username'><?php echo $_SESSION['name'];?></div>
+            <p><?php echo $_SESSION['role'];?></p>
         </div>
     </div>
-
     
 
    

@@ -101,4 +101,27 @@
         }
 
 
+        //dashboard
+
+        //chart
+        // Retrieve service request counts by service type within a specified time period
+        public function getServiceRequestCountsByType($filter)
+        {
+            switch ($filter) {
+                case 'week':
+                    $condition = "WHERE WEEK(date) = WEEK(CURDATE())";
+                    break;
+                case 'month':
+                    $condition = "WHERE MONTH(date) = MONTH(CURDATE()) AND YEAR(date) = YEAR(CURDATE())";
+                    break;
+                case 'year':
+                    $condition = "WHERE YEAR(date) = YEAR(CURDATE())";
+                    break;
+                default:
+                    $condition = "";
+                    break;
+            }
+            $this->db->query("SELECT service_type, COUNT(*) as count FROM servicerequests $condition GROUP BY service_type");
+            return $this->db->resultset();
+        }
     }
