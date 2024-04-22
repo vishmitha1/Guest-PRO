@@ -461,7 +461,7 @@
 
 
         //Place order
-        public function placeOrder($id,$var,$data){
+        public function placeOrder($id,$var,$data,$payment='Not Paid'){
             
             $qty=$name=$cost=$itemid=$img='';
             foreach($var as $item){
@@ -503,12 +503,13 @@
             else{                  
        
                 $this->db->query("INSERT INTO 
-                        foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total,reservation_id,note,delivery_date,delivery_time,date)
-                        VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot,(SELECT reservation_id FROM reservations WHERE user_id = :id ORDER BY reservation_id DESC LIMIT 1),:note,:delDate,:delTime,:date ) ");
+                        foodorders (user_id,quantity,item_name,roomNo,cost,item_no,img,total,reservation_id,note,delivery_date,delivery_time,date,payment)
+                        VALUES(:id,:quantity,:item_name,:roomNo,:cost,:item_id,:img,:tot,(SELECT reservation_id FROM rooms WHERE roomNo=:roomNo ORDER BY reservation_id DESC LIMIT 1),:note,:delDate,:delTime,:date,:pay ) ");
                     
                     $date=date("Y-m-d H:i:s");
            
                     $this->db->bind(':date',$date);
+                    $this->db->bind(':pay',$payment);
             }
 
             // $this->db->query("INSERT INTO foodorders (user_id) VALUES(:id)");
@@ -686,13 +687,14 @@
 
         //function for the add expenses
 
-        public function addExpenses($data , $category=''){
-            $this->db->query('INSERT INTO expenses (user_id,amount,description,status) VALUES(:id,:amount,:description,:status)');
+        public function addExpenses($data , $category='',$status='Not Paid'){
+            
+            $this->db->query('INSERT INTO expenses (user_id,amount,description,status,roomNo,reservation_id,order_id) VALUES(:id,:amount,:description,:status,:roomNo,(SELECT reservation_id FROM rooms WHERE roomNo=:roomNo ORDER BY reservation_id DESC LIMIT 1),)');
             $this->db->bind('id',$data["user_id"]);
             $this->db->bind('description',$category);
             $this->db->bind('amount',$data["price"]);
-       
-            $this->db->bind('status','Not Paid');
+            $this->db->bind('roomNo',$data["roomNo"]);
+            $this->db->bind('status',$status);
             
             if($this->db->execute()){
                 return true;

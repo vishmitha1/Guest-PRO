@@ -803,14 +803,23 @@
                 unset($_SESSION['schedule_order']);
 
                 $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
-                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
-
-
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data,'Paid')){
+                    // if($this->userModel->addExpenses($data,'Food Order','Paid')){
+                        // $_SESSION['toast_type']='success';
+                        // $_SESSION['toast_msg']='Order placed successfully.';
+                        // echo json_encode('Success');
+                    // }
+                    // else{
+                    //     $_SESSION['toast_type']='warning';
+                    //     $_SESSION['toast_msg']='Something went wrong when adding expensess .';
+                    //     echo json_encode('Warning');
+                    // }
                     $_SESSION['toast_type']='success';
-                    $_SESSION['toast_msg']='Order placed successfully.';
-                    echo json_encode('Success');
-                
+                        $_SESSION['toast_msg']='Order placed successfully.';
+                        echo json_encode('Success');
 
+
+                    
                 }
                 else{
                     $_SESSION['toast_type']='warning';
@@ -1083,6 +1092,18 @@
                 
 
             }
+        }
+
+
+
+
+        //customer payment
+        public function payments() {
+            $data = [
+                'user_id' => $_SESSION['user_id'],
+                'user_id_err' => ''
+            ];
+            $this->view('customers/v_payment', $data);
         }
 
         public function reviewwaiter(){
