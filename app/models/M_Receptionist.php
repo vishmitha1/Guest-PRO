@@ -371,7 +371,12 @@
             return $row;
         }
         
-
+        //give access part
+        public function getAllReservations(){
+            $this->db->query('SELECT * FROM reservations');
+            $row=$this->db->resultSet();
+            return $row;
+        }
 
 
 

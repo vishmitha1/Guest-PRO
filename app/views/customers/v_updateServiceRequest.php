@@ -51,16 +51,25 @@
                     </div>
                     <div class="input-box-block">
                     <lable class="material-symbols-outlined">Format_List_Bulleted</lable><span>Service Type</span> <br>
-                        <select name="category" id="category">
+                        <select name="service_type" id="category">
                             
-                            <option value="<?php echo $data[2]->category; ?>"><?php echo $data[2]->category; ?></option>
-                            <option value="Maintenance">Maintenance</option>
-                            <option value="Snack Refill">Snack Refill</option>
-                            <option value="Health and Wellness">Health and Wellness</option>
-                            <option value="Cleaning">Cleaning</option>
-                            <option value="Accessibility">Accessibility</option>
-                            <option value="Other">Other</option>
+                            <option value="<?php echo $data[2]->service_type; ?>"><?php echo $data[2]->service_type; ?></option>
+                            <select name="service_type" id="category"  >
+                            <option hidden value=''>Select One</option>
+                            <option value="Housekeeping Services">Housekeeping Services</option>
+                            <option value="Maintenance Services">Maintenance Services</option>
+                            <option value="Room Amenities">Room Amenities</option>
+                            <option value="Technical Support">Technical Support</option>
+                    
                         </select>
+                    </div>
+
+                    <div class="input-box-block">
+                    <lable class="material-symbols-outlined">Format_List_Bulleted</lable><span>Service Requested</span> <br>
+                        <select name="service_requested" id="selectedcategory" class="selectedcategory">
+                            <option value="<?php echo $data[2]->service_requested; ?>"><?php echo $data[2]->service_requested; ?></option>
+                        </select>
+                    
                     </div>
             </div>        
                 <div class="input-box">
@@ -100,17 +109,26 @@
             <div class="col col-4" data-label="CheckOut Date"><?php echo $item->status; ?></div>
             <div class="col col-5" data-label="Action">
                 
-                <form class="cancelRequest" id="<?php echo $item->request_id.'formId';?> " action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
-                    <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
-    
-                    <button type="submit" name="cancel-servicerequest"   ><i class='fa-solid fa-trash fa-lg'></i></button>
-                </form>
-
-                <form class="editRequest" action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
-                    <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
+                <?php if($item->status=='pending'){ ?>
                     
-                    <button type="submit" name="editServcieRequest" class="edit"   ><i class="fa-regular fa-pen-to-square"></i></button>
-                </form>
+                    <form class="cancelRequest" id="<?php echo $item->request_id.'formId';?> " action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
+                        <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
+        
+                        <button type="submit" name="cancel-servicerequest"   ><i class='fa-solid fa-trash fa-lg'></i></button>
+                    </form>
+
+                    <form class="editRequest" action="<?php echo URLROOT;?>/Customers/updateServiceRequests" method='POST' >
+                        <input type="hidden" name="request_id" value="<?php echo $item->request_id; ?>">
+                        
+                        <button type="submit" name="editServcieRequest" class="edit"   ><i class="fa-regular fa-pen-to-square"></i></button>
+                    </form>
+
+                <?php } 
+                else {?>
+
+                    Completed
+                <?php } ?>
+
             </div>
             </li>
             <?php } ?>
@@ -119,6 +137,28 @@
     </div>
     
  </div>
+
+
+ <script>
+    $(document).ready(function(){
+        var categoryElement=document.getElementById('selectedcategory');
+        categoryElement.addEventListener('click',function(){
+            var category=document.getElementById('category').value;
+            if(category=='Housekeeping Services'){
+                categoryElement.innerHTML="<option value='Room Cleaning'>Room Cleaning</option><option value='Changing Bed Sheets'>Changing Bed Sheets</option><option value='New Towels'>New Towels</option><option value='Refill Toiletries'>Refill Toiletries</option>";
+            }
+            else if(category=='Maintenance Services'){
+                categoryElement.innerHTML="<option value='Fixing Plumbing'>Fixing Plumbing</option><option value='Electrical Repairs'>Electrical Repairs</option><option value='AC Fixes'>AC Fixes</option><option value='Fixing Broken Furniture'>Fixing Broken Furniture</option>";
+            }
+            else if(category=='Room Amenities'){
+                categoryElement.innerHTML="<option value='Extra Pillows/Blankets'>Extra Pillows/Blankets</option><option value='Additional Hangers'>Additional Hangers</option><option value='Ironing Boards/Irons'>Ironing Boards/Irons</option>";
+            }
+            else if(category=='Technical Support'){
+                categoryElement.innerHTML="<option value='Wi-Fi Assistance'>Wi-Fi Assistance</option><option value='TV Support'>TV Support</option>";
+            }
+        });
+    });
+ </script>
 
 
 

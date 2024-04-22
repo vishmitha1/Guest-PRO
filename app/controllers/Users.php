@@ -85,7 +85,7 @@ class Users extends Controller
             $data = [
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
-                'user_id' => $_POST['id'],
+                // 'user_id' => $_POST['id'],
                 'email_err' => '',
                 'password_err' => ''
 
@@ -94,6 +94,10 @@ class Users extends Controller
             //validate email
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter email';
+                redirect('Users/login');
+
 
             } else {
                 //check email is exist or not
@@ -144,6 +148,9 @@ class Users extends Controller
 
             ];
             $this->view('users/v_login', $data);
+            if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
+                toastFlashMsg();
+            }
         }
     }
 
@@ -273,10 +280,16 @@ class Users extends Controller
     }
 
         else{
-            $data=$this->userModel->getProfileDetails($_SESSION['user_id']);
-            $this->view('includes/profile',$data);
-            if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
-                toastFlashMsg();
+            if(!isset($_SESSION['user_id'])){
+                redirect('Users/login');
+            }
+
+            else{
+                $data=$this->userModel->getProfileDetails($_SESSION['user_id']);
+                $this->view('includes/profile',$data);
+                if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                    toastFlashMsg();
+                }
             }
         }
 

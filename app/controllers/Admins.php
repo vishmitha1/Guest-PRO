@@ -2,25 +2,36 @@
 class Admins extends Controller
 {
     protected $staffModel;
+    protected $middleware;
 
     public function __construct()
     {
         // Load the model
         $this->staffModel = $this->model('M_Admins');
+
+        // Load middleware
+        $this->middleware = new AuthMiddleware();
+
+        // // Check if user is logged in
+        $this->middleware->checkAccess(['admin']);
     }
 
     public function dashboard()
     {
-        //$activeStaffAccountsCount = $this->staffModel->getActiveStaffAccountsCount();
+        $monthlyReservations = $this->staffModel->getMonthlyReservations();
         $totalCustomersRegistered = $this->staffModel->getTotalCustomersRegistered();
         $totalStaffMembersCount = $this->staffModel->getTotalStaffMembersCount();
-        //$activeCustomersCount = $this->staffModel->getActiveCustomersCount();
+        $monthlyFoodOrders = $this->staffModel->getMonthlyFoodOrders();
+        $reservationIncome = $this->staffModel->getTotalReservationIncome();
+        $foodOrderIncome = $this->staffModel->getTotalFoodOrderIncome();
 
         $data = [
-            //'activeStaffAccountsCount' => $activeStaffAccountsCount,
+            'monthlyReservations' => $monthlyReservations,
             'totalCustomersRegistered' => $totalCustomersRegistered,
             'totalStaffMembersCount' => $totalStaffMembersCount,
-            //'activeCustomersCount' => $activeCustomersCount
+            'monthlyFoodOrders' => $monthlyFoodOrders,
+            'reservationIncome' => $reservationIncome, 
+            'foodOrderIncome' => $foodOrderIncome
         ];
 
         // Check if 'activeStaffAccountsCount' is set in the $data array before passing it to the view
@@ -35,7 +46,6 @@ class Admins extends Controller
         $this->view('admins/v_dashboard', $data);
     }
 
-
     public function accountlogs()
     {
         // Get logs data from model
@@ -43,7 +53,6 @@ class Admins extends Controller
 
         $this->view('admins/v_accountlogs', $data);
     }
-
 
     public function create_staffaccounts()
     {
@@ -158,6 +167,27 @@ class Admins extends Controller
         }
     }
 
+    public function search_accountlogs()
+    {
+        // Check if the request method is GET and if the 'query' parameter is set in the URL
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query'])) {
+            // Sanitize the search query
+            $query = trim($_GET['query']);
+
+            // Call the model method to search for accountlogs
+            $data['logs'] = $this->staffModel->search_logsdetails($query);
+
+            // Set the "query" key in the $data array
+            $data['query'] = $query;
+
+            // Load the view with the filtered logs data
+            $this->view('admins/v_searchlogs', $data);
+        } else {
+            // Redirect to the accountlogs page if no search query is provided
+            redirect('Admins/accountlogs');
+        }
+    }
+
     public function staffaccounts()
     {
         // Get staff data from model
@@ -167,8 +197,36 @@ class Admins extends Controller
         $this->view('admins/v_staffaccounts', $data);
     }
 
-    public function generatereports()
-    {
-        $this->view('admins/v_generatereports');
+
+    public function generatereports(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'reportType' => trim($_POST['reportType']),
+                'startDate' => trim($_POST['startDate']),
+                'endDate' => trim($_POST['endDate']),
+            ];
+
+          
+            $report = $this->staffModel->generateReports($data);
+
+ 
+            if($report){
+                
+
+                $this->view('admins/v_reports', ['report' => $report]);
+            } else {
+                die('Failed to generate report');
+            }
+        } 
+        
+        else {
+
+            $this->view('admins/v_generatereports');
+        }
     }
+
+
 }

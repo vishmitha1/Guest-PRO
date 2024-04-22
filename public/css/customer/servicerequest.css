@@ -34,12 +34,22 @@
 }
 .serviceReq-container-wrapper .input-box-block{
     display:inline-block;
-    margin-right: 20%;
-
+    margin-right: 10%;
     margin-top: 20px;
     font-family: 'Josefin Sans';
     font-size: 20px;
 }
+.serviceReq-container-wrapper .input-box .selectedcategory{
+    width: 100%;
+    height: 30px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    font-family: 'poppins', sans-serif;
+
+}
+
 
 .serviceReq-container-wrapper .input-box select , .input-box-block select{
     width:max-content;

@@ -64,7 +64,8 @@ class M_Admins
     public function insert_staffdetails($data)
     {
         // Proceed with insertion
-        $this->db->query('INSERT INTO staffaccount(designation, staffName, phoneNumber, email, birthday, nicNumber,password) VALUES(:designation, :staffName, :phoneNumber, :email, :birthday, :nicNumber, :password)');
+        $this->db->query('INSERT INTO staffaccount(designation, staffName, phoneNumber, email, birthday, nicNumber, password) 
+                          VALUES(:designation, :staffName, :phoneNumber, :email, :birthday, :nicNumber, :password)');
         $this->db->bind(':designation', $data['designation']);
         $this->db->bind(':staffName', $data['staffName']);
         $this->db->bind(':phoneNumber', $data['phoneNumber']);
@@ -86,6 +87,74 @@ class M_Admins
         $this->db->bind('name', $name);
 
         return $this->db->execute();
+    }
+
+    /*public function getMonthlyReservationIncome()
+    {
+        $this->db->query("SELECT MONTH(date) AS month, SUM(cost) AS income 
+                          FROM reservations 
+                          WHERE YEAR(date) = YEAR(CURDATE()) 
+                          GROUP BY MONTH(date)");
+        return $this->db->resultSet();
+    }
+
+    public function getMonthlyFoodOrderIncome()
+    {
+        $this->db->query("SELECT MONTH(date) AS month, SUM(cost) AS income 
+                          FROM foodorders 
+                          WHERE YEAR(date) = YEAR(CURDATE()) 
+                          GROUP BY MONTH(date)");
+        return $this->db->resultSet();
+    }*/
+
+
+    public function getMonthlyReservations()
+    {
+        $currentMonth = date('m');
+        $currentYear = date('y');
+
+        $this->db->query('SELECT COUNT(*) AS total_reservations FROM reservations 
+                          WHERE MONTH(date) = :month AND YEAR(date) = :year');
+
+        $this->db->bind(':month', $currentMonth);
+        $this->db->bind(':year', $currentYear);
+
+        $row = $this->db->single();
+
+        return $row->total_reservations;
+
+    }
+
+    public function getMonthlyFoodOrders()
+    {
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        $this->db->query('SELECT COUNT(*) AS total_food_orders 
+                          FROM foodorders 
+                          WHERE MONTH(date) = :month AND YEAR(date) = :year');
+        
+        $this->db->bind(':month', $currentMonth);
+        $this->db->bind(':year', $currentYear);
+
+        $result = $this->db->single();
+
+        return $result->total_food_orders;
+    }
+
+
+    public function getTotalReservationIncome()
+    {
+        $this->db->query('SELECT SUM(cost) AS reservationIncome FROM reservations');
+        $row = $this->db->single();
+        return $row->reservationIncome;
+    }
+
+    public function getTotalFoodOrderIncome()
+    {
+        $this->db->query('SELECT SUM(cost) AS foodOrderIncome FROM foodorders');
+        $row = $this->db->single();
+        return $row->foodOrderIncome;
     }
 
     public function get_staffdetails()
@@ -113,7 +182,9 @@ class M_Admins
 
     public function update_staffdetails($data)
     {
-        $this->db->query('UPDATE staffaccount SET designation = :designation, staffName = :staffName, phoneNumber = :phoneNumber, email = :email, birthday = :birthday, nicNumber = :nicNumber WHERE staffID = :staffID');
+        $this->db->query('UPDATE staffaccount SET designation = :designation, staffName = :staffName, 
+                          phoneNumber = :phoneNumber, email = :email, 
+                          birthday = :birthday, nicNumber = :nicNumber WHERE staffID = :staffID');
         $this->db->bind(':staffID', $data['staffID']);
         $this->db->bind(':designation', $data['designation']);
         $this->db->bind(':staffName', $data['staffName']);
@@ -128,7 +199,20 @@ class M_Admins
     public function search_staffdetails($query)
     {
         // Prepare the query to search for staff accounts
-        $this->db->query("SELECT * FROM staffaccount WHERE staffID LIKE :query OR designation LIKE :query OR staffName LIKE :query OR phoneNumber LIKE :query OR email LIKE :query OR birthday LIKE :query OR nicNumber LIKE :query");
+        $this->db->query("SELECT * FROM staffaccount WHERE staffID LIKE :query OR designation LIKE :query 
+                          OR staffName LIKE :query OR phoneNumber LIKE :query OR email LIKE :query 
+                          OR birthday LIKE :query OR nicNumber LIKE :query");
+        $this->db->bind(':query', '%' . $query . '%');
+
+        // Execute the query and return the results
+        return $this->db->resultSet();
+    }
+
+    public function search_logsdetails($query)
+    {
+        // Prepare the query to search for accountlogs
+        $this->db->query("SELECT * FROM users WHERE id LIKE :query OR name LIKE :query OR role LIKE :query 
+                          OR last_login LIKE :query OR last_logout LIKE :query OR account_created LIKE :query");
         $this->db->bind(':query', '%' . $query . '%');
 
         // Execute the query and return the results

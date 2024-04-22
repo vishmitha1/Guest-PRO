@@ -120,7 +120,7 @@
             else{
                 $this->db->bind('address',$_SESSION['user_address']);
                 $this->db->bind('phone',$_SESSION['user_phone']);
-                $this->db->bind('customer_name',$_SESSION['username']);
+                $this->db->bind('customer_name',$_SESSION['name']);
                 $this->db->bind('email',$_SESSION['email']);
                
             }
@@ -222,7 +222,7 @@
 
         //This one use to retrive reservation details to reservation UI fill reservation hostory table
         public function retriveReservations($data){
-            $this->db->query("SELECT  (LENGTH(roomNo) - LENGTH(REPLACE(roomNo, ',', '')) + 1)AS roomcount ,reservation_id,checkIn,checkOut,roomNo FROM reservations WHERE user_id=:id LIMIT 5");
+            $this->db->query("SELECT  (LENGTH(roomNo) - LENGTH(REPLACE(roomNo, ',', '')) + 1)AS roomcount ,reservation_id,checkIn,checkOut,roomNo,checked FROM reservations WHERE user_id=:id LIMIT 5");
             $this->db->bind(':id',$data['user_id']);
             
             $row = $this->db->resultSet();
@@ -709,12 +709,14 @@
 
         //ServiceRequest
         public function placeserviceRequest($data){
-            $this->db->query('INSERT INTO servicerequests (roomNo,user_id,category,AddDetails,SpecDetails) VALUES(:roomNo,:id,:category,:AddDetails,:SpecDetails)');
+            $this->db->query('INSERT INTO servicerequests (roomNo,user_id,service_type,AddDetails,SpecDetails,status,service_requested) VALUES(:roomNo,:id,:category,:AddDetails,:SpecDetails,:status,:service_requested)');
             $this->db->bind('id',$data["user_id"]);
-            $this->db->bind('category',$data["category"]);
+            $this->db->bind('category',$data["service_type"]);
             $this->db->bind('AddDetails',$data["AddDetails"]);
             $this->db->bind('SpecDetails',$data["SpecDetails"]);
             $this->db->bind('roomNo',$data["roomNo"]);
+            $this->db->bind('status','pending');
+            $this->db->bind('service_requested',$data["service_requested"]);
             
             if($this->db->execute()){
                 return true;
@@ -759,13 +761,15 @@
 
         //update service request
         public function updateServiceRequest($data){
-            $this->db->query("UPDATE servicerequests SET roomNo=:roomNo, category=:category,AddDetails=:AddDetails,SpecDetails=:SpecDetails WHERE request_id=:req_id");
+            $this->db->query("UPDATE servicerequests SET roomNo=:roomNo, service_type=:category,AddDetails=:AddDetails,SpecDetails=:SpecDetails,status=:stat,service_requested=:service_requested WHERE request_id=:req_id");
          
-            $this->db->bind('category',$data["category"]);
+            $this->db->bind('category',$data["service_type"]);
             $this->db->bind('AddDetails',$data["AddDetails"]);
             $this->db->bind('SpecDetails',$data["SpecDetails"]);
             $this->db->bind('req_id',$data["request_id"]);
             $this->db->bind('roomNo',$data["roomNo"]);
+            $this->db->bind('stat','pending');
+            $this->db->bind('service_requested',$data["service_requested"]);
             
             if($this->db->execute()){
                 return true;

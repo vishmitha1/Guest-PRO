@@ -6,11 +6,11 @@
     <div class="update-staffaccounts-form">
         <h2>Update Account Details</h2>
             <form action="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $data['staffaccount']->staffID; ?>" method="POST">
-                <label for="staffID">User ID:</label>
+                <label for="staffID">Staff ID:</label>
                 <input type="text" id="staffID" name="staffID" value="<?php echo $data['staffaccount']->staffID;?>" readonly>
                 <label for="designation">Designation:</label>
                 <input type="text" id="designation" name="designation" value="<?php echo $data['staffaccount']->designation;?>" required>
-                <label for="staffName">Name:</label>
+                <label for="staffName">Full Name:</label>
                 <input type="text" id="staffName" name="staffName" value="<?php echo $data['staffaccount']->staffName;?>" required>
                 <label for="phoneNumber">Phone Number:</label>
                 <input type="text" id="phoneNumber" name="phoneNumber" value="<?php echo $data['staffaccount']->phoneNumber;?>" required>

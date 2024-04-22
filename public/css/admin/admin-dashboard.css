@@ -1,27 +1,61 @@
 .title-admindash h1{
     text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 10px;
+    margin-left:10px;
 }
 .admin-dashboard-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
-    gap: 20px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
 }
 
 .admin-stat {
-    background-color: #003366;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    justify-content: center;
+    margin: 0 20px;
+    width: 200px; /* Added fixed width */
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.admin-stat:hover {
+    transform: translateY(-5px);
 }
 
 .admin-stat h2 {
     margin-top: 0;
-    font-size: 20px;
-    color:  white;
+    font-size: 28px;
 }
 
 .admin-stat p {
     margin-bottom: 0;
-    font-size: 28px;
-    color:  white;
+    font-size: 15px;
+}
+ .admin-stat i {
+    font-size: 48px;
+    color: #002447;
+    margin-bottom: 10px;
+}
+
+.admindash-piechart {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px; /* Apply border-radius to give the container rounded corners */
+    margin-top: 20px;
+    margin-left: 20px;
+    max-height: 350px; /* Limit the maximum height of the container */
+    overflow-y: auto; /* Enable vertical scrolling if the content overflows the container height */
+    width: 450px;
+}
+
+.admindash-piechart h3 {
+    text-align: center;
 }
