@@ -358,6 +358,16 @@
         }
 
 
+        //reservation row count eka gannawa.eka 5ta wediya wedi name paynow option eka witarai UI eke denne
+        public function reservationCount($id){
+            $this->db->query("SELECT COUNT(*) as count FROM reservations WHERE user_id=:id ");
+            $this->db->bind(':id',$id);
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+
 
 
 

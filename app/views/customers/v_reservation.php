@@ -42,50 +42,6 @@
     <div class="search-result">
         <div id="roomListContainer" class="result-component">
             
-        <!-- <div class="search-result-container">
-            <div class="result-component-wrapper">
-                <div class="room-img">
-                    <img src="<?php echo URLROOT;?>/public/img/rooms/room1.jpg" alt="">
-                 </div>   
-                <div class="room-details">
-                        <div class="room-type">name</div>
-
-                        <div class="room-functions">
-                            <div><span class="material-symbols-outlined">hot_tub</span><span class="function-name"> Hot tab</span></div>
-                            
-                            <div><i class="fa-solid fa-sink"></i><span class="function-name"> Lavish Bathroom</span></div>
-                            <div> <i class="fa-solid fa-vector-square"></i><span class="function-name"> 250ft<sup>2</sup> </span></div>
-                           <div> <i class="fa-solid fa-bed-pulse"></i><span class="function-name"> Premium King Bed</span></div>
-                           
-                            
-                        </div>
-                        <div class="room-intend">
-                            <div><i class="fa-solid fa-check "></i><span class="intend-name"> Mini Bar</span><br></div>
-                            <div><i class="fa-solid fa-check "></i><span class="intend-name"> AC</span><br></div>
-                            <div><i class="fa-solid fa-check "></i><span class="intend-name"> Balcony</span><br></div>
-                            <div><i class="fa-solid fa-check "></i><span class="intend-name"> Kitchenette</span><br></div>
-                            <div><i class="fa-solid fa-check "></i><span class="intend-name"> Soundproofed</span><br></div>
-                            
-                        </div>
-                        <div class="room-reviews">
-                            <button>1250 reveiws</button>
-                            
-                        </div>
-                        
-                    
-                        <div class="more-details">
-                            
-                                <div class="room-price" >2500LKR</div>
-                            
-                            <a onclick="togglePopup()" >More details ❯</a>
-                        </div>
-
-
-                    </div>
-                
-                
-            </div>
-        </div>     -->
             
         </div>
 
@@ -761,8 +717,14 @@
                         <form action='<?php echo URLROOT; ?>/Customers/reservation' method='POST'>
                             <span class="title">Reservation options</span>
                             <div class="payment-type">
+                            <?php if($data[2]->count <5  ){?>
                                 <label class="rd-btn" ><input type="radio" name='payment-radio' value="paynow"> Pay Now</label><br>
                                 <label class="rd-btn"><input type="radio" name='payment-radio' value="paylater"> Pay at property</label>
+                            <?php }
+                            else{?>
+                                <label class="rd-btn" ><input type="radio" name='payment-radio' value="paynow" checked > Pay Now</label><br>
+                                <label class="rd-btn"><input type="radio" name='payment-radio' value="paylater" disabled> Pay at property</label>
+                            <?php }?>
                             </div>
 
                             <div class="payment-content">

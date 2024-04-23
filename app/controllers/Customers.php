@@ -186,7 +186,7 @@
                     
                 ];
 
-                $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $data]);
+                $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $data,$this->userModel->reservationCount($_SESSION['user_id'])]);
                 
                 
             }
@@ -287,7 +287,7 @@
                         //initilze empty date array. this array fill only when updating the reservation 
                         $dates=[];
 
-                         $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates]);
+                         $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates,$this->userModel->reservationCount($_SESSION['user_id'])]);
                          if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                             toastFlashMsg();
                         }
