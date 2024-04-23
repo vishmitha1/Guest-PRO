@@ -7,49 +7,55 @@
             $this->db = new Database;
         }
 
-        
-        public function getRows(){ 
-            $this->db->query("SELECT * FROM servicerequests WHERE DATE(date) = :dt");
-            $today = DATE('Y-m-d');
-            // echo( $today);
-            // die();
-            $this->db->bind(':dt' , $today);
+        //service requests
 
-            if($this->db->execute()){
-                $row = $this->db->resultSet();
-                $row = array_reverse($row);
-                return $row;
-            }
-            else{
-                return false;         
-            }
-        }
+        //retrieve
 
-        public function changeStatus($id){
-            $this->db->query("SELECT status FROM servicerequests WHERE request_id = :id");
-            $this->db->bind(':id' , $id);
-            $data = $this->db->resultset();
+        public function getAllServiceRequests(){
+            $currentDate = date("Y-m-d"); // Get today's date
             
-            if($this->db->execute()){
-                $data = $this->db->resultset();
-
-                if($data[0]->status=='0'){
-                    // echo($data[0]->status);
-                    $this->db->query("UPDATE servicerequests SET status = :stat WHERE request_id = :id");
-                    $this->db->bind(':id' , $id);
-                    $this->db->bind(':stat' , '1');
-                    $this->db->execute();
-                }else{
-                    // echo($data[0]->status);
-                    $this->db->query("UPDATE servicerequests SET status = :stat WHERE request_id = :id");
-                    $this->db->bind(':id' , $id);
-                    $this->db->bind(':stat' , '0');
-                    $this->db->execute();
-                }
-            }else{
-                return false;
-            }
+            // Assuming $this->db->query and $this->db->bind are methods to execute SQL queries.
+            // Modify the query to filter results based on the current date.
+            $this->db->query("SELECT * FROM servicerequests WHERE DATE(date) = :currentDate AND (status = 'Pending' OR status = 'Completed') ORDER BY date");
+            $this->db->bind(':currentDate', $currentDate);
+            
+            // Assuming $this->db->resultset() fetches the results.
+            $servicerequests = $this->db->resultset();
+            
+            return $servicerequests;
         }
+
+        //update
+
+
+        public function changeServiceRequestStatus($id) {
+            $query = "UPDATE servicerequests SET `status` = 'completed' WHERE request_id = :id";
+            $this->db->query($query);
+            $this->db->bind(':id', $id);
+            $this->db->execute();
+        }
+
+        //cancel
+        public function cancelServiceRequest($id, $reason) {
+            $query = "UPDATE servicerequests SET `status` = 'canceled', `cancellation_reason` = :reason WHERE request_id = :id";
+            $this->db->query($query);
+            $this->db->bind(':id', $id);
+            $this->db->bind(':reason', $reason); // bind the cancellation reason
+            $this->db->execute();
+        }
+
+
+
+
+
+        
+
+        
+        
+
+        
+
+         //cleaning status
 
         public function getRooms(){
             $this->db->query("SELECT roomNo FROM rooms");
@@ -67,7 +73,7 @@
         }
 
 
-        //cleaning status
+       
         public function updateRoomStatus($room_number, $status) {
             $this->db->query("UPDATE rooms SET status = :status WHERE room_number = :room_number");
             $this->db->bind(':room_number', $room_number);

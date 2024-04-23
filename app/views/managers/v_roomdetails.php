@@ -15,32 +15,53 @@
         </div>
 
 
-
         <br></br>
-        <!-- Search bar -->
-        <div class="search-bar">
-            <!-- Filter options -->
+
+
+        <!-- Filter options -->
+        <form action="<?php echo URLROOT; ?>/Managers/applyFilters" method="post">
             <div class="filter-options">
-                <label for="category">Category:</label>
-                <input type="text" id="categoryFilter" name="category">
+                <div class="filter-box">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="">select</option>
+                        <?php foreach ($data['roomTypes'] as $roomType): ?>
+                            <option value="<?php echo $roomType->category; ?>">
+                                <?php echo $roomType->category; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="filter-box">
+                    <label for="price"> Max-Price</label>
+                    <input type="text" id="pricefilter" name="price">
+                </div>
+                <div class="filter-box">
+                    <label for="roomNo">Room Number</label>
+                    <input type="text" id="roomNoFilter" name="roomNo">
+                </div>
+                <div class="filter-box">
+                    <label for="availability">Availability</label>
+                    <select id="availabilityFilter" name="availability">
+                        <option value="">select</option>
+                        <option value="Available">Available</option>
+                        <option value="Booked">Booked</option>
+                    </select>
 
-                <label for="price">Price:</label>
-                <input type="text" id="priceFilter" name="price">
 
-                <label for="roomNo">Room Number:</label>
-                <input type="text" id="roomNoFilter" name="roomNo">
+                </div>
+                <div class="filter-box">
+                    <form action="<?php echo URLROOT; ?>/Managers/applyFilters" method="post">
+                        <button type="submit">Apply</button>
+                    </form>
+                    <form action="<?php echo URLROOT; ?>/Managers/resetFilters" method="post">
+                        <button type="submit">Reset</button>
+                    </form>
+                </div>
 
-                <label for="availability">Availability:</label>
-                <select id="availabilityFilter" name="availability">
-                    <option value=""> </option>
-                    <option value="Available">Available</option>
-                    <option value="Booked">Booked</option>
-                </select>
-
-                <button onclick="applyFilters()">Apply Filters</button>
-                <button onclick="resetFilters()">Reset Filters</button>
             </div>
-        </div>
+        </form>
+
 
 
 
@@ -124,19 +145,8 @@
 </div>
 
 <script>
-    function searchRooms() {
-
-    }
-
-    // function confirmDelete(roomNo) {
-    //     if (confirm('Are you sure you want to delete this room ?')) {
-    //         window.location.href = "<?php echo URLROOT; ?>/Managers/deleteRoom/" + roomNo;
-    //     }
-    // }
 
 
-
-    23
     // Get the modal element
     var modal = document.getElementById("deleteModal");
 

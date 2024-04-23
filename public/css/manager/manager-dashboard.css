@@ -1,13 +1,15 @@
-
 .overview-section {
     margin-bottom: 20px; /* Add some space below the section */
-    background-color: aliceblue;
+    background-color:  #fff;
     padding: 1px 5px 5px 5px;
     border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
     flex-shrink: 0;
     max-height: 300px;
-    min-width: 550px;
+    min-width: 500px;
     justify-content: space-between;
+
 }
 
 .overview-heading {
@@ -177,24 +179,25 @@
 }
 
 .overview-section-2 {
-    margin-bottom: 20px;
-    margin-left: 10px; /* Add some space below the section */
-    background-color: aliceblue;
+    margin-bottom: 20px; /* Add some space below the section */
+    background-color:  #fff;
     padding: 1px 5px 5px 5px;
     border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
     flex-shrink: 0;
-    max-height: 200px;
-    min-width: 550px;
+    max-height: 300px;
+    min-width: 200px;
     justify-content: space-between;
-
 }
 
 .overview-piechart {
-    background-color: #f0f0f0; /* Set your desired background color */
+    background-color: #fff; /* Set your desired background color */
     padding: 30px; /* Add padding to create space around the chart */
     border-radius: 10px;
     margin-left: 10px;
     max-height: 400px; /* Limit the maximum height */
     overflow-y: auto; /* Add vertical scroll if content exceeds max-height */
     width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
