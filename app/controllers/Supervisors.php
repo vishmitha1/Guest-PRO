@@ -14,10 +14,25 @@
             $this->middleware->checkAccess(['supervisor']);
         }
 
+        //dashboard
+
         public function dashboard(){
-            $data =[  ];
+            $data = [];
+        
+        
+           
             $this->view('supervisors/v_dashboard', $data);
         }
+
+        // Get service request chart data based on filter
+        public function getServiceRequestChartData($filter) {
+            $data = [];
+            // Assuming $this->m_supervisor is an instance of the model class.
+            $serviceRequestChartData = $this->m_supervisor->getServiceRequestCountsByType($filter);
+            // Send the data as JSON response
+            echo json_encode($serviceRequestChartData);
+        }
+        
 
  
         public function index(){
@@ -111,6 +126,9 @@
             echo json_encode($data);
             exit();
         }
+
+        
+
 
 
 

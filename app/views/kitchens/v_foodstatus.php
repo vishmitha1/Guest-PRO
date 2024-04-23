@@ -31,46 +31,45 @@ echo '<div class="dashboard">
             </thead>
             <tbody>';
 
-            foreach ($data['orders'] as $order) {
-                echo '<tr data-status="' . $order->status . '">
-                        <td>' . $order->order_id . '</td>
-                        <td>' . $order->roomNo . '</td>
-                        <td>' . $order->item_name . '</td>
-                        <td>' . $order->quantity . '</td>
-                        <td>' . $order->delivery_time . '</td>
-                        <td>' . $order->note . '</td>
-                        <td class="status-button-container">';
-            
-                $statusText = '';
-                switch ($order->status) {
-                    case 'placed':
-                        $statusText = 'Placed';
-                        break;
-                    case 'preparing':
-                        $statusText = 'Preparing';
-                        break;
-                    case 'ready':
-                        $statusText = 'Ready';
-                        break;
-                    default:
-                        $statusText = '';
-                        break;
-                }
-            
-                echo '<button class="status-button ' . $order->status . '" onclick="toggleOrderStatus(this, \'' . $order->order_id . '\')">' . $statusText . '</button>
-                    </td>
-                    <td class="status-button-container">';
-            
-                if ($order->status == 'placed') {
-                    echo '<button class="status-button" onclick="openCancelModal(\'' . $order->order_id . '\')">Cancel</button>';
-                } else {
-                    echo '<button class="status-button" disabled>Cancel</button>';
-                }
-            
-                echo '</td>
-                    </tr>';
-            }
-            
+foreach ($data['orders'] as $order) {
+    echo '<tr data-status="' . $order->status . '">
+            <td>' . $order->order_id . '</td>
+            <td>' . $order->roomNo . '</td>
+            <td>' . $order->item_name . '</td>
+            <td>' . $order->quantity . '</td>
+            <td>' . $order->delivery_time . '</td>
+            <td>' . $order->note . '</td>
+            <td class="status-button-container">';
+
+    $statusText = '';
+    switch ($order->status) {
+        case 'placed':
+            $statusText = 'Placed';
+            break;
+        case 'preparing':
+            $statusText = 'Preparing';
+            break;
+        case 'ready':
+            $statusText = 'Ready';
+            break;
+        default:
+            $statusText = '';
+            break;
+    }
+
+    echo '<button class="status-button ' . $order->status . '" onclick="toggleOrderStatus(this, \'' . $order->order_id . '\')">' . $statusText . '</button>
+                </td>
+                <td class="status-button-container">';
+
+    if ($order->status == 'placed') {
+        echo '<button class="status-button" onclick="openCancelModal(\'' . $order->order_id . '\')">Cancel</button>';
+    } else {
+        echo '<button class="status-button" disabled>Cancel</button>';
+    }
+
+    echo '</td>
+        </tr>';
+}
 
 echo '</tbody>
     </table>
@@ -88,6 +87,8 @@ echo '</tbody>
     </div>
 </div>
 
+<!-- SweetAlert2 library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // JavaScript for filtering food orders based on floor and status
     function filterOrders() {
@@ -124,38 +125,52 @@ echo '</tbody>
 
         if (currentStatus === 'placed') {
             newStatus = 'Preparing';
+            var confirmationMessage = 'Are you sure you want to change the status of this order to "Preparing"?';
         } else if (currentStatus === 'preparing') {
             newStatus = 'Ready';
+            var confirmationMessage = 'Are you sure you want to change the status of this order to "Ready"?';
         } else {
             return; // If the current status is 'Ready' or any other value, do nothing
         }
 
-        button.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1).toLowerCase();
-        button.classList.remove(currentStatus.toLowerCase());
-        button.classList.add(newStatus.toLowerCase());
+        // Display confirmation dialog with SweetAlert
+        Swal.fire({
+            title: 'Confirmation',
+            text: confirmationMessage,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If user confirms, proceed with changing status
+                button.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1).toLowerCase();
+                button.classList.remove(currentStatus.toLowerCase());
+                button.classList.add(newStatus.toLowerCase());
 
-        const base_url = window.location.origin;
-        const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus/${orderId}/${newStatus.toLowerCase()}`;
+                const base_url = window.location.origin;
+                const apiUrl = `${base_url}/GuestPro/kitchen/changeStatus/${orderId}/${newStatus.toLowerCase()}`;
 
-        fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                location.reload();
-                // You can handle success response here if needed
-            })
-            .catch(error => {
-                console.error('There was a problem with your fetch operation:', error);
-            });
+                fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        location.reload();
+                        // You can handle success response here if needed
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with your fetch operation:', error);
+                    });
+            }
+        });
     }
-
-    
 
     function openCancelModal(orderId) {
         var modal = document.getElementById("cancelModal");
@@ -168,29 +183,42 @@ echo '</tbody>
         modal.style.display = "none";
     }
 
-
     function submitCancellation() {
         var cancelReason = document.getElementById("cancelReason").value;
         var orderId = document.getElementById("cancelModal").getAttribute("data-orderId");
 
-        const base_url = window.location.origin;
-        const apiUrl = `${base_url}/GuestPro/kitchen/cancelOrder/${orderId}/${cancelReason}`;
+        // Display confirmation dialog with SweetAlert
+        Swal.fire({
+            title: 'Cancel Order',
+            text: 'Are you sure you want to cancel this order?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, cancel it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Proceed with cancellation
+                const base_url = window.location.origin;
+                const apiUrl = `${base_url}/GuestPro/kitchen/cancelOrder/${orderId}/${cancelReason}`;
 
-        fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                location.reload();
-                // You can handle success response here if needed
-            })
-            .catch(error => {
-                console.error('There was a problem with your fetch operation:', error);
-            });
+                fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        location.reload();
+                        // You can handle success response here if needed
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with your fetch operation:', error);
+                    });
+            }
+        });
     }
 </script>
