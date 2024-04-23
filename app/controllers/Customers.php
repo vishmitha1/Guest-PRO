@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
     class Customers extends Controller{
         protected $userModel;
         protected $middleware;
@@ -922,7 +925,7 @@
        
 
 
-        //servicerequest
+        //servicerequest part
         public function serviceRequest(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
@@ -944,16 +947,22 @@
 
                 ];
 
-                //validate each input
+                // die($data['roomNo']); 
+                if(($data['roomNo'])===''){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a room.';
+                    redirect('Customers/serviceRequest');
+                }
                 
-                if(empty($data['service_type'])){
+            
+                elseif(($data['service_type'])===''){
                     $data['service_type_err'] = 'Please Select a service_type';
                     $_SESSION['toast_type']='warning';
                     $_SESSION['toast_msg']='Please Select a  Service service_type';
                     redirect('Customers/serviceRequest');
                 }
 
-                if(empty($data['service_requested'])){
+                elseif(($data['service_requested'])===''){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please Select a Service';
                     redirect('Customers/serviceRequest');
@@ -961,16 +970,18 @@
 
 
                 //check user id
-                if(empty($data['user_id'])){
+                elseif(empty($data['user_id'])){
                     $data['user_id_err'] = 'No User';
                     $_SESSION['toast_type']='question';
                     $_SESSION['toast_msg']='Please Try Again. ';
                     redirect('Customers/serviceRequest');
                 }
 
-                if(empty($data['roomNo'])){
+              
+
+                elseif($this->userModel->isCustomerCheckedIn($data)){
                     $_SESSION['toast_type']='error';
-                    $_SESSION['toast_msg']='Plese Select a Room. ';
+                    $_SESSION['toast_msg']='You are not checked in. Please check in to place a service request.';
                     redirect('Customers/serviceRequest');
                 }
                
@@ -978,10 +989,8 @@
                 
 
                 //validation is completed and no erros
-                if(empty( $data['service_type_err']) && empty( $data['AddDetails_err']) && empty( $data['user_id_err'])  ){
+                else{
                     
-
-                   
             
                     if($this->userModel->placeserviceRequest($data)){
                         
@@ -992,7 +1001,7 @@
                         
 
                         $_SESSION['toast_type']='success';
-                        $_SESSION['toast_msg']='Service request placed successfully.';
+                        $_SESSION['toast_msg']='Service request placed successfully .';
                         redirect('Customers/serviceRequest');
 
                     }
@@ -1002,9 +1011,7 @@
                     }
 
                 }
-                else{
-                    redirect('Customers/serviceRequest');
-                }
+                
 
             }
             else{
