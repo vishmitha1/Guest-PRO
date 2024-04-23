@@ -407,7 +407,7 @@
 
 
 
-        //Food order part''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        //Foodorder part''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         //load food menu and add items in to the cart
         //and also this one use ajax to retrive data
@@ -452,9 +452,10 @@
                     
                 }
                 
+                
 
                 //validation is completed and no erros
-                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) && empty( $data['quantity_err']) ){
+                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) && empty( $data['quantity_err']) && $data['quantity']>0 ){
                     
                     
 
@@ -491,7 +492,7 @@
 
                 }
                 else{
-                    $output=['error','Enter Quantity before add.'];
+                    $output=['error','Enter Valid Quantity'];
                     header('Content-Type: application/json');
                     echo json_encode($output);
                 }

@@ -378,8 +378,8 @@
 
         //Load food menu to food order UI
         public function loadfoodmenu(){
-            $this->db->query("SELECT * FROM fooditems ");
-            
+            $this->db->query("SELECT * FROM fooditems where status=:stat");
+            $this->db->bind(':stat',1);
             $row = $this->db->resultSet();
             
             return $row;
