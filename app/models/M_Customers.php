@@ -99,7 +99,7 @@
 
         //function for the place reservation
         public function placereservation($data){
-            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo,cost,email,customer_name,phone,nic,address) VALUES(:id,:indate,:outdate,:roomNo,:cost, :email, :customer_name, :phone, :nic, :address)');
+            $this->db->query('INSERT INTO reservations (user_id,checkIn,checkOut,roomNo,cost,email,customer_name,phone,nic,address,payment) VALUES(:id,:indate,:outdate,:roomNo,:cost, :email, :customer_name, :phone, :nic, :address,:payment)');
             $this->db->bind('id',$data["user_id"]);
             $this->db->bind('indate',$data["indate"]);
             $this->db->bind('outdate',$data["outdate"]);
@@ -113,7 +113,7 @@
                 $this->db->bind('phone',$data["customer_phone"]);
                 $this->db->bind('customer_name',$data["customer_name"]);
                 $this->db->bind('email',$data["customer_email"]);
-                echo "email";
+               
             
             }
 
@@ -123,6 +123,13 @@
                 $this->db->bind('customer_name',$_SESSION['name']);
                 $this->db->bind('email',$_SESSION['email']);
                
+            }
+
+            if(isset($data['payment'])){
+                $this->db->bind('payment',$data['payment']);
+            }
+            else{
+                $this->db->bind('payment','Not Paid');
             }
             
 

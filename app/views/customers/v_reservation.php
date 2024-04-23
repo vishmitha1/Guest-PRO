@@ -205,6 +205,7 @@
                         var price,nights,rooms,roomnumber,popupID,dyID;
                         var BedroomAmentitiesList,BathroomAmentitiesList,FurnitureAmentitiesList,EntertainmentAmentitiesList,AdditionalAmentitiesList; 
                         var intend1,Intend2,Intend3,Intend4,Intend5;
+                        var reveiws;
                         
                         // ... your existing HTML structure for room details ...
 
@@ -221,6 +222,7 @@
                             
                             
                             if(item.category=='Deluxe Room'){
+                                reveiws=1250;
                                 fun1Img="fa-bath"
                                 fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
@@ -283,6 +285,7 @@
                                                 `; 
                             }
                             else if(item.category=='Standard Room'){
+                                reveiws=432;
                                 fun1Img="fa-shower"
                                 fun2Img="fa-toilet"
                                 fun3Img="fa-vector-square"
@@ -344,6 +347,7 @@
                                                 `; 
                             }
                             else if(item.category=='Executive Suite'){
+                                reveiws=119;
                                 fun1Img="fa-bath"
                                 fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
@@ -409,6 +413,7 @@
                                                 `; 
                             }
                             else if(item.category=='Family Room'){
+                                reveiws=432;
                                 fun1Img="fa-bath"
                                 fun2Img="fa-toilet"
                                 fun3Img="fa-vector-square"
@@ -471,6 +476,7 @@
                                 
                             }
                             else if(item.category=='Presidential Suite'){
+                                reveiws=98;
                                 fun1Img="fa-bath"
                                 fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
@@ -539,6 +545,7 @@
                                                 `;
                             }
                             else{
+                                reveiws=0;
                                 fun1Img="fa-shower"
                                 fun2Img="fa-toilet"
                                 fun3Img="fa-vector-square"
@@ -626,7 +633,7 @@
                                     
                                 </div>
                                 <div class="room-reviews">
-                                    <button>1250 reveiws</button>
+                                    <button>`+reveiws+` reveiws</button>
                                     
                                 </div>
                                 

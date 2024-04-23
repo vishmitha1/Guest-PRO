@@ -133,6 +133,7 @@ use function PHPSTORM_META\type;
                         'roomcount' => trim($_POST['roomcount']),
                         'roomNo' => trim($_POST['roomno']),
                         'price' => trim($_POST['price']),
+                        'payment'=>'Paid',
 
                         'user_id_err'=>'',
                         'payment_type_err' => '',
@@ -148,11 +149,48 @@ use function PHPSTORM_META\type;
                         redirect("Customers/reservation");
                     }
                     if(empty($data['payment_type_err'])){
-                        if($data['payment_type']=='paynow'){
-                            $this->view('v_test',$data);
-                            echo("Payment gateway");
-                            print_r($data);
+                        if($data['payment_type']=='paynow' && isset($_POST['reserve-for-others'])){
+                            $_SESSION['reserv_others']=$data;
+                            $this->view("customers/v_reservForOthers",$arr=[]);
                         }
+                        elseif($data['payment_type']=='paynow' ){
+                            $_SESSION['customerReservation']=$data;
+                            $merchant_secret="MzIzODIxMTg4NjcxNTM0NTA5ODE4NzI5OTU5MjEzMDYyNjMyNTc1";
+                            $currency='LKR';
+                            $merchant_id='1226068';
+                            $amount=$data['price'];
+                            $order_id='10';
+
+                            $hash = strtoupper(
+                                md5(
+                                    $merchant_id . 
+                                    $order_id . 
+                                    number_format($amount, 2, '.', '') . 
+                                    $currency .  
+                                    strtoupper(md5($merchant_secret)) 
+                                ) 
+                            );
+                            $output=[
+
+                                'merchant_id'=>$merchant_id,
+                                'order_id'=>$order_id,
+                                'amount'=>$amount,
+                                'currency'=>$currency,
+                                'hash'=>$hash,
+                                'first_name'=>$_SESSION['name'],
+                                'last_name'=>'',
+                                'email'=>$_SESSION['email'],
+                                'phone'=>'',
+                                'address'=>'',
+                                'city'=>'',
+                                'country'=>'',
+                                'items'=>'Room Reservation',
+
+                            ];
+                            $this->view('paymentGateways/v_customerReservationPaymentGateway',$output);
+                            
+                        } 
+                        
                         elseif($data['payment_type']=='paylater'){
 
                             if(isset($_POST['reserve-for-others'])){
@@ -305,6 +343,51 @@ use function PHPSTORM_META\type;
             }
            
         }
+
+
+        //place reservation withpayment
+        // public function reservationPayment(){
+
+        //     $data=$_SESSION['customerReservation'];
+            
+        //     if($this->userModel->placereservation($data)){
+        //         $_SESSION['toast_type']='success';
+        //         $_SESSION['toast_msg']='Reservation placed successfully.';
+        //         redirect("Customers/reservation");
+        //         unset($_SESSION['customerReservation']);
+        //         // sendEmail($_SESSION['email'],'visal');
+        //     }
+        //     else{
+        //         $_SESSION['toast_type']='error';
+        //         $_SESSION['toast_msg']='Something went wrong. Please try again.';
+        //         redirect("Customers/reservation");
+        //         // unset($_SESSION['customerReservation']);
+        //     }
+
+        // }
+        public function reservationPayment(){
+            if(isset($_SESSION['customerReservation'])) {
+                $data = $_SESSION['customerReservation'];
+                unset($_SESSION['customerReservation']); 
+
+                if($this->userModel->placereservation($data)){
+                    $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'Reservation placed successfully.';
+               
+                    echo json_encode('Success');
+                } else {
+                    $_SESSION['toast_type'] = 'error';
+                    $_SESSION['toast_msg'] = 'Something went wrong. Please try again.';
+                }
+            } else {
+                // Handle case where $_SESSION['customerReservation'] is not set
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Reservation data not found.';
+            }
+        
+        
+        }
+        
 
 
         //place reservation for others
@@ -777,7 +860,7 @@ use function PHPSTORM_META\type;
                             'items'=>'Food Order',
 
                         ];
-                        $this->view('customers/v_paymentGateway',$output);
+                        $this->view('paymentGateways/v_customerFoodorderPaymentGateway',$output);
                     
                     }
 
