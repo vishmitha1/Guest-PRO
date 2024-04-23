@@ -10,8 +10,8 @@
         <button class="filter-button show-all-orders" onclick="showAllOrders()">Show All Orders</button>
     </div>
     <div class="orders-container">
-        <?php foreach($data['orders'] as $index => $order): ?>
-            <div class="order-box <?php echo $order->status === 'ontheway' && $index === 0 ? 'selected delivered' : ''; ?>" data-orderid="<?php echo $order->order_id; ?>" onclick="selectOrder(this, '<?php echo $order->order_id; ?>')">
+        <?php foreach($data['orders'] as $order): ?>
+            <div class="order-box <?php echo $order->status === 'ontheway' ? 'selected delivered' : ''; ?>" data-orderid="<?php echo $order->order_id; ?>" onclick="selectOrder(this, '<?php echo $order->order_id; ?>')">
                 <div class="room-number"><strong>Room <?php echo $order->roomNo; ?></strong></div>
                 <div class="order-info">
                     <p><strong>Order No:</strong><?php echo $order->order_id; ?></p>
@@ -33,18 +33,9 @@
     <div class="clear"></div>
     <script>
         function selectOrder(clickedOrderBox, orderId) {
-            if (clickedOrderBox === document.querySelector('.order-box')) {
-                // Deselect all other order boxes
-                var orderBoxes = document.querySelectorAll('.order-box');
-                orderBoxes.forEach(function(orderBox) {
-                    if (orderBox !== clickedOrderBox) {
-                        orderBox.classList.remove('selected');
-                        var deliveredCheckbox = orderBox.querySelector('.delivered-checkbox');
-                        deliveredCheckbox.style.display = 'none';
-                    }
-                });
-
-                // Select the clicked order box
+            var selectedOrderBox = document.querySelector('.order-box.selected');
+            if (!selectedOrderBox) {
+                // No order box is currently selected, so select the clicked one
                 clickedOrderBox.classList.add('selected');
 
                 // Show the 'Delivered' checkbox
@@ -72,6 +63,7 @@
                     // Handle errors
                 });
             }
+            // If an order box is already selected, do nothing
         }
 
         function markAsDelivered(event, orderId) {
@@ -94,6 +86,7 @@
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
+                    location.reload();
                     // Parse JSON response
                     return response.json();
                 })
