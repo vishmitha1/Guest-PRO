@@ -1,21 +1,59 @@
-.title-generate_reports h1 {
+/* Styles for the title of the reports */
+.title-reports h1 {
     text-align: center;
 }
 
-.report-types {
-    margin-top: 20px;
+/* Styles for the generate report section */
+.generate-report {
+    margin-top: 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    justify-content: center;
+   
 }
 
-.report-type {
-    background-color: #003366;
-    color: #ffffff;
-    padding: 10px;
-    text-align: center;
-    margin-bottom: 10px;
+.generate-report form {
+    border: 1px solid #ccc;
     border-radius: 5px;
+    padding: 70px;
+    background-color: #f9f9f9;
+}
+
+/* Styles for form groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Form input styles */
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Submit button styles */
+.generatereports-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.report-type:hover {
+.generatereports-btn:hover {
     background-color: #002447;
+}
+
+/* Additional form group styles */
+#room_report,
+#reservation_report,
+#income_report,
+#food_orders {
+    display: none;
 }
