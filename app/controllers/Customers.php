@@ -251,9 +251,6 @@
 
                         elseif($output=$this->userModel->checkroomavailability($data) ){
                            
-                                // $this->view('v_test', $this->userModel->checkroomavailability($data));
-                                // print_r($this->userModel->checkroomavailability($data));
-                                // $this->view('customers/v_reservation', $this->userModel->checkroomavailability($data));
                                 // Clear output buffer
                                 foreach ($output as $item){
                                     $item->roomNo = explode(',', $item->roomNo);
@@ -265,10 +262,8 @@
                         }
                         else{
                             
-                            $error_Msg='No Any room available';
-                            $_SESSION['toast_type']='error';
-                            $_SESSION['toast_msg']='No Any room available';
-                            redirect("Customers/reservation");
+                           header('Content-Type: application/json');
+                            echo json_encode('No rooms available');
                         }
                         
                         
