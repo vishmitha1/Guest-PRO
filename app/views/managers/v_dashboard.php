@@ -5,7 +5,7 @@
 
 <div class="home">
     <div class="manager-page">
-        <h1>Dashboard</h1>
+        <h1 style="text-align: left; color: #003366;">Dashboard</h1>
 
         <div class="overview-section">
             <h2 class="overview-heading">Occupancy Overview</h2>
@@ -60,7 +60,7 @@
 
 
         <div class="overview-box">
-            <div class="overview-section">
+            <div class="overview-section-2">
                 <h2 class="overview-heading">Guests Overview</h2>
                 <div class="overview-row">
                     <div class="overview-item">
@@ -173,7 +173,7 @@
         </div>
 
         <div class="overview-box">
-            <div class="overview-section">
+            <div class="overview-section-2">
                 <h2 class="overview-heading">Kitchen Overview</h2>
                 <div class="overview-row">
                     <div class="overview-item">

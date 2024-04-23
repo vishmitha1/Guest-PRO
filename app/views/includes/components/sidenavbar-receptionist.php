@@ -9,7 +9,7 @@
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
-    <script src="<?php echo URLROOT;?>/public/js/customers/foodcart.js"></script>
+  
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>

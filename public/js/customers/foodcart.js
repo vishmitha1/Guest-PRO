@@ -244,6 +244,8 @@ addEventListener('DOMContentLoaded', function() {
         else{
             
             getReservationDate(roomNo);
+            
+            
         }
     });
 
@@ -263,87 +265,97 @@ addEventListener('DOMContentLoaded', function() {
                 var checkOutDate = new Date(response.checkOut);
 
                 // Adjust the dates for minimum and maximum delivery dates
-                checkInDate.setDate(checkInDate.getDate() + 1); // Set to the day after check-in
+       
                 var minDateString = checkInDate.toISOString().split('T')[0];
                 var maxDateString = checkOutDate.toISOString().split('T')[0];
 
-                console.log(minDateString, maxDateString);
+                var today = new Date();
 
-                // Set min and max attributes of the delivery date input element
-                // deliveryDateElement.setAttribute("min", minDateString);
-                // deliveryDateElement.setAttribute("max", maxDateString);
+          
+                if (checkOutDate.getTime() < Date.now() && checkInDate.getTime() >= Date.now()  ) {
 
+                    checkInDate='today';
+                    checkOutDate='today';
+                } 
+                else if(checkInDate.getTime() < Date.now()){
+
+                    checkInDate='today';
+                }
                 
-                // Define kitchen opening and closing times
-                var openingHour = 6; // 6 AM
-                var closingHour = 23; // 11 PM
-                var preparationTime = 30; // 30 minutes
                 
-
-                // Calculate the minimum selectable time from the current time
-                var currentTime = new Date();
-                var currentHour = currentTime.getHours();
-                var currentMinutes = currentTime.getMinutes();
-                var minSelectableTime = new Date(currentTime.getTime() + preparationTime * 60000);
-                var mintime,maxtime;
-                var seconds = new Date().getTime() 
-                if(currentHour>6 && currentHour<23){
-                    mintime=currentHour+':'+(currentMinutes+30);
-                }
-                else{
-                    mintime='6:00';
-                }
-
-                if(currentHour>22 && currentHour<=23){
-                    maxtime='23:30'
-                }
-                else{
-                    maxtime:'23:00'
-                }
-                var maxtime=(closingHour < 10 ? "0" + closingHour : closingHour) + ":00" // Closing time
-                console.log(seconds)
-
+                
+                
                 const myInput = document.getElementById("date");
                 flatpickr(myInput, {
                     enableTime: false,
                     dateFormat: "Y-m-d H:i",
                     minDate: checkInDate,
-                    maxDate: checkOutDate, // Set maximum date range (7 days from today)
+                    maxDate: checkOutDate, 
                     
                 });
-                const mytime = document.getElementById("Deltime");
-                flatpickr(mytime, {
-                    enableTime: true,
-                    noCalendar: true,
-                    dateFormat: "H:i",
-                    time_24hr: false,
-                    minuteIncrement: 30,
-                    maxTime: maxtime,
-                    minTime: mintime
-                   
-                });
+               
+              
+
                 
-
-
-
+                
             },
             error: function(error) {
                 console.error('error while getting reservation date', error);
             }
         });
     }
-});
-
-
-
-
-
-
-
-
-
-
 
     
+    var maxtime='22:00';
+    var mintime;
+    var currentTime = new Date();
+    var currentHour = currentTime.getHours();
+    var currentMinutes = currentTime.getMinutes();
+    var timeElement=document.getElementById('date');
+    timeElement.addEventListener('change',function(){
+        var selectdate=document.getElementById('date').value;
+        console.log(selectdate)
+        selectdate=new Date(selectdate)
+        var selectdate = new Date(selectdate);
+        var year = selectdate.getFullYear();
+        var month = ('0' + (selectdate.getMonth() + 1)).slice(-2); // Adding 1 because January is 0
+        var date = ('0' + selectdate.getDate()).slice(-2);
+
+        var selectdate = year + '-' + month + '-' + date;// Split at 'T' and take the first part
+        
+      
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2); // Adding 1 because January is 0
+        var date = ('0' + today.getDate()).slice(-2);
+
+        var formattedToday = year + '-' + month + '-' + date;// Split at 'T' and take the first part
+        
+        if(formattedToday==selectdate){
+            mintime=currentHour+':'+(currentMinutes+30);
+            maxtime='23:00';
+            
+        }
+        else if(selectdate>formattedToday) {
+            mintime='6:00';
+            maxtime='23:00'
+          
+        }
+        $("#Deltime").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: false,
+            minuteIncrement: 30,
+            minTime: mintime,
+            maxTime: maxtime
+        });
+        
+        
+
+    });
+        
 
 
+
+});
