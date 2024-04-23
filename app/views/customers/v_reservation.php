@@ -180,6 +180,19 @@
                         
                     }
                     
+                    else if(response=='No rooms available'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No rooms available!',
+                        }).then((result) => {
+                            if (result.isConfirmed || result.isDismissed) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+
+
                     else{
                         console.log(response);
                         response=shuffle(response);
@@ -192,6 +205,7 @@
                         var price,nights,rooms,roomnumber,popupID,dyID;
                         var BedroomAmentitiesList,BathroomAmentitiesList,FurnitureAmentitiesList,EntertainmentAmentitiesList,AdditionalAmentitiesList; 
                         var intend1,Intend2,Intend3,Intend4,Intend5;
+                        var reveiws;
                         
                         // ... your existing HTML structure for room details ...
 
@@ -208,6 +222,7 @@
                             
                             
                             if(item.category=='Deluxe Room'){
+                                reveiws=1250;
                                 fun1Img="fa-bath"
                                 fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
@@ -270,6 +285,7 @@
                                                 `; 
                             }
                             else if(item.category=='Standard Room'){
+                                reveiws=432;
                                 fun1Img="fa-shower"
                                 fun2Img="fa-toilet"
                                 fun3Img="fa-vector-square"
@@ -331,6 +347,7 @@
                                                 `; 
                             }
                             else if(item.category=='Executive Suite'){
+                                reveiws=119;
                                 fun1Img="fa-bath"
                                 fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
@@ -396,6 +413,7 @@
                                                 `; 
                             }
                             else if(item.category=='Family Room'){
+                                reveiws=432;
                                 fun1Img="fa-bath"
                                 fun2Img="fa-toilet"
                                 fun3Img="fa-vector-square"
@@ -458,6 +476,7 @@
                                 
                             }
                             else if(item.category=='Presidential Suite'){
+                                reveiws=98;
                                 fun1Img="fa-bath"
                                 fun2Img="fa-sink"
                                 fun3Img="fa-vector-square"
@@ -526,6 +545,7 @@
                                                 `;
                             }
                             else{
+                                reveiws=0;
                                 fun1Img="fa-shower"
                                 fun2Img="fa-toilet"
                                 fun3Img="fa-vector-square"
@@ -588,53 +608,53 @@
                             }
 
                             roomComponent.innerHTML = `
-                        <div class="room-img">
-                        <img src="<?php echo URLROOT;?>/public/img/rooms/`+mainImg+`.jpg" alt="">
-                    </div>   
-                    <div class="room-details">
-                            <div class="room-type">${item.category}</div>
+                            <div class="room-img">
+                                <img src="<?php echo URLROOT;?>/public/img/rooms/`+mainImg+`.jpg" alt="">
+                            </div>   
+                            <div class="room-details">
+                                <div class="room-type">${item.category}</div>
 
-                            <div class="room-functions">
-                                <div><i class="fa-solid `+fun1Img+`"></i><span class="function-name"> `+fun1Title+`</span></div>
-                                
-                                <div><i class="fa-solid `+fun2Img+`"></i><span class="function-name"> `+fun2Title+` </span></div>
-                                <div> <i class="fa-solid `+fun3Img+`"></i><span class="function-name">`+fun3Title+` ft<sup>2</sup> </span></div>
-                            <div> <i class="fa-solid `+fun4Img+`"></i><span class="function-name"> `+fun4Title+`</span></div>
+                                <div class="room-functions">
+                                    <div><i class="fa-solid `+fun1Img+`"></i><span class="function-name"> `+fun1Title+`</span></div>
+                                    
+                                    <div><i class="fa-solid `+fun2Img+`"></i><span class="function-name"> `+fun2Title+` </span></div>
+                                    <div> <i class="fa-solid `+fun3Img+`"></i><span class="function-name">`+fun3Title+` ft<sup>2</sup> </span></div>
+                                <div> <i class="fa-solid `+fun4Img+`"></i><span class="function-name"> `+fun4Title+`</span></div>
                             
                                 
-                            </div>
-                            <div class="room-intend">
-                                <div>`+Intend1+`</div>
-                                <div>`+Intend2+`</div>
-                                <div>`+Intend3+`</div>
-                                <div>`+Intend4+`</div>
-                                <div>`+Intend5+`</div>
+                                </div>
+                                <div class="room-intend">
+                                    <div>`+Intend1+`</div>
+                                    <div>`+Intend2+`</div>
+                                    <div>`+Intend3+`</div>
+                                    <div>`+Intend4+`</div>
+                                    <div>`+Intend5+`</div>
+                                
+                                    
+                                </div>
+                                <div class="room-reviews">
+                                    <button>`+reveiws+` reveiws</button>
+                                    
+                                </div>
+                                
                             
-                                
-                            </div>
-                            <div class="room-reviews">
-                                <button>1250 reveiws</button>
-                                
-                            </div>
-                            
-                        
-                            <div class="more-details">
-                                
-                                    <div class="room-price" >`+price+`LKR</div>
-                                
-                                <a class="toggle-popup" onclick="togglePopup('${popupID}')" >More details ❯</a>
-                            </div>
+                                <div class="more-details">
+                                    
+                                        <div class="room-price" >`+price+`LKR</div>
+                                    
+                                    <a class="toggle-popup" onclick="togglePopup('${popupID}')" >More details ❯</a>
+                                </div>
 
 
-                        </div>
-                        `
-                        ;
-                        roomListContainer.appendChild(roomComponent);   
-                        
-                        const popupComponent = document.createElement("div");
-                        popupComponent.classList.add("popup");
-                        popupComponent.setAttribute('id',popupID)
-                        popupComponent.innerHTML = `<div class="overplay"></div>
+                            </div>
+                            `
+                            ;
+                            roomListContainer.appendChild(roomComponent);   
+                            
+                            const popupComponent = document.createElement("div");
+                            popupComponent.classList.add("popup");
+                            popupComponent.setAttribute('id',popupID)
+                            popupComponent.innerHTML = `<div class="overplay"></div>
                 <div class="content">
                     <div class="header"  >
                         <span  class="title" >Room details</span>
@@ -789,22 +809,24 @@
                     </div>
                     
             
-                </div>`;
-                roomListContainer.appendChild(popupComponent); 
-                
-                
-            
+                        </div>`;
+                        roomListContainer.appendChild(popupComponent); 
+                        
+                        
+                    
 
-            });
-                
-                for(var i=0;i<document.getElementsByClassName('indate2').length;i++){
-                    document.getElementsByClassName('indate2')[i].value=indate;
-                
-                    document.getElementsByClassName('outdate2')[i].value=outdate;
-                    document.getElementsByClassName('roomcount2')[i].value=roomcount;
-                }
-    
-                }
+                    });
+                        
+                        for(var i=0;i<document.getElementsByClassName('indate2').length;i++){
+                            document.getElementsByClassName('indate2')[i].value=indate;
+                        
+                            document.getElementsByClassName('outdate2')[i].value=outdate;
+                            document.getElementsByClassName('roomcount2')[i].value=roomcount;
+                        }
+            
+                        }
+                    
+                 
                     },
                     
             error: function(error) {
