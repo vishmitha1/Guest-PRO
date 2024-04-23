@@ -170,7 +170,7 @@
                 }    
             }
 
-            //update reservation
+            //update reservation..edit click karama data retrive karanne UI ekata metanin
             else if($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['edit-reservation']) ){
                 $data=[
                     'user_id'=>$_SESSION['user_id'],
@@ -186,11 +186,13 @@
                     
                 ];
 
-                $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $data]);
+                $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $data,$this->userModel->reservationCount($_SESSION['user_id'])]);
                 
                 
             }
 
+            
+            //room availability check karanne methanin.rooms count eka submit karama enne methanata
             else if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 
@@ -242,7 +244,12 @@
                         
                             
 
-                            if($output=$this->userModel->checkroomavailability($data) ){
+                        if($data['roomcount']<0){
+                            header('Content-Type: application/json');
+                            echo json_encode('count error');
+                        }
+
+                        elseif($output=$this->userModel->checkroomavailability($data) ){
                            
                                 // $this->view('v_test', $this->userModel->checkroomavailability($data));
                                 // print_r($this->userModel->checkroomavailability($data));
@@ -253,6 +260,7 @@
                                 }
                                 header('Content-Type: application/json');
                                echo json_encode($output);
+                                
                                      
                         }
                         else{
@@ -271,31 +279,32 @@
                     }
     
                 }
-                else{
-                    
-                        $data =[
-                            'roomcount' => '',
-                            'out_date' => '',
-                            'outdate' => '',
-                            'user_id'=>$_SESSION['user_id'],
 
-                            'roomcount_err' => '',
-                            'out_date_err' => '',
-                            'outdate_err' => '',
-                            
-                        ];
-                        //initilze empty date array. this array fill only when updating the reservation 
-                        $dates=[];
+            else{
+                
+                    $data =[
+                        'roomcount' => '',
+                        'out_date' => '',
+                        'outdate' => '',
+                        'user_id'=>$_SESSION['user_id'],
 
-                         $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates]);
-                         if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
-                            toastFlashMsg();
-                        }
-                        // $this->view('v_test', $data);
-                        // print_r( $this->userModel->checkroomavailability($data));
+                        'roomcount_err' => '',
+                        'out_date_err' => '',
+                        'outdate_err' => '',
                         
+                    ];
+                    //initilze empty date array. this array fill only when updating the reservation 
+                    $dates=[];
+
+                        $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates,$this->userModel->reservationCount($_SESSION['user_id'])]);
+                        if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                        toastFlashMsg();
+                    }
+                    // $this->view('v_test', $data);
+                    // print_r( $this->userModel->checkroomavailability($data));
                     
-                }
+                
+            }
            
         }
 
@@ -407,7 +416,7 @@
 
 
 
-        //Food order part''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        //Foodorder part''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         //load food menu and add items in to the cart
         //and also this one use ajax to retrive data
@@ -452,9 +461,10 @@
                     
                 }
                 
+                
 
                 //validation is completed and no erros
-                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) && empty( $data['quantity_err']) ){
+                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) && empty( $data['quantity_err']) && $data['quantity']>0 ){
                     
                     
 
@@ -491,7 +501,7 @@
 
                 }
                 else{
-                    $output=['error','Enter Quantity before add.'];
+                    $output=['error','Enter Valid Quantity'];
                     header('Content-Type: application/json');
                     echo json_encode($output);
                 }
@@ -803,14 +813,23 @@
                 unset($_SESSION['schedule_order']);
 
                 $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
-                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
-
-
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data,'Paid')){
+                    // if($this->userModel->addExpenses($data,'Food Order','Paid')){
+                        // $_SESSION['toast_type']='success';
+                        // $_SESSION['toast_msg']='Order placed successfully.';
+                        // echo json_encode('Success');
+                    // }
+                    // else{
+                    //     $_SESSION['toast_type']='warning';
+                    //     $_SESSION['toast_msg']='Something went wrong when adding expensess .';
+                    //     echo json_encode('Warning');
+                    // }
                     $_SESSION['toast_type']='success';
-                    $_SESSION['toast_msg']='Order placed successfully.';
-                    echo json_encode('Success');
-                
+                        $_SESSION['toast_msg']='Order placed successfully.';
+                        echo json_encode('Success');
 
+
+                    
                 }
                 else{
                     $_SESSION['toast_type']='warning';
@@ -1083,6 +1102,18 @@
                 
 
             }
+        }
+
+
+
+
+        //customer payment
+        public function payments() {
+            $data = [
+                'user_id' => $_SESSION['user_id'],
+                'user_id_err' => ''
+            ];
+            $this->view('customers/v_payment', $data);
         }
 
         public function reviewwaiter(){
