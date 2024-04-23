@@ -170,7 +170,7 @@
                 }    
             }
 
-            //update reservation
+            //update reservation..edit click karama data retrive karanne UI ekata metanin
             else if($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['edit-reservation']) ){
                 $data=[
                     'user_id'=>$_SESSION['user_id'],
@@ -191,6 +191,8 @@
                 
             }
 
+            
+            //room availability check karanne methanin.rooms count eka submit karama enne methanata
             else if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 
@@ -242,7 +244,12 @@
                         
                             
 
-                            if($output=$this->userModel->checkroomavailability($data) ){
+                        if($data['roomcount']<0){
+                            header('Content-Type: application/json');
+                            echo json_encode('count error');
+                        }
+
+                        elseif($output=$this->userModel->checkroomavailability($data) ){
                            
                                 // $this->view('v_test', $this->userModel->checkroomavailability($data));
                                 // print_r($this->userModel->checkroomavailability($data));
@@ -253,6 +260,7 @@
                                 }
                                 header('Content-Type: application/json');
                                echo json_encode($output);
+                                
                                      
                         }
                         else{
@@ -271,31 +279,32 @@
                     }
     
                 }
-                else{
-                    
-                        $data =[
-                            'roomcount' => '',
-                            'out_date' => '',
-                            'outdate' => '',
-                            'user_id'=>$_SESSION['user_id'],
 
-                            'roomcount_err' => '',
-                            'out_date_err' => '',
-                            'outdate_err' => '',
-                            
-                        ];
-                        //initilze empty date array. this array fill only when updating the reservation 
-                        $dates=[];
+            else{
+                
+                    $data =[
+                        'roomcount' => '',
+                        'out_date' => '',
+                        'outdate' => '',
+                        'user_id'=>$_SESSION['user_id'],
 
-                         $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates,$this->userModel->reservationCount($_SESSION['user_id'])]);
-                         if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
-                            toastFlashMsg();
-                        }
-                        // $this->view('v_test', $data);
-                        // print_r( $this->userModel->checkroomavailability($data));
+                        'roomcount_err' => '',
+                        'out_date_err' => '',
+                        'outdate_err' => '',
                         
+                    ];
+                    //initilze empty date array. this array fill only when updating the reservation 
+                    $dates=[];
+
+                        $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates,$this->userModel->reservationCount($_SESSION['user_id'])]);
+                        if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                        toastFlashMsg();
+                    }
+                    // $this->view('v_test', $data);
+                    // print_r( $this->userModel->checkroomavailability($data));
                     
-                }
+                
+            }
            
         }
 
