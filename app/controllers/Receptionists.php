@@ -398,6 +398,7 @@
 
         public function manageReservation(){
 
+            //search
             if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['searchReservation'] )){
 
                    
@@ -437,7 +438,7 @@
 
             else{
                 $data=[];
-                $this->view('receptionists/v_manageReservation',[$this->receptionistModel->getAllReservations(),$data]);
+                $this->view('receptionists/v_manageReservation',[$this->receptionistModel->getTodayReservations(),$data]);
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }
@@ -573,7 +574,7 @@
             else{
                 $data=$this->receptionistModel->getPendingPayments();
                 $this->view('receptionists/v_payments',[$data,$array=[]]);
-
+                
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }
@@ -746,6 +747,29 @@
     
                 }
             }
+
+
+
+            //checkout after cashed
+            public function checkoutAftercashed(){
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                    $data=[
+                        'reservation_id' => trim($_POST['reservation_id']),
+                        'user_id' => $_SESSION['user_id'],
+                    ];
+
+                    if($this->receptionistModel->checkOut($data)){
+                        echo json_encode(['success','Customer checked out successfully']);
+                    }
+                    else{
+                        echo json_encode(['error','Something went wrong']);
+                    }
+            }
+        }
+    
+                    
+            
         
 
     

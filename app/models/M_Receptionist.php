@@ -295,10 +295,10 @@
 
         //get pending payments. payments table eke status eka 'pending' wala checkout wenna asannama rows ganna
         public function getPendingPayments(){
-            $this->db->query("SELECT expenses.reservation_id, SUM(expenses.amount) as total, reservations.customer_name
+            $this->db->query("SELECT expenses.reservation_id, SUM(expenses.amount) as total, reservations.customer_name,reservations.checked
                                 FROM expenses
                                 JOIN reservations ON expenses.reservation_id = reservations.reservation_id
-                                WHERE expenses.status = :status
+                                WHERE expenses.status = :status And (reservations.checked='in' )  And reservations.checkOut <= CURDATE()
                                 GROUP BY expenses.reservation_id, reservations.customer_name ");
             $this->db->bind(':status','Not Paid');
             $row=$this->db->resultSet();
@@ -321,7 +321,7 @@
     
                 }
     
-                $this->db->query("SELECT expenses.reservation_id, SUM(expenses.amount) as total, reservations.customer_name
+                $this->db->query("SELECT expenses.reservation_id, SUM(expenses.amount) as total, reservations.customer_name,reservations.checked
                                     FROM reservations
                                     JOIN expenses ON reservations.reservation_id = expenses.reservation_id
                                     WHERE expenses.status = :status AND reservations." . $data['serachby'] . " = :data");
@@ -380,6 +380,13 @@
         //give access part
         public function getAllReservations(){
             $this->db->query('SELECT * FROM reservations');
+            $row=$this->db->resultSet();
+            return $row;
+        }
+
+        //get today reservations 
+        public function getTodayReservations(){
+            $this->db->query('SELECT * FROM reservations WHERE checkIn = CURDATE()');
             $row=$this->db->resultSet();
             return $row;
         }
