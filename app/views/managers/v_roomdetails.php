@@ -45,7 +45,7 @@
                     <select id="availabilityFilter" name="availability">
                         <option value="">select</option>
                         <option value="Available">Available</option>
-                        <option value="Booked">Booked</option>
+                        <option value="Booked">Reserved</option>
                     </select>
 
 
@@ -112,7 +112,11 @@
                             <?php echo $room->price; ?>
                         </td>
                         <td>
-                            <?php echo $room->availability; ?>
+                            <?php if ($room->availability == "yes")
+                                echo 'Available';
+                            else
+                                echo 'Reserved'; ?>
+
                         </td>
                         <td>
 

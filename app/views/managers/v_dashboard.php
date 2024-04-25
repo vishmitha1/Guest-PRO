@@ -62,7 +62,7 @@
         <div class="overview-box">
             <div class="overview-section-2">
                 <h2 class="overview-heading">Guests Overview</h2>
-                <div class="overview-row">
+                <!-- <div class="overview-row">
                     <div class="overview-item">
                         <div class="overview-col">
                             <div class="overview-col-image-4"><i class="fa-solid fa-bed"></i></div>
@@ -83,7 +83,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
                 <div class="overview-row">
                     <div class="overview-item">
                         <div class="overview-col">
@@ -128,18 +128,18 @@
                         </div>
 
                     </div>
-                    <div class="overview-item">
+                    <!-- <div class="overview-item">
                         <div class="overview-col">
                             <div class="overview-col-image-6"><i class="fa-solid fa-hand-sparkles"></i></div>
                             <div class="overview-col-details">
                                 <span class="overview-col-value">
-
+                                    <?php echo $data['ongoingRequestsCount']; ?>
                                 </span>
-                                <span class="overview-col-text-6">View Service Requests</span>
+                                <span class="overview-col-text-6">Ongoing</span>
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
                 <div class="overview-row">
                     <div class="overview-item">
@@ -266,9 +266,9 @@
         </div>
 
         <!-- Modal -->
-        <?php
-        foreach ($data['foodMenu'] as $foodMenu)
-            ; ?>
+
+
+
         <div id="menuModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -277,28 +277,29 @@
                 <table>
 
                     <tr>
-                        <td>
+
                         <th>Food Item</th>
-                        </td>
-                        <td>
+
                         <th>Price (LKR)</th>
-                        </td>
+
                     </tr>
 
+                    <?php
+                    foreach ($data['foodMenu'] as $foodMenu): ?>
+                        <tr>
+                            <td>
+                                <?php echo $foodMenu->name; ?>
+                            </td>
 
-                    <tr>
-                        <td>
-                            <?php echo $foodMenu->name; ?>
-                        </td>
-
-                        <td>
-                            <?php echo $foodMenu->price; ?>
-                        </td>
-                    </tr>
-
+                            <td>
+                                <?php echo $foodMenu->price; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </table>
             </div>
         </div>
+
 
     </div>
 
