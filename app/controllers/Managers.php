@@ -1,4 +1,7 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 class Managers extends Controller
 {
     protected $userModel;
@@ -28,6 +31,7 @@ class Managers extends Controller
         $dispatchOrderCount = $this->userModel->getDispatchOrder();
         $serviceRequestsCount = $this->userModel->getServiceRequestCount();
         $pendingRequestsCount = $this->userModel->getpendingRequests();
+        $ongoingRequestsCount = $this->userModel->getongoingRequests();
         $completedRequestsCount = $this->userModel->getcompletedRequests();
         $reservationIncome = $this->userModel->getReservationIncome();
         $foodOrderIncome = $this->userModel->getFoodOrdersIncome();
@@ -47,6 +51,7 @@ class Managers extends Controller
             'dispatchOrderCount' => $dispatchOrderCount,
             'serviceRequestsCount' => $serviceRequestsCount,
             'pendingRequestsCount' => $pendingRequestsCount,
+            'ongoingRequestsCount' => $ongoingRequestsCount,
             'completedRequestsCount' => $completedRequestsCount,
             'reservationIncome' => $reservationIncome,
             'foodOrderIncome' => $foodOrderIncome,
@@ -462,6 +467,32 @@ class Managers extends Controller
     }
     public function alerts()
     {
+        // Check if the form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Retrieve form data
+            $recipients = $_POST['recipients'];
+            $subject = $_POST['subject'];
+            $message = $_POST['message'];
+
+            // Include the PHPMailer configuration
+            require_once APPROOT . '/libraries/phpmailer/src/PHPMailer.php';
+            require_once APPROOT . '/libraries/phpmailer/src/SMTP.php';
+            require_once APPROOT . '/libraries/phpmailer/src/Exception.php';
+
+            $mail = new PHPMailer(true);
+
+            $result = $this->userModel->sendEmailAlerts($recipients, $subject, $message, $mail);
+
+            if ($result) {
+                // Alerts were sent successfully
+                // Redirect or show success message
+            } else {
+                // Alerts sending failed
+                // Redirect or show error message
+            }
+            $data = [];
+            $this->view('managers/v_alerts', $data);
+        }
         $data = [];
         $this->view('managers/v_alerts', $data);
     }
@@ -942,7 +973,7 @@ class Managers extends Controller
             } else {
                 // Failed to update status
                 $_SESSION['toast_type'] = 'error';
-                $_SESSION['toast_msg'] = 'Error updating complaint status! Please try again.';
+                $_SESSION['toast_msg'] = 'Error updating complaint status!<br>Please try again.';
                 redirect('Managers/complaints');
             }
 
@@ -961,7 +992,7 @@ class Managers extends Controller
 
         if ($availability == 'Available') {
             $availability = 'yes';
-        } else
+        } elseif ($availability == 'Booked')
             $availability = 'no';
 
         // Call the model method to fetch filtered room data
@@ -1039,32 +1070,98 @@ class Managers extends Controller
         }
     }
 
-}
-
-
-
-?>
-
-<?php
-class AlertController
-{
     public function sendAlert()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
-            $_SESSION['alert'] = $_POST['message'];
-            echo "Alert sent successfully";
+        //location of the template
+        $template_file = "../public/template.php";
+        //include_once ($template_file);
+        // Check if the form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Retrieve form data
+            $recipients = $_POST['recipients'];
+            $subject = $_POST['subject'];
+            $message = $_POST['message'];
+
+
+            if ($recipients === 'all') {
+                $emails = $this->userModel->getAllUserEmails();
+
+            } elseif ($recipients === 'guests') {
+                $emails = $this->userModel->getInhouseGuestEmails();
+            }
+
+            // Initialize PHPMailer
+            require_once APPROOT . '/libraries/phpmailer/src/PHPMailer.php';
+            require_once APPROOT . '/libraries/phpmailer/src/SMTP.php';
+            require_once APPROOT . '/libraries/phpmailer/src/Exception.php';
+
+            $mail = new PHPMailer(true);
+
+            try {
+                // Server settings
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'sapramudi@gmail.com'; // Sender's email
+                $mail->Password = 'dlyzofgmxlhswhtq'; // Sender's password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                // Email content
+                $mail->setFrom('sapramudi@gmail.com', 'GuestPro');
+                $mail->isHTML(true);
+                $mail->Subject = $subject;
+
+                // Check if the template file exists
+                if (file_exists($template_file)) {
+                    // Load template content
+                    $template_content = file_get_contents($template_file);
+
+                    // Iterate over recipients and send email
+                    foreach ($emails as $userEmail) {
+                        $email = $userEmail->email;
+                        $name = $userEmail->name;
+                        // Replace placeholders in the template with actual values
+                        $email_body = str_replace('{{NAME}}', $name, $template_content);
+                        $email_body = str_replace('{{MESSAGE}}', $message, $email_body);
+
+                        // Set email body
+                        $mail->Body = $email_body;
+
+                        // Add recipient and send email
+                        $mail->addAddress($email);
+                        $mail->send();
+
+                        // Clear recipient for the next email
+                        $mail->clearAddresses();
+                    }
+                    $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'Alert Send successfully!';
+                    redirect('Managers/alert');
+
+                } else {
+                    // Template file does not exist
+                    die("Unable to locate template file: $template_file");
+                }
+            } catch (Exception $e) {
+                $_SESSION['toast_type'] = 'success';
+                $_SESSION['toast_msg'] = 'Error sendig Alert!<br>Please try again';
+                redirect('Managers/alert');
+            }
         }
+
+        return false; // Form not submitted
     }
 
-    public function checkAlert()
+    public function alert()
     {
-        if (isset($_SESSION['alert'])) {
-            echo json_encode(['alert' => $_SESSION['alert']]);
-            unset($_SESSION['alert']); // Clear the alert after sending
-        } else {
-            echo json_encode(['alert' => null]);
+        $this->view('managers/v_alerts');
+        if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
+            toastFlashMsg();
         }
+
     }
+
 }
 
 

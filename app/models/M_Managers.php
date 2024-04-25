@@ -501,9 +501,11 @@ class M_Managers
 
     public function searchfooditems($query)
     {
-        // Prepare the query to search for staff accounts
-        $this->db->query("SELECT * FROM fooditems WHERE name LIKE :query");
-        $this->db->bind(':query', '%' . $query . '%');
+
+        // $this->db->query("SELECT * FROM fooditems WHERE name LIKE :query");
+        // $this->db->bind(':query', '%' . $query . '%');
+        $this->db->query("SELECT * FROM fooditems WHERE name REGEXP :query");
+        $this->db->bind(':query', '[[:<:]]' . $query . '[a-zA-Z]*[[:>:]]');
 
         // Execute the query and return the results
         return $this->db->resultSet();
@@ -674,6 +676,21 @@ class M_Managers
         return $row->pendingRequests;
     }
 
+    public function getongoingRequests()
+    {
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS ongoingRequests FROM servicerequests WHERE status = :status');
+
+        // Bind the placeholder value
+        $this->db->bind(':status', 'ongoing');
+
+        // Fetch a single row 
+        $row = $this->db->single();
+
+        // Return the pending requests count from the fetched row
+        return $row->ongoingRequests;
+    }
+
 
 
     public function getcompletedRequests()
@@ -746,4 +763,36 @@ class M_Managers
         $this->db->bind(':status', 1);
         return $this->db->resultSet();
     }
+
+
+    public function getAllUserEmails()
+    {
+
+        $this->db->query("SELECT email,name FROM users WHERE role= 'customer'");
+
+        return $this->db->resultSet();
+
+    }
+    public function getInhouseGuestEmails()
+    {
+        // Get today's date
+        $todayDate = date('Y-m-d');
+
+        // Prepare the SQL query to select email and name of in-house guests
+        $query = "SELECT u.email, u.name 
+              FROM users u 
+              INNER JOIN reservations r ON u.id = r.user_id 
+              WHERE u.role = 'customer' 
+                AND :todayDate BETWEEN r.checkin AND r.checkout";
+
+        // Bind the todayDate parameter
+        $this->db->query($query);
+        $this->db->bind(':todayDate', $todayDate);
+
+        // Execute the query and return the result set
+        return $this->db->resultSet();
+    }
+
+
+
 }
