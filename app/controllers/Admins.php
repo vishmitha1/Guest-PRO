@@ -198,7 +198,7 @@ class Admins extends Controller
     }
 
 
-    public function generatereports(){
+    /*public function generatereports(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -226,7 +226,7 @@ class Admins extends Controller
 
             $this->view('admins/v_generatereports');
         }
-    }
+    }*/
 
 
 }
