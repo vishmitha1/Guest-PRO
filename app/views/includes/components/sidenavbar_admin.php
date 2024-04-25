@@ -24,7 +24,7 @@
             <a href="<?php echo URLROOT;?>/Admins/accountlogs"><i class="fa-solid fa-file-invoice"></i>Account logs</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Admins/generatereports"><i class="fa-solid fa-file"></i>Generate Reports</a>
+            <a href="<?php echo URLROOT;?>/Reports/generatereports"><i class="fa-solid fa-file"></i>Generate Reports</a>
             </div>
         </div>
         <div class="logout">
