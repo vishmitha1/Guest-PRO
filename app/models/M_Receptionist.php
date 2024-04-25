@@ -238,14 +238,20 @@
         public function cancelReservation($data){
             $this->db->query('DELETE FROM reservations WHERE reservation_id=:id');
             $this->db->bind(':id',$data['reservation_id']);
+            
 
             if($this->db->execute()){
-                return true;
+               return true;
+                
             }
             else{
                 return false;
             }
         }
+
+        
+
+       
 
 
         //reservation ui eke display wena room types ganna

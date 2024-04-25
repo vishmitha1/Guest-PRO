@@ -1,82 +1,86 @@
 
 
- @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Poppins:wght@100;500&family=Sometype+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sriracha&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Poppins:wght@100;500&family=Sometype+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sriracha&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
-.side-bar{
-    position:fixed;
-    background-color: #002447;
-    /* background-color: #003366; */
-    height: 100vh;
-    top: 0;
-    left: 0;
-    width: 275px;
-    font-family: "poppins", sans-serif;
-    font-weight: 100;
-    z-index: 100;
-    transition: transform 0.3s all ease-in-out; ;
-    /* padding: 2.7rem 3rem 0 2rem; */
-   
-
-    
+.side-bar {
+  position: fixed;
+  background-color: #002447;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 275px;
+  font-family: 'Poppins', sans-serif; /* Change font family */
+  z-index: 100;
+  transition: transform 0.3s all ease-in-out;
 }
 
-.side-bar a{
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    display: block;
-    padding: 5% ;
-    text-align:left;
-    transition: .3s;
-    font-size: 20px;
+.side-bar a {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  padding: 15px 20px; /* Adjusted padding for better spacing */
+  text-align: left;
+  transition: .3s;
+  font-size: 18px; /* Decreased font size */
 }
 
-
-.links{
-    margin-top: 6%;
-    margin-left: 10%;
+.links {
+  margin-top: 15%; /* Adjusted margin top */
 }
 
-
-
-.links i{
-    margin-right: 6%;
-    direction: none;
+.links i {
+  margin-right: 10px; /* Decreased margin right */
 }
 
-.logo{
-    padding: 2% 4%;
-    background-color: #003366;
-
+.logo {
+  padding: 20px 0; /* Adjusted padding */
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  height: 80px; /* Adjusted height */
 }
 
-.active, .link-items a:hover  {
-    background: #003366;  
+.logo img {
+  max-width: 80%; /* Ensures the image doesn't exceed the container width */
+  height: auto; /* Maintain aspect ratio */
 }
 
-
-
- .logout{
-    position: absolute;
-    width: 15%;
-    margin-top: 5%;
-    margin-left: 5%;
-    bottom: 2%;
-    
+.link-items:hover a {
+  color: #000000; /* Change text color to black */
 }
 
-.logout button{
-    margin-left: 50px;
-    padding: 5px 30px;
-    background-color: #ecda0a;
-    border-radius: 20px;
+.active,
+.link-items a:hover {
+  background: #ffffff;
 }
 
-.logout button:hover{
-    background-color: #003366;
-    color: #ecda0a;
-    border: 1px solid #ecda0a;
-    transition: .3s;
+.logout {
+  position: absolute;
+  width: 75%;
+  margin-top: 10%;
+  margin-left: 10%;
+  bottom: 5%;
+}
 
+.logout button {
+  padding: 10px 20px; /* Adjusted padding */
+  background-color: #bc1c5c; /* Dark blue background */
+  color: #ffffff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.logout button:hover {
+  background-color: #002447; /* Hover color */
+}
+
+.logout button i {
+  margin-right: 10px; /* Decreased margin right */
 }
 .home {
     position: relative;

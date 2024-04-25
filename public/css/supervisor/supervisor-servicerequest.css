@@ -1,4 +1,4 @@
-<style>
+
         /* CSS for the navigation bar */
         .sidebar {
             height: 100%;
@@ -195,13 +195,18 @@
 
     .modal-content {
         background-color: #fff;
-        margin: 15% auto; /* 15% from the top and centered */
+        margin: 10% auto; /* Adjusted margin */
         padding: 20px;
         border: 1px solid #888;
-        width: 30%; /* Adjusted width */
+        width: 50%; /* Adjusted width */
         border-radius: 5px;
     }
-
+    
+    #cancelReason {
+        width: 90%; /* Adjusted width relative to the modal */
+        box-sizing: border-box; /* Include padding and border in the width */
+        margin-bottom: 10px; /* Add some space below the textarea */
+    }
     .close {
         color: #aaa;
         float: right;
@@ -224,3 +229,8 @@
         border-radius: 5px;
         cursor: pointer;
     }
+
+       /* CSS to disable hover effect for disabled cancel button */
+#serviceRequestsTable button[disabled] {
+    pointer-events: none;
+}

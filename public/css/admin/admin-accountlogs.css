@@ -54,3 +54,8 @@
     background-color: #003366; /* Set background color for header cells */
     color: #ffffff; /* Set text color for header cells */
 }
+
+
+.accountlogs-table tbody tr:hover {
+    background-color: #f0f0f0; /* Add hover effect to table rows */
+}

@@ -14,32 +14,71 @@
             $this->middleware->checkAccess(['supervisor']);
         }
 
+        //dashboard
+
         public function dashboard(){
-            $data =[  ];
+            $data = [];
+        
+        
+           
             $this->view('supervisors/v_dashboard', $data);
         }
+
+        // Get service request chart data based on filter
+        public function getServiceRequestChartData($filter) {
+            $data = [];
+            // Assuming $this->m_supervisor is an instance of the model class.
+            $serviceRequestChartData = $this->m_supervisor->getServiceRequestCountsByType($filter);
+            // Send the data as JSON response
+            echo json_encode($serviceRequestChartData);
+        }
+        
 
  
         public function index(){
             $this->cleaningstatus();
         }
 
-        public function cleaningstatus(){
-            $data =[  ];
-            $rooms = $this->m_supervisor->getAllrooms();
-            $data['rooms'] = $rooms;
-            $this->view('supervisors/v_cleaningstatus', $data);
-        }
+        
+
+
+        //service request
+
+        //retrieve
 
         public function servicerequest(){
-            $data =[  ];
-            $rows = $this->m_supervisor->getRows();
-            $data['rows'] = $rows;
+            $data = [];
+            
+            // Assuming $this->m_supervisor is an instance of the class containing the getAllServiceRequests method.
+            $servicerequests = $this->m_supervisor->getAllServiceRequests();
+            
+            // Assuming $serviceRequests is the correct variable name for storing the retrieved service requests.
+            $data['servicerequests'] = $servicerequests;
+            
+            // Assuming $this->view is a method to load a view file and pass data to it.
             $this->view('supervisors/v_servicerequest', $data);
         }
 
-        public function changeStatus($id){
-            $rows = $this->m_supervisor->changeStatus($id);
+        public function changeServiceRequestStatus($id) {
+            // Call the model function to update the status
+            $this->m_supervisor->changeServiceRequestStatus($id);
+        
+            // Prepare response data
+            $data['msg'] = "success";
+        
+            // Encode response data to JSON
+            echo json_encode($data);
+            exit(); // Make sure to exit after sending JSON response
+        }
+
+        //cancel
+
+        public function cancelServiceRequest($id, $reason) {
+            // Change service request status using the model
+            $this->m_supervisor->cancelServiceRequest($id, $reason);
+            exit();
+        
+            
         }
     
         public function cleaninghistory(){
@@ -49,6 +88,13 @@
 
 
         //Cleaning status
+
+        public function cleaningstatus(){
+            $data =[  ];
+            $rooms = $this->m_supervisor->getAllrooms();
+            $data['rooms'] = $rooms;
+            $this->view('supervisors/v_cleaningstatus', $data);
+        }
 
 
         public function updateRoomStatus($room_number, $status) {
@@ -80,6 +126,15 @@
             echo json_encode($data);
             exit();
         }
+
+        
+
+
+
+
+      
+
+
         
         
         }

@@ -367,6 +367,7 @@
                 $data=[
                     'reservation_id' => trim($_POST['reservation_id']),
                     'user_id' => $_SESSION['user_id'],
+                    'roomNo' => trim($_POST['roomNo']),
                 ];
 
                 if(empty($data['reservation_id'])){
@@ -436,7 +437,7 @@
 
             else{
                 $data=[];
-                $this->view('receptionists/v_manageReservation',$data);
+                $this->view('receptionists/v_manageReservation',[$this->receptionistModel->getAllReservations(),$data]);
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }

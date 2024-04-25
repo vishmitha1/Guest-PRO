@@ -1,0 +1,164 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+  }
+
+  .container {
+    max-width: 400px; /* Reduced max-width for better text area positioning */
+    margin: 100px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .logo img {
+    max-width: 120px;
+    margin-right: 20px;
+  }
+
+  .navbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  .navbar li {
+    margin-left: 20px;
+  }
+
+  .navbar li a {
+    text-decoration: none;
+    color: #0c0a09; /* Changed default color */
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  .navbar li a:hover {
+    color: #f472b6;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #0c0a09;
+  }
+
+  .form-group input,
+  .form-group button { /* Adjusted input and button width */
+    width: calc(100% - 22px); /* 22px for the border and padding */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .form-group button {
+    margin-top: 10px; /* Added margin-top for button */
+    background-color: #002447;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .form-group button:hover {
+    background-color: #bc1c5c;
+  }
+
+  .form-group .signup-link {
+    margin-top: 10px;
+    text-align: center;
+    color: #0c0a09;
+  }
+
+  .form-group .signup-link a {
+    color: #e82574;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .form-group .signup-link a:hover {
+    text-decoration: underline;
+  }
+
+  /* Styling for SVG */
+  .login-svg {
+    width: 100%; /* Adjust width as needed */
+    max-height: 200px; /* Adjust height as needed */
+    margin-bottom: 20px; /* Add some space below the SVG */
+  }
+
+  /* Responsive Navigation Menu */
+  @media only screen and (max-width: 1025px) {
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar ul {
+      display: none; /* Hide navigation links by default */
+    }
+
+    .navbar .menu-toggle {
+      display: block; /* Display the menu toggle button */
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      padding: 0;
+      margin-right: 20px; /* Adjust margin as needed */
+    }
+
+    .navbar .menu-toggle:focus,
+    .navbar .menu-toggle:active {
+      outline: none;
+    }
+
+    .navbar.menu-open ul {
+      display: flex; /* Show navigation links when menu is open */
+      flex-direction: column;
+      position: absolute;
+      top: 80px; /* Adjust top position as needed */
+      right: 0;
+      background-color: #fff; /* Adjust background color as needed */
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.menu-open ul li {
+      margin-bottom: 10px; /* Adjust margin as needed */
+    }
+
+    .navbar.menu-open ul li:last-child {
+      margin-bottom: 0; /* Adjust margin as needed */
+    }
+  }
+
+  /* Hide menu toggle in larger screens */
+  @media only screen and (min-width: 1026px) {
+    .navbar .menu-toggle {
+      display: none;
+    }
+  }

@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
     class Customers extends Controller{
         protected $userModel;
         protected $middleware;
@@ -121,7 +124,7 @@
                     //place reservation
                 else{
                 
-                
+                    $data=[];
                     $data=[
                         'user_id'=>$_SESSION['user_id'],
                         'payment_type' => trim($_POST['payment-radio']),
@@ -130,6 +133,7 @@
                         'roomcount' => trim($_POST['roomcount']),
                         'roomNo' => trim($_POST['roomno']),
                         'price' => trim($_POST['price']),
+                        
 
                         'user_id_err'=>'',
                         'payment_type_err' => '',
@@ -145,11 +149,50 @@
                         redirect("Customers/reservation");
                     }
                     if(empty($data['payment_type_err'])){
-                        if($data['payment_type']=='paynow'){
-                            $this->view('v_test',$data);
-                            echo("Payment gateway");
-                            print_r($data);
+                        if($data['payment_type']=='paynow' && isset($_POST['reserve-for-others'])){
+                            $data['payment']="Paid";
+                            $_SESSION['reserv_others']=$data;
+                            $this->view("customers/v_reservForOthers",$arr=[]);
                         }
+                        elseif($data['payment_type']=='paynow' ){
+                            $data['payment']="Paid";
+                            $_SESSION['customerReservation']=$data;
+                            $merchant_secret="MzIzODIxMTg4NjcxNTM0NTA5ODE4NzI5OTU5MjEzMDYyNjMyNTc1";
+                            $currency='LKR';
+                            $merchant_id='1226068';
+                            $amount=$data['price'];
+                            $order_id='10';
+
+                            $hash = strtoupper(
+                                md5(
+                                    $merchant_id . 
+                                    $order_id . 
+                                    number_format($amount, 2, '.', '') . 
+                                    $currency .  
+                                    strtoupper(md5($merchant_secret)) 
+                                ) 
+                            );
+                            $output=[
+
+                                'merchant_id'=>$merchant_id,
+                                'order_id'=>$order_id,
+                                'amount'=>$amount,
+                                'currency'=>$currency,
+                                'hash'=>$hash,
+                                'first_name'=>$_SESSION['name'],
+                                'last_name'=>'',
+                                'email'=>$_SESSION['email'],
+                                'phone'=>'',
+                                'address'=>'',
+                                'city'=>'',
+                                'country'=>'',
+                                'items'=>'Room Reservation',
+
+                            ];
+                            $this->view('paymentGateways/v_customerReservationPaymentGateway',$output);
+                            
+                        } 
+                        
                         elseif($data['payment_type']=='paylater'){
 
                             if(isset($_POST['reserve-for-others'])){
@@ -170,7 +213,7 @@
                 }    
             }
 
-            //update reservation
+            //update reservation..edit click karama data retrive karanne UI ekata metanin
             else if($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['edit-reservation']) ){
                 $data=[
                     'user_id'=>$_SESSION['user_id'],
@@ -186,11 +229,13 @@
                     
                 ];
 
-                $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $data]);
+                $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $data,$this->userModel->reservationCount($_SESSION['user_id'])]);
                 
                 
             }
 
+            
+            //room availability check karanne methanin.rooms count eka submit karama enne methanata
             else if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 
@@ -242,25 +287,26 @@
                         
                             
 
-                            if($output=$this->userModel->checkroomavailability($data) ){
+                        if($data['roomcount']<0){
+                            header('Content-Type: application/json');
+                            echo json_encode('count error');
+                        }
+
+                        elseif($output=$this->userModel->checkroomavailability($data) ){
                            
-                                // $this->view('v_test', $this->userModel->checkroomavailability($data));
-                                // print_r($this->userModel->checkroomavailability($data));
-                                // $this->view('customers/v_reservation', $this->userModel->checkroomavailability($data));
                                 // Clear output buffer
                                 foreach ($output as $item){
                                     $item->roomNo = explode(',', $item->roomNo);
                                 }
                                 header('Content-Type: application/json');
                                echo json_encode($output);
+                                
                                      
                         }
                         else{
                             
-                            $error_Msg='No Any room available';
-                            $_SESSION['toast_type']='error';
-                            $_SESSION['toast_msg']='No Any room available';
-                            redirect("Customers/reservation");
+                           header('Content-Type: application/json');
+                            echo json_encode('No rooms available');
                         }
                         
                         
@@ -271,38 +317,67 @@
                     }
     
                 }
-                else{
-                    
-                        $data =[
-                            'roomcount' => '',
-                            'out_date' => '',
-                            'outdate' => '',
-                            'user_id'=>$_SESSION['user_id'],
 
-                            'roomcount_err' => '',
-                            'out_date_err' => '',
-                            'outdate_err' => '',
-                            
-                        ];
-                        //initilze empty date array. this array fill only when updating the reservation 
-                        $dates=[];
+                //load reservation UI
+            else{
+                
+                    $data =[
+                        'roomcount' => '',
+                        'out_date' => '',
+                        'outdate' => '',
+                        'user_id'=>$_SESSION['user_id'],
 
-                         $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates]);
-                         if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
-                            toastFlashMsg();
-                        }
-                        // $this->view('v_test', $data);
-                        // print_r( $this->userModel->checkroomavailability($data));
+                        'roomcount_err' => '',
+                        'out_date_err' => '',
+                        'outdate_err' => '',
                         
+                    ];
+                    //initilze empty date array. this array fill only when updating the reservation 
+                    $dates=[];
+
+                        $this->view('customers/v_reservation',[$this->userModel->retriveReservations($data), $dates,$this->userModel->reservationCount($_SESSION['user_id'])]);
+                        if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                        toastFlashMsg();
+                    }
+                    // $this->view('v_test', $data);
+                    // print_r( $this->userModel->checkroomavailability($data));
                     
-                }
+                
+            }
            
         }
+
+
+        //place reservation withpayment
+        public function reservationPayment(){
+            if(isset($_SESSION['customerReservation'])) {
+                $data = $_SESSION['customerReservation'];
+                unset($_SESSION['customerReservation']); 
+
+                if($this->userModel->placereservation($data)){
+                    $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'Reservation placed successfully.';
+               
+                    echo json_encode('Success');
+                } else {
+                    $_SESSION['toast_type'] = 'error';
+                    $_SESSION['toast_msg'] = 'Something went wrong. Please try again.';
+                }
+            } else {
+                // Handle case where $_SESSION['customerReservation'] is not set
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Reservation data not found.';
+            }
+        
+        
+        }
+        
 
 
         //place reservation for others
         // v_reservForOthers eke form eken enne mekata
         public function placeReservationForOthers(){
+
 
             if(isset($_SESSION['update_reserv_others'])){
                 $data=$_SESSION['update_reserv_others'];
@@ -330,7 +405,62 @@
             }
 
 
-            elseif($_SERVER['REQUEST_METHOD']=='POST'){
+            //reservation for others with payment
+            elseif($_SERVER['REQUEST_METHOD']=='POST' && isset($_SESSION['reserv_others']['payment'])){
+                $data=[];
+                $data=$_SESSION['reserv_others'];
+
+                $data['customer_name'] = trim($_POST['customer_name']);
+                $data['customer_email'] = trim($_POST['customer_email']);
+                $data['customer_address'] = trim($_POST['customer_address']);
+                $data['customer_phone'] = trim($_POST['customer_phone']);
+                $data['customer_nic'] = trim($_POST['customer_nic']);
+
+
+                unset($_SESSION['reserv_others']);
+
+                $_SESSION['customerReservation']=$data;
+                $merchant_secret="MzIzODIxMTg4NjcxNTM0NTA5ODE4NzI5OTU5MjEzMDYyNjMyNTc1";
+                $currency='LKR';
+                $merchant_id='1226068';
+                $amount=$data['price'];
+                $order_id='10';
+
+                $hash = strtoupper(
+                    md5(
+                        $merchant_id . 
+                        $order_id . 
+                        number_format($amount, 2, '.', '') . 
+                        $currency .  
+                        strtoupper(md5($merchant_secret)) 
+                    ) 
+                );
+                $output=[
+
+                    'merchant_id'=>$merchant_id,
+                    'order_id'=>$order_id,
+                    'amount'=>$amount,
+                    'currency'=>$currency,
+                    'hash'=>$hash,
+                    'first_name'=>$_SESSION['name'],
+                    'last_name'=>'',
+                    'email'=>$_SESSION['email'],
+                    'phone'=>'',
+                    'address'=>'',
+                    'city'=>'',
+                    'country'=>'',
+                    'items'=>'Room Reservation',
+
+                ];
+                $this->view('paymentGateways/v_customerReservationPaymentGateway',$output);
+                            
+                
+            }
+
+
+            //reservation for others without payment
+            elseif($_SERVER['REQUEST_METHOD']=='POST' ){
+                // die(print_r($_SESSION['reserv_others']));
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $data=$_SESSION['reserv_others'];
                
@@ -407,7 +537,7 @@
 
 
 
-        //Food order part''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        //Foodorder part''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         //load food menu and add items in to the cart
         //and also this one use ajax to retrive data
@@ -452,9 +582,10 @@
                     
                 }
                 
+                
 
                 //validation is completed and no erros
-                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) && empty( $data['quantity_err']) ){
+                if(empty( $data['name_err']) && empty( $data['price_err']) && empty( $data['user_id_err']) && empty( $data['quantity_err']) && $data['quantity']>0 ){
                     
                     
 
@@ -491,7 +622,7 @@
 
                 }
                 else{
-                    $output=['error','Enter Quantity before add.'];
+                    $output=['error','Enter Valid Quantity'];
                     header('Content-Type: application/json');
                     echo json_encode($output);
                 }
@@ -769,7 +900,7 @@
                             'items'=>'Food Order',
 
                         ];
-                        $this->view('customers/v_paymentGateway',$output);
+                        $this->view('paymentGateways/v_customerFoodorderPaymentGateway',$output);
                     
                     }
 
@@ -803,14 +934,23 @@
                 unset($_SESSION['schedule_order']);
 
                 $var = $this->userModel->retrivefoodcart($_SESSION['user_id']);
-                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data)){
-
-
+                if($this->userModel->placeOrder($_SESSION['user_id'],$var,$data,'Paid')){
+                    // if($this->userModel->addExpenses($data,'Food Order','Paid')){
+                        // $_SESSION['toast_type']='success';
+                        // $_SESSION['toast_msg']='Order placed successfully.';
+                        // echo json_encode('Success');
+                    // }
+                    // else{
+                    //     $_SESSION['toast_type']='warning';
+                    //     $_SESSION['toast_msg']='Something went wrong when adding expensess .';
+                    //     echo json_encode('Warning');
+                    // }
                     $_SESSION['toast_type']='success';
-                    $_SESSION['toast_msg']='Order placed successfully.';
-                    echo json_encode('Success');
-                
+                        $_SESSION['toast_msg']='Order placed successfully.';
+                        echo json_encode('Success');
 
+
+                    
                 }
                 else{
                     $_SESSION['toast_type']='warning';
@@ -908,7 +1048,7 @@
        
 
 
-        //servicerequest
+        //servicerequest part
         public function serviceRequest(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 
@@ -930,16 +1070,22 @@
 
                 ];
 
-                //validate each input
+                // die($data['roomNo']); 
+                if(($data['roomNo'])===''){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a room.';
+                    redirect('Customers/serviceRequest');
+                }
                 
-                if(empty($data['service_type'])){
+            
+                elseif(($data['service_type'])===''){
                     $data['service_type_err'] = 'Please Select a service_type';
                     $_SESSION['toast_type']='warning';
                     $_SESSION['toast_msg']='Please Select a  Service service_type';
                     redirect('Customers/serviceRequest');
                 }
 
-                if(empty($data['service_requested'])){
+                elseif(($data['service_requested'])===''){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Please Select a Service';
                     redirect('Customers/serviceRequest');
@@ -947,16 +1093,18 @@
 
 
                 //check user id
-                if(empty($data['user_id'])){
+                elseif(empty($data['user_id'])){
                     $data['user_id_err'] = 'No User';
                     $_SESSION['toast_type']='question';
                     $_SESSION['toast_msg']='Please Try Again. ';
                     redirect('Customers/serviceRequest');
                 }
 
-                if(empty($data['roomNo'])){
+              
+
+                elseif($this->userModel->isCustomerCheckedIn($data)){
                     $_SESSION['toast_type']='error';
-                    $_SESSION['toast_msg']='Plese Select a Room. ';
+                    $_SESSION['toast_msg']='You are not checked in. Please check in to place a service request.';
                     redirect('Customers/serviceRequest');
                 }
                
@@ -964,10 +1112,8 @@
                 
 
                 //validation is completed and no erros
-                if(empty( $data['service_type_err']) && empty( $data['AddDetails_err']) && empty( $data['user_id_err'])  ){
+                else{
                     
-
-                   
             
                     if($this->userModel->placeserviceRequest($data)){
                         
@@ -978,7 +1124,7 @@
                         
 
                         $_SESSION['toast_type']='success';
-                        $_SESSION['toast_msg']='Service request placed successfully.';
+                        $_SESSION['toast_msg']='Service request placed successfully .';
                         redirect('Customers/serviceRequest');
 
                     }
@@ -988,9 +1134,7 @@
                     }
 
                 }
-                else{
-                    redirect('Customers/serviceRequest');
-                }
+                
 
             }
             else{
@@ -1083,6 +1227,18 @@
                 
 
             }
+        }
+
+
+
+
+        //customer payment
+        public function payments() {
+            $data = [
+                'user_id' => $_SESSION['user_id'],
+                'user_id_err' => ''
+            ];
+            $this->view('customers/v_payment', $data);
         }
 
         public function reviewwaiter(){
