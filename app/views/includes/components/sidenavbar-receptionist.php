@@ -15,7 +15,7 @@
 <body>
     <div class="side-bar">
         <div class="logo">
-            <h1><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i>  Guest PRO</h1>
+            <img src="<?php echo URLROOT;?>/public/img/logo/logo.png" alt="GuestPro">
         </div>
         <div class="links" >
             <div class="link-items" id="visal">

@@ -58,10 +58,10 @@
             $.ajax({
                 url:"http://localhost/GuestPro/Receptionists/expandDetails",
                 method:"POST",
-                data:JSON.stringify({reservation_id:res_id,description:description, order_id:order_id }),
+                data:{reservation_id:res_id,description:description, order_id:order_id },
 
                 success:function(response){
-                    console.log(response);
+                    // console.log(response);
                    
                     var table=document.getElementById("expand-details-table");
                     table.innerHTML="";
@@ -100,11 +100,11 @@
                         var img=newRow.insertCell(0);
                         var ItemName=newRow.insertCell(1);
                         var Cost=newRow.insertCell(2);
-                        var Date=newRow.insertCell(3);
+                        var Quantity=newRow.insertCell(3);
                         var roomNo=newRow.insertCell(4);
                         ItemName.textContent="Item Name";
                         Cost.textContent="Cost";
-                        Date.textContent="Date";
+                        Quantity.textContent="Quantity";
                         roomNo.textContent="Room No";
                         var imgarray=response[0].img.split(",");
                         var costarray=response[0].cost.split(",");
@@ -120,12 +120,12 @@
                             var imgcell=newRow.insertCell(0);
                             var ItemNamecell=newRow.insertCell(1);
                             var Costcell=newRow.insertCell(2);
-                            var Datecell=newRow.insertCell(3);
+                            var Quantitycell=newRow.insertCell(3);
                             var roomNocell=newRow.insertCell(4);
                             imgcell.innerHTML=`<img src="http://localhost/GuestPro/public/img/food_items/${imgarray[i]}.jpg" alt="Item Image" width="50px" height="50px">`;
                             ItemNamecell.textContent=itemarray[i];
                             Costcell.textContent=costarray[i];
-                            Datecell.textContent=qtyarray[i];
+                            Quantitycell.textContent=qtyarray[i];
                             roomNocell.textContent=response[0].roomNo;
 
                         }
