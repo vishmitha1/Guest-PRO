@@ -344,16 +344,19 @@
         //expand expenses details
         public function getExpandDetails($data){
 
-            if($data['description']=='Reservation_Cost'){
+            if($data['description']=='Reservation Cost'){
+                
                 $this->db->query(" SELECT reservations.roomNo, reservations.cost, reservations.date, rooms.category, roomtype.mainImg 
                                     FROM reservations 
                                     INNER JOIN rooms ON rooms.reservation_id = reservations.reservation_id 
                                     INNER JOIN roomtype ON roomtype.category = rooms.category 
-                                    WHERE rooms.availability = 'no' and reservations.reservation_id=:res_id LIMIT 1; ");
+                                    WHERE rooms.availability = 'no' and reservations.reservation_id=:res_id ; ");
                 
                 $this->db->bind(':res_id',$data['reservation_id']);
                 $row=$this->db->resultSet();
+                // die(print_r($row));
                 return $row;
+
 
             }
 
@@ -392,6 +395,18 @@
         }
 
 
+        //checkout after payment
+        public function checkoutAftercashed($data){
+            $this->db->query('UPDATE reservations SET checked=:access WHERE reservation_id=:id');
+            $this->db->bind(':id',$data['reservation_id']);
+            $this->db->bind(':access','completed');
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
 
 
 

@@ -74,10 +74,14 @@
                                 </td>
                             </form>
                             
-                            <td>
+                            <td class="button-container">
                                 <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
                                 <?php if(ucfirst($row->checked) =='In'){?>
                                     <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)" >Merchent</button>
+                                    <!-- <form action="<?php echo URLROOT;?>/Receptionists/paymentGateway" method="post">
+                                        <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                        <button class="payment-button" >Merchent</button>
+                                    </form> -->
                                     <button onclick="checkoutAftercashed(<?php echo $row->reservation_id; ?>)" >Cash</button>
                                 <?php }?>
                                 
@@ -101,9 +105,11 @@
                                     <button class="calculate-button">View</button>
                                 </td>
                             </form>
-                            <td>
-                                <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
-                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)"  >Merchent</button>
+                            <td class="button-container">
+                                <form action="<?php echo URLROOT;?>/Receptionists/paymentGateway" method="post">
+                                    <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                    <button class="payment-button" >Merchent</button>
+                                </form>
                                 <button onclick="checkoutAftercashed(<?php echo $row->reservation_id; ?>)" >Cash</button>
                             </td>
                         </tr>
