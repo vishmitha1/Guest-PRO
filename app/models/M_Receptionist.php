@@ -382,7 +382,9 @@
         
         //give access part
         public function getAllReservations(){
-            $this->db->query('SELECT * FROM reservations');
+            $this->db->query('SELECT * FROM reservations WHERE checked=:ch1 OR checked=:ch2');
+            $this->db->bind(':ch1','in');
+            $this->db->bind(':ch2','out');
             $row=$this->db->resultSet();
             return $row;
         }
@@ -397,8 +399,9 @@
 
         //checkout after payment
         public function checkoutAftercashed($data){
-            $this->db->query('UPDATE reservations SET checked=:access WHERE reservation_id=:id');
+            $this->db->query('UPDATE reservations SET checked=:access,payment=:pay WHERE reservation_id=:id');
             $this->db->bind(':id',$data['reservation_id']);
+            $this->db->bind(':pay','Paid');
             $this->db->bind(':access','completed');
             if($this->db->execute()){
                 return true;

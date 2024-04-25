@@ -676,6 +676,9 @@
                 $_SESSION['rese_id']=$data['reservation_id'];
                 
                 $customerData=$this->receptionistModel->getCustomerDataForPaymentGateway($data);
+
+                if($this->receptionistModel->checkoutAftercashed($data));
+                    
           
 
                 $merchant_secret="kjudhttwggggggggggggggggaffsteggetsggggggggggggggalldjufhy";
