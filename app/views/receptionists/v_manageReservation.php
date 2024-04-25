@@ -85,7 +85,7 @@
         <div class="recep-reservation-history">
 
             <div class="form-title-reservation-history">
-                <span>Reservation History</span>
+                <span>Today's Arrivals</span>
             </div> 
 
             <div class="reservation-history-table-wrapper">
@@ -94,7 +94,7 @@
                         <tr>
                             <th>Reservation No</th>
                             <th>Room No</th>
-                            <th>Check In</th>
+                            <th>Attendance</th>
                             <th>Check Out</th>
                             <th>Price</th>
                             
@@ -116,11 +116,11 @@
                         <tr>
                             <td><?php echo $item->reservation_id;?></td>
                             <td><?php echo $item->roomNo;?></td>
-                            <td><?php echo $item->checkIn;?></td>
+                            <td><?php echo ucfirst($item->checked);?></td>
                             <td><?php echo $item->checkOut;?></td>
                             <td><?php echo $item->cost;?></td>
                     
-                            <td><?php echo $item->customer_name;?></td>
+                            <td><?php echo ucfirst($item->customer_name);?></td>
                         
                             <td>
                                 <form action="<?php echo URLROOT;?>/Receptionists/updateReservation" method='POST'>
@@ -142,11 +142,11 @@
                             <tr>
                                 <td><?php echo $item->reservation_id;?></td>
                                 <td><?php echo $item->roomNo;?></td>
-                                <td><?php echo $item->checkIn;?></td>
+                                <td><?php echo ucfirst($item->checked);?></td>
                                 <td><?php echo $item->checkOut;?></td>
                                 <td><?php echo $item->cost;?></td>
                         
-                                <td><?php echo $item->customer_name;?></td>
+                                <td><?php echo ucfirst($item->customer_name);?></td>
                             
                                 <td>
                                     <form action="<?php echo URLROOT;?>/Receptionists/updateReservation" method='POST'>

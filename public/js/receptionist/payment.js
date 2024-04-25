@@ -3,8 +3,8 @@
 function paymentGateway(id){
     console.log(id);
 
-    var xhr= new XMLHttpRequest();
     
+    var xhr= new XMLHttpRequest();
 
     // xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 
@@ -21,8 +21,20 @@ function paymentGateway(id){
                         // Payment completed. It can be a successful failure.
                 payhere.onCompleted = function onCompleted(orderId) {
                     console.log("Payment completed. OrderID:" + orderId);
-                    // Note: validate the payment and show success or failure page to the customer
+                    
+                    // Display success alert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Payment Successful',
+                        text: 'Your payment has been completed successfully. Thank you!',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        // Reload the current page
+                        location.reload();
+
+                    });
                 };
+                        
 
                 // Payment window closed
                 payhere.onDismissed = function onDismissed() {
@@ -40,8 +52,8 @@ function paymentGateway(id){
                 var payment = {
                     "sandbox": true,
                     "merchant_id": "1226064",    // Replace your Merchant ID
-                    "return_url": "http://localhost/GuestPro/Receptionists/paymet",     // Important
-                    "cancel_url": "http://localhost/GuestPro/Receptionists/paymet",     // Important
+                    "return_url": "http://localhost/GuestPro/Receptionists/billPayment",     // Important
+                    "cancel_url": "http://localhost/GuestPro/Receptionists/payment",     // Important
                     "notify_url": "http://sample.com/notify",
                     "order_id": obj['order_id'],
                     "items": obj['items'],
@@ -81,4 +93,47 @@ function paymentGateway(id){
     var jsonData = JSON.stringify(dataToSend);
     
     xhr.send(jsonData);
+}
+
+
+function checkoutAftercashed(id){
+    Swal.fire({
+        title: "Is Customer Payed in Cash?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        color:'#003366',
+        iconColor: '#237dd7',
+        showCancelButton: true,
+        confirmButtonColor: "#002447",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Payed in Cash"
+      }).then((result) => {
+
+        if (result.isConfirmed) {
+            $.ajax({
+                type:'POST',
+                url:'http://localhost/Guestpro/Receptionists/checkoutAftercashed',
+                data:{reservation_id:id},
+                success:function(data){
+                    Swal.fire({
+                        title: "Payment Done",
+                        text: "Reservation Completed",
+                        icon: "success",
+                        color: '#003366'
+                      }).then((result) => {
+                        if (result.isConfirmed || result.isDismissed) {
+                          window.location.reload(); // Reload the page
+                        }
+                      });
+                      
+                      
+                },
+                error:function(){
+                    console.error();
+                }        
+            });
+          
+        }
+      });
+    
 }

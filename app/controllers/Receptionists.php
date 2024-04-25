@@ -398,6 +398,7 @@
 
         public function manageReservation(){
 
+            //search
             if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['searchReservation'] )){
 
                    
@@ -437,7 +438,7 @@
 
             else{
                 $data=[];
-                $this->view('receptionists/v_manageReservation',[$this->receptionistModel->getAllReservations(),$data]);
+                $this->view('receptionists/v_manageReservation',[$this->receptionistModel->getTodayReservations(),$data]);
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }
@@ -573,7 +574,7 @@
             else{
                 $data=$this->receptionistModel->getPendingPayments();
                 $this->view('receptionists/v_payments',[$data,$array=[]]);
-
+                
                 if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
                     toastFlashMsg();
                 }
@@ -617,12 +618,18 @@
         public function expandDetails(){
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-                $spotData=json_decode(array_keys($_POST)[0],true);
+                // $spotData=json_decode(array_keys($_POST)[0],true);
+
+                // $data=[
+                //     'reservation_id' => $spotData['reservation_id'],
+                //     'description' => $spotData['description'],
+                //     'order_id' => $spotData['order_id'],
+                // ];
 
                 $data=[
-                    'reservation_id' => $spotData['reservation_id'],
-                    'description' => $spotData['description'],
-                    'order_id' => $spotData['order_id'],
+                    'reservation_id' => trim($_POST['reservation_id']),
+                    'description' => trim($_POST['description']),
+                    'order_id' => trim($_POST['order_id']),
                 ];
 
             
@@ -665,8 +672,13 @@
                     'reservation_id' => $postData['reservation_id'],
                     
                 ];
+
+                $_SESSION['rese_id']=$data['reservation_id'];
                 
                 $customerData=$this->receptionistModel->getCustomerDataForPaymentGateway($data);
+
+                if($this->receptionistModel->checkoutAftercashed($data));
+                    
           
 
                 $merchant_secret="kjudhttwggggggggggggggggaffsteggetsggggggggggggggalldjufhy";
@@ -713,6 +725,79 @@
 
             }
         }
+        // public function paymentGateway(){
+        
+        //     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        //         $data=[
+        //             'reservation_id' => trim($_POST['reservation_id']),
+        //         ];
+                
+        //         $customerData=$this->receptionistModel->getCustomerDataForPaymentGateway($data);
+          
+
+        //         $merchant_secret="kjudhttwggggggggggggggggaffsteggetsggggggggggggggalldjufhy";
+        //         $currency='LKR';
+        //         $merchant_id='1226064';
+        //         $amount=$customerData[0]->total;
+        //         $order_id='10';
+
+
+
+
+        //         $hash = strtoupper(
+        //             md5(
+        //                 $merchant_id . 
+        //                 $order_id . 
+        //                 number_format($amount, 2, '.', '') . 
+        //                 $currency .  
+        //                 strtoupper(md5($merchant_secret)) 
+        //             ) 
+        //         );
+                
+        //         $output=[
+        //             'merchant_id' => $merchant_id,
+        //             'amount' => $amount,
+        //             'currency' => $currency,
+        //             'hash' => $hash,
+        //             'name' => $customerData[0]->name,
+        //             'email' => $customerData[0]->email,
+        //             'phone' => $customerData[0]->phone,
+        //             'address' => 'No 1, Galle Road, Colombo 03',
+        //             'city' => 'Colombo',
+        //             'country' => 'Sri Lanka',
+        //             'order_id' =>'10',
+        //             'items' => 'Hotel Reservation',
+
+        //         ];
+             
+
+                
+        //         $_SESSION['rese_id']=$data['reservation_id'];
+        //         $this->view('paymentGateways/v_receptionistBillPaymentGateway',$output);
+
+
+        //     }
+        // }
+
+        //receptionist checkout after cashed using mercent
+        public function billPayment(){
+            $data=[
+                'reservation_id' => $_SESSION['rese_id'],
+                'user_id' => $_SESSION['user_id'],
+            ];
+            unset($_SESSION['rese_id']);
+            if($this->receptionistModel->checkoutAftercashed($data)){
+                $_SESSION['toast_type']='success';
+                $_SESSION['toast_msg']='Customer checked out successfully';
+                redirect('receptionists/payment');
+            }
+            else{
+                $_SESSION['toast_type']='error';
+                $_SESSION['toast_msg']='Something went wrong';
+                redirect('receptionists/payment');
+            }
+        }
 
             //give access to the customer
             public function giveAccess(){
@@ -746,6 +831,29 @@
     
                 }
             }
+
+
+
+            //checkout after cashed
+            public function checkoutAftercashed(){
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                    $data=[
+                        'reservation_id' => trim($_POST['reservation_id']),
+                        'user_id' => $_SESSION['user_id'],
+                    ];
+
+                    if($this->receptionistModel->checkoutAftercashed($data)){
+                        echo json_encode(['success','Customer checked out successfully']);
+                    }
+                    else{
+                        echo json_encode(['error','Something went wrong']);
+                    }
+            }
+        }
+    
+                    
+            
         
 
     

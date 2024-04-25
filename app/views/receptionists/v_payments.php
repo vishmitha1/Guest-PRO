@@ -6,6 +6,8 @@
     <script src="<?php echo URLROOT; ?>/public/js/receptionist/payment.js"></script>
     <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 
+    
+
     <div class="payment-res-searchbar-wrapper">
         
 
@@ -44,10 +46,6 @@
     
     </div>
         
-
-
-
-        
         
 
         <div class="payment-table-wrapper">
@@ -57,9 +55,9 @@
                     <th>Reservation No</th>
                     <th>Guest Name</th>
                     <th>Total Bill</th>
-                   
-                    <th>Calculate</th>
-                    <th>Pay</th>
+                    <th>Attendance</th>
+                    <th>Details</th>
+                    <th>Payments</th>
                 </tr>
 
                 <?php if(!empty($data[0])) {
@@ -68,37 +66,51 @@
                             <td><?php echo $row->reservation_id; ?></td>
                             <td><?php echo $row->customer_name; ?></td>
                             <td>LKR <?php echo $row->total; ?></td>
-                            
+                            <td><?php echo $row->checked; ?></td>
                             <form action="<?php echo URLROOT;?>/Receptionists/calculatePayments" method="post" >
                                 <td>
                                     <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
-                                    <button class="calculate-button">Calculate</button>
+                                    <button class="calculate-button">View</button>
                                 </td>
                             </form>
                             
-                            <td>
+                            <td class="button-container">
                                 <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
-                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)" >Proceed to Payment</button>
+                                <?php if(ucfirst($row->checked) =='In'){?>
+                                    <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)" >Merchent</button>
+                                    <!-- <form action="<?php echo URLROOT;?>/Receptionists/paymentGateway" method="post">
+                                        <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                        <button class="payment-button" >Merchent</button>
+                                    </form> -->
+                                    <button onclick="checkoutAftercashed(<?php echo $row->reservation_id; ?>)" >Cash</button>
+                                <?php }?>
+                                
+
+                                
                             </td>
                         </tr>
                     <?php }
                 }
                 elseif(!empty($data[1])){ 
-                   $row= $data[1]?>
+                   $row= $data[1];?>
+                   
                         <tr>
                             <td><?php echo $row->reservation_id; ?></td>
                             <td><?php echo $row->customer_name; ?></td>
                             <td>LKR <?php echo $row->total; ?></td>
-                            
+                            <td><?php echo $row->checked; ?></td>
                             <form target="_blank" action="<?php echo URLROOT;?>/Receptionists/calculatePayments" method="post" >
                                 <td>
                                     <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
-                                    <button class="calculate-button">Calculate</button>
+                                    <button class="calculate-button">View</button>
                                 </td>
                             </form>
-                            <td>
-                                <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
-                                <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)"  >Proceed to Payment</button>
+                            <td class="button-container">
+                                <form action="<?php echo URLROOT;?>/Receptionists/paymentGateway" method="post">
+                                    <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
+                                    <button class="payment-button" >Merchent</button>
+                                </form>
+                                <button onclick="checkoutAftercashed(<?php echo $row->reservation_id; ?>)" >Cash</button>
                             </td>
                         </tr>
                     
@@ -111,8 +123,15 @@
             
         </div>
 
+      
+        
+
        
     </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     
 </body>
