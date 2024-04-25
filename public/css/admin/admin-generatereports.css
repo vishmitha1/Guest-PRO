@@ -109,6 +109,10 @@ table tbody tr:hover {
     margin-left: 90%;
 }
 
+.view-btn {
+    margin-right: 10px;
+}
+
 .download-btn ,.view-btn {
     background-color: #bc1c5c;
     color: #fff;
