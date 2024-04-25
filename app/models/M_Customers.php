@@ -243,7 +243,9 @@
 
         //This one use to cancel reservation
         public function deleteReservation($data){
-            $this->db->query("DELETE FROM reservations WHERE user_id = :u_id AND reservation_id = :res_id  ");
+            // $this->db->query("DELETE FROM reservations WHERE user_id = :u_id AND reservation_id = :res_id  ");
+            $this->db->query('UPDATE reservations SET checked=:stat WHERE user_id=:u_id AND reservation_id=:res_id');
+            $this->db->bind('stat','canceled');
             $this->db->bind('u_id',$data['user_id']);
             $this->db->bind('res_id',$data['reservation_id']);
 
@@ -583,9 +585,10 @@
 
         //Retrive Reservation Room number for food order and service request
         public function retriveRoomNo($id){
-            $this->db->query("SELECT roomNo FROM reservations WHERE user_id=:id  ");
+            $this->db->query("SELECT roomNo FROM reservations WHERE user_id=:id AND (checked=:ch1 OR checked=:ch2)");
             $this->db->bind(':id',$id);
-        
+            $this->db->bind(':ch1','in');
+            $this->db->bind(':ch2','out');
             $row = $this->db->resultSet();
 
             return $row;
