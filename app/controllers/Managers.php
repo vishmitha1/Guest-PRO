@@ -1166,5 +1166,3 @@ class Managers extends Controller
 
 
 
-
-?>
