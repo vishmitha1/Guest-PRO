@@ -236,7 +236,9 @@
 
         //cancel reservation
         public function cancelReservation($data){
-            $this->db->query('DELETE FROM reservations WHERE reservation_id=:id');
+            // $this->db->query('DELETE FROM reservations WHERE reservation_id=:id');
+            $this->db->query('UPDATE reservations SET checked=:access WHERE reservation_id=:id');
+            $this->db->bind(':access','canceled');
             $this->db->bind(':id',$data['reservation_id']);
             
 
