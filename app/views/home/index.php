@@ -18,7 +18,7 @@
         <nav>
           <div class="nav__bar">
             <div class="home-logo">
-              <a href="#"><img src="assets/home-logo.png" alt="home-logo" /></a>
+              <a href="#"><img src="<?php echo URLROOT;?>/public/img/logo/logo.png" alt="GuestPro"></a>
             </div>
             <div class="nav__menu__btn" id="menu-btn">
               <i class="ri-menu-line"></i>
@@ -132,7 +132,7 @@
               <?php } ?>  
             </p>
             <h5>Starting from <span><?php echo "LKR ". $room->price;?>/night</span></h5>
-            <button class="btn">Book Now</button>
+            <button onclick="location.href='<?php echo URLROOT;?>/Users/login'" class="btn">Book Now</button>
           </div>
         </div>
 
@@ -159,9 +159,10 @@
               <span><i class="ri-headphone-line"></i></span>
               Conference Room
             </li>
+            
             <li>
               <span><i class="ri-map-2-line"></i></span>
-              Tourist Guide Support
+              Sound Proof Rooms
             </li>
           </ul>
         </div>
@@ -201,7 +202,7 @@
       <div class="section__container footer__container">
         <div class="footer__col">
           <div class="home-logo">
-            <a href="#home"><img src="assets/home-logo.png" alt="home-logo" /></a>
+            <a href="#home"><img src="<?php echo URLROOT;?>/public/img/logo/logo.png" alt="GuestPro"> </a>
           </div>
           <p class="section__description">
             Discover a world of comfort, luxury, and adventure as you explore
