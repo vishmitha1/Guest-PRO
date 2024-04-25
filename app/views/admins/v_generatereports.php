@@ -4,7 +4,7 @@
         <h1>Generate Reports</h1>
     </div>
     <div class="generate-report">
-        <form action="<?php echo URLROOT; ?>/Reports/generatereports" method="POST">
+        <form action="<?php echo URLROOT; ?>/Reports/generateReports" method="POST">
             <div class="form-group">
                 <label for="report_type">Select Report Type:</label>
                 <select name="report_type" id="report_type">
@@ -43,11 +43,7 @@
 
 <script>
     const reportTypeSelect = document.getElementById('report_type');
-    const roomReportDiv = document.getElementById('>Room Summary Report');
-    const reservationReportDiv = document.getElementById('Reservation Summary Report');
-    const incomeReportDiv = document.getElementById('Income Summary Report');
-    const foodOrdersDiv = document.getElementById('Food Orders Summary Report');
-    const customerReportDiv = document.getElementById('Customer Summary Report');
+    const incomeReportDiv = document.getElementById('income_report');
 
 
     reportTypeSelect.addEventListener('change', function() {

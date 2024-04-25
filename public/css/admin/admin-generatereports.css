@@ -71,9 +71,18 @@
 
 }
 
-.logo-report image{
-    padding-bottom: 20px;   
-}
+.logo-report {
+    padding: 20px 0; /* Adjusted padding */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    height: 80px; /* Adjusted height */
+  }
+  
+  .logo-report img {
+    max-width: 80%; /* Ensures the image doesn't exceed the container width */
+    height: auto; /* Maintain aspect ratio */
+  }
 
 table {
     width: 100%;
