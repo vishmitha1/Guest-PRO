@@ -15,9 +15,9 @@
                                                                     <?php if(sizeof($data[0])==1){ ?>
                                                                         <?php foreach($data[0] as $room){ ?>
                                                                             <?php if(strlen($room->roomNo)>1){
-                                                                                $roomNo=explode(",",$room->roomNo);
-                                                                                echo "<option hidden value='' >Select Room</option>";
-                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                $roomNo=explode(",",$room->roomNo);?>
+                                                                                 <option  value=""  selected hidden>Select Room</option>;
+                                                                            <?php for($i=0;$i<sizeof($roomNo);$i++){?>
                                                                                     <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
                                                                                 <?php }
                                                                             }
@@ -29,7 +29,7 @@
                                                                     <?php } 
                                                                     else{ ?>    
                                                                     
-                                                                        <option hidden value="" >Select Room</option>
+                                                                        <option hidden value=""  selected >Select Room</option>
                                                                         <?php foreach($data[0] as $room){ ?>
                                                                             <?php if(strlen($room->roomNo)>1){
                                                                                 $roomNo=explode(",",$room->roomNo);
