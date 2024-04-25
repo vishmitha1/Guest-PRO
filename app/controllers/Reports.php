@@ -1,8 +1,5 @@
 <?php
 
-// Load PDF library
-require_once APPROOT . '/libraries/tcpdf/tcpdf.php';
-
 class Reports extends Controller
 {
     protected $middleware;
