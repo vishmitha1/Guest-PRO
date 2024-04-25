@@ -1,5 +1,10 @@
 <?php
 
+
+// Load PDF library
+require_once APPROOT . '/libraries/tcpdf/tcpdf.php';
+
+
 class Reports extends Controller
 {
     protected $middleware;
@@ -38,6 +43,13 @@ class Reports extends Controller
             // switch($data['report_type']) {
             //     case ''
             // }
+
+
+
+            // switch($data['report_type']) {
+            //     case ''
+            // }
+
 
             // Generate report based on data
             $generatedReport = $this->reportModel->generateReport($data);
