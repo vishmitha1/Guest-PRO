@@ -1,15 +1,13 @@
 
 
 .complaint-item {
-    border: 1px solid #ccc;
     margin-bottom: 20px;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.view-container :hover{
-    background-color: #E0ECF8;
-}
+
 .complaint-details {
     display: flex;
     justify-content: space-between;
