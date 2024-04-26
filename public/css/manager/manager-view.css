@@ -137,6 +137,21 @@
     background-color: #c82333;
 }
 
+.confirmChangeStatus {
+    background-color: #dc3545;
+    color: white;
+     padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    
+}
+
+.confirmChangeStatus:hover {
+    background-color: #c82333;
+}
 /* Cancel button */
 .cancelBtn {
     background-color: #9f9f9f;
