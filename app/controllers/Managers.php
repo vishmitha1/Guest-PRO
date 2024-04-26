@@ -473,7 +473,7 @@ class Managers extends Controller
             $recipients = $_POST['recipients'];
             $subject = $_POST['subject'];
             $message = $_POST['message'];
-
+            $template_file = "../public/template.php";
             // Include the PHPMailer configuration
             require_once APPROOT . '/libraries/phpmailer/src/PHPMailer.php';
             require_once APPROOT . '/libraries/phpmailer/src/SMTP.php';
@@ -1162,6 +1162,53 @@ class Managers extends Controller
 
     }
 
+
+    public function changeRoomStatus($roomNo)
+    {
+        $room = $this->userModel->viewRoomDetails($roomNo);
+        if ($room->status === 'active') {
+            // Call a model method to change staus to deactive
+            $success = $this->userModel->changeRoomStatustoDeactivated($roomNo);
+
+            // Optionally, you can handle success or failure and redirect accordingly
+            if ($success) {
+                // Room type deleted successfully
+                $_SESSION['toast_type'] = 'success';
+
+                $_SESSION['toast_msg'] = 'Room Status Updated successfully!';
+
+                // Redirect
+                redirect('Managers/roomdetails'); // Redirect to room details page
+            } else {
+                $_SESSION['toast_type'] = 'error';
+
+                $_SESSION['toast_msg'] = 'Error updating room status!<br> Try again';
+
+                // Redirect
+                header("Location: " . URLROOT . "/Managers/roomdetails");
+            }
+        } elseif ($room->status == 'deactive') {
+            $success = $this->userModel->changeRoomStatustoActive($roomNo);
+            // Optionally, you can handle success or failure and redirect accordingly
+            if ($success) {
+                // Room type deleted successfully
+                $_SESSION['toast_type'] = 'success';
+
+                $_SESSION['toast_msg'] = 'Room Status Updated successfully!';
+
+                // Redirect
+                redirect('Managers/roomdetails'); // Redirect to room details page
+            } else {
+                $_SESSION['toast_type'] = 'error';
+
+                $_SESSION['toast_msg'] = 'Error updating room status!<br> Try again';
+
+                // Redirect
+                header("Location: " . URLROOT . "/Managers/roomdetails");
+            }
+        }
+
+    }
 }
 
 

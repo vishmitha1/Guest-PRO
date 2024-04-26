@@ -292,7 +292,7 @@ class M_Managers
 
     public function deleteRoom($roomno)
     {
-        $this->db->query('DELETE FROM rooms WHERE roomNo = :roomno');
+        $this->db->query('UPDATE rooms SET status="deleted" WHERE roomNo = :roomno');
         $this->db->bind(':roomno', $roomno);
 
         return $this->db->execute();
@@ -594,8 +594,14 @@ class M_Managers
 
     public function getFoodOrderCount()
     {
+        // Get today's date
+        $today = date("Y-m-d");
+
         // Prepare the query
-        $this->db->query('SELECT COUNT(*) AS foodOrder_count FROM foodorders');
+        $this->db->query('SELECT COUNT(*) AS foodOrder_count FROM foodorders WHERE DATE(date) = :today');
+
+        // Bind the parameter
+        $this->db->bind(':today', $today);
 
         // Fetch a single row
         $row = $this->db->single();
@@ -606,11 +612,15 @@ class M_Managers
 
     public function getPlacedOrder()
     {
-        // Prepare the query
-        $this->db->query('SELECT COUNT(*) AS placedOrders FROM foodorders WHERE status = :status');
+        // Get today's date
+        $today = date("Y-m-d");
 
-        // Bind the placeholder value
+        // Prepare the query
+        $this->db->query('SELECT COUNT(*) AS placedOrders FROM foodorders WHERE status = :status AND DATE(date) = :today');
+
+        // Bind the placeholder values
         $this->db->bind(':status', 'placed');
+        $this->db->bind(':today', $today);
 
         // Fetch a single row 
         $row = $this->db->single();
@@ -619,13 +629,17 @@ class M_Managers
         return $row->placedOrders;
     }
 
+
     public function getPreparingOrder()
     {
+        // Get today's date
+        $today = date("Y-m-d");
         // Prepare the query
-        $this->db->query('SELECT COUNT(*) AS preparingOrders FROM foodorders WHERE status = :status');
+        $this->db->query('SELECT COUNT(*) AS preparingOrders FROM foodorders WHERE status = :status AND DATE(date) = :today');
 
         // Bind the placeholder value
         $this->db->bind(':status', 'preparing');
+        $this->db->bind(':today', $today);
 
         // Fetch a single row 
         $row = $this->db->single();
@@ -636,11 +650,14 @@ class M_Managers
 
     public function getDispatchOrder()
     {
+        $today = date("Y-m-d");
         // Prepare the query
-        $this->db->query('SELECT COUNT(*) AS dispatchOrders FROM foodorders WHERE status = :status');
+        $this->db->query('SELECT COUNT(*) AS dispatchOrders FROM foodorders WHERE status = :status AND DATE(date) = :today');
 
         // Bind the placeholder value
-        $this->db->bind(':status', 'dispatch');
+        $this->db->bind(':status', 'ready');
+        $this->db->bind(':today', $today);
+
 
         // Fetch a single row 
         $row = $this->db->single();
@@ -791,6 +808,23 @@ class M_Managers
 
         // Execute the query and return the result set
         return $this->db->resultSet();
+    }
+
+    public function changeRoomStatustoDeactivated($roomno)
+    {
+        $this->db->query('UPDATE rooms SET status="deactive" WHERE roomNo = :roomno');
+        $this->db->bind(':roomno', $roomno);
+
+        return $this->db->execute();
+    }
+
+
+    public function changeRoomStatustoActive($roomno)
+    {
+        $this->db->query('UPDATE rooms SET status="active" WHERE roomNo = :roomno');
+        $this->db->bind(':roomno', $roomno);
+
+        return $this->db->execute();
     }
 
 
