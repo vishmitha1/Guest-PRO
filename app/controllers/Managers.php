@@ -989,14 +989,20 @@ class Managers extends Controller
         $maxPrice = $_POST['price'];
         $roomNo = $_POST['roomNo'];
         $availability = $_POST['availability'];
+        $status = $_POST['status'];
 
         if ($availability == 'Available') {
             $availability = 'yes';
         } elseif ($availability == 'Booked')
             $availability = 'no';
 
+        if ($status == 'Active') {
+            $status = 'active';
+        } elseif ($status == 'Deactive')
+            $status = 'deactive';
+
         // Call the model method to fetch filtered room data
-        $filteredRooms = $this->userModel->getFilteredRooms($category, $maxPrice, $roomNo, $availability);
+        $filteredRooms = $this->userModel->getFilteredRooms($category, $maxPrice, $roomNo, $availability, $status);
 
         $roomTypes = $this->userModel->getroomtypes();
         foreach ($filteredRooms as &$room) {

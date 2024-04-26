@@ -51,6 +51,16 @@
 
                 </div>
                 <div class="filter-box">
+                    <label for="status">Status</label>
+                    <select id="statusFilter" name="status">
+                        <option value="">select</option>
+                        <option value="Active">Active</option>
+                        <option value="Deactive">Deactive</option>
+                    </select>
+
+
+                </div>
+                <div class="filter-box">
                     <form action="<?php echo URLROOT; ?>/Managers/applyFilters" method="post">
                         <button type="submit">Apply</button>
                     </form>

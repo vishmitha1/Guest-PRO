@@ -422,7 +422,7 @@ class M_Managers
         return $this->db->execute();
     }
 
-    public function getFilteredRooms($category, $maxPrice, $roomNo, $availability)
+    public function getFilteredRooms($category, $maxPrice, $roomNo, $availability, $status)
     {
         // Build the SQL query with placeholders for the filters
         $sql = "SELECT r.*, rt.price 
@@ -443,6 +443,9 @@ class M_Managers
         if (!empty($availability)) {
             $sql .= " AND r.availability = :availability";
         }
+        if (!empty($status)) {
+            $sql .= " AND r.status = :status";
+        }
 
         // Prepare the SQL query
         $this->db->query($sql);
@@ -459,6 +462,9 @@ class M_Managers
         }
         if (!empty($availability)) {
             $this->db->bind(':availability', $availability);
+        }
+        if (!empty($status)) {
+            $this->db->bind(':status', $status);
         }
 
         // Execute the query and return the result set
