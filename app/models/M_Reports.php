@@ -1,5 +1,4 @@
 <?php
-
 class M_Reports
 {
     private $db;
@@ -17,10 +16,7 @@ class M_Reports
         $reportType = $data['report_type'];
         $startDate = $data['start_date'];
         $endDate = $data['end_date'];
-        /*$reportSpecificData = $data['report_specific_data'];*/
-
-        // Placeholder variable for the generated report data
-        // $generatedReport = '';
+        $reportSpecificData = $data['report_specific_data'];
 
         // Generate report based on report type
         switch ($reportType) {
@@ -43,12 +39,23 @@ class M_Reports
                 return $results;
 
                 break;
-                // echo "<pre>"; 
 
-                // print_r($results);
-                // echo "</pre>"; 
 
-                // die;
+            case 'Income Summary Report':
+                if($reportSpecificData == 'Food Order Income'){
+
+                    $this->db->query("SELECT order_id, item_no, quantity, cost, total, date FROM foodorders
+                                      WHERE date BETWEEN :start_date AND :end_date ORDER BY date ASC");
+                    
+                    $this->db->bind(':start_date', $startDate);
+                    $this->db->bind(':end_date', $endDate);
+                    $results = $this->db->resultSet();
+
+                    return $results;
+                
+                }
+                break;
+
 
                 // Report generation logic for room reservations
                 // $generatedReport .= "<h2 style='margin-bottom: 0px;'>Room Summary Report</h2>";

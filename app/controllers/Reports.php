@@ -1,10 +1,4 @@
 <?php
-
-
-// Load PDF library
-require_once APPROOT . '/libraries/tcpdf/tcpdf.php';
-
-
 class Reports extends Controller
 {
     protected $middleware;
@@ -31,30 +25,45 @@ class Reports extends Controller
                 'report_type' => $_POST['report_type'],
                 'start_date' => $_POST['start_date'],
                 'end_date' => $_POST['end_date'],
+                'report_specific_data' => $_POST['income_report_type'],
             ];
 
-            // Additional data based on report type
+            // // Additional data based on report type
+            // switch ($data['report_type']) {
+            //     case 'income_report':
+            //         $data['report_specific_data'] = $_POST['income_report_type'];
+            //         break;
+            // }
+
             switch ($data['report_type']) {
-                case 'income_report':
-                    $data['report_specific_data'] = $_POST['income_report_type'];
+                case 'Room Summary Report':
+                    // Generate report based on data
+                    $generatedReport = $this->reportModel->generateReport($data);
+                    $this->view('admins/v_room_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                    break;
+
+
+                case 'Income Summary Report':
+                    if ($data['report_specific_data'] == 'Food Order Income') {
+                        // Generate report based on data
+                        $generatedReport = $this->reportModel->generateReport($data);
+                        $this->view('admins/v_food_income_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                    }
+                    break;
+                    if ($data['report_specific_data'] == 'Reservation Income') {
+                        // Generate report based on data
+                        $generatedReport = $this->reportModel->generateReport($data);
+                        $this->view('admins/v_reservation_income_report', ['generated_report' => $generatedReport, 'data' => $data]);
+
+                    }
+                    break;
+                    
+                case 'Food Orders Summary Report':
+                    // Generate report based on data
+                    $generatedReport = $this->reportModel->generateReport($data);
+                    $this->view('admins/v_food_orders_report', ['generated_report' => $generatedReport, 'data' => $data]);
                     break;
             }
-
-            // switch($data['report_type']) {
-            //     case ''
-            // }
-
-
-
-            // switch($data['report_type']) {
-            //     case ''
-            // }
-
-
-            // Generate report based on data
-            $generatedReport = $this->reportModel->generateReport($data);
-            
-            $this->view('admins/v_finalreport', ['generated_report' => $generatedReport,'data'=> $data]);
 
         } else {
             // If the form is not submitted via POST, load the form view
@@ -113,5 +122,3 @@ class Reports extends Controller
     //     }
     // }
 }
-
-?>
