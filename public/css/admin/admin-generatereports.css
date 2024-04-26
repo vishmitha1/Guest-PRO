@@ -50,10 +50,85 @@
     background-color: #002447;
 }
 
-/* Additional form group styles */
-#room_report,
-#reservation_report,
-#income_report,
-#food_orders {
-    display: none;
+.header{
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    border-bottom: 1px solid black;
+ 
 }
+
+.contact-info h1{
+    text-align: right;
+    font-size: 20px;
+}
+
+.contact-info p{
+    text-align: right;
+
+}
+
+.logo-report image{
+    padding-bottom: 20px;   
+}
+
+table {
+    width: 100%;
+    margin-top: 0px; /* Adjust margin as needed */
+    border-collapse: collapse;
+    border: 2px solid #003366; /* Add a border to the table */
+    background-color: #ffffff; /* Set background color for the table */
+}
+
+th,td {
+    border: 1px solid #003366; /* Add a border to table cells */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #002447; /* Set background color for header cells */
+    color: #ffffff; /* Set text color for header cells */
+}
+
+table tbody tr:hover {
+    background-color: #f0f0f0; /* Add hover effect to table rows */
+}
+
+.view-download-btn {
+    display: flex;
+    margin-left: 80%;
+}
+
+.download-btn {
+    /* margin-top: 50px;
+    margin-bottom: 30px; */
+    margin-left: 90%;
+}
+
+.download-btn ,.view-btn {
+    background-color: #bc1c5c;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.download-btn:hover, .view-btn:hover {
+    background-color: #002447;
+}
+
+.generated-report {
+    margin-top: 5px;
+}
+
+.generated-report p {
+    text-align: right; 
+    padding: 0 20px;
+}
+
+
+
