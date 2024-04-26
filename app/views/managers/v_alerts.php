@@ -4,6 +4,7 @@
 
 <div class="home">
     <div class="manager-page">
+        <h1>Send Alerts and Promotions</h1>
         <div class="add-new-form">
             <div class="add-new-form-header">
                 <center>
@@ -15,7 +16,7 @@
             <form action="<?php echo URLROOT; ?>/Managers/sendAlert" method="POST">
                 <label for="recipients">Recipients:</label>
                 <select id="recipients" name="recipients">
-                    <option value="all">All Users</option>
+                    <option value="all">All Guests</option>
                     <option value="guests">Inhouse Guests</option>
 
                 </select>
