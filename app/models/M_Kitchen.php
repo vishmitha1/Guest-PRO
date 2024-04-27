@@ -197,7 +197,7 @@
     public function changeOrderStatus($id, $status) {
         try {
             // Prepare and execute the update query
-            $this->db->query("UPDATE foodorders SET status = :status WHERE order_id = :id");
+            $this->db->query("UPDATE foodorders SET status = :status" . ($status === 'ready' ? ", kitchen_end_time = NOW()" : "") . " WHERE order_id = :id");
             $this->db->bind(':status', $status);
             $this->db->bind(':id', $id);
             $this->db->execute();
