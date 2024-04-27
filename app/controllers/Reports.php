@@ -28,97 +28,62 @@ class Reports extends Controller
                 'report_specific_data' => $_POST['income_report_type'],
             ];
 
-            // // Additional data based on report type
-            // switch ($data['report_type']) {
-            //     case 'income_report':
-            //         $data['report_specific_data'] = $_POST['income_report_type'];
-            //         break;
-            // }
-
             switch ($data['report_type']) {
                 case 'Room Summary Report':
                     // Generate report based on data
                     $generatedReport = $this->reportModel->generateReport($data);
-                    $this->view('admins/v_room_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                    if ($generatedReport === false) {
+                        die("Failed to generate room summary report.");
+                    } else {
+                        $this->view('admins/v_room_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                    }
                     break;
+
 
 
                 case 'Income Summary Report':
                     if ($data['report_specific_data'] == 'Food Order Income') {
                         // Generate report based on data
                         $generatedReport = $this->reportModel->generateReport($data);
-                        $this->view('admins/v_food_income_report', ['generated_report' => $generatedReport, 'data' => $data]);
-                    }
-                    break;
-                    if ($data['report_specific_data'] == 'Reservation Income') {
+                        if ($generatedReport === false) {
+                            die("Failed to generate income summary report for food orders.");
+                        } else {
+                            $this->view('admins/v_food_income_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                        }
+
+
+                    } elseif ($data['report_specific_data'] == 'Reservation Income') {
                         // Generate report based on data
                         $generatedReport = $this->reportModel->generateReport($data);
-                        $this->view('admins/v_reservation_income_report', ['generated_report' => $generatedReport, 'data' => $data]);
-
+                        if ($generatedReport === false) {
+                            die("Failed to generate income summary report for reservations.");
+                        } else {
+                            $this->view('admins/v_reservation_income_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                        }
+                    } else {
+                        die("Invalid income summary report type.");
                     }
                     break;
+
                     
+
                 case 'Food Orders Summary Report':
                     // Generate report based on data
                     $generatedReport = $this->reportModel->generateReport($data);
-                    $this->view('admins/v_food_orders_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                    if ($generatedReport === false) {
+                        die("Failed to generate food orders summary report.");
+                    } else {
+                        $this->view('admins/v_food_orders_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                    }
+                    break;
+
+                default:
+                    die("Invalid report type.");
                     break;
             }
-
         } else {
             // If the form is not submitted via POST, load the form view
             $this->view('admins/v_generatereports');
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // public function downloadReport()
-    // {
-    //     // Check if the generated report exists
-    //     if (!empty($_SESSION['generated_report'])) {
-
-
-    //         // Create new PDF instance
-    //         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-
-    //         // Set document information
-    //         $pdf->SetCreator(PDF_CREATOR);
-    //         $pdf->SetTitle('Generated Report');
-    //         $pdf->SetSubject('Generated Report');
-    //         $pdf->SetKeywords('TCPDF, PDF, report');
-
-    //         // Add a page
-    //         $pdf->AddPage();
-
-    //         // Set font
-    //         $pdf->SetFont('helvetica', '', 12);
-
-    //         // Write HTML content (generated report)
-    //         $pdf->writeHTML($_SESSION['generated_report'], true, false, true, false, '');
-
-    //         // Output PDF as a download
-    //         $pdf->Output('generated_report.pdf', 'D');
-
-    //         // Clear the session variable
-    //         unset($_SESSION['generated_report']);
-    //     } else {
-    //         // If the generated report is not found, redirect to the generate reports page
-    //         die('generated report is not found');
-    //     }
-    // }
 }

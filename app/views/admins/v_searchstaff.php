@@ -42,13 +42,13 @@
             <!-- PHP loop to display account details -->
             <?php foreach ($data['staff'] as $account) : ?>
                 <tr>
-                    <td><?php echo admin_highlight($account->staffID, $data['query']); ?></td>
-                    <td><?php echo admin_highlight($account->designation, $data['query']); ?></td>
-                    <td><?php echo admin_highlight($account->staffName, $data['query']); ?></td>
-                    <td><?php echo admin_highlight($account->phoneNumber, $data['query']); ?></td>
-                    <td><?php echo admin_highlight($account->email, $data['query']); ?></td>
-                    <td><?php echo admin_highlight($account->birthday, $data['query']); ?></td>
-                    <td><?php echo admin_highlight($account->nicNumber, $data['query']); ?></td>
+                    <td><?php echo ($account->staffID); ?></td>
+                    <td><?php echo ($account->designation); ?></td>
+                    <td><?php echo ($account->staffName); ?></td>
+                    <td><?php echo ($account->phoneNumber); ?></td>
+                    <td><?php echo ($account->email); ?></td>
+                    <td><?php echo ($account->birthday); ?></td>
+                    <td><?php echo ($account->nicNumber); ?></td>
                     <td>
                         <div class="admin-action-btn">
                             <div class="admin-update-btn">
@@ -63,20 +63,20 @@
             <?php endforeach; ?>
         </table>
     <?php endif; ?>
-
+<!-- 
     <?php
-    // Function to highlight search query in a string
-    function admin_highlight($string, $query)
-    {
-        // Check if the query is not empty and the string contains the query
-        if (!empty($query) && stripos($string, $query) !== false) {
-            // Replace the query with its highlighted version (case-sensitive)
-            $highlighted = preg_replace('/' . preg_quote($query, '/') . '/i', '<span class="admin_highlight">$0</span>', $string);
-            return $highlighted;
-        } else {
-            return $string; // Return the original string if no query or not found
-        }
-    }
-    ?>
+    // // Function to highlight search query in a string
+    // function admin_highlight($string, $query)
+    // {
+    //     // Check if the query is not empty and the string contains the query
+    //     if (!empty($query) && stripos($string, $query) !== false) {
+    //         // Replace the query with its highlighted version (case-sensitive)
+    //         $highlighted = preg_replace('/' . preg_quote($query, '/') . '/i', '<span class="admin_highlight">$0</span>', $string);
+    //         return $highlighted;
+    //     } else {
+    //         return $string; // Return the original string if no query or not found
+    //     }
+    // }
+    ?> -->
 
 </div>
