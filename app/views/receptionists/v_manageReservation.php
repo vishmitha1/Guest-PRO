@@ -123,14 +123,22 @@
                             <td><?php echo ucfirst($item->customer_name);?></td>
                         
                             <td>
-                                <form action="<?php echo URLROOT;?>/Receptionists/updateReservation" method='POST'>
-                                    <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
-                                    <button name="editReservation" >Edit</button>
-                                </form>
-                                <form class="deleteReservation" action="<?php echo URLROOT;?>/Receptionists/cancelReservation" method='POST'>
-                                    <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
-                                    <button onclick="DeleteReservation()" >Delete</button>
-                                </form>
+                                <?php if($item->checked=='out'){ ?>
+
+                                    <form action="<?php echo URLROOT;?>/Receptionists/updateReservation" method='POST'>
+                                        <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
+                                        <button name="editReservation" >Edit</button>
+                                    </form>
+                                    <form class="deleteReservation" action="<?php echo URLROOT;?>/Receptionists/cancelReservation" method='POST'>
+                                        <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
+                                        <button type="submit">Cancel</button>
+                                        <!-- <button onclick="DeleteReservation()" >Cancel</button> -->
+                                    </form>
+                                <?php }
+                                else{
+                                    
+                                }?>
+
                             </td>
                         </tr>
                         
@@ -149,15 +157,21 @@
                                 <td><?php echo ucfirst($item->customer_name);?></td>
                             
                                 <td>
+                                <?php if($item->checked=='out'){ ?>
+
                                     <form action="<?php echo URLROOT;?>/Receptionists/updateReservation" method='POST'>
                                         <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
                                         <button name="editReservation" >Edit</button>
                                     </form>
                                     <form class="deleteReservation" action="<?php echo URLROOT;?>/Receptionists/cancelReservation" method='POST'>
                                         <input type="hidden" name="reservation_id" value="<?php echo $item->reservation_id;?>">
-                                        <input type="hidden" name='roomNo' value="<?PHP echo $item->roomNO?>" >
-                                        <button onclick="DeleteReservation()" >Delete</button>
+                                        <button type="submit" >Cancel</button>
+                                        <!-- <button onclick="DeleteReservation()" >Cancel</button> -->
                                     </form>
+                                    <?php }
+                                    else{
+
+                                    }?>
                                 </td>
                             </tr>
                             <?php }?>
@@ -208,33 +222,34 @@
         // var id=$(this).attr("id");
 
         Swal.fire({
-            title: "Are you sure?",
-            text: " Are you sure you want to delete this reservation? ",
+            title: "Cancel?",
+            text: " Are you sure you want to cancel this reservation? ",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, Cancel it!"
         }).then((result) => {
         if (result.isConfirmed) {
         // Perform AJAX submission
         $.ajax({
-            type: 'POST',
-            url: 'http://localhost/Guestpro/Receptionists/cancelReservation',
+            type: $(this).attr("method"),
+            url: $(this).attr("action"),
             data: formData,
             success: function (response) {
-                $("#reload").load(location.href + " #reload");
+                // $("#reload").load(location.href + " #reload");
                 // location.reload();
-                console.log('success');
+            
             
             
                 console.log(response);
                     Swal.fire({
-                    title: "Deleted!",
-                    text: "Your reservation has been deleted.",
+                    title: "Canceled!",
+                    text: "Your reservation has been canceled.",
                     icon: "success",
-                        timer: 2000,
-                });
+                    timer: 2000,
+                }).then((result)=>{
+                    location.reload();});
                         
                 //set time out for reload the page
 
@@ -250,6 +265,7 @@
             },
             error: function (error) {
                 // Handle errors if any
+                console.log('error');
                 console.error(error);
             }
         });

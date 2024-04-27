@@ -18,7 +18,9 @@ class Users extends Controller
                 'name' => trim($_POST['name']),
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
-                'confirm_password' => trim($_POST['confirm_password']),
+                'nic'=>trim($_POST['nic']),
+                'phone'=>trim($_POST['phone']),
+                
                 'name_err' => '',
                 'email_err' => '',
                 'password_err' => '',
@@ -27,42 +29,72 @@ class Users extends Controller
 
             //validate each input
             //validate email
+            // die(print_r($data));
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
-            } else {
-                //check email is allredy taken or not
-                if ($this->userModel->findUserByEmail($data['email'])) {
-                    $data['email_err'] = 'Email is already taken';
-                }
-
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter email';
+                
+                
+            } 
+            elseif(empty($data['name'])){
+                $data['name_err'] = 'Please enter name';
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter name';
+                
+                
             }
-
-            //password validation
-            if (empty($data['password'])) {
+            elseif(empty($data['nic'])){
+                $data['nic_err'] = 'Please enter NIC';
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter NIC';
+                
+                
+            }
+            elseif(empty($data['phone'])){
+                $data['phone_err'] = 'Please enter phone number';
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter phone number';
+                
+                
+            }
+            elseif(empty($data['password'])){
                 $data['password_err'] = 'Please enter password';
-            } else {
-                if ($data['password'] != $data['confirm_password']) {
-                    $data['confirm_password_err'] = 'Password are not matching';
-                }
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter password';
+                
+                
             }
-
-            //validation is completed and no erros
-            if (empty($data['password_err']) && empty($data['confirm_password_err']) && empty($data['email_err'])) {
-                // hashed password
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-                //register user
-                if ($this->userModel->register($data)) {
-                    redirect('Users/login');
-                } else {
-                    die("someting wrond");
-                }
-
-            } else {
-                $this->view('users/v_register', $data);
+            //check email is allredy taken or not
+            elseif($this->userModel->findUserByEmail($data['email'])) {
+                 
+                    $data['email_err'] = 'Email is already taken';
+                    $_SESSION['toast_type'] = 'error';
+                    $_SESSION['toast_msg'] = 'Email is already taken';
+                    
             }
+            
+        
 
-        } else {
+            
+            else{
+                $otp=$this->generateOTP();
+                sendOtpEmail($data['email'],$data['name'],$otp);
+                $_SESSION['signupData']=$data;
+                $_SESSION['otp']=$otp;
+                $_SESSION['toast_type'] = 'success';
+                $_SESSION['toast_msg'] = 'OTP sent to your email';
+                $this->view('home/signupOTP',$data=[]);
+                toastFlashMsg();
+                return;
+
+            }
+            redirect('Users/register');
+            
+
+        } 
+        
+        else {
             $data = [
                 'name' => '',
                 'email' => '',
@@ -73,73 +105,114 @@ class Users extends Controller
                 'password_err' => '',
                 'confirm_password_err' => ''
             ];
-            $this->view('users/v_register', $data);
+            $this->view('home/signup', $data);
+            if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
+                toastFlashMsg();
+            }
         }
+    }
+
+    //verify otp
+    public function verifyOTP(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //validate
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'otp' => trim($_POST['otp']),
+            ];
+            if($data['otp']==$_SESSION['otp']){
+                $data=$_SESSION['signupData'];
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                if ($this->userModel->register($data)) {
+                    //unset session data
+                    unset($_SESSION['signupData']);
+                    unset($_SESSION['otp']);
+                    //redirect to login page
+                    $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'You are registered and can log in';
+                    redirect('Users/login');
+                } 
+                
+                else {
+                    die("someting wrond");
+                }
+            }
+            else{
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'OTP is incorrect';
+                redirect('Users/otp');
+            }
+        }
+        else{
+            redirect('Users/otp');
+        }
+    }
+
+    public function generateOTP($length = 6) {
+        // Generate a random number of specified length
+        $otp = '';
+        for ($i = 0; $i < $length; $i++) {
+            $otp .= rand(0, 9);
+        }
+        return $otp;
+    }
+
+    public function otp(){
+        $this->view('home/signupOTP',$data=[]);
     }
 
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            $data = [
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
-                // 'user_id' => $_POST['id'],
-                'email_err' => '',
-                'password_err' => ''
-
-            ];
-
-            //validate email
-            if (empty($data['email'])) {
-                $data['email_err'] = 'Please enter email';
-                $_SESSION['toast_type'] = 'error';
-                $_SESSION['toast_msg'] = 'Please enter email';
-                redirect('Users/login');
-
-
-            } else {
-                //check email is exist or not
-                if (($this->userModel->findUserByEmail($data['email']) || $this->userModel->findEmployeeByEmail($data['email']))) {
-                    //user found
-
-                } else {
-                    $data['email_err'] = "Email is not exist";
-                }
-
+        
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+            $errors = [];
+        
+            // Validate email
+            if (empty($email)) {
+                $errors['email'] = 'Please enter email';
             }
+        
+            // Validate password
+            if (empty($password)) {
+                $errors['password'] = 'Please enter password';
+            }
+        
+            // If there are no errors, proceed with login attempt
+            if (empty($errors)) {
+                // Check if user exists
+                if (!$this->userModel->findUserByEmail($email) && !$this->userModel->findEmployeeByEmail($email)) {
+                    $errors['email'] = 'No user found';
+                } 
+                else {
+                    // Attempt login
+                    if ($this->userModel->login($email, $password)) {
 
-            //validate password
-            if (empty($data['password'])) {
-                $data['password_err'] = 'Please enter password';
-            } else {
-                if (empty($data['password_err']) && empty($data['email_err'])) {
+                        // Login successful
+                        $loggedUser = $this->userModel->login($email, $password);
+                        $this->userModel->updateLastLogin($loggedUser->id);
+                        $this->createUserSession($loggedUser);
+                        
 
-                    //can login
-                    $loggeduser = $this->userModel->login($data['email'], $data['password']);
-
-                    if ($loggeduser) {
-                        //updating_last_login_time
-                        $this->userModel->updateLastLogin($loggeduser->id);
-
-                        $this->createUsersession($loggeduser);
-                    } else {
-                        $data['password_err'] = 'Password incorrect';
-                        //load login again with erros
-                        $this->view('users/v_login', $data);
+                        
+                    } 
+                    else {
+                        // Login failed, invalid password
+                        $errors['password'] = 'Password incorrect';
                     }
-
-
-
-                } else {
-                    //load login view again
-                    $this->view('users/v_login', $data);
                 }
             }
-
-
-        } else {
+        
+            // Set error messages in session
+            if (!empty($errors)) {
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = implode(', ', $errors);
+                redirect('Users/login');
+            }
+        }
+         else {
             $data = [
                 'email' => '',
                 'password' => '',
@@ -147,7 +220,7 @@ class Users extends Controller
                 'password_err' => '',
 
             ];
-            $this->view('users/v_login', $data);
+            $this->view('home/login', $data);
             if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
                 toastFlashMsg();
             }
@@ -174,15 +247,15 @@ class Users extends Controller
         $_SESSION['user_img'] = $user->img;
 
         if ($_SESSION['role'] == "admin") {
-            redirect("Admins/staffaccounts/" . $_SESSION['username']);
+            redirect("Admins/dashboard" . $_SESSION['username']);
         } elseif ($_SESSION['role'] == "waiter") {
-            redirect("Waiters/pendingfoodorders/" . $_SESSION['username']);
+            redirect("Waiters/dashboard/" . $_SESSION['username']);
         } elseif ($_SESSION['role'] == "receptionist") {
             redirect("Receptionists/reservation");
         } elseif ($_SESSION['role'] == "supervisor") {
-            redirect("Supervisors/servicerequest");
+            redirect("Supervisors/dashboard");
         } elseif ($_SESSION['role'] == "kitchen") {
-            redirect("Kitchen/foodmenu/" . $_SESSION['username']);
+            redirect("Kitchen/dashboard/" . $_SESSION['username']);
         } elseif ($_SESSION['role'] == "customer") {
             redirect("Customers/Dashboard/" . $_SESSION['username'] . '/' . $_SESSION['user_id']);
         } elseif ($_SESSION['role'] == "manager") {

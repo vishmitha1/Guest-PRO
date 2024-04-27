@@ -367,18 +367,18 @@
                 $data=[
                     'reservation_id' => trim($_POST['reservation_id']),
                     'user_id' => $_SESSION['user_id'],
-                    'roomNo' => trim($_POST['roomNo']),
+                
                 ];
 
                 if(empty($data['reservation_id'])){
                     $_SESSION['toast_type']='error';
                     $_SESSION['toast_msg']='Something went wrong';
-                    redirect('receptionists/reservation');
+                    
                 }
 
                 elseif($this->receptionistModel->cancelReservation($data)){
                     header('Content-Type: application/json');
-                    echo json_encode(['success','Reservation cancelled successfully']);
+                    echo json_encode('success');
                     
                 }
 

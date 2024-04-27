@@ -9,10 +9,14 @@
 
         //register user
         public function register($data){
-            $this->db->query('Insert into users(name ,email ,password,role) VALUES(:name ,:email ,:password , :role)');
+            $this->db->query('Insert into users(name ,email ,password,role,nic,phone,address) VALUES(:name ,:email ,:password , :role,:nic,:phone,:address)');
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':email',$data['email'] );
             $this->db->bind(':password',$data['password'] );
+           
+            $this->db->bind(':nic',$data['nic']);
+            $this->db->bind(':phone',$data['phone']);
+            $this->db->bind(':address','');
             $this->db->bind(':role',"customer" );
 
             if($this->db->execute()){
