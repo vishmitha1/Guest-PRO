@@ -64,7 +64,7 @@
 .table td,th {
     border: 1px solid #003366; /* Add a border to table cells */
     padding: 12px;
-    text-align: left;
+    text-align: center;
     
 }
 
@@ -101,6 +101,29 @@
         background-color: #003366;
     }
 
+
+    .status-button {
+        margin-top: 2px;
+        margin-left: 10px;
+        padding: 2px 0; 
+        background-color: #002447;
+        border-radius: 50px;
+        display: inline-block; 
+    }
+    
+    .status-button a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        text-align: center;
+        display: block; /* Set the link to be a block element for center alignment */
+    }
+    
+    .status-button:hover {
+        background-color: #003366;
+    }
+    
+
 .editbutton {
     cursor: pointer;
 }
@@ -120,6 +143,7 @@
 .deletebutton {
     cursor: pointer;
     margin-left: 10px; 
+    margin-top: 5px;
     
 }
 
