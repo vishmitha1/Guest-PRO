@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
    
-    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/customerMain.css' >
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://kit.fontawesome.com/e2b0a95ef4.js" crossorigin="anonymous"></script>
@@ -21,7 +21,7 @@
             <div class="link-items" id="visal">
             <a href="<?php echo URLROOT;?>/Receptionists/reservation"><i class="fa-solid fa-hotel"></i>Reservations</a>
             
-            <a href="<?php echo URLROOT;?>/Receptionists/giveCustomerAccess"><i class="fa-solid fa-door-open"></i>Give Access</a>
+            <a href="<?php echo URLROOT;?>/Receptionists/giveCustomerAccess"><i class="fa-solid fa-door-open"></i>Access Management</a>
     
             <a href="<?php echo URLROOT;?>/Receptionists/manageReservation"><i class="fa-solid fa-bell-concierge"></i>Room Availability</a>
             
