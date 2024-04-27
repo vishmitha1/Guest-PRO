@@ -17,6 +17,25 @@
     
 }
 
+.order-filter {
+    margin-top: 10px; /* Adjust the top margin as needed */
+    
+    padding: 10px; /* Add padding to the container */
+    background-color: #002447; /* Set the background color */
+    display: inline-block; /* Ensure the container only takes as much width as necessary */
+    border-radius: 5px
+}
+
+    .order-filter a {
+        color: white; /* Set the text color of the link */
+        text-decoration: none; /* Remove the default underline on the link */
+        font-weight: bold; /* Make the text bold */
+    }
+
+    .order-filter:hover {
+        background-color: #003366;
+    }
+
 
 
 
@@ -225,3 +244,12 @@
     align-self: center; /* Align the checkbox to the top of the container */
 }
 
+
+.button-container {
+    text-align: center;
+}
+
+.order-filter {
+    display: inline-block; /* This ensures the buttons stay in a row */
+    margin: 0 50px; /* Adjust the spacing between buttons as needed */
+}

@@ -207,7 +207,7 @@ class M_Managers
         return $this->db->execute();
     }
 
-    public function deleteRoomType($Id)
+    public function deleteRoomTypeo($Id)
     {
         try {
             $this->db->query('DELETE FROM roomtype WHERE roomtypeId = :roomtypeId');
@@ -219,6 +219,26 @@ class M_Managers
             return false; // Return false to indicate failure
         }
     }
+
+    public function deleteRoomType($roomtypeId)
+    {
+        // Check if there are any reservations associated with rooms of this room type
+        $this->db->query('SELECT COUNT(*) AS reservation_count FROM reservations r JOIN rooms rm ON r.roomNo = rm.roomNo WHERE rm.category = (SELECT category FROM roomtype WHERE roomtypeId = :roomtypeId)');
+        $this->db->bind(':roomtypeId', $roomtypeId);
+        $row = $this->db->single();
+        $reservationCount = $row->reservation_count;
+
+        if ($reservationCount > 0) {
+
+            return false;
+        } else {
+            // No reservations associated with rooms of this type, proceed with deletion
+            $this->db->query('DELETE FROM roomtype WHERE roomtypeId = :roomtypeId');
+            $this->db->bind(':roomtypeId', $roomtypeId);
+            return $this->db->execute();
+        }
+    }
+
     public function getexistingroomtypeimages($roomtypeId) //to view in edit roomtype form
     {
         $this->db->query('SELECT roomImg FROM roomtype WHERE roomtypeId = :roomtypeId');
@@ -301,11 +321,22 @@ class M_Managers
 
     public function deleteFoodItem($item_id)
     {
+
+
+
+
         $this->db->query('DELETE FROM fooditems WHERE item_id = :item_id');
         $this->db->bind(':item_id', $item_id);
 
         return $this->db->execute();
+
+
+
     }
+
+
+
+
 
     // public function updateFoodItemDetails($data)
     // {
@@ -833,6 +864,72 @@ class M_Managers
         return $this->db->execute();
     }
 
+    // public function getfoodorders()
+    // {
+    //     $this->db->query("SELECT * FROM foodorders ORDER BY date DESC");
+
+    //     return $this->db->resultSet();
 
 
+    // }
+
+    //     public function orderPlacedTime()
+//     {
+//         $this->db->query("SELECT order_id, MIN(date) AS placed_time
+// FROM foodorders 
+// GROUP BY order_id");
+//         return $this->db->resultSet();
+
+    //     }
+
+    //     public function deliveryTime()
+//     {
+//         $this->db->query("SELECT order_id, MIN(delivery_time) AS delivery_time
+// FROM foodorders WHERE status = 'ready'
+// GROUP BY order_id");
+//         return $this->db->resultSet();
+
+    //     }
+
+    public function inorders($item_id)
+    {
+        // Prepare the SQL query
+        $this->db->query('SELECT * FROM foodorders WHERE item_no = :item_id');
+
+        // Bind the item_id parameter
+        $this->db->bind(':item_id', $item_id);
+
+        // Execute the query
+        $this->db->execute();
+
+        // Check if any rows were returned
+        if ($this->db->rowCount() > 0) {
+            // Item exists
+            return true;
+        } else {
+            // Item does not exist
+            return false;
+        }
+    }
+
+    public function incarts($item_id)
+    {
+        // Prepare the SQL query
+        $this->db->query('SELECT * FROM carts WHERE item_no = :item_id');
+
+        // Bind the item_id parameter
+        $this->db->bind(':item_id', $item_id);
+
+        // Execute the query
+        $this->db->execute();
+
+        // Check if any rows were returned
+        if ($this->db->rowCount() > 0) {
+            // Item exists
+            return true;
+        } else {
+            // Item does not exist
+            return false;
+        }
+    }
 }

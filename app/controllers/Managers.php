@@ -461,7 +461,7 @@ class Managers extends Controller
 
         } else {
             $_SESSION['toast_type'] = 'error';
-            $_SESSION['toast_msg'] = 'Error deleting Room Type!<br>Try again';
+            $_SESSION['toast_msg'] = 'Error deleting Room Type!<br>There are reservations associated with rooms of this type';
             redirect('Managers/viewroomtype');
         }
     }
@@ -775,20 +775,29 @@ class Managers extends Controller
     public function deleteFoodItem($item_id)
     {
 
-        // Call a model method to delete the food item from the database
-        $success = $this->userModel->deleteFoodItem($item_id);
-
-        // Optionally, you can handle success or failure and redirect accordingly
-        if ($success) {
-            $_SESSION['toast_type'] = 'success';
-            $_SESSION['toast_msg'] = 'Food item deleted successfully!';
-            redirect('Managers/fooditems');
-
-        } else {
+        $incarts = $this->userModel->incarts($item_id);
+        $inorders = $this->userModel->inorders($item_id);
+        if ($incarts || $inorders) {
             $_SESSION['toast_type'] = 'error';
-            $_SESSION['toast_msg'] = 'Error deleting Food item !';
+            $_SESSION['toast_msg'] = 'Error deleting Food item!<br>Food Item is already ordered';
             redirect('Managers/fooditems');
+        } else {
+            // Call a model method to delete the food item from the database
+            $success = $this->userModel->deleteFoodItem($item_id);
+
+            // Optionally, you can handle success or failure and redirect accordingly
+            if ($success) {
+                $_SESSION['toast_type'] = 'success';
+                $_SESSION['toast_msg'] = 'Food item deleted successfully!';
+                redirect('Managers/fooditems');
+
+            } else {
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Error deleting Food item!<br>Food Item is already ordered';
+                redirect('Managers/fooditems');
+            }
         }
+
     }
 
 
@@ -1215,6 +1224,22 @@ class Managers extends Controller
         }
 
     }
+
+    // public function foodorders()
+    // {
+    //     $foodorders = $this->userModel->getfoodorders();
+    //     $placed = $this->userModel->orderPlacedTime();
+    //     $deliveryTime = $this->userModel->deliveryTime();
+
+    //     $data = [
+    //         'foodorders' => $foodorders,
+    //         'orderPlacedTime' => $placed,
+    //         'deliveryTime' => $deliveryTime
+
+    //     ];
+    //     $this->view('managers/v_foodOrders', $data);
+
+    // }
 }
 
 
