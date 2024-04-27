@@ -9,6 +9,7 @@
     max-height: 300px;
     min-width: 500px;
     justify-content: space-between;
+    max-width: 1045px;
 
 }
 
@@ -193,11 +194,12 @@
 
 .overview-piechart {
     background-color: #fff; /* Set your desired background color */
-    padding: 30px; /* Add padding to create space around the chart */
+    padding: 10px; /* Add padding to create space around the chart */
     border-radius: 10px;
     margin-left: 10px;
-    max-height: 400px; /* Limit the maximum height */
-    overflow-y: auto; /* Add vertical scroll if content exceeds max-height */
+    height: 400px; /* Limit the maximum height */
+    
     width: 500px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+   
 }
