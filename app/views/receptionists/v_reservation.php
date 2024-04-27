@@ -1,5 +1,5 @@
 
-<?php   require APPROOT. "/views/includes/components/sidenavbar-receptionist.php" ?>
+<?php   require APPROOT. "/views/includes/components/sidenavbar_receptionist.php" ?>
 
 
 
@@ -40,11 +40,11 @@
 
                 <div class="items">
                     <span>Check In</span><br>
-                    <input class="date"  name="check_in" type="date" placeholder="Check In "  value="2024-01-01" >
+                    <input class="date"  name="check_in" type="date" placeholder="Check In "   >
                 </div>
                 <div class="items">
                     <span>Check In</span><br>
-                    <input class="date"  name="check_out" type="date" placeholder="Check Out " value="2024-01-02">
+                    <input class="date"  name="check_out" type="date" placeholder="Check Out " >
                 </div>
                 <div class="items">
                     <span>Room Count </span><i class="fa-regular fa-calendar-days"></i><br>
