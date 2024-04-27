@@ -1,4 +1,4 @@
-<?php   require APPROOT. "/views/includes/components/sidenavbar-receptionist.php" ?>
+<?php   require APPROOT. "/views/includes/components/sidenavbar_receptionist.php" ?>
 
     
 <div class="home">
@@ -80,7 +80,7 @@
                                         echo "Not In";
                                     } 
                                     else{
-                                        echo "Check-In";
+                                        echo "Checked-In";
                                     }   
                                     ?></td>
 
@@ -116,7 +116,7 @@
                                         echo "Not In";
                                     } 
                                     else{
-                                        echo "Check-In";
+                                        echo "Checked-In";
                                     }   
                                     ?></td>
                                 <form action="<?php echo URLROOT;?>/Receptionists/giveCustomerAccess" method="POST" >  
