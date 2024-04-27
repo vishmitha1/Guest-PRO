@@ -17,7 +17,7 @@
             <<a href="<?php echo URLROOT; ?>/Home">Home</a>
             <a href="#">About</a>
             <a href="<?php echo URLROOT;?>/Home#contact">Contact</a>
-            <a href="<?php echo URLROOT;?>/users/register">SignUp</a>
+            <a href="<?php echo URLROOT;?>/users/register">Signup</a>
 
         </div>
 

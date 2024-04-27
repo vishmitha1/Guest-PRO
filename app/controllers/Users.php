@@ -18,7 +18,9 @@ class Users extends Controller
                 'name' => trim($_POST['name']),
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
-                'confirm_password' => trim($_POST['confirm_password']),
+                'nic'=>trim($_POST['nic']),
+                'phone'=>trim($_POST['phone']),
+                
                 'name_err' => '',
                 'email_err' => '',
                 'password_err' => '',
@@ -27,42 +29,70 @@ class Users extends Controller
 
             //validate each input
             //validate email
+            // die(print_r($data));
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
-            } else {
-                //check email is allredy taken or not
-                if ($this->userModel->findUserByEmail($data['email'])) {
-                    $data['email_err'] = 'Email is already taken';
-                }
-
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter email';
+                
+            } 
+            elseif(empty($data['name'])){
+                $data['name_err'] = 'Please enter name';
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter name';
+                
             }
-
-            //password validation
-            if (empty($data['password'])) {
+            elseif(empty($data['nic'])){
+                $data['nic_err'] = 'Please enter NIC';
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter NIC';
+                
+            }
+            elseif(empty($data['phone'])){
+                $data['phone_err'] = 'Please enter phone number';
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter phone number';
+                
+            }
+            elseif(empty($data['password'])){
                 $data['password_err'] = 'Please enter password';
-            } else {
-                if ($data['password'] != $data['confirm_password']) {
-                    $data['confirm_password_err'] = 'Password are not matching';
-                }
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter password';
+                
             }
+            //check email is allredy taken or not
+            elseif($this->userModel->findUserByEmail($data['email'])) {
+                 
+                    $data['email_err'] = 'Email is already taken';
+                    $_SESSION['toast_type'] = 'error';
+                    $_SESSION['toast_msg'] = 'Email is already taken';
+                    
+            }
+
+            
 
             //validation is completed and no erros
-            if (empty($data['password_err']) && empty($data['confirm_password_err']) && empty($data['email_err'])) {
+            else {
                 // hashed password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //register user
                 if ($this->userModel->register($data)) {
+                    $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'You are registered and can log in';
                     redirect('Users/login');
-                } else {
+                } 
+                
+                else {
                     die("someting wrond");
                 }
 
-            } else {
-                $this->view('users/v_register', $data);
-            }
+            } 
+            redirect('Users/register');
 
-        } else {
+        } 
+        
+        else {
             $data = [
                 'name' => '',
                 'email' => '',
@@ -73,7 +103,10 @@ class Users extends Controller
                 'password_err' => '',
                 'confirm_password_err' => ''
             ];
-            $this->view('users/v_register', $data);
+            $this->view('home/signup', $data);
+            if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
+                toastFlashMsg();
+            }
         }
     }
 
@@ -99,13 +132,17 @@ class Users extends Controller
                 redirect('Users/login');
 
 
-            } else {
+            } 
+            else {
                 //check email is exist or not
                 if (($this->userModel->findUserByEmail($data['email']) || $this->userModel->findEmployeeByEmail($data['email']))) {
                     //user found
 
                 } else {
-                    $data['email_err'] = "Email is not exist";
+                    $data['email_err'] = 'No user found';
+                    $_SESSION['toast_type'] = 'error';
+                    $_SESSION['toast_msg'] = 'No user found';
+                    redirect('Users/login');
                 }
 
             }
@@ -113,7 +150,11 @@ class Users extends Controller
             //validate password
             if (empty($data['password'])) {
                 $data['password_err'] = 'Please enter password';
-            } else {
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Please enter password';
+                redirect('Users/login');
+            } 
+            else {
                 if (empty($data['password_err']) && empty($data['email_err'])) {
 
                     //can login
@@ -127,14 +168,14 @@ class Users extends Controller
                     } else {
                         $data['password_err'] = 'Password incorrect';
                         //load login again with erros
-                        $this->view('users/v_login', $data);
+                        $this->view('home/login', $data);
                     }
 
 
 
                 } else {
                     //load login view again
-                    $this->view('users/v_login', $data);
+                    $this->view('home/login', $data);
                 }
             }
 
@@ -147,7 +188,7 @@ class Users extends Controller
                 'password_err' => '',
 
             ];
-            $this->view('users/v_login', $data);
+            $this->view('home/login', $data);
             if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
                 toastFlashMsg();
             }
@@ -174,15 +215,15 @@ class Users extends Controller
         $_SESSION['user_img'] = $user->img;
 
         if ($_SESSION['role'] == "admin") {
-            redirect("Admins/staffaccounts/" . $_SESSION['username']);
+            redirect("Admins/dashboard" . $_SESSION['username']);
         } elseif ($_SESSION['role'] == "waiter") {
-            redirect("Waiters/pendingfoodorders/" . $_SESSION['username']);
+            redirect("Waiters/dashboard/" . $_SESSION['username']);
         } elseif ($_SESSION['role'] == "receptionist") {
             redirect("Receptionists/reservation");
         } elseif ($_SESSION['role'] == "supervisor") {
-            redirect("Supervisors/servicerequest");
+            redirect("Supervisors/dashboard");
         } elseif ($_SESSION['role'] == "kitchen") {
-            redirect("Kitchen/foodmenu/" . $_SESSION['username']);
+            redirect("Kitchen/dashboard/" . $_SESSION['username']);
         } elseif ($_SESSION['role'] == "customer") {
             redirect("Customers/Dashboard/" . $_SESSION['username'] . '/' . $_SESSION['user_id']);
         } elseif ($_SESSION['role'] == "manager") {
