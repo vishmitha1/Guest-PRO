@@ -114,73 +114,54 @@ class Users extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            $data = [
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
-                // 'user_id' => $_POST['id'],
-                'email_err' => '',
-                'password_err' => ''
-
-            ];
-
-            //validate email
-            if (empty($data['email'])) {
-                $data['email_err'] = 'Please enter email';
-                $_SESSION['toast_type'] = 'error';
-                $_SESSION['toast_msg'] = 'Please enter email';
-                redirect('Users/login');
-
-
-            } 
-            else {
-                //check email is exist or not
-                if (($this->userModel->findUserByEmail($data['email']) || $this->userModel->findEmployeeByEmail($data['email']))) {
-                    //user found
-
-                } else {
-                    $data['email_err'] = 'No user found';
-                    $_SESSION['toast_type'] = 'error';
-                    $_SESSION['toast_msg'] = 'No user found';
-                    redirect('Users/login');
-                }
-
+        
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+            $errors = [];
+        
+            // Validate email
+            if (empty($email)) {
+                $errors['email'] = 'Please enter email';
             }
+        
+            // Validate password
+            if (empty($password)) {
+                $errors['password'] = 'Please enter password';
+            }
+        
+            // If there are no errors, proceed with login attempt
+            if (empty($errors)) {
+                // Check if user exists
+                if (!$this->userModel->findUserByEmail($email) && !$this->userModel->findEmployeeByEmail($email)) {
+                    $errors['email'] = 'No user found';
+                } 
+                else {
+                    // Attempt login
+                    if ($this->userModel->login($email, $password)) {
 
-            //validate password
-            if (empty($data['password'])) {
-                $data['password_err'] = 'Please enter password';
-                $_SESSION['toast_type'] = 'error';
-                $_SESSION['toast_msg'] = 'Please enter password';
-                redirect('Users/login');
-            } 
-            else {
-                if (empty($data['password_err']) && empty($data['email_err'])) {
+                        // Login successful
+                        $loggedUser = $this->userModel->login($email, $password);
+                        $this->userModel->updateLastLogin($loggedUser->id);
+                        $this->createUserSession($loggedUser);
+                        
 
-                    //can login
-                    $loggeduser = $this->userModel->login($data['email'], $data['password']);
-
-                    if ($loggeduser) {
-                        //updating_last_login_time
-                        $this->userModel->updateLastLogin($loggeduser->id);
-
-                        $this->createUsersession($loggeduser);
-                    } else {
-                        $data['password_err'] = 'Password incorrect';
-                        //load login again with erros
-                        $this->view('home/login', $data);
+                        
+                    } 
+                    else {
+                        // Login failed, invalid password
+                        $errors['password'] = 'Password incorrect';
                     }
-
-
-
-                } else {
-                    //load login view again
-                    $this->view('home/login', $data);
                 }
             }
-
-
-        } else {
+        
+            // Set error messages in session
+            if (!empty($errors)) {
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = implode(', ', $errors);
+                redirect('Users/login');
+            }
+        }
+         else {
             $data = [
                 'email' => '',
                 'password' => '',
