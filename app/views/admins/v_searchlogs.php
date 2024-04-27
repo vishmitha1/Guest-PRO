@@ -37,12 +37,12 @@
             <tbody>
                 <?php foreach ($data['logs'] as $log) : ?>
                     <tr>
-                        <td><?php echo admin_highlight($log->id, $data['query']); ?></td>
-                        <td><?php echo admin_highlight($log->name, $data['query']); ?></td>
-                        <td><?php echo admin_highlight($log->role, $data['query']); ?></td>
-                        <td><?php echo admin_highlight($log->last_login, $data['query']); ?></td>
-                        <td><?php echo admin_highlight($log->last_logout, $data['query']); ?></td>
-                        <td><?php echo admin_highlight($log->account_created, $data['query']); ?></td>
+                        <td><?php echo ($log->id); ?></td>
+                        <td><?php echo ($log->name); ?></td>
+                        <td><?php echo ($log->role); ?></td>
+                        <td><?php echo ($log->last_login); ?></td>
+                        <td><?php echo ($log->last_logout); ?></td>
+                        <td><?php echo ($log->account_created); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -50,19 +50,19 @@
     </div>
     <?php endif; ?>
 
-    <?php
-    // Function to highlight search query in a string
-    function admin_highlight($string, $query)
-    {
-        // Check if the query is not empty and the string contains the query
-        if (!empty($query) && stripos($string, $query) !== false) {
-            // Replace the query with its highlighted version (case-sensitive)
-            $highlighted = preg_replace('/' . preg_quote($query, '/') . '/i', '<span class="admin_highlight">$0</span>', $string);
-            return $highlighted;
-        } else {
-            return $string; // Return the original string if no query or not found
-        }
-    }
-    ?>
+    <!-- <?php
+    // // Function to highlight search query in a string
+    // function admin_highlight($string, $query)
+    // {
+    //     // Check if the query is not empty and the string contains the query
+    //     if (!empty($query) && stripos($string, $query) !== false) {
+    //         // Replace the query with its highlighted version (case-sensitive)
+    //         $highlighted = preg_replace('/' . preg_quote($query, '/') . '/i', '<span class="admin_highlight">$0</span>', $string);
+    //         return $highlighted;
+    //     } else {
+    //         return $string; // Return the original string if no query or not found
+    //     }
+    // }
+    ?> -->
 
 </div>
