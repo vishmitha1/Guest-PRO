@@ -35,11 +35,13 @@ class Users extends Controller
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter email';
                 
+                
             } 
             elseif(empty($data['name'])){
                 $data['name_err'] = 'Please enter name';
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter name';
+                
                 
             }
             elseif(empty($data['nic'])){
@@ -47,17 +49,20 @@ class Users extends Controller
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter NIC';
                 
+                
             }
             elseif(empty($data['phone'])){
                 $data['phone_err'] = 'Please enter phone number';
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter phone number';
                 
+                
             }
             elseif(empty($data['password'])){
                 $data['password_err'] = 'Please enter password';
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter password';
+                
                 
             }
             //check email is allredy taken or not
@@ -68,27 +73,24 @@ class Users extends Controller
                     $_SESSION['toast_msg'] = 'Email is already taken';
                     
             }
+            
+        
 
             
+            else{
+                $otp=$this->generateOTP();
+                sendOtpEmail($data['email'],$data['name'],$otp);
+                $_SESSION['signupData']=$data;
+                $_SESSION['otp']=$otp;
+                $_SESSION['toast_type'] = 'success';
+                $_SESSION['toast_msg'] = 'OTP sent to your email';
+                $this->view('home/signupOTP',$data=[]);
+                toastFlashMsg();
+                return;
 
-            //validation is completed and no erros
-            else {
-                // hashed password
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-                //register user
-                if ($this->userModel->register($data)) {
-                    $_SESSION['toast_type'] = 'success';
-                    $_SESSION['toast_msg'] = 'You are registered and can log in';
-                    redirect('Users/login');
-                } 
-                
-                else {
-                    die("someting wrond");
-                }
-
-            } 
+            }
             redirect('Users/register');
+            
 
         } 
         
@@ -108,6 +110,55 @@ class Users extends Controller
                 toastFlashMsg();
             }
         }
+    }
+
+    //verify otp
+    public function verifyOTP(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //validate
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'otp' => trim($_POST['otp']),
+            ];
+            if($data['otp']==$_SESSION['otp']){
+                $data=$_SESSION['signupData'];
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                if ($this->userModel->register($data)) {
+                    //unset session data
+                    unset($_SESSION['signupData']);
+                    unset($_SESSION['otp']);
+                    //redirect to login page
+                    $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'You are registered and can log in';
+                    redirect('Users/login');
+                } 
+                
+                else {
+                    die("someting wrond");
+                }
+            }
+            else{
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'OTP is incorrect';
+                redirect('Users/otp');
+            }
+        }
+        else{
+            redirect('Users/otp');
+        }
+    }
+
+    public function generateOTP($length = 6) {
+        // Generate a random number of specified length
+        $otp = '';
+        for ($i = 0; $i < $length; $i++) {
+            $otp .= rand(0, 9);
+        }
+        return $otp;
+    }
+
+    public function otp(){
+        $this->view('home/signupOTP',$data=[]);
     }
 
     public function login()
