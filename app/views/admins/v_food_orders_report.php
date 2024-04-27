@@ -9,7 +9,7 @@
         <button class="view-btn" id="down" onclick="downloadBlob()" style="display: none;">Download Pdf</button>
     </div>
 
-    <div class="header">
+    <!-- <div class="header">
 
         <div class="logo-report">
             <h1><i class="fa-solid fa-hotel fa-beat-fade fa-2xl"></i> Guest PRO</h1>
@@ -22,7 +22,7 @@
             <p>www.Guest PRO.lk</p>
 
         </div>
-    </div>
+    </div> -->
 
     <div class="generated-report">
         
@@ -31,26 +31,26 @@
         <p>To Date: <?php echo $data['data']['end_date'] ?></p>
         <table class="reports-table" id="reportsTable">
             <tr>
-                <th>Room Number</th>
-                <th>Room Category</th>
-                <th>Reservation ID</th>
-                <th>Reservation Count</th>
+                <th>Item No</th>
+                <th>Item Name</th>
+                <th>Item Category</th>
+                <th>Order Count</th>
             </tr>
 
             <?php foreach ($data['generated_report'] as $value) : ?>
                 <tr>
-                    <td><?php echo $value->roomNo; ?> </td>
-                    <td><?php echo $value->category; ?></td>
-                    <td><?php echo $value->reservation_id ?></td>
-                    <td><?php echo $value->reservation_count; ?></td>
+                    <td><?php echo $value->item_no; ?> </td>
+                    <td><?php echo $value->item_name; ?></td>
+                    <td><?php echo $value->item_category ?></td>
+                    <td><?php echo $value->order_count; ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
 
-        <p>Most Reservative Room :</p>
-        <p>Least Reservative Room :</p>
-        <p>Most Reservative Room Category:</p>
-        <p>Most Reservative Room Category:</p>
+        <p>Most Ordered Food Item :</p>
+        <p>Least Ordered Food Item :</p>
+        <p>Most Ordered Food Item Category:</p>
+        <p>Most Ordered Food Item Category:</p>
     </div>
 
     <?php $report = json_encode($data['generated_report']);?>
@@ -80,16 +80,16 @@
             fileName: "Invoice 2024",
             orientationLandscape: false,
             compress: true,
-            // logo: {
-            //     src: "<?php // echo URLROOT ?>/images/logo.png",
-            //     type: 'PNG', //optional, when src= data:uri (nodejs case)
-            //     width: 53.33, //aspect ratio = width/height
-            //     height: 26.66,
-            //     margin: {
-            //         top: 0, //negative or positive num, from the current position
-            //         left: 0 //negative or positive num, from the current position
-            //     }
-            // },
+            logo: {
+                src: "<?php echo URLROOT ?>/public/img/logo/logo.png",
+                type: 'PNG', //optional, when src= data:uri (nodejs case)
+                width: 53.33, //aspect ratio = width/height
+                height: 26.66,
+                margin: {
+                    top: 0, //negative or positive num, from the current position
+                    left: 0 //negative or positive num, from the current position
+                }
+            },
             // stamp: {
             //     inAllPages: true, //by default = false, just in the last page
             //     src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
@@ -110,7 +110,7 @@
             },
             contact: {
                 label: "  ",
-                name: "Room Summary Report",
+                name: "Food Orders Summary Report",
                 address: "  ",
                 phone: "  ",
                 email: " ",
@@ -135,9 +135,9 @@
                     },
 
                     {
-                        title: "Room Number",
+                        title: "Item No",
                         style: {
-                            width: 40,
+                            width: 20,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -145,9 +145,9 @@
                         }
                     },
                     {
-                        title: "Room Category",
+                        title: "Item Name",
                         style: {
-                            width: 40,
+                            width: 50,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -155,9 +155,9 @@
                         }
                     },
                     {
-                        title: "Reservation ID",
+                        title: "Item Category",
                         style: {
-                            width: 40,
+                            width: 50,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -165,7 +165,7 @@
                         }
                     },
                     {
-                        title: "Reservation Count",
+                        title: "Order Count",
                         style: {
                             width: 40,
                             height: 20,
@@ -207,17 +207,16 @@
                 ],
                 table: Array.from(Array(report['generated_report'].length), (item, index) => ([
                     index + 1,
-                    report['generated_report'][index]['roomNo'],
-                    index + 1,
-                    index + 1,
-                    index + 1,
-                    // index + 1,
-                    // index + 1,
+                    report['generated_report'][index]['item_no'],
+                    report['generated_report'][index]['item_name'],
+                    report['generated_report'][index]['item_category'],
+                    report['generated_report'][index]['order_count'],
+                    
                 ])),
 
 
                 additionalRows: [{
-                        col1: 'Most Reservative Room :',
+                        col1: 'Most Ordered Food :',
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -225,7 +224,7 @@
                         }
                     },
                     {
-                        col1: 'Least Reservative Room :',
+                        col1: 'Least Ordered Food :',
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -233,7 +232,7 @@
                         }
                     },
                     {
-                        col1: 'Most Reservative Room  Category:',
+                        col1: 'Most Ordered Food Category :',
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -241,7 +240,7 @@
                         }
                     },
                     {
-                        col1: 'Least Reservative Room Category :',
+                        col1: 'Least Ordered Food Category :',
                         col2: ' ',
                         col3: ' ',
                         style: {
