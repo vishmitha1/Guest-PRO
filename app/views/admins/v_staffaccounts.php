@@ -73,3 +73,23 @@
     </table>
 
 </div>
+
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const chatSearchInput = document.getElementById("searchInput");
+    const chatItems = document.querySelectorAll(".chat-item");
+
+    chatSearchInput.addEventListener("input", function () {
+        const searchText = chatSearchInput.value.toLowerCase();
+
+        chatItems.forEach(function (chatItem) {
+            const senderName = chatItem.textContent.toLowerCase();
+            if (senderName.includes(searchText)) {
+                chatItem.style.display = "block";
+            } else {
+                chatItem.style.display = "none";
+            }
+        });
+    });
+});
+</script> -->
