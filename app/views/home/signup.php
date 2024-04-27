@@ -29,7 +29,8 @@
 				<img src="<?php echo URLROOT ;?>/public/img/login/logo.png" alt="guestpro">
            		<div class="input-div one">
            		   <div class="i">
-           		   		<i class="fas fa-user"></i>
+					  	<i class="fas fa-envelope"></i>
+           		   		
            		   </div>
            		   <div class="div">
            		   		<h5>Email</h5>
@@ -38,7 +39,7 @@
            		</div>
            		<div class="input-div pass">
            		   <div class="i"> 
-           		    	<i class="fas fa-lock"></i>
+					  <i class="fas fa-user"></i>
            		   </div>
            		   <div class="div">
            		    	<h5>Full Name</h5>
@@ -47,7 +48,7 @@
             	</div>
            		<div class="input-div pass">
            		   <div class="i"> 
-           		    	<i class="fas fa-lock"></i>
+					  <i class="fas fa-address-card"></i>
            		   </div>
            		   <div class="div">
            		    	<h5>NIC</h5>
@@ -56,7 +57,7 @@
             	</div>
            		<div class="input-div pass">
            		   <div class="i"> 
-           		    	<i class="fas fa-lock"></i>
+					  <i class="fas fa-mobile"></i>
            		   </div>
            		   <div class="div">
            		    	<h5>Phone</h5>
