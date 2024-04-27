@@ -212,3 +212,15 @@
     transition: .3s;
     
 }
+
+.active {
+  background-color: #ffffff;
+  /* Adjust styles for the active link */
+}
+
+.active, .active-icon {
+  color: black !important;
+  /* Adjust styles for active link and icon */
+}
+
+
