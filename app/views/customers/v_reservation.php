@@ -104,9 +104,15 @@
                             </form>
                         
                         <?php } 
-                        else{ ?>
-                            CheckedIn
-                        <?php } ?>        
+                        elseif($item->checked=='in'){ 
+                            echo 'Checked In';
+                        }
+                        elseif($item->checked=='canceled'){ 
+                            echo 'Canceled';
+                         } 
+                         else{
+                            echo ucfirst($item->checked);
+                         }?>        
                         
                     </div>
                     </li>
@@ -856,7 +862,7 @@ $(document).ready(function () {
 
         Swal.fire({
         title: "Are you sure?",
-        text: " Are you sure you want to delete this reservation? ",
+        text: " Are you sure you want to cancel this reservation? ",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -875,8 +881,8 @@ $(document).ready(function () {
                 
                     
                         Swal.fire({
-                        title: "Deleted!",
-                        text: "Your reservation has been deleted.",
+                        title: "Canceled!",
+                        text: "Your reservation has been canceled.",
                         icon: "success",
                             
                     });

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
    
-    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/mainstyle.css' >
+    <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/customerMain.css' >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
     
@@ -38,10 +38,10 @@
                 <a href="<?php echo URLROOT;?>/Customers/servicerequest"class="ltags"><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
             
             
-                <!-- <a href="<?php echo URLROOT;?>/Customers/complain"class="ltags"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a> -->
+                <a href="<?php echo URLROOT;?>/Customers/complain"class="ltags"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
             
                
-                <a href="<?php echo URLROOT;?>/Customers/reviewwaiter"class="ltags"><i class="fa-solid fa-star"></i></i>Rate</a>
+                <!-- <a href="<?php echo URLROOT;?>/Customers/reviewwaiter"class="ltags"><i class="fa-solid fa-star"></i></i>Rate</a> -->
             </div>
         </div>
         <div class="logout">
