@@ -1,4 +1,26 @@
 <?php require APPROOT. "/views/includes/components/sidenavbar_waiter.php"; ?>
+
+<div class="menu-bar">
+                <div class="menu-bar-logo">
+                    <img src="<?php echo URLROOT; ?>/img/logo/logo.png" alt="logo">
+                </div>
+                <button class="menu-toggle-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="menu-options">
+                    <div class="links">
+                        <div class="link-items">
+                            <a href="<?php echo URLROOT;?>/Waiters/dashboard"><i class="fa-solid fa-file-invoice"></i>Dashboard</a>
+                        </div>
+                        <div class="link-items">
+                            <a href="<?php echo URLROOT;?>/Waiters/pendingfoodorders"><i class="fa-solid fa-bell-concierge"></i>Food Orders</a>
+                        </div>
+                    </div>
+                    <div class="logout">
+                        <a href="<?php echo URLROOT;?>/Users/login"><button value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
+                    </div>
+                </div>
+            </div>
 <div class="dashboard">
     <div class="flavours-header">Food Orders</div>
     <div class="search-bar">
@@ -151,5 +173,23 @@
                 }
             });
         }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+    const menuToggleBtn = document.querySelector(".menu-toggle-btn");
+    const menuOptions = document.querySelector(".menu-options");
+
+    // Toggle menu options visibility when the toggle button is clicked
+    menuToggleBtn.addEventListener("click", function() {
+        menuOptions.classList.toggle("show");
+    });
+
+    // Close menu options when clicking outside of them
+    document.addEventListener("click", function(event) {
+        if (!menuOptions.contains(event.target) && !menuToggleBtn.contains(event.target)) {
+            menuOptions.classList.remove("show");
+        }
+    });
+});
     </script>
 </div>
