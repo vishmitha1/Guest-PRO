@@ -18,10 +18,10 @@
 
         <div class="links">
             <div class="link-items">
-                <a href="<?php echo URLROOT;?>/Supervisors/dashboard"><i class="fa-solid fa-cart-flatbed-suitcase"></i>Dashboard</a>
+                <a href="<?php echo URLROOT;?>/Supervisors/dashboard"><i class="fa-solid fa-grip"></i>Dashboard</a>
             </div>
             <div class="link-items">
-                <a href="<?php echo URLROOT;?>/Supervisors/cleaningstatus"><i class="fa-solid fa-broom"></i>Room Cleaning</a>
+                <a href="<?php echo URLROOT;?>/Supervisors/cleaningstatus"><i class="fa-solid fa-door-closed"></i>Room Cleaning</a>
             </div>
             <div class="link-items">
                 <a href="<?php echo URLROOT;?>/Supervisors/servicerequest"><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Requests</a>
