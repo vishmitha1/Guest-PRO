@@ -23,13 +23,13 @@
     <table class="staffaccounts-table" id="staffaccountsTable">
         <!-- Table headers -->
         <tr>
-            <th>Staff ID</th>
+            <th>User ID</th>
             <th>Designation</th>
             <th>Staff Name</th>
             <th>Phone Number</th>
             <th>Email</th>
-            <th>Birthday</th>
             <th>NIC Number</th>
+            <th>Address</th>
             <th>Action</th>
         </tr>
 
@@ -38,39 +38,40 @@
         foreach ($data['staff'] as $account) : ?>
             <tr>
                 <td>
-                    <?php echo $account->staffID; ?>
+                    <?php echo $account->id; ?>
                 </td>
                 <td>
-                    <?php echo $account->designation; ?>
+                    <?php echo $account->role; ?>
                 </td>
                 <td>
-                    <?php echo $account->staffName; ?>
+                    <?php echo $account->name; ?>
                 </td>
                 <td>
-                    <?php echo $account->phoneNumber; ?>
+                    <?php echo $account->phone; ?>
                 </td>
                 <td>
                     <?php echo $account->email; ?>
                 </td>
                 <td>
-                    <?php echo $account->birthday; ?>
+                    <?php echo $account->nic; ?>
                 </td>
                 <td>
-                    <?php echo $account->nicNumber; ?>
+                    <?php echo $account->address; ?>
                 </td>
                 <td>
                     <div class="admin-action-btn">
                         <div class="admin-update-btn">
-                            <a href="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $account->staffID; ?>"><i class="far fa-edit"></i></a>
+                            <a href="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $account->id; ?>"><i class="far fa-edit"></i></a>
                         </div>
                         <div class="admin-delete-btn">
-                            <a href="<?php echo URLROOT; ?>/Admins/delete_staffaccounts/<?php echo $account->staffID; ?>" onclick="return confirm('Are you sure you want to delete this account?')"><i class='fa-solid fa-trash fa-lg'></i></a>
+                            <a href="<?php echo URLROOT; ?>/Admins/delete_staffaccounts/<?php echo $account->id; ?>" onclick="return confirm('Are you sure you want to delete this account?')"><i class='fa-solid fa-trash fa-lg'></i></a>
                         </div>
                     </div>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
+
 
 </div>
 
