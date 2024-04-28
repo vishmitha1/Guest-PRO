@@ -1,22 +1,234 @@
-/* Dashboard styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff
+
+
+  }
+.side-bar {
+position: fixed;
+background-color: #002447;
+height: 100vh;
+top: 0;
+left: 0;
+width: 275px;
+font-family: 'Poppins', sans-serif; /* Change font family */
+z-index: 100;
+transition: transform 0.3s all ease-in-out;
+}
+
+.side-bar a {
+color: #ffffff;
+text-decoration: none;
+display: block;
+padding: 15px 20px; /* Adjusted padding for better spacing */
+text-align: left;
+transition: .3s;
+font-size: 18px; /* Decreased font size */
+}
+
+.links {
+margin-top: 15%; /* Adjusted margin top */
+}
+
+.links i {
+margin-right: 10px; /* Decreased margin right */
+}
+
+.logo {
+padding: 20px 0; /* Adjusted padding */
+display: flex;
+justify-content: center; /* Center the content horizontally */
+align-items: center; /* Center the content vertically */
+height: 80px; /* Adjusted height */
+}
+
+.logo img {
+max-width: 80%; /* Ensures the image doesn't exceed the container width */
+height: auto; /* Maintain aspect ratio */
+}
+
+.link-items:hover a {
+color: #000000; /* Change text color to black */
+}
+
+.active,
+.link-items a:hover {
+background: #ffffff;
+}
+
+.logout {
+position: absolute;
+width: 75%;
+margin-top: 10%;
+margin-left: 10%;
+bottom: 5%;
+}
+
+.logout button {
+padding: 10px 20px; /* Adjusted padding */
+background-color: #bc1c5c; /* Dark blue background */
+color: #ffffff;
+border-radius: 5px;
+border: none;
+cursor: pointer;
+transition: background-color 0.3s;
+font-family: 'Poppins', sans-serif;
+}
+
+.logout button:hover {
+background-color: #002447; /* Hover color */
+}
+
+.logout button i {
+margin-right: 10px; /* Decreased margin right */
+}
+.home {
+  position: relative;
+  left: 275px;
+  width: calc(100% - 275px);
+  top: 0;
+  /* background: #0074e8; */
+  background: #ffffff;
+  
+  /* padding-left: 25px; */
+  /* padding-bottom: 5rem; */
+}
+.profile{
+  top: 0;
+  width: 100%;
+  border: 2px solid black;
+  height: 70px;
+  margin-top: 5px;
+  position: relative;
+  margin-bottom: 20px; 
+}
+
+.profile a {
+  margin-top: 10px;
+  position: relative;
+  text-decoration: none;
+  color: #000000;
+  font-size: 25px;
+  left: 85%;
+  
+}
+.profile i {
+  margin-top: 10px;
+  position: relative;
+  text-decoration: none;
+  color: #000000;
+  font-size: 25px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Right-align the user profile section */
+  margin-bottom: 20px;
+  left: 50%;
+  margin-right: 20px;
+  
+  /* border: 1px solid black; */
+}
+
+.user-profile img {
+  width: 50px; /* Adjust the image size */
+  height: 50px; /* Adjust the image size a */
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 1px solid black;
+}
+
+.user-profile-info {
+  position: block;
+  color: black;
+}
+.user-profile-info .username {
+  font-size: 1.2rem;
+  font-weight: 500;
+  
+  text-transform: capitalize;
+}
+
+.user-profile-info p {
+  margin: 0;
+}
+
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Right-align the user profile section */
+  margin-bottom: 20px;
+}
+
+.user-profile img {
+  width: 50px; /* Adjust the image size as needed */
+  height: 50px; /* Adjust the image size as needed */
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #003366; /* Add a border around the profile picture */
+}
+
+.user-profile-info {
+  color: #003366;
+  font-weight: bold; /* Make text bold for a professional look */
+}
+
+.user-profile-info p {
+  margin: 0;
+}
+
+
+     
+
+      .user-profile {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end; /* Right-align the user profile section */
+          margin-bottom: 20px;
+      }
+
+      .user-profile img {
+          width: 50px; /* Adjust the image size as needed */
+          height: 50px; /* Adjust the image size as needed */
+          border-radius: 50%;
+          margin-right: 10px;
+          border: 2px solid #003366; /* Add a border around the profile picture */
+      }
+
+      .user-profile-info {
+          color: #003366;
+          font-weight: bold; /* Make text bold for a professional look */
+      }
+
+      .user-profile-info p {
+          margin: 0;
+      }
+
+      /* Dashboard styling */
 .dashboard {
-    margin-left: 275px;
-    padding: 20px;
+  margin-left: 275px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .flavours-header {
-    font-size: 30px;
-    font-weight: bold;
-    color: #003366;
-    margin-bottom: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #003366;
+  margin-bottom: 10px;
+  margin-top:30px;
 }
 
 .dashboard-boxes {
-    padding: 0 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }
 
 .dashboard-box {
@@ -31,69 +243,243 @@ transition: transform 0.3s ease;
 }
 
 .dashboard-box:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 
 
 .dashboard-box i {
-    font-size: 48px;
-    color: #002447;
-    margin-bottom: 10px;
+  font-size: 48px;
+  color: #002447;
+  margin-bottom: 10px;
 }
 
 .dashboard-box p {
-    color: #666;
-    margin-bottom: 20px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
 .dashboard-box h2{
-    color: #333;
+  color: #333;
 }
 
 /* CSS for ongoing order section */
 .ongoing-order {
-    margin-top: 50px;
-    background: #f3f4f6;
-    padding: 20px;
-    border-radius: 10px;
+  margin-top: 50px;
+  background: #f3f4f6;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .order-details {
-    background: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 30px;
-    width: 80%; /* Adjust width as needed */
-    max-width: 600px; /* Set maximum width */
-    margin: 0 auto; /* Center horizontally */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 30px;
+  width: 600px; /* Fixed width */
+  max-width: 80%; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+
 .order-details h3 {
-    color: #003366;
-    margin-bottom: 20px;
+  color: #003366;
+  margin-bottom: 20px;
 }
 
 .order-details p {
-    color: #666;
-    margin-bottom: 10px;
+  color: #666;
+  margin-bottom: 10px;
 }
 
 .view-order-btn {
-    background-color: #002447;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #002447;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .view-order-btn:hover {
-    background-color: #003366;
+  background-color: #003366;
 }
 
+.menu-bar {
+  display: none; /* Hide the side bar */
+}
+
+
+
+/* CSS for the navigation bar */
+@media screen and (max-width: 1024px) {
+.side-bar {
+  display: none; /* Hide the side bar */
+}
+
+/* Add a menu bar for mobile devices */
+.menu-bar {
+display: block;
+background-color: #002447;
+height: 60px;
+width: 100%; /* Take full width of the screen */
+position: fixed;
+top: 0;
+left: 0; /* Ensure it starts from the left edge */
+margin: 0; /* Remove any default margin */
+z-index: 1000;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+
+.menu-bar-logo {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+}
+
+.menu-bar-logo img {
+    height: 90px;
+    }
+
+.menu-toggle-btn {
+background-color: transparent;
+border: none;
+color: #fff;
+font-size: 24px;
+cursor: pointer;
+position: absolute;
+top: 50%;
+right: 20px;
+transform: translateY(-50%);
+}
+
+.menu-toggle-btn:hover {
+color: #bc1c5c;; /* Change color on hover */
+}
+
+.menu-options {
+  margin-top: 30px;
+  display: none; /* Initially hide the menu options */
+  background-color: #002447;
+  padding: 20px;
+  position: absolute;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+  right: 0;
+  z-index: 1000; /* Ensure menu appears above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+  width: 100%; /* Set width to 100% */
+  text-align: center; /* Center the menu options horizontally */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.menu-options .links {
+  margin-bottom: 20px; /* Add some spacing between links and the logout button */
+  padding-bottom: 20px; /* Add padding to create space */
+}
+
+
+.menu-options.show {
+  display: block; /* Show the menu options when the show class is applied */
+}
+
+.menu-options .link-items {
+  border-bottom: 1px solid #fff; /* Add border lines between menu options */
+  padding-bottom: 10px; /* Add some spacing below each menu option */
+}
+
+
+
+
+.menu-options .link-items a {
+  color: #fff; /* Text color for menu links */
+  text-decoration: none;
+  display: block;
+  padding: 10px 0;
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.menu-options .link-items a:hover {
+  color: #000000; /* Text color on hover */
+}
+
+.menu-options .logout {
+  margin-top: 20px; /* Add margin to create space */
+}
+
+.menu-options .logout button {
+  width: calc(80% - 10px); /* Set a width to the button */
+  padding: 10px 20px; /* Adjusted padding */
+  background-color: #bc1c5c; /* Button background color */
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Poppins', sans-serif;
+  margin-right: 10px; /* Add right margin */
+}
+
+
+
+.menu-options .logout button:hover {
+  background-color: #002447; /* Hover color */
+}
+
+
+}
+
+/* Additional styles for responsiveness */
+@media screen and (max-width: 1024px) {
+
+
+
+
+.dashboard-boxes {
+  flex-wrap: wrap;
+}
+
+.dashboard-box {
+  margin: 0 10px 20px;
+  width: calc(50% - 20px);
+}
+
+/* Additional responsiveness for ongoing order section */
+.ongoing-order {
+  padding: 10px;
+}
+
+.order-details {
+  width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+    .dashboard {
+      margin-left: 0; /* Remove left margin for smaller screens */
+      padding: 20px 10px; /* Adjust padding for smaller screens */
+    }
+  }
+  
+  /* Additional styles for responsiveness */
+  @media screen and (max-width: 1024px) {
+    .dashboard-boxes {
+      flex-wrap: wrap;
+    }
+  
+    .dashboard-box {
+      margin: 0 10px 20px;
+      width: calc(50% - 20px);
+    }
+  
+    
+  }
+  
+}
