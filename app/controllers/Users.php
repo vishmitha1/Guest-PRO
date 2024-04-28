@@ -294,22 +294,26 @@ class Users extends Controller
                 'email' => trim($_POST['email']),
                 'phone' => trim($_POST['phone']),
                 'address' => trim($_POST['address']),
+                'curpass' => trim($_POST['curpass']),
+                'newpass' => trim($_POST['newpass']),
                 'id' => $_SESSION['user_id'],
             ];
 
             // print_r($data);
             // print_r($_FILES);
 
-            if($this->userModel->isEmailExist($data['email'],$_SESSION['user_id'])){
-                $_SESSION['toast_type'] = 'error';
-                $_SESSION['toast_msg'] = 'Email is already taken';
-                redirect('Users/profile');
-            }
+            // if($this->userModel->isEmailExist($data['email'],$_SESSION['user_id'])){
+            //     $_SESSION['toast_type'] = 'error';
+            //     $_SESSION['toast_msg'] = 'Email is already taken';
+            //     redirect('Users/profile');
+            //     return;
+            // }
           
             if(empty($data['name'])){
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter name';
                 redirect('Users/profile');
+                return;
 
             }
             if(empty($data['email'])){
@@ -317,12 +321,14 @@ class Users extends Controller
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter email';
                 redirect('Users/profile');
+                return;
 
             }
             if(empty($data['phone'])){
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter phone number';
                 redirect('Users/profile');
+                return;
 
             }
             if(empty($data['address'])){
@@ -330,12 +336,20 @@ class Users extends Controller
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter address';
                 redirect('Users/profile');
+                return;
+            }
+            if(!($this->userModel->verifyPassword($data['curpass'],$_SESSION['user_id']))){
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Current password is incorrect';
+                redirect('Users/profile');
+                return;
             }
 
             if(isset($img)){
                 
                 $target = "img/users/".basename($img);
                 move_uploaded_file($_FILES['propic']['tmp_name'],$target);
+                $data['Hnewpass'] = password_hash($data['newpass'], PASSWORD_DEFAULT);
             }
             if($this->userModel->updateProfile($data,$img)){
                 $_SESSION['toast_type'] = 'success';
