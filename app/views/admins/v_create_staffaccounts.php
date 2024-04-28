@@ -14,10 +14,10 @@
             <input type="text" id="phoneNumber" name="phoneNumber" required>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" name="birthday" required>
             <label for="nicNumber">NIC Number:</label>
             <input type="text" id="nicNumber" name="nicNumber" required>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
             <input type="submit" value="Create" name="submit">
         </form>
     </div>

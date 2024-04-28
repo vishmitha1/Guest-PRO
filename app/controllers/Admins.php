@@ -66,8 +66,8 @@ class Admins extends Controller
                 'staffName' => trim($_POST['staffName']),
                 'phoneNumber' => trim($_POST['phoneNumber']),
                 'email' => trim($_POST['email']),
-                'birthday' => trim($_POST['birthday']),
-                'nicNumber' => trim($_POST['nicNumber']),
+                'address' => trim($_POST['nicNumber']),
+                'address' => trim($_POST['address']),
             ];
             // Generate random password
             $password = $this->staffModel->generateRandomPassword();
@@ -78,16 +78,12 @@ class Admins extends Controller
                 $data['password'] = password_hash($password, PASSWORD_DEFAULT);
 
                 // Log email details into the users table
-                if ($this->staffModel->logEmail_staffdetails($_POST['email'], $data['password'], $_POST['designation'], $_POST['staffName'])) {
-                    // Call model method to insert staff
-                    if ($this->staffModel->insert_staffdetails($data)) {
-                        redirect('Admins/staffaccounts');
-                    } else {
-                        die("Something went wrong");
-                    }
+                if ($this->staffModel->insert_staffdetails($data)) {
+                    redirect('Admins/staffaccounts');
                 } else {
-                    die("Failed to log email details");
+                    die("Something went wrong");
                 }
+
             } else {
                 die("Failed to send email");
             }
@@ -107,19 +103,19 @@ class Admins extends Controller
         }
     }
 
-    public function update_staffaccounts($staffID)
+    public function update_staffaccounts($userID)
     {
         // Check if form is submitted
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Process the form data and update staff account details
             $updateData = [
-                'staffID' => $staffID,
+                'userID' => $userID,
                 'designation' => $_POST['designation'],
                 'staffName' => $_POST['staffName'],
                 'phoneNumber' => $_POST['phoneNumber'],
                 'email' => $_POST['email'],
-                'birthday' => $_POST['birthday'],
                 'nicNumber' => $_POST['nicNumber'],
+                'address' => $_POST['address'],
 
             ];
 
@@ -133,7 +129,7 @@ class Admins extends Controller
         } else {
             // Handle GET request to load the update form
             // Retrieve staff account details from the database
-            $staffaccount = $this->staffModel->get_staffdetailsBYID($staffID);
+            $staffaccount = $this->staffModel->get_staffdetailsBYID($userID);
 
             // Check if the staff account exists
             if ($staffaccount) {
@@ -143,6 +139,7 @@ class Admins extends Controller
                 // Handle the case where the staff account doesn't exist
                 die('Staff account not found.');
             }
+
         }
     }
 
