@@ -50,7 +50,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
         </table>
 
         <!-- Display additional information -->
-        <p>Most Reserved Room: <?php echo $data['generated_report']['additional_info']['most_reserved_room']?></p>
+        <p>Most Reserved Room: <?php echo $data['generated_report']['additional_info']['most_reserved_room']; ?></p>
         <p>Least Reserved Room: <?php echo $data['generated_report']['additional_info']['least_reserved_room']; ?></p>
         <p>Most Reserved Room Category: <?php echo $data['generated_report']['additional_info']['most_reserved_category']; ?></p>
         <p>Least Reserved Room Category: <?php echo $data['generated_report']['additional_info']['least_reserved_category']; ?></p>
@@ -209,18 +209,18 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     // }
                     // }
                 ],
-                table: Array.from(Array(report['generated_report'].length), (item, index) => ([
+                table: Array.from(Array(report['generated_report']['results'].length), (item, index) => ([
                     index + 1,
-                    report['generated_report'][index]['roomNo'],
-                    report['generated_report'][index]['category'],
-                    report['generated_report'][index]['reservation_id'],
-                    report['generated_report'][index]['reservation_count'],
+                    report['generated_report']['results'][index]['roomNo'] + "\n",
+                    report['generated_report']['results'][index]['category'] + "\n",
+                    report['generated_report']['results'][index]['reservation_id'] + "\n",
+                    report['generated_report']['results'][index]['reservation_count'] + "\n",
                     
                 ])),
 
 
                 additionalRows: [{
-                        col1: 'Most Reservative Room :' + report['generated_report']['additional_info']['most_reserved_room'].tostring(),
+                        col1: 'Most Reservative Room :' + report['generated_report']['additional_info']['most_reserved_room'],
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -228,7 +228,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                         }
                     },
                     {
-                        col1: 'Least Reservative Room :' + report['generated_report']['additional_info']['least_reserved_room'].tostring(),
+                        col1: 'Least Reservative Room :' + report['generated_report']['additional_info']['least_reserved_room'],
                         col2: ' ',
                         col3: ' ',
                         style: {
