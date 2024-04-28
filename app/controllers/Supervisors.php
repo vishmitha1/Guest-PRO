@@ -17,7 +17,18 @@
         //dashboard
 
         public function dashboard(){
-            $data = [];
+            $cleanedroomscount = $this->m_supervisor->getCleanedRoomsCount();
+            $notcleanedroomscount = $this->m_supervisor->getNotCleanedroomsCount();
+            $completedservicerequestscount = $this->m_supervisor->getCompletedServiceRequestsCount();
+            $pendingservicerequestscount = $this->m_supervisor->getPendingServiceRequestsCount();
+
+            $data = [
+            'cleanedroomscount' => $cleanedroomscount,
+            'notcleanedroomscount' => $notcleanedroomscount,
+            'completedservicerequestscount' => $completedservicerequestscount,
+            'pendingservicerequestscount' => $pendingservicerequestscount ,
+
+            ];
         
         
            

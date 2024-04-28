@@ -101,7 +101,9 @@
     width: 120px; /* Set a fixed width for the status button */
     white-space: nowrap; /* Prevent text from wrapping */
     overflow: hidden; /* Hide overflow */
-    text-overflow: ellipsis; /* Display an ellipsis (...) when text overflows */
+    text-overflow: ellipsis;
+     /* Display an ellipsis (...) when text overflows */
+    background-color: #FF4500
 }
 
 .status-button.placed {
@@ -129,6 +131,7 @@
     /* CSS to disable hover effect for disabled cancel button */
 .status-button[disabled] {
     pointer-events: none;
+    background-color:#f0f0f0;
 }
 
 /* CSS to disable hover effect for disabled cancel button */
