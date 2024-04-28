@@ -200,6 +200,24 @@ function markAsDelivered(event, orderId) {
         }
 
 
+        document.addEventListener("DOMContentLoaded", function() {
+    const menuToggleBtn = document.querySelector(".menu-toggle-btn");
+    const menuOptions = document.querySelector(".menu-options");
+
+    // Toggle menu options visibility when the toggle button is clicked
+    menuToggleBtn.addEventListener("click", function() {
+        menuOptions.classList.toggle("show");
+    });
+
+    // Close menu options when clicking outside of them
+    document.addEventListener("click", function(event) {
+        if (!menuOptions.contains(event.target) && !menuToggleBtn.contains(event.target)) {
+            menuOptions.classList.remove("show");
+        }
+    });
+});
+
+
         
     </script>
 </div>
