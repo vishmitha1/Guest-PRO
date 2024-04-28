@@ -439,7 +439,7 @@ class M_Managers
 
     public function getcomplaints()
     {
-        $this->db->query("SELECT * FROM complaints ");
+        $this->db->query("SELECT * FROM complaints ORDER BY created_at DESC ");
 
         return $this->db->resultSet();
     }
@@ -932,4 +932,44 @@ class M_Managers
             return false;
         }
     }
+
+    public function getcomplaintstypes()
+    { //get categories to view in the form to select 
+        $this->db->query("SELECT DISTINCT complaint_type FROM complaints ");
+
+        return $this->db->resultSet();
+    }
+
+    public function getFilteredcomplaints($category, $date)
+    {
+        $sql = "SELECT * FROM complaints WHERE 1=1";
+
+        // Check if category filter is provided
+        if (!empty($category)) {
+            $sql .= " AND complaint_type = :category";
+        }
+
+        // Check if maxPrice filter is provided
+        if (!empty($date)) {
+            $sql .= " AND DATE(created_at) = :date";
+        }
+        $sql .= " ORDER BY created_at DESC";
+        // Prepare the SQL query
+        $this->db->query($sql);
+
+        // Bind parameters based on provided filters
+        if (!empty($category)) {
+            $this->db->bind(':category', $category);
+        }
+        if (!empty($date)) {
+            $this->db->bind(':date', $date);
+        }
+
+        // Execute the query and return the results
+        $this->db->execute();
+        return $this->db->resultSet();
+
+
+    }
+
 }

@@ -955,7 +955,11 @@ class Managers extends Controller
     public function complaints()
     {
         $complaints = $this->userModel->getcomplaints();
-        $data = ['complaints' => $complaints];
+        $complainttypes = $this->userModel->getcomplaintstypes();
+        $data = [
+            'complaints' => $complaints,
+            'complaintstype' => $complainttypes
+        ];
 
         $this->view('managers/v_complaints', $data);
 
@@ -1063,6 +1067,33 @@ class Managers extends Controller
     {
         // Redirect to the default view without any filters
         redirect('Managers/fooditems');
+    }
+
+    public function applyComplaintsFilters()
+    {
+        // Retrieve filter criteria from the request
+        $category = $_POST['category'];
+        $date = $_POST['date'];
+
+
+        // Call the model method to fetch filtered room data
+        $filteredcomplaints = $this->userModel->getFilteredcomplaints($category, $date);
+
+        $complaintsTypes = $this->userModel->getcomplaintstypes();
+
+        $data = [
+            'complaints' => $filteredcomplaints,
+            'complaintstype' => $complaintsTypes
+        ];
+
+        $this->view('managers/v_complaints', $data);
+
+    }
+
+    public function resetComplaintsFilters()
+    {
+        // Redirect to the default view without any filters
+        redirect('Managers/complaints');
     }
     public function searchfooditems()
     {
