@@ -161,6 +161,122 @@ class Users extends Controller
         $this->view('home/signupOTP',$data=[]);
     }
 
+    //forget passsword
+    public function forgetPassword(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //validate
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'email' => trim($_POST['email']),
+            ];
+            if($this->userModel->findUserByEmail($data['email'])){
+                $otp=$this->generateOTP();
+                sendOtpEmail($data['email'],'Customer',$otp);
+                $_SESSION['forgetData']=$data;
+                $_SESSION['otp']=$otp;
+                $_SESSION['toast_type'] = 'success';
+                $_SESSION['toast_msg'] = 'OTP sent to your email';
+                $this->view('home/forgetPasswordOTP',$data=[]);
+                toastFlashMsg();
+                return;
+            }
+            else{
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Email is not registered';
+                redirect('Users/forgetPassword');
+            }
+        }
+        else{
+            $data = [
+                'email' => '',
+            ];
+            $this->view('home/forgetPassword', $data);
+            if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
+                toastFlashMsg();
+            }
+        }
+    }
+
+    public function forgetPasswordOTP(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //validate
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'otp' => trim($_POST['otp']),
+            ];
+            if($data['otp']==$_SESSION['otp']){
+                $data=$_SESSION['forgetData'];
+                $_SESSION['toast_type'] = 'success';
+                $_SESSION['toast_msg'] = 'OTP verified';
+                $this->view('home/resetPassword',$data);
+                toastFlashMsg();
+                return;
+            }
+            else{
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'OTP is incorrect';
+                redirect('Users/forgetPasswordOTP');
+                return;
+            }
+        }
+        else{
+            $data = [
+                'otp' => '',
+            ];
+            $this->view('home/forgetPasswordOTP', $data);
+            if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
+                toastFlashMsg();
+            }
+        }
+    }
+
+    public function resetPassword(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //validate
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'password' => trim($_POST['password']),
+                'confirm_password' => trim($_POST['confirm_password']),
+                'user_id' => $_SESSION['user_id'],
+            ];
+            if($data['password']!=$data['confirm_password']){
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Passwords do not match';
+                redirect('Users/resetPassword');
+                return;
+            }
+            else{
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                $data=$_SESSION['forgetData'];
+                if ($this->userModel->updatePassword($data)) {
+                    //unset session data
+                    unset($_SESSION['forgetData']);
+                    unset($_SESSION['otp']);
+                    //redirect to login page
+                    $_SESSION['toast_type'] = 'success';
+                    $_SESSION['toast_msg'] = 'Password updated successfully';
+                    redirect('Users/login');
+                } 
+                
+                else {
+                    die("someting wrond");
+                }
+            }
+        }
+        else{
+            $data = [
+                'password' => '',
+                'confirm_password' => '',
+            ];
+            $this->view('home/resetPassword', $data);
+            if (!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])) {
+                toastFlashMsg();
+            }
+        }
+    }
+
+
+
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -294,22 +410,26 @@ class Users extends Controller
                 'email' => trim($_POST['email']),
                 'phone' => trim($_POST['phone']),
                 'address' => trim($_POST['address']),
+                'curpass' => trim($_POST['curpass']),
+                'newpass' => trim($_POST['newpass']),
                 'id' => $_SESSION['user_id'],
             ];
 
             // print_r($data);
             // print_r($_FILES);
 
-            if($this->userModel->isEmailExist($data['email'],$_SESSION['user_id'])){
-                $_SESSION['toast_type'] = 'error';
-                $_SESSION['toast_msg'] = 'Email is already taken';
-                redirect('Users/profile');
-            }
+            // if($this->userModel->isEmailExist($data['email'],$_SESSION['user_id'])){
+            //     $_SESSION['toast_type'] = 'error';
+            //     $_SESSION['toast_msg'] = 'Email is already taken';
+            //     redirect('Users/profile');
+            //     return;
+            // }
           
             if(empty($data['name'])){
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter name';
                 redirect('Users/profile');
+                return;
 
             }
             if(empty($data['email'])){
@@ -317,12 +437,14 @@ class Users extends Controller
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter email';
                 redirect('Users/profile');
+                return;
 
             }
             if(empty($data['phone'])){
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter phone number';
                 redirect('Users/profile');
+                return;
 
             }
             if(empty($data['address'])){
@@ -330,12 +452,20 @@ class Users extends Controller
                 $_SESSION['toast_type'] = 'error';
                 $_SESSION['toast_msg'] = 'Please enter address';
                 redirect('Users/profile');
+                return;
+            }
+            if(!($this->userModel->verifyPassword($data['curpass'],$_SESSION['user_id']))){
+                $_SESSION['toast_type'] = 'error';
+                $_SESSION['toast_msg'] = 'Current password is incorrect';
+                redirect('Users/profile');
+                return;
             }
 
             if(isset($img)){
                 
                 $target = "img/users/".basename($img);
                 move_uploaded_file($_FILES['propic']['tmp_name'],$target);
+                $data['Hnewpass'] = password_hash($data['newpass'], PASSWORD_DEFAULT);
             }
             if($this->userModel->updateProfile($data,$img)){
                 $_SESSION['toast_type'] = 'success';

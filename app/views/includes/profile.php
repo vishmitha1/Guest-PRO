@@ -29,6 +29,10 @@
                 <input type="text" name="phone" value="<?php echo $data->phone; ?>">
                 <p>Address</p>
                 <input type="text" name="address" value="<?php echo $data->address; ?>">
+                <p>Current Password</p>
+                <input type="password" name="curpass"  >
+                <p>New Password</p>
+                <input type="password" name="newpass" >
                 
                     
                 <p><button type="submit" >Update</button></p>

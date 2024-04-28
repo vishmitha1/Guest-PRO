@@ -126,13 +126,12 @@
         //update profile
         public function updateProfile($data,$img){
               
-            
             if($img !=''){
-                $this->db->query("UPDATE users SET name=:name,email=:email,phone=:phone,address=:address,img=:propic WHERE id=:id");
+                $this->db->query("UPDATE users SET name=:name,email=:email,phone=:phone,address=:address,img=:propic,password=:pass WHERE id=:id");
                 $this->db->bind(':propic',$img);
             }
             else{
-                $this->db->query("UPDATE users SET name=:name,email=:email,phone=:phone,address=:address WHERE id=:id");
+                $this->db->query("UPDATE users SET name=:name,email=:email,phone=:phone,address=:address,password=:pass WHERE id=:id");
             }
            
             $this->db->bind(':name',$data['name']);
@@ -140,6 +139,8 @@
             $this->db->bind(':phone',$data['phone']);
             $this->db->bind(':address',$data['address']);
             $this->db->bind(':id',$data['id']);
+            $this->db->bind(':pass',$data['Hnewpass']);
+
 
             if($this->db->execute()){
                 return true;
@@ -158,6 +159,21 @@
             $row = $this->db->single();
 
             if($this->db->rowCount() > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        //verify password
+        public function verifyPassword($password,$id){
+            $this->db->query("SELECT password FROM users WHERE id=:id");
+            $this->db->bind(':id',$id);
+            $row = $this->db->single();
+
+            $hashed_password = $row->password;
+            if(password_verify($password,$hashed_password)){
                 return true;
             }
             else{

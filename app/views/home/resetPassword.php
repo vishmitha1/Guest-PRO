@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Form</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/login/loginStyle.css">
+	<title>signup Form</title>
+	<link rel="stylesheet" type="text/css" href="<?php echo URLROOT;?>/public/css/login/signupStyle.css">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,13 +10,9 @@
 <body>
 	<div class="navigation">
 		<div class="logo">
-			<img src="<?php echo URLROOT; ?>/public/img/login/logo.png" alt="">
+			<a href="<?php echo URLROOT; ?>/Home"><img src="<?php echo URLROOT; ?>/public/img/logo.png" alt=""></a>
 		</div>
-		
-			<a href="<?php echo URLROOT; ?>/Home">Home</a>
-			<a href="<?php echo URLROOT;?>/Home#about">About</a>
-			<a href="<?php echo URLROOT;?>/Home#contact">Contact</a>
-			<a href="<?php echo URLROOT;?>/users/register">Signup</a>
+
 		
 	</div>
 
@@ -26,32 +22,33 @@
 	<img class="wave" src="<?php echo URLROOT ;?>/public/img/login/wave.png">
 	<div class="container">
 		<div class="img">
-			<img src="<?php echo URLROOT ;?>/public/img/login/booking.svg">
+			<img src="<?php echo URLROOT ;?>/public/img/login/resetpw.svg">
 		</div>
 		<div class="login-content">
-			<form action="<?php echo URLROOT ;?>/Users/login" method="POST">
-				<img src="<?php echo URLROOT ;?>/public/img/login/avatar.svg">
-				<h2 class="title">Welcome</h2>
-           		<div class="input-div one">
-           		   <div class="i">
-           		   		<i class="fas fa-user"></i>
-           		   </div>
-           		   <div class="div">
-           		   		<h5>Email</h5>
-           		   		<input type="email" class="input" required  name='email' id="email"  value="<?php echo $data['email'];?>" >
-           		   </div>
-           		</div>
+			<form action="<?php echo URLROOT;?>/Users/resetPassword" method="POST">
+			<a href="<?php echo URLROOT; ?>/Home"><img src="<?php echo URLROOT ;?>/public/img/login/logo.png" alt="guestpro"></a>
+           		
+           			
            		<div class="input-div pass">
            		   <div class="i"> 
            		    	<i class="fas fa-lock"></i>
            		   </div>
            		   <div class="div">
            		    	<h5>Password</h5>
-           		    	<input type="password" class="input"  name='password' id="password"  value="<?php echo $data['password'];?>" >
+           		    	<input type="password" class="input" name='password' id="password" value="">
             	   </div>
             	</div>
-            	<a href="<?php echo URLROOT;?>/users/forgetPassword">Forgot Password?</a>
-            	<input type="submit" class="btn" value="Login">
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Re Enter Password</h5>
+           		    	<input type="password" class="input" name='password' id="password" value="">
+            	   </div>
+            	</div>
+            	
+            	<input type="submit" class="btn" value="Reset Password">
             </form>
         </div>
     </div>

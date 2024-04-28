@@ -26,32 +26,25 @@
 	<img class="wave" src="<?php echo URLROOT ;?>/public/img/login/wave.png">
 	<div class="container">
 		<div class="img">
-			<img src="<?php echo URLROOT ;?>/public/img/login/booking.svg">
+			<img src="<?php echo URLROOT ;?>/public/img/login/sec2.svg">
 		</div>
 		<div class="login-content">
-			<form action="<?php echo URLROOT ;?>/Users/login" method="POST">
+			<form action="<?php echo URLROOT ;?>/Users/forgetPasswordOTP" method="POST">
 				<img src="<?php echo URLROOT ;?>/public/img/login/avatar.svg">
-				<h2 class="title">Welcome</h2>
-           		<div class="input-div one">
-           		   <div class="i">
-           		   		<i class="fas fa-user"></i>
-           		   </div>
-           		   <div class="div">
-           		   		<h5>Email</h5>
-           		   		<input type="email" class="input" required  name='email' id="email"  value="<?php echo $data['email'];?>" >
-           		   </div>
-           		</div>
+				<h4 class="title">Welcome</h4>
+           	
            		<div class="input-div pass">
            		   <div class="i"> 
            		    	<i class="fas fa-lock"></i>
            		   </div>
            		   <div class="div">
-           		    	<h5>Password</h5>
-           		    	<input type="password" class="input"  name='password' id="password"  value="<?php echo $data['password'];?>" >
+           		    	<h5>OTP</h5>
+           		    	<input type="text" class="input"  name='otp' id="otp"   >
             	   </div>
             	</div>
-            	<a href="<?php echo URLROOT;?>/users/forgetPassword">Forgot Password?</a>
-            	<input type="submit" class="btn" value="Login">
+            
+            	<input type="submit" class="btn" value="Verify">
+
             </form>
         </div>
     </div>
