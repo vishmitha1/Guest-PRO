@@ -55,7 +55,17 @@
     <div class="clear"></div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function selectOrder(clickedOrderBox, orderId) {
+
+function selectOrder(clickedOrderBox, orderId) {
+    // Check if any order box is currently selected
+    var selectedOrderBox = document.querySelector('.order-box.selected');
+    
+    if (!selectedOrderBox) {
+        // No order box is currently selected
+        // Check if the clicked order box is the first order box in the UI
+        var isFirstOrderBox = clickedOrderBox === document.querySelector('.order-box');
+
+        if (isFirstOrderBox) {
             // Display SweetAlert confirmation dialog
             Swal.fire({
                 title: 'Are you sure?',
@@ -67,94 +77,109 @@
                 confirmButtonText: 'Yes, take the order'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Order confirmation, proceed as usual
-                    var selectedOrderBox = document.querySelector('.order-box.selected');
-                    if (!selectedOrderBox) {
-                        // No order box is currently selected, so select the clicked one
-                        clickedOrderBox.classList.add('selected');
+                    // Proceed with taking the order
+                    clickedOrderBox.classList.add('selected');
+                    var deliveredCheckbox = clickedOrderBox.querySelector('.delivered-checkbox');
+                    deliveredCheckbox.style.display = 'block';
 
-                        // Show the 'Delivered' checkbox
-                        var deliveredCheckbox = clickedOrderBox.querySelector('.delivered-checkbox');
-                        deliveredCheckbox.style.display = 'block';
+                    // Call the API to assign the order
+                    const base_url = window.location.origin;
+                    const apiUrl = `${base_url}/GuestPro/waiters/assignOrder/${orderId}`;
 
-                        // Call the API to assign the order
-                        const base_url = window.location.origin;
-                        const apiUrl = `${base_url}/GuestPro/waiters/assignOrder/${orderId}`;
-
-                        // Fetch API call to assign the order
-                        fetch(apiUrl, {
-                            method: 'POST', // or 'GET', 'PUT', 'DELETE', etc.
-                            // Add headers if required
-                            // body: JSON.stringify(data), // You can send data in the request body if needed
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            // Handle the response if needed
-                        })
-                        .catch(error => {
-                            console.error('There was an error!', error);
-                            // Handle errors
-                        });
-                    }
+                    fetch(apiUrl, {
+                        method: 'POST',
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        // Handle response if needed
+                    })
+                    .catch(error => {
+                        console.error('There was an error!', error);
+                        // Handle errors
+                    });
                 }
             });
+        } else {
+            // Show a warning that you can't take on that order
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'You can only take the first order until you complete it.',
+            });
         }
+    } else {
+        // Another order is already selected
+        // Show a warning that you can't take on another order until you complete the existing one
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'You can only take on one order at a time.',
+        });
+    }
+}
 
-        function markAsDelivered(event, orderId) {
-            event.stopPropagation();
-            var selectedOrderBox = document.querySelector('.order-box.selected');
-            if (selectedOrderBox) {
-                // Display SweetAlert confirmation dialog
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "Do you want to update the status of this order to 'delivered'?",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, mark as delivered'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Proceed with updating the status
-                        selectedOrderBox.classList.toggle('delivered');
+        
 
-                        // Call the API to change the status to delivered
-                        const base_url = window.location.origin;
-                        const apiUrl = `${base_url}/GuestPro/waiters/changeStatus/${orderId}`;
 
-                        // Fetch API call to change the status
-                        fetch(apiUrl, {
-                            method: 'POST', // or 'GET', 'PUT', 'DELETE', etc.
-                            // Add headers if required
-                            // body: JSON.stringify(data), // You can send data in the request body if needed
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            location.reload();
-                            // Parse JSON response
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.msg === "success") {
-                                // Success message, handle as needed
-                                console.log("Order status changed successfully");
-                            } else {
-                                // Handle other responses or errors
-                                console.error('Unexpected response:', data);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('There was an error!', error);
-                            // Handle errors
-                        });
+function markAsDelivered(event, orderId) {
+    event.stopPropagation();
+    var selectedOrderBox = document.querySelector('.order-box.selected');
+    if (selectedOrderBox) {
+        // Display SweetAlert confirmation dialog
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to update the status of this order to 'delivered'?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, mark as delivered'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Proceed with updating the status
+                selectedOrderBox.classList.toggle('delivered');
+
+                // Call the API to change the status to delivered
+                const base_url = window.location.origin;
+                const apiUrl = `${base_url}/GuestPro/waiters/changeStatus/${orderId}`;
+
+                // Fetch API call to change the status
+                fetch(apiUrl, {
+                    method: 'POST', // or 'GET', 'PUT', 'DELETE', etc.
+                    // Add headers if required
+                    // body: JSON.stringify(data), // You can send data in the request body if needed
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
+                    location.reload();
+                    // Parse JSON response
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.msg === "success") {
+                        // Success message, handle as needed
+                        console.log("Order status changed successfully");
+                    } else {
+                        // Handle other responses or errors
+                        console.error('Unexpected response:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                    // Handle errors
                 });
+            } else {
+                // If not confirmed, uncheck the checkbox
+                event.target.checked = false;
             }
-        }
+        });
+    }
+}
+
 
         function showAllOrders() {
             var allOrderBoxes = document.querySelectorAll('.order-box');
@@ -175,21 +200,6 @@
         }
 
 
-        document.addEventListener("DOMContentLoaded", function() {
-    const menuToggleBtn = document.querySelector(".menu-toggle-btn");
-    const menuOptions = document.querySelector(".menu-options");
-
-    // Toggle menu options visibility when the toggle button is clicked
-    menuToggleBtn.addEventListener("click", function() {
-        menuOptions.classList.toggle("show");
-    });
-
-    // Close menu options when clicking outside of them
-    document.addEventListener("click", function(event) {
-        if (!menuOptions.contains(event.target) && !menuToggleBtn.contains(event.target)) {
-            menuOptions.classList.remove("show");
-        }
-    });
-});
+        
     </script>
 </div>
