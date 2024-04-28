@@ -1,4 +1,7 @@
-<?php require APPROOT . "/views/includes/components/sidenavbar_admin.php" ?>
+<?php $userRole = $_SESSION['role'];
+// Load the corresponding navigation bar based on the user's role
+require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php"; ?>
+
 <div class="home">
     <div class="title-reports">
         <h1>Generate Reports</h1>
@@ -13,7 +16,7 @@
                     <!-- <option value="Reservation Summary Report">Reservation Summary Report</option> -->
                     <option value="Income Summary Report">Income Summary Report</option>
                     <option value="Food Orders Summary Report">Food Orders Summary Report</option>
-                    <!-- <option value="Customer Summary Report">Customer Summary Report</option> -->
+                    <option value="Food Orders Waiting Time Report">Food Orders Waiting Time Report</option>
                 </select>
             </div>
 
@@ -23,7 +26,7 @@
                     <option hidden value="">Select One</option>
                     <option value="Food Order Income">Food Order Income</option>
                     <option value="Reservation Income">Reservation Income</option>
-                    <option value="Total Income">Total Income</option>
+                    <!-- <option value="Total Income">Total Income</option> -->
                 </select>
             </div>
 

@@ -1,4 +1,6 @@
-<?php require APPROOT . "/views/includes/components/sidenavbar_admin.php" ?>
+<?php $userRole = $_SESSION['role'];
+// Load the corresponding navigation bar based on the user's role
+require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php"; ?>
 
 <div class="home">
 
@@ -37,7 +39,7 @@
                 <th>Reservation Count</th>
             </tr>
 
-            <?php foreach ($data['generated_report'] as $value) : ?>
+            <?php foreach ($data['generated_report']['results'] as $value) : ?>
                 <tr>
                     <td><?php echo $value->roomNo; ?> </td>
                     <td><?php echo $value->category; ?></td>
@@ -47,10 +49,11 @@
             <?php endforeach; ?>
         </table>
 
-        <p>Most Reservative Room :</p>
-        <p>Least Reservative Room :</p>
-        <p>Most Reservative Room Category:</p>
-        <p>Most Reservative Room Category:</p>
+        <!-- Display additional information -->
+        <p>Most Reserved Room: <?php echo $data['generated_report']['additional_info']['most_reserved_room']?></p>
+        <p>Least Reserved Room: <?php echo $data['generated_report']['additional_info']['least_reserved_room']; ?></p>
+        <p>Most Reserved Room Category: <?php echo $data['generated_report']['additional_info']['most_reserved_category']; ?></p>
+        <p>Least Reserved Room Category: <?php echo $data['generated_report']['additional_info']['least_reserved_category']; ?></p>
     </div>
 
     <?php $report = json_encode($data['generated_report']);?>
@@ -62,6 +65,7 @@
 <script>
 
     let report = <?php echo json_encode($data); ?>;
+    
 
     console.log(report);
 
@@ -216,7 +220,7 @@
 
 
                 additionalRows: [{
-                        col1: 'Most Reservative Room :',
+                        col1: 'Most Reservative Room :' + report['generated_report']['additional_info']['most_reserved_room'].tostring(),
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -224,7 +228,7 @@
                         }
                     },
                     {
-                        col1: 'Least Reservative Room :',
+                        col1: 'Least Reservative Room :' + report['generated_report']['additional_info']['least_reserved_room'].tostring(),
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -232,7 +236,7 @@
                         }
                     },
                     {
-                        col1: 'Most Reservative Room  Category:',
+                        col1: 'Most Reservative Room  Category:' + report['generated_report']['additional_info']['most_reserved_room'],
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -240,7 +244,7 @@
                         }
                     },
                     {
-                        col1: 'Least Reservative Room Category :',
+                        col1: 'Least Reservative Room Category :' + report['generated_report']['additional_info']['least_reserved_category'],
                         col2: ' ',
                         col3: ' ',
                         style: {

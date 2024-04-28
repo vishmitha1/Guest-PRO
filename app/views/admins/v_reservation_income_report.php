@@ -1,4 +1,6 @@
-<?php require APPROOT . "/views/includes/components/sidenavbar_admin.php" ?>
+<?php $userRole = $_SESSION['role'];
+// Load the corresponding navigation bar based on the user's role
+require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php"; ?>
 
 <div class="home">
 

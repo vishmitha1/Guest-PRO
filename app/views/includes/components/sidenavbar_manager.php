@@ -31,7 +31,7 @@
                     Alerts</a>
             </div>
             <div class="link-items">
-                <a href="<?php echo URLROOT; ?>/Managers/generatereports"><i class=" fa-solid fa-file"></i>Generate
+                <a href="<?php echo URLROOT; ?>/Reports/generatereports"><i class=" fa-solid fa-file"></i>Generate
                     Reports</a>
             </div>
             <div class="link-items">
