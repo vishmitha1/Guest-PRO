@@ -53,6 +53,34 @@ class M_Reports
                 }
                 break;
 
+            case 'Food Orders Summary Report':
+                $this->db->query("
+                    SELECT 
+                        SUBSTRING_INDEX(SUBSTRING_INDEX(f.item_no, ',', n.n), ',', -1) AS item_no,
+                        SUBSTRING_INDEX(SUBSTRING_INDEX(f.item_name, ',', n.n), ',', -1) AS item_name,
+                        fi.category AS item_category,
+                        COUNT(*) AS order_count
+                    FROM 
+                        foodorders f
+                    JOIN 
+                        (SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) n
+                        ON LENGTH(f.item_no) - LENGTH(REPLACE(f.item_no, ',', '')) >= n.n - 1
+                    JOIN 
+                        fooditems fi ON fi.item_id = SUBSTRING_INDEX(SUBSTRING_INDEX(f.item_no, ',', n.n), ',', -1)
+                    WHERE
+                        f.date BETWEEN :start_date AND :end_date
+                    GROUP BY 
+                        item_no, item_name, item_category
+                    ORDER BY 
+                        order_count DESC
+                    ");
+
+                $this->db->bind(':start_date', $startDate);
+                $this->db->bind(':end_date', $endDate);
+                $results = $this->db->resultSet();
+                break;
+
+
             default:
                 die('Something went wrong.');
         }

@@ -60,13 +60,13 @@
 
 .staffaccounts-table th,
 .staffaccounts-table td {
-    border: 1px solid #E6E7E8;
-    padding: 8px;
+    border: 1px solid #003366; /* Add a border to table cells */
+    padding: 12px;
     text-align: left;
 }
 
 .staffaccounts-table th{
-    background-color: #003366; /* Set background color for header cells */
+    background-color: #002447; /* Set background color for header cells */
     color: #ffffff; /* Set text color for header cells */
 }
 
@@ -197,4 +197,5 @@
 .update-staffaccounts-form input[type="submit"]:hover {
     background-color: #002447;
 }
+
 
