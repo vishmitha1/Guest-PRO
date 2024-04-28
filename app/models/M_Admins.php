@@ -180,6 +180,17 @@ class M_Admins
         return $this->db->execute();
     }
 
+    // Inside StaffModel class
+public function findStaffByEmail($email)
+{
+    $this->db->query('SELECT * FROM users WHERE email = :email');
+    $this->db->bind(':email', $email);
+    $this->db->single();
+
+    return $this->db->rowCount() > 0;
+}
+
+
     public function search_staffdetails($query)
     {
         // Prepare the query to search for staff accounts
