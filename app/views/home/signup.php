@@ -9,10 +9,10 @@
 </head>
 <body>
 	<div class="navigation">
-		
-			<a href="<?php echo URLROOT; ?>/Home"><div class="logo"></a>
-				<img src="<?php echo URLROOT ;?>/public/img/logo.png" alt="">
-			</div>
+		<div class="logo">
+			<a href="<?php echo URLROOT; ?>/Home"><img src="<?php echo URLROOT; ?>/public/img/logo.png" alt=""></a>
+		</div>
+
 		
 	</div>
 
@@ -26,7 +26,7 @@
 		</div>
 		<div class="login-content">
 			<form action="<?php echo URLROOT;?>/Users/register" method="POST">
-				<img src="<?php echo URLROOT ;?>/public/img/login/logo.png" alt="guestpro">
+			<a href="<?php echo URLROOT; ?>/Home"><img src="<?php echo URLROOT ;?>/public/img/login/logo.png" alt="guestpro"></a>
            		<div class="input-div one">
            		   <div class="i">
 					  	<i class="fas fa-envelope"></i>
