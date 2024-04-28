@@ -166,6 +166,7 @@
             font-weight: bold;
             transition: background-color 0.3s ease;
             width: 120px; /* Set fixed width for buttons */
+            background-color: #FF4500;
         }
 
         #serviceRequestsTable button.pending {
@@ -233,4 +234,5 @@
        /* CSS to disable hover effect for disabled cancel button */
 #serviceRequestsTable button[disabled] {
     pointer-events: none;
+    background-color: #f0f0f0;
 }

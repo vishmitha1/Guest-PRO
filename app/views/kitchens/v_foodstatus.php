@@ -82,7 +82,7 @@ echo '</tbody>
         <span class="close" onclick="closeCancelModal()">&times;</span>
         <h2>Cancel Request</h2>
         <p>Please enter the reason for cancellation:</p>
-        <textarea id="cancelReason" rows="4" cols="50"></textarea>
+        <textarea id="cancelReason" rows="4" cols="50" required></textarea>
         <button class="submit-button" onclick="submitCancellation()">Submit</button>
     </div>
 </div>
@@ -184,10 +184,20 @@ echo '</tbody>
     }
 
     function submitCancellation() {
-        var cancelReason = document.getElementById("cancelReason").value;
-        var orderId = document.getElementById("cancelModal").getAttribute("data-orderId");
+    var cancelReason = document.getElementById("cancelReason").value.trim();
+    var orderId = document.getElementById("cancelModal").getAttribute("data-orderId");
 
-        // Display confirmation dialog with SweetAlert
+    // Check if cancellation reason is provided
+    if (cancelReason === '') {
+        // Display warning if cancellation reason is empty
+        Swal.fire({
+            title: 'Warning',
+            text: 'Cancellation reason is mandatory!',
+            icon: 'warning',
+            confirmButtonText: 'Ok'
+        });
+    } else {
+        // Proceed with cancellation and show confirmation dialog
         Swal.fire({
             title: 'Cancel Order',
             text: 'Are you sure you want to cancel this order?',
@@ -203,22 +213,23 @@ echo '</tbody>
                 const apiUrl = `${base_url}/GuestPro/kitchen/cancelOrder/${orderId}/${cancelReason}`;
 
                 fetch(apiUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        location.reload();
-                        // You can handle success response here if needed
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with your fetch operation:', error);
-                    });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    location.reload();
+                    // You can handle success response here if needed
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
             }
         });
     }
+}
 </script>
