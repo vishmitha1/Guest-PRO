@@ -27,7 +27,7 @@
                         <option value="">select</option>
                         <?php foreach ($data['foodtypes'] as $foodtype): ?>
                             <option value="<?php echo $foodtype->category; ?>">
-                                <?php echo $foodtype->category; ?>
+                                <?php echo ucfirst($foodtype->category); ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -96,10 +96,10 @@
                             <?php echo $fooditem->item_id; ?>
                         </td>
                         <td>
-                            <?php echo $fooditem->name; ?>
+                            <?php echo ucfirst($fooditem->name); ?>
                         </td>
                         <td>
-                            <?php echo $fooditem->category; ?>
+                            <?php echo ucfirst($fooditem->category); ?>
                         </td>
                         <td>
                             <?php echo $fooditem->price; ?> LKR
