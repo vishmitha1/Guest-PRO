@@ -6,22 +6,22 @@
     <div class="dashboard-boxes">
         <div class="dashboard-box">
             <i class="fas fa-users"></i>
-            <h2>5</h2>
+            <h2><?php echo $data['cleanedroomscount']; ?></h2>
             <p>Rooms Cleaned</p>
         </div>
         <div class="dashboard-box">
             <i class="fas fa-shopping-cart"></i>
-            <h2>10</h2>
+            <h2><?php echo $data['notcleanedroomscount']; ?></h2>
             <p>Rooms Uncleaned</p>
         </div>
         <div class="dashboard-box">
             <i class="fas fa-chart-line"></i>
-            <h2>10</h2>
+            <h2><?php echo $data['completedservicerequestscount']; ?></h2>
             <p>Requests Attended</p>
         </div>
         <div class="dashboard-box">
             <i class="fas fa-money-bill-wave"></i>
-            <h2>5</h2>
+            <h2><?php echo $data['pendingservicerequestscount']; ?></h2>
             <p>Requests Pending</p>
         </div>
     </div>
