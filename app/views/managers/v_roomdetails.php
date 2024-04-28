@@ -55,7 +55,7 @@
                     <select id="statusFilter" name="status">
                         <option value="">select</option>
                         <option value="Active">Active</option>
-                        <option value="Deactive">Deactive</option>
+                        <option value="Deactive">Deactivated</option>
                     </select>
 
 
@@ -147,7 +147,7 @@
                                 <?php if ($room->status == "active")
                                     echo 'Active';
                                 elseif ($room->status == "deactive")
-                                    echo 'Deactive'; ?>
+                                    echo 'Deactivated'; ?>
                             </td>
                             <td>
 

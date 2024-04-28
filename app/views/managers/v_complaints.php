@@ -3,6 +3,40 @@
 <div class="home">
     <div class="manager-page">
         <h1>Guests Complaints</h1>
+        <br></br>
+
+        <form action="<?php echo URLROOT; ?>/Managers/applyComplaintsFilters" method="post">
+            <div class="filter-options">
+                <div class="filter-box">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="">select</option>
+                        <?php foreach ($data['complaintstype'] as $complaintstype): ?>
+                            <option value="<?php echo $complaintstype->complaint_type; ?>">
+                                <?php echo ucfirst($complaintstype->complaint_type); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="filter-box">
+                    <label for="date"> Date</label>
+                    <div class="date">
+                        <input type="date" id="datefilter" name="date">
+                    </div>
+                </div>
+
+                <div class="filter-box">
+                    <form action="<?php echo URLROOT; ?>/Managers/applyComplaintsFilters" method="post">
+                        <button type="submit">Apply</button>
+                    </form>
+                    <form action="<?php echo URLROOT; ?>/Managers/resetComplaintsFilters" method="post">
+                        <button type="submit">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </form>
+
 
         <!-- Display service requests -->
         <div class="view-container">
@@ -24,13 +58,13 @@
                             </div>
                             <div class="detail">
                                 <strong>Complaint Type:</strong>
-                                <?php echo $complaint->complaint_type; ?>
+                                <?php echo ucfirst($complaint->complaint_type); ?>
                             </div>
                         </div>
                         <div class="right-details">
                             <div class="detail">
                                 <strong>Status:</strong>
-                                <?php echo $complaint->status; ?>
+                                <?php echo ucfirst($complaint->status); ?>
                             </div>
                             <div class="change-status">
                                 <form action="<?php echo URLROOT; ?>/Managers/changeComplaintStatus" method="post">
@@ -49,7 +83,7 @@
                         </div>
                     </div>
                     <div class="complaint-content">
-                        <?php echo $complaint->complaint_details; ?>
+                        <?php echo ucfirst($complaint->complaint_details); ?>
                     </div>
                 </div>
             <?php endforeach; ?>

@@ -32,7 +32,7 @@
 
             <label for="amenities">Amenities:</label>
             <input type="text" id="amenities" name="amenities"
-                value="<?php echo $data['roomtypeDetails']->amenities; ?>">
+                value="<?php echo $data['roomtypeDetails']->amenities; ?>" required>
             <?php if (!empty($data['amenities_err'])): ?>
                 <span class="error">
                     <?php echo $data['amenities_err']; ?>
