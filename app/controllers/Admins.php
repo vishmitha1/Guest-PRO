@@ -152,10 +152,23 @@ class Admins extends Controller
     }
 
 
-    public function delete_staffaccounts($staffID)
+    // public function delete_staffaccounts($staffID)
+    // {
+    //     // Call model method to delete staff
+    //     if ($this->staffModel->delete_staffdetails($staffID)) {
+    //         redirect('Admins/staffaccounts');
+    //     } else {
+    //         die('Something went wrong');
+    //     }
+    // }
+
+    public function is_active($staffID)
     {
-        // Call model method to delete staff
-        if ($this->staffModel->delete_staffdetails($staffID)) {
+
+        // print_r($staffID);
+        // die;
+        // Call model method to update staff status
+        if ($this->staffModel->update_staffstatus($staffID)) {
             redirect('Admins/staffaccounts');
         } else {
             die('Something went wrong');

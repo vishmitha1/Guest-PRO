@@ -43,7 +43,7 @@
 
         //login model
         public function login($email,$password){
-            $this->db->query('SELECT * from users WHERE email= :email');
+            $this->db->query('SELECT * from users WHERE email= :email AND is_active=1');
             $this->db->bind(':email',$email );
             
             $row = $this->db->single();

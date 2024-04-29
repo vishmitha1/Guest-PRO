@@ -63,9 +63,10 @@
                         <div class="admin-update-btn">
                             <a href="<?php echo URLROOT; ?>/Admins/update_staffaccounts/<?php echo $account->id; ?>"><i class="far fa-edit"></i></a>
                         </div>
-                        <div class="admin-delete-btn">
-                            <a href="<?php echo URLROOT; ?>/Admins/delete_staffaccounts/<?php echo $account->id; ?>" onclick="return confirm('Are you sure you want to delete this account?')"><i class='fa-solid fa-trash fa-lg'></i></a>
+                        <div class="admin-deactivate-btn">
+                            <a href="<?php echo URLROOT; ?>/Admins/is_active/<?php echo $account->id; ?>" onclick="return confirm('Are you sure you want to deactivate this account?') ">Deactivate</a>
                         </div>
+
                     </div>
                 </td>
             </tr>
@@ -94,3 +95,7 @@
     });
 });
 </script> -->
+
+<!-- <div class="admin-delete-btn">
+    <a href="<?//php echo URLROOT; ?>/Admins/delete_staffaccounts/<?//php echo $account->id; ?>" onclick="return confirm('Are you sure you want to delete this account?')"><i class='fa-solid fa-trash fa-lg'></i></a>
+</div> -->
