@@ -43,8 +43,8 @@ class M_Reports
                 // Store additional information
                 $additionalInfo = [
 
-                    'most_reserved_room' => $mostReservedRoom ->roomNo,
-                    'least_reserved_room' => $leastReservedRoom ->roomNo,
+                    'most_reserved_room' => $mostReservedRoom->roomNo,
+                    'least_reserved_room' => $leastReservedRoom->roomNo,
                     'most_reserved_category' => $mostReservedCategory ?? null,
                     'least_reserved_category' => $leastReservedCategory ?? null
                 ];
@@ -72,7 +72,6 @@ class M_Reports
                     $totalIncome = $result->total_income ?? 0;
 
                     return ['results' => $results, 'totalIncome' => $totalIncome];
-
                 } elseif ($reportSpecificData == 'Reservation Income') {
                     $this->db->query("SELECT reservation_id, roomNo, date, checkIn, cost FROM reservations
                                       WHERE date BETWEEN :start_date AND :end_date ORDER BY date ASC");
@@ -83,11 +82,11 @@ class M_Reports
 
                     // Calculate total income
                     $this->db->query("SELECT SUM(cost) AS total_income FROM reservations
-                                      WHERE date BETWEEN :start_date AND :end_date");   
-                    
+                                      WHERE date BETWEEN :start_date AND :end_date");
+
                     $this->db->bind(':start_date', $startDate);
-                    $this->db->bind(':end_date', $endDate); 
-                    $result = $this->db->single();  
+                    $this->db->bind(':end_date', $endDate);
+                    $result = $this->db->single();
                     $totalIncome = $result->total_income ?? 0;
 
                     return ['results' => $results, 'totalIncome' => $totalIncome];
@@ -119,6 +118,22 @@ class M_Reports
                 $this->db->bind(':start_date', $startDate);
                 $this->db->bind(':end_date', $endDate);
                 $results = $this->db->resultSet();
+
+                // Find the most and least ordered food items
+                $mostOrderedFood = $results[0];
+                $leastOrderedFood = end($results);
+                $mostOrderedFoodCategory = $mostOrderedFood->item_category; 
+                $leastOrderedFoodCategory = $leastOrderedFood->item_category; 
+
+                $additionalInfo = [
+                    'most_ordered_food' => $mostOrderedFood->item_no, 
+                    'least_ordered_food' => $leastOrderedFood->item_no, 
+                    'most_ordered_category' => $mostOrderedFoodCategory ?? null,
+                    'least_ordered_category' => $leastOrderedFoodCategory ?? null
+                ];
+
+                return ['results' => $results, 'additional_info' => $additionalInfo];
+
                 break;
 
 
