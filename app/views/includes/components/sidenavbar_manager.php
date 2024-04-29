@@ -13,7 +13,7 @@
 <body>
     <div class="side-bar">
         <div class="logo">
-            <img src="<?php echo URLROOT;?>/public/img/logo/logo.png" alt="GuestPro">
+            <img src="<?php echo URLROOT; ?>/public/img/logo/logo.png" alt="GuestPro">
         </div>
         <div class="links">
             <div class="link-items">
@@ -31,13 +31,14 @@
                     Alerts</a>
             </div>
             <div class="link-items">
-                <a href="<?php echo URLROOT; ?>/Reports/generatereports"><i class=" fa-solid fa-file"></i>Generate
-                    Reports</a>
-            </div>
-            <div class="link-items">
                 <a href="<?php echo URLROOT; ?>/Managers/complaints"><i class="fa-solid fa-user-pen"></i>Complaints
                 </a>
             </div>
+            <div class="link-items">
+                <a href="<?php echo URLROOT; ?>/Reports/generatereports"><i class=" fa-solid fa-file"></i>Generate
+                    Reports</a>
+            </div>
+
         </div>
         <div class="logout">
             <a href="<?php echo URLROOT; ?>/Users/login"><button value="logout"><i
@@ -56,17 +57,18 @@
     </div> -->
 
     <div class="user-profile">
-        <a href="<?php echo URLROOT;?>/Users/profile">
-            <img src="<?php echo URLROOT;?>/img/users/<?php echo $_SESSION['user_img'];?> " alt="User Profile Picture"><br>
+        <a href="<?php echo URLROOT; ?>/Users/profile">
+            <img src="<?php echo URLROOT; ?>/img/users/<?php echo $_SESSION['user_img']; ?> "
+                alt="User Profile Picture"><br>
         </a>
         <div class="user-profile-info">
-            <div class='username'><?php echo $_SESSION['name'];?></div>
-            <p><?php echo $_SESSION['role'];?></p>
+            <div class='username'><?php echo $_SESSION['name']; ?></div>
+            <p><?php echo $_SESSION['role']; ?></p>
         </div>
     </div>
 
     <script>
-        window.onload = function() {
+        window.onload = function () {
             var currentLocation = window.location.href;
             var links = document.querySelectorAll('.links a');
 
@@ -79,4 +81,4 @@
         };
 
 
-        </script>
+    </script>
