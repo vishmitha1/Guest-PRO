@@ -49,7 +49,7 @@
                         <td><?php echo $servicerequest->AddDetails; ?></td>
                         <td>
                             <?php if ($servicerequest->status == 'completed'): ?>
-                                <button class="completed" disabled>Completed</button>
+                                <button class="completed">Completed</button>
                             <?php elseif($servicerequest->status == 'pending'): ?>
                                 <button class="pending" onclick="changeStatus(this, '<?php echo $servicerequest->request_id; ?>', 'pending')">Pending</button>
                             <?php endif; ?>
@@ -73,7 +73,7 @@
             <span class="close" onclick="closeCancelModal()">&times;</span>
             <h2>Cancel Request</h2>
             <p>Please enter the reason for cancellation:</p>
-            <textarea id="cancelReason" rows="4" cols="50"></textarea>
+            <textarea id="cancelReason" rows="4" cols="50" required></textarea>
             <button class="submit-button" onclick="submitCancellation()">Submit</button>
         </div>
     </div>
@@ -132,45 +132,55 @@
         }
 
         function submitCancellation() {
-            // Show confirmation dialog
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You are about to cancel this request.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, cancel it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var modal = document.getElementById("cancelModal");
-                    var requestId = modal.getAttribute("data-requestId");
-                    var reason = document.getElementById("cancelReason").value;
-                    
-                    // Construct the API URL
-                    const base_url = window.location.origin;
-                    const apiUrl = `${base_url}/GuestPro/supervisors/cancelServiceRequest/${requestId}/${reason}`;
+    var cancelReason = document.getElementById("cancelReason").value.trim();
+    var requestId = document.getElementById("cancelModal").getAttribute("data-requestId");
 
-                    // Fetch API call to submit cancellation
-                    fetch(apiUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        location.reload();
-                        // You can handle success response here if needed
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with your fetch operation:', error);
-                    });
-                }
-            });
-        }
+    // Check if cancellation reason is provided
+    if (cancelReason === '') {
+        // Display warning if cancellation reason is empty
+        Swal.fire({
+            title: 'Warning',
+            text: 'Cancellation reason is mandatory!',
+            icon: 'warning',
+            confirmButtonText: 'Ok'
+        });
+    } else {
+        // Proceed with cancellation and show confirmation dialog
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You are about to cancel this request.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, cancel it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Proceed with cancellation
+                const base_url = window.location.origin;
+                const apiUrl = `${base_url}/GuestPro/supervisors/cancelServiceRequest/${requestId}/${cancelReason}`;
+
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    location.reload();
+                    // You can handle success response here if needed
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+            }
+        });
+    }
+}
+
     </script>
 </body>
 </html>

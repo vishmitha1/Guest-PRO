@@ -84,15 +84,18 @@
 }
 .home {
     position: relative;
-    left: 275px;
+    margin-left: 275px;
     width: calc(100% - 275px);
     top: 0;
     /* background: #0074e8; */
     background: #ffffff;
+    padding: 20px;
     
     /* padding-left: 25px; */
     /* padding-bottom: 5rem; */
   }
+
+
 .profile{
     top: 0;
     width: 100%;

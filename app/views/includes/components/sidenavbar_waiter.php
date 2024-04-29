@@ -18,7 +18,7 @@
         <div class="links">
 
         <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Waiters/dashboard"><i class="fa-solid fa-file-invoice"></i>Dashboard</a>
+            <a href="<?php echo URLROOT;?>/Waiters/dashboard"><i class="fa-solid fa-grip"></i>Dashboard</a>
             </div>
             
             <div class="link-items">

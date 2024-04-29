@@ -4,8 +4,18 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    padding: 30px;
+    flex-shrink: 0;
+    max-height: 300px;
+    min-width: 500px;
+    justify-content: space-between;
+    max-width: 1045px;
+
+
     /* display: flex; */
     flex-wrap: wrap; /* Allow items to wrap to the next line */
+
 }
 
 .overview-heading {
@@ -192,8 +202,17 @@
     padding: 10px; /* Add padding to create space around the chart */
     border-radius: 10px;
     margin-left: 10px;
+
+    height: 400px; /* Limit the maximum height */
+    
+    width: 500px;
+    margin-bottom: 20px;
+   
+}
+
     max-height: 250px; /* Limit the maximum height */
     /* overflow: auto; Add vertical scroll if content exceeds max-height */
     width: 450px;
     /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 }
+
