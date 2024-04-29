@@ -4,7 +4,7 @@
 
 <div class="home">
     <div class="manager-page">
-        <h1>Send Alerts and Promotions</h1>
+        <h1 style="text-align:center; color: #003366;">Send Alerts and Promotions</h1>
         <div class="add-new-form">
             <div class="add-new-form-header">
                 <center>

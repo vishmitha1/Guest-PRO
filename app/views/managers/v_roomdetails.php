@@ -2,7 +2,7 @@
 
 <div class="home">
     <div class="manager-page">
-        <h1>Room Management</h1>
+        <h1 style="text-align:left; color: #003366;">Room Management</h1>
 
         <!-- Add Room button -->
         <div class="addnewbutton">
