@@ -29,7 +29,7 @@ class M_Reports
                     GROUP BY r.roomNo
                     ORDER BY reservation_count DESC
                 ");
-    
+
                 $this->db->bind(':start_date', $startDate);
                 $this->db->bind(':end_date', $endDate);
                 $results = $this->db->resultSet();
@@ -39,16 +39,16 @@ class M_Reports
                 $leastReservedRoom = end($results);
                 $mostReservedCategory = $mostReservedRoom->category;
                 $leastReservedCategory = $leastReservedRoom->category;
-    
+
                 // Store additional information
                 $additionalInfo = [
-                    
+
                     'most_reserved_room' => $mostReservedRoom ->roomNo,
                     'least_reserved_room' => $leastReservedRoom ->roomNo,
                     'most_reserved_category' => $mostReservedCategory ?? null,
                     'least_reserved_category' => $leastReservedCategory ?? null
                 ];
-    
+
                 return ['results' => $results, 'additional_info' => $additionalInfo];
                 break;
 
@@ -60,6 +60,19 @@ class M_Reports
                     $this->db->bind(':start_date', $startDate);
                     $this->db->bind(':end_date', $endDate);
                     $results = $this->db->resultSet();
+
+
+                    // Calculate total income
+                    $this->db->query("SELECT SUM(total) AS total_income FROM foodorders
+                                      WHERE date BETWEEN :start_date AND :end_date");
+
+                    $this->db->bind(':start_date', $startDate);
+                    $this->db->bind(':end_date', $endDate);
+                    $result = $this->db->single();
+                    $totalIncome = $result->total_income ?? 0;
+
+                    return ['results' => $results, 'totalIncome' => $totalIncome];
+
                 } elseif ($reportSpecificData == 'Reservation Income') {
                     $this->db->query("SELECT reservation_id, roomNo, date, checkIn, cost FROM reservations
                                       WHERE date BETWEEN :start_date AND :end_date ORDER BY date ASC");
@@ -105,7 +118,3 @@ class M_Reports
         return $results;
     }
 }
-?>
-
-
-
