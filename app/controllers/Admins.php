@@ -77,6 +77,11 @@ class Admins extends Controller
                 'other' => '',
                 'failed_error' => ''
             ];
+
+            // Validate designation
+            if (empty($data['designation'])) {
+                $data['designation_error'] = 'Designation is required';
+            }
     
             // Validate staff name
             if (empty($data['staffName'])) {
