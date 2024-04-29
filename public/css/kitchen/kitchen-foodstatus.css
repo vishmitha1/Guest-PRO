@@ -115,7 +115,8 @@
 }
 
 .status-button.ready {
-    background-color: #32CD32; /* LimeGreen color for ready status */
+    background-color: #32CD32; 
+    pointer-events: none;/* LimeGreen color for ready status */
 }
 
 .status-button:hover {

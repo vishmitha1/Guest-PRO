@@ -102,6 +102,7 @@ h1 {
 
 .clean {
     background-color: #4caf50; /* Clean status color */
+    pointer-events: none;
 }
 
 .filter-buttons {
