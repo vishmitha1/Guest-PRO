@@ -1213,8 +1213,10 @@ class Managers extends Controller
     {
         $room = $this->userModel->viewRoomDetails($roomNo);
         if ($room->status === 'active') {
-            // Call a model method to change staus to deactive
-            $success = $this->userModel->changeRoomStatustoDeactivated($roomNo);
+            if ($room->availability === 'yes') { // Call a model method to change staus to deactive
+                $success = $this->userModel->changeRoomStatustoDeactivated($roomNo);
+            }
+
 
             // Optionally, you can handle success or failure and redirect accordingly
             if ($success) {
@@ -1228,7 +1230,7 @@ class Managers extends Controller
             } else {
                 $_SESSION['toast_type'] = 'error';
 
-                $_SESSION['toast_msg'] = 'Error updating room status!<br> Try again';
+                $_SESSION['toast_msg'] = 'Error updating room status!<br>Room is already reserved';
 
                 // Redirect
                 header("Location: " . URLROOT . "/Managers/roomdetails");
