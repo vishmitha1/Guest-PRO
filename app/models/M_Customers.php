@@ -229,7 +229,8 @@
 
         //This one use to retrive reservation details to reservation UI fill reservation hostory table
         public function retriveReservations($data){
-            $this->db->query("SELECT  (LENGTH(roomNo) - LENGTH(REPLACE(roomNo, ',', '')) + 1)AS roomcount ,reservation_id,checkIn,checkOut,roomNo,checked FROM reservations WHERE user_id=:id LIMIT 5");
+            $this->db->query("SELECT  (LENGTH(roomNo) - LENGTH(REPLACE(roomNo, ',', '')) + 1)AS roomcount ,reservation_id,checkIn,checkOut,roomNo,checked FROM reservations WHERE user_id=:id  ORDER BY 
+            reservation_id DESC  LIMIT 5  ");
             $this->db->bind(':id',$data['user_id']);
             
             $row = $this->db->resultSet();
@@ -369,7 +370,8 @@
 
         //reservation row count eka gannawa.eka 5ta wediya wedi name paynow option eka witarai UI eke denne
         public function reservationCount($id){
-            $this->db->query("SELECT COUNT(*) as count FROM reservations WHERE user_id=:id ");
+            $this->db->query("SELECT COUNT(*) as count FROM reservations WHERE user_id=:id AND checked=:stat");
+            $this->db->bind(':stat','out');
             $this->db->bind(':id',$id);
             $row = $this->db->single();
 
@@ -792,6 +794,35 @@
             $this->db->bind('roomNo',$data["roomNo"]);
             $this->db->bind('stat','pending');
             $this->db->bind('service_requested',$data["service_requested"]);
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+
+        //retrive reservation id for complaint
+        public function retriveReservationId($data){
+            $this->db->query("SELECT reservation_id FROM reservations WHERE user_id=:id AND (checked=:stat OR checked=:stat2)");
+            
+            $this->db->bind(':id',$data);
+            $this->db->bind(':stat','in');
+            $this->db->bind(':stat2','out');
+            $row = $this->db->resultSet();
+
+            return $row;
+        }
+
+        //place complaint
+        public function placeComplaint($data){
+            $this->db->query('INSERT INTO complaints (guest_id,reservation_id,guest_room_number,complaint_details) VALUES(:id,:res_id,:roomNo,:complaint)');
+            $this->db->bind('id',$data["user_id"]);
+            $this->db->bind('res_id',$data["reservation_id"]);
+            $this->db->bind('roomNo',$data["roomNo"]);
+            $this->db->bind('complaint',$data["complaint"]);
             
             if($this->db->execute()){
                 return true;

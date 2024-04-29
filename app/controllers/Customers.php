@@ -265,19 +265,35 @@ use function PHPSTORM_META\type;
                     
                     if(empty($data['in_date'])){
                         $data['indate_err'] = 'Checkin date empty';
+                        header('Content-Type: application/json');
+                        echo json_encode('Date error');
+                        return;
+                        
                     }
                     if($data['out_date'] < $data['in_date']){
                         $data['indate_err']=$data['outdate_err']='date Error';
+                        header('Content-Type: application/json');
+                        echo json_encode('Checkin date should be less than checkout date');
+                        return;
+                        
                     }
                 
                     if(empty($data['out_date'])){
                         $data['outdate_err']= 'Checkout error';
+                        header('Content-Type: application/json');
+                        echo json_encode('Date error');
+                        return;
+                        
                     }
                     if(empty($data['user_id'])){
                         $data['user_id_err']= 'No user';
                     }
-                    if(empty($data['roomcount'])){
+                    if(empty($data['roomcount']) && $data['roomcount']<0){
                         $data['roomcount_err']= 'Empty room number';
+                        header('Content-Type: application/json');
+                        echo json_encode('count error');
+                        return;
+                        
                     }
                     
                     
@@ -290,6 +306,7 @@ use function PHPSTORM_META\type;
                         if($data['roomcount']<0){
                             header('Content-Type: application/json');
                             echo json_encode('count error');
+                            return;
                         }
 
                         elseif($output=$this->userModel->checkroomavailability($data) ){
@@ -1263,8 +1280,68 @@ use function PHPSTORM_META\type;
         }
 
 
+    
+        //complaints
+        public function complaints(){
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                
+                //validate
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data =[
+
+                    'roomNo' => trim($_POST['roomNo']),
+                    'reservation_id' => trim($_POST['reservation_id']),
+                    'complaint'=>trim($_POST['complaint']),
+                    'user_id'=>$_SESSION['user_id'],
+
+                ];
+                if(empty($data['reservation_id'])){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a reservation.';
+                    redirect('Customers/complaints');
+                    return;
+                }
+                // die($data['roomNo']); 
+                if(($data['roomNo'])===''){
+                    $_SESSION['toast_type']='error';
+                    $_SESSION['toast_msg']='Please select a room.';
+                    redirect('Customers/complaints');
+                    return;
+                }
+                
+            
+                elseif(($data['complaint'])===''){
+                    $_SESSION['toast_type']='warning';
+                    $_SESSION['toast_msg']='Please Enter a complaint';
+                    redirect('Customers/complaints');
+                    return;
+                }
+                else{
+                        
+                        if($this->userModel->placecomplaint($data)){
+                            
+                            $_SESSION['toast_type']='success';
+                            $_SESSION['toast_msg']='Complaint placed successfully .';
+                            redirect('Customers/complaints');
+    
+                        }
+                        else{
+                            $_SESSION['toast_type']='question';
+                            $_SESSION['toast_msg']='Server Error. Please Try Again.';
+                        }
+                }
+            }
+            else{
+                        
+                    $retriveData=$this->userModel->retriveReservationId($_SESSION['user_id']);
+                    // $this->userModel->getorderdetails();
+                    $this->view('customers/v_complaints', [$this->userModel->retriveRoomNo($_SESSION['user_id']), $retriveData]);
         
-        
+                    if(!empty($_SESSION['toast_type']) && !empty($_SESSION['toast_msg'])){
+                        toastFlashMsg();
+                    }
+            }
+        }
 
         
     public function postriview(){
