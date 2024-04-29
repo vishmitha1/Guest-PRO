@@ -65,6 +65,10 @@
     text-align: left;
 }
 
+/* .staffaccounts-table td {
+    font-size: 12px;
+} */
+
 .staffaccounts-table th{
     background-color: #002447; /* Set background color for header cells */
     color: #ffffff; /* Set text color for header cells */
@@ -89,31 +93,29 @@
     text-align: center; /* Align the button content */
     border-radius: 15px;
     flex: 1; /* Equal width for both links */
+    /* font-size: 13px; */
+    
 }
 
-.admin-action-btn .admin-delete-btn a {
-    background-color: white;
-    color: #d80707;
+.admin-action-btn .admin-deactivate-btn a {
+    background-color: #d80707;
+    color: white;
 }
 
-.admin-action-btn .admin-delete-btn a:hover {
-    background-color: white;
-    color: #9b0505;
+.admin-action-btn .admin-deactivate-btn a:hover {
+    background-color: #9b0505;
+    color: white;
 }
 
 .admin-action-btn .admin-update-btn a {
     background-color:  white;
-    color: blue;
+    color: green;
+    
 }
 
 .admin-action-btn .admin-update-btn a:hover {
     background-color: white;
-    color: #002447;
-}
-
-.admin_highlight {
-    background-color: yellow;
-    font-weight: bold;
+    color: darkgreen;
 }
 
 /* Styles for the create staff accounts form */
@@ -206,4 +208,5 @@
     margin-bottom: 5px;
     background-color: #eaeef8;
 } 
+
 

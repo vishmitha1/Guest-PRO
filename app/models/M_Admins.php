@@ -150,7 +150,7 @@ class M_Admins
     public function get_staffdetails()
     {
         $this->db->query("SELECT id, role, name, phone, email, nic, address FROM users 
-                          WHERE role IN ('kitchen', 'receptionist', 'waiter', 'supervisor', 'manager')");
+                          WHERE role IN ('kitchen', 'receptionist', 'waiter', 'supervisor', 'manager') AND is_active = 1");
         $rows = $this->db->resultSet();
         return $rows;
     }
@@ -162,13 +162,23 @@ class M_Admins
         return $this->db->single();
     }
 
-    public function delete_staffdetails($userID)
+    // public function delete_staffdetails($userID)
+    // {
+    //     $this->db->query('DELETE FROM users WHERE id = :id');
+    //     $this->db->bind(':id', $userID);
+
+    //     return $this->db->execute();
+    // }
+
+    public function update_staffstatus($userID)
     {
-        $this->db->query('DELETE FROM users WHERE id = :id');
+        $this->db->query('UPDATE users SET is_active = CASE WHEN is_active = 1 THEN 0 ELSE 1 END WHERE id = :id');
+        // Remove the extra WHERE clause from the query
         $this->db->bind(':id', $userID);
 
         return $this->db->execute();
     }
+
 
     public function update_staffdetails($data)
     {
@@ -186,14 +196,14 @@ class M_Admins
     }
 
     // Inside StaffModel class
-public function findStaffByEmail($email)
-{
-    $this->db->query('SELECT * FROM users WHERE email = :email');
-    $this->db->bind(':email', $email);
-    $this->db->single();
+    public function findStaffByEmail($email)
+    {
+        $this->db->query('SELECT * FROM users WHERE email = :email');
+        $this->db->bind(':email', $email);
+        $this->db->single();
 
-    return $this->db->rowCount() > 0;
-}
+        return $this->db->rowCount() > 0;
+    }
 
 
     public function search_staffdetails($query)
