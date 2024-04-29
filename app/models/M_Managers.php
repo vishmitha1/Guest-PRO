@@ -75,7 +75,7 @@ class M_Managers
 
     public function getroomtypes()
     {
-        $this->db->query("SELECT * FROM roomtype ");
+        $this->db->query("SELECT * FROM roomtype WHERE status=1");
 
         return $this->db->resultSet();
 
@@ -207,18 +207,7 @@ class M_Managers
         return $this->db->execute();
     }
 
-    public function deleteRoomTypeo($Id)
-    {
-        try {
-            $this->db->query('DELETE FROM roomtype WHERE roomtypeId = :roomtypeId');
-            $this->db->bind(':roomtypeId', $Id);
-            return $this->db->execute();
-        } catch (PDOException $e) {
-            // Log the error or handle it as needed
-            error_log('Error deleting room type: ' . $e->getMessage());
-            return false; // Return false to indicate failure
-        }
-    }
+
 
     public function deleteRoomType($roomtypeId)
     {
@@ -233,7 +222,7 @@ class M_Managers
             return false;
         } else {
             // No reservations associated with rooms of this type, proceed with deletion
-            $this->db->query('DELETE FROM roomtype WHERE roomtypeId = :roomtypeId');
+            $this->db->query('UPDATE roomtype SET status=0 WHERE roomtypeId = :roomtypeId');
             $this->db->bind(':roomtypeId', $roomtypeId);
             return $this->db->execute();
         }
@@ -847,12 +836,29 @@ class M_Managers
         return $this->db->resultSet();
     }
 
+    // public function changeRoomStatustoDeactivated($roomno)
+    // {
+    //     $this->db->query('UPDATE rooms SET status="deactive" WHERE roomNo = :roomno');
+    //     $this->db->bind(':roomno', $roomno);
+
+    //     return $this->db->execute();
+    // }
     public function changeRoomStatustoDeactivated($roomno)
     {
         $this->db->query('UPDATE rooms SET status="deactive" WHERE roomNo = :roomno');
         $this->db->bind(':roomno', $roomno);
-
         return $this->db->execute();
+
+
+    }
+
+    public function checkReserved($roomno)
+    {
+        // Check if the room is currently reserved
+        $this->db->query('SELECT COUNT(*) AS reservation_count FROM reservations WHERE roomNo = :roomno');
+        $this->db->bind(':roomno', $roomno);
+        $reservationCount = $this->db->single()->reservation_count;
+        return $reservationCount;
     }
 
 
@@ -893,11 +899,13 @@ class M_Managers
 
     public function inorders($item_id)
     {
+        $today = date('Y-m-d');
         // Prepare the SQL query
-        $this->db->query('SELECT * FROM foodorders WHERE item_no = :item_id');
+        $this->db->query('SELECT * FROM foodorders WHERE item_no = :item_id AND delivery_date>=:today');
 
         // Bind the item_id parameter
         $this->db->bind(':item_id', $item_id);
+        $this->db->bind(':today', $today);
 
         // Execute the query
         $this->db->execute();
