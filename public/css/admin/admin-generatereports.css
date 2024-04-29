@@ -143,5 +143,13 @@ table tbody tr:hover {
     padding: 0 20px;
 }
 
+#report_type {
+    background-color: #eaeef8;
+}
+
+#income_report {
+    background-color: #eaeef8;
+}
+
 
 

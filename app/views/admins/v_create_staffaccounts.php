@@ -13,34 +13,37 @@
                 <option value="Waiter">Waiter</option>
                 <option value="Kitchen">Kitchen</option>
             </select>
+            <span style="color: <?php echo isset($data['designation_error']) ? 'red' : 'inherit'; ?>">
+                <?php echo isset($data['designation_error']) ? $data['designation_error'] : ''; ?>
+            </span>
 
             <label for="staffName">Full Name:</label>
             <input type="text" id="staffName" name="staffName">
-            <span style="color: <?php echo isset($data['staffName_error']) ? 'rgb(172,5,5)' : 'inherit'; ?>">
+            <span style="color: <?php echo isset($data['staffName_error']) ? 'red' : 'inherit'; ?>">
                 <?php echo isset($data['staffName_error']) ? $data['staffName_error'] : ''; ?>
             </span>
 
             <label for="phoneNumber">Phone Number:</label>
             <input type="text" id="phoneNumber" name="phoneNumber">
-            <span style="color: <?php echo isset($data['phoneNumber_error']) ? 'rgb(172,5,5)' : 'inherit'; ?>">
+            <span style="color: <?php echo isset($data['phoneNumber_error']) ? 'red' : 'inherit'; ?>">
                 <?php echo isset($data['phoneNumber_error']) ? $data['phoneNumber_error'] : ''; ?>
             </span>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email">
-            <span style="color: <?php echo isset($data['email_error']) ? 'rgb(172,5,5)' : 'inherit'; ?>">
+            <span style="color: <?php echo isset($data['email_error']) ? 'red' : 'inherit'; ?>">
                 <?php echo isset($data['email_error']) ? $data['email_error'] : ''; ?>
             </span>
 
             <label for="nicNumber">NIC Number:</label>
             <input type="text" id="nicNumber" name="nicNumber">
-            <span style="color: <?php echo isset($data['nicNumber_error']) ? 'rgb(172,5,5)' : 'inherit'; ?>">
+            <span style="color: <?php echo isset($data['nicNumber_error']) ? 'red' : 'inherit'; ?>">
                 <?php echo isset($data['nicNumber_error']) ? $data['nicNumber_error'] : ''; ?>
             </span>
 
             <label for="address">Address:</label>
             <input type="text" id="address" name="address">
-            <span style="color: <?php echo isset($data['address_error']) ? 'rgb(172,5,5)' : 'inherit'; ?>">
+            <span style="color: <?php echo isset($data['address_error']) ? 'red' : 'inherit'; ?>">
                 <?php echo isset($data['address_error']) ? $data['address_error'] : ''; ?>
             </span>
 
