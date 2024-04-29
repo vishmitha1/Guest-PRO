@@ -9,7 +9,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
         <h1>Generate Reports</h1>
     </div>
     <div class="generate-report">
-        <form action="<?php echo URLROOT; ?>/Reports/generateReports" method="POST" id="reportForm">
+        <form action="<?php echo URLROOT; ?>/Reports/generateReports" method ="POST" id="reportForm">
             <div class="form-group">
                 <label for="report_type">Select Report Type:</label>
                 <select name="report_type" id="report_type">
