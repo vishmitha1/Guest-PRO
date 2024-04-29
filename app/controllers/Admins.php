@@ -30,7 +30,7 @@ class Admins extends Controller
             'totalCustomersRegistered' => $totalCustomersRegistered,
             'totalStaffMembersCount' => $totalStaffMembersCount,
             'monthlyFoodOrders' => $monthlyFoodOrders,
-            'reservationIncome' => $reservationIncome, 
+            'reservationIncome' => $reservationIncome,
             'foodOrderIncome' => $foodOrderIncome
         ];
 
@@ -66,32 +66,91 @@ class Admins extends Controller
                 'staffName' => trim($_POST['staffName']),
                 'phoneNumber' => trim($_POST['phoneNumber']),
                 'email' => trim($_POST['email']),
-                'address' => trim($_POST['nicNumber']),
+                'nicNumber' => trim($_POST['nicNumber']),
                 'address' => trim($_POST['address']),
+
+                'designation_error' => '',
+                'staffName_error' => '',
+                'phoneNumber_error' => '',
+                'email_error' => '',
+                'nicNumber_error' => '',
+                'address_error' => '',
+                'other' => '',
+                'failed_error' => ''
             ];
-            // Generate random password
-            $password = $this->staffModel->generateRandomPassword();
 
-            // Send email with password
-            if ($this->staffModel->sendEmail_staff($_POST['email'], $password)) {
-                // Hash password before inserting into the database
-                $data['password'] = password_hash($password, PASSWORD_DEFAULT);
+            // Validate designation
+            if (empty($data['designation'])) {
+                $data['designation_error'] = 'Please select designation ';
+            }
 
-                // Log email details into the users table
-                if ($this->staffModel->insert_staffdetails($data)) {
-                    redirect('Admins/staffaccounts');
+            // Validate staff name
+            if (empty($data['staffName'])) {
+                $data['staffName_error'] = 'Full name is required';
+            } elseif (!preg_match("/^[a-zA-Z\s]+$/", $data['staffName'])) {
+                $data['staffName_error'] = 'Full name can only contain letters and spaces';
+            }
+
+
+            // Validate phone number
+            if (empty($data['phoneNumber'])) {
+                $data['phoneNumber_error'] = 'Phone number is required';
+            } elseif (!preg_match("/^[0-9]{10}$/", $data['phoneNumber'])) {
+                $data['phoneNumber_error'] = 'Phone number should contain exactly 10 numbers';
+            }
+
+            // Validate email
+            if (empty($data['email'])) {
+                $data['email_error'] = 'Email is required';
+            } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $data['email_error'] = 'Invalid email format';
+            } elseif ($this->staffModel->findStaffByEmail($data['email'])) {
+                $data['email_error'] = 'This email is already associated with an account';
+            }
+
+            // Validate NIC number (if needed)
+            if (empty($data['nicNumber'])) {
+                $data['nicNumber_error'] = 'NIC number is required';
+            }
+
+            // Validate address
+            if (empty($data['address'])) {
+                $data['address_error'] = 'Address is required';
+            }
+
+            // Check if there are no errors
+            if (
+                empty($data['designation_error']) && empty($data['staffName_error']) && empty($data['phoneNumber_error']) && empty($data['nicNumber_error']) &&
+                empty($data['email_error']) && empty($data['address_error'])
+            ) {
+
+                // Generate random password
+                $password = $this->staffModel->generateRandomPassword();
+
+                // Send email with password
+                if ($this->staffModel->sendEmail_staff($data['email'], $password)) {
+                    // Hash password before inserting into the database
+                    $data['password'] = password_hash($password, PASSWORD_DEFAULT);
+
+                    // Insert data into the database
+                    if ($this->staffModel->insert_staffdetails($data)) {
+                        redirect('Admins/staffaccounts');
+                    } else {
+                        $data['other'] = 'Something went wrong';
+                    }
                 } else {
-                    die("Something went wrong");
+                    $data['failed_error'] = 'Failed to send email';
                 }
-
             } else {
-                die("Failed to send email");
+                // Load view with errors
+                $this->view('admins/v_create_staffaccounts', $data);
             }
         }
 
         // Load view for creating staff accounts
         $this->view('admins/v_create_staffaccounts');
     }
+
 
     public function delete_staffaccounts($staffID)
     {
@@ -139,7 +198,7 @@ class Admins extends Controller
                 // Handle the case where the staff account doesn't exist
                 die('Staff account not found.');
             }
-
+            
         }
     }
 
@@ -224,6 +283,4 @@ class Admins extends Controller
             $this->view('admins/v_generatereports');
         }
     }*/
-
-
 }

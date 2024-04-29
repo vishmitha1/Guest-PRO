@@ -37,11 +37,11 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                 <th>Item NO</th>
                 <th>Quantity</th>
                 <th>Cost For Item</th>
-                <th>Total</th>
+                <th>Total(LKR)</th>
                 <th>Date</th>
             </tr>
 
-            <?php foreach ($data['generated_report'] as $value) : ?>  
+            <?php foreach ($data['generated_report']['results'] as $value) : ?>  
                 <tr>
                     <td><?php echo $value->order_id; ?> </td>
                     <td><?php echo $value->item_no; ?></td>
@@ -54,7 +54,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
             <?php endforeach; ?>
         </table>
 
-        <p>Total Food Order Income :</p>
+        <p>Total Food Order Income(LKR) : <?php echo $data['generated_report']['totalIncome']; ?></p>
         <!-- <p>Least Reservative Room :</p>
         <p>Most Reservative Room Category:</p>
         <p>Most Reservative Room Category:</p> -->
@@ -133,7 +133,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                 header: [{
                         title: "#",
                         style: {
-                            width: 20,
+                            width: 10,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -144,7 +144,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     {
                         title: "Order ID",
                         style: {
-                            width: 30,
+                            width: 20,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -154,7 +154,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     {
                         title: "Item NO",
                         style: {
-                            width: 30,
+                            width: 20,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -174,7 +174,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     {
                         title: "Cost For Item",
                         style: {
-                            width: 30,
+                            width: 40,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -182,7 +182,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                         }
                     },
                     {
-                        title: "Total",
+                        title: "Total(LKR)",
                         style: {
                             width: 30,
                             height: 20,
@@ -194,7 +194,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     {
                         title: "Date",
                         style: {
-                            width: 30,
+                            width: 50,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -222,20 +222,20 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     // }
                     // }
                 ],
-                table: Array.from(Array(report['generated_report'].length), (item, index) => ([
+                table: Array.from(Array(report['generated_report']['results'].length), (item, index) => ([
                     index + 1,
-                    report['generated_report'][index]['order_id'],
-                    report['generated_report'][index]['item_no'],
-                    report['generated_report'][index]['quantity'],
-                    report['generated_report'][index]['cost'],
-                    report['generated_report'][index]['total'],
-                    report['generated_report'][index]['date'],
+                    report['generated_report']['results'][index]['order_id'] + "\n",
+                    report['generated_report']['results'][index]['item_no'] + "\n",
+                    report['generated_report']['results'][index]['quantity'] + "\n",
+                    report['generated_report']['results'][index]['cost'] + "\n",
+                    report['generated_report']['results'][index]['total'] + "\n",
+                    report['generated_report']['results'][index]['date'] + "\n",
                     
                 ])),
 
 
                 additionalRows: [{
-                        col1: 'Total Food Order Income :',
+                        col1: 'Total Food Order Income(LKR) :' + report['generated_report']['totalIncome'],
                         col2: ' ',
                         col3: ' ',
                         style: {

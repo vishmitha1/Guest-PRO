@@ -10,7 +10,7 @@ class Reports extends Controller
         $this->middleware = new AuthMiddleware();
 
         // Check if user is logged in
-        $this->middleware->checkAccess(['admin', 'receptionist', 'waiter']);
+        $this->middleware->checkAccess(['admin', 'manager']);
 
         // Load model
         $this->reportModel = $this->model('M_Reports');
@@ -21,6 +21,7 @@ class Reports extends Controller
         // Check if the form is submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Validate and process the form data
+            
             $data = [
                 'report_type' => $_POST['report_type'],
                 'start_date' => $_POST['start_date'],
@@ -76,6 +77,16 @@ class Reports extends Controller
                         $this->view('admins/v_food_orders_report', ['generated_report' => $generatedReport, 'data' => $data]);
                     }
                     break;
+
+                    case 'Food Orders Waiting Time Report':
+                        // Generate report based on data
+                        $generatedReport = $this->reportModel->generateReport($data);
+                        if ($generatedReport === false) {
+                            die("Failed to generate food orders waiting time report.");
+                        } else {
+                            $this->view('admins/v_waiting_time_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                        }
+                        break;
 
                 default:
                     die("Invalid report type.");
