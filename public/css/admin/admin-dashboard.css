@@ -57,20 +57,17 @@ body {
 
 
 
-.home {
-    position: relative;
-    margin-left: 275px;
-    width: calc(100% - 275px);
-    top: 0;
-    background: #ffffff;
-    padding: 20px;
+.admindash-piechart {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px; /* Apply border-radius to give the container rounded corners */
+    margin-top: 20px;
+    margin-left: 20px;
+    max-height: 350px; /* Limit the maximum height of the container */
+    overflow-y: auto; /* Enable vertical scrolling if the content overflows the container height */
+    width: 450px;
 }
 
-
-#checkinsChart {
-    width: 400px;
-    margin-top: 20px;
-    margin-left: 50px;
-    margin-right: 50px;
-    display: block;
+.admindash-piechart h3 {
+    text-align: center;
 }
