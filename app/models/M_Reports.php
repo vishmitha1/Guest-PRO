@@ -136,6 +136,17 @@ class M_Reports
 
                 break;
 
+            // case 'Food Order Waiting Time Report':
+            //     $this->db->query("SELECT waiter_id, waiter_name, SUM(total) AS total_income FROM foodorders
+            //                       WHERE date BETWEEN :start_date AND :end_date GROUP BY waiter_id");
+
+            //     $this->db->bind(':start_date', $startDate);
+            //     $this->db->bind(':end_date', $endDate);
+            //     $results = $this->db->resultSet();
+
+            //     return ['results' => $results];
+            //     break;
+
 
             default:
                 die('Something went wrong.');
