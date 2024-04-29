@@ -80,6 +80,17 @@ class M_Reports
                     $this->db->bind(':start_date', $startDate);
                     $this->db->bind(':end_date', $endDate);
                     $results = $this->db->resultSet();
+
+                    // Calculate total income
+                    $this->db->query("SELECT SUM(cost) AS total_income FROM reservations
+                                      WHERE date BETWEEN :start_date AND :end_date");   
+                    
+                    $this->db->bind(':start_date', $startDate);
+                    $this->db->bind(':end_date', $endDate); 
+                    $result = $this->db->single();  
+                    $totalIncome = $result->total_income ?? 0;
+
+                    return ['results' => $results, 'totalIncome' => $totalIncome];
                 }
                 break;
 
