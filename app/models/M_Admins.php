@@ -121,7 +121,12 @@ class M_Admins
     // Get the total number of staff members
     public function getTotalStaffMembersCount()
     {
-        $this->db->query('SELECT COUNT(*) AS count FROM staffaccount');
+        $this->db->query('SELECT COUNT(*) AS count FROM users WHERE role IN (:role1, :role2, :role3, :role4, :role5)');
+        $this->db->bind(':role1', 'kitchen');
+        $this->db->bind(':role2', 'receptionist');
+        $this->db->bind(':role3', 'waiter');
+        $this->db->bind(':role4', 'supervisor');
+        $this->db->bind(':role5', 'manager');
         $row = $this->db->single();
         return $row->count;
     }
@@ -179,6 +184,17 @@ class M_Admins
 
         return $this->db->execute();
     }
+
+    // Inside StaffModel class
+public function findStaffByEmail($email)
+{
+    $this->db->query('SELECT * FROM users WHERE email = :email');
+    $this->db->bind(':email', $email);
+    $this->db->single();
+
+    return $this->db->rowCount() > 0;
+}
+
 
     public function search_staffdetails($query)
     {

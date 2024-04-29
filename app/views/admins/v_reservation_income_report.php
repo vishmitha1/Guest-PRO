@@ -37,10 +37,10 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                 <th>Room NO</th>
                 <th>Reservation Placed Date</th>
                 <th>CheckIn Date</th>
-                <th>Total</th>
+                <th>Total(LKR)</th>
             </tr>
 
-            <?php foreach ($data['generated_report'] as $value) : ?>  
+            <?php foreach ($data['generated_report']['results'] as $value) : ?>  
                 <tr>
                     <td><?php echo $value->reservation_id; ?> </td>
                     <td><?php echo $value->roomNo; ?></td>
@@ -52,7 +52,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
             <?php endforeach; ?>
         </table>
 
-        <p>Total Food Order Income :</p>
+        <p>Total Reservation Income(LKR) : <?php echo $data['generated_report']['totalIncome']; ?> </p>
         <!-- <p>Least Reservative Room :</p>
         <p>Most Reservative Room Category:</p>
         <p>Most Reservative Room Category:</p> -->
@@ -131,7 +131,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                 header: [{
                         title: "#",
                         style: {
-                            width: 20,
+                            width: 15,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -142,7 +142,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     {
                         title: "Reservation ID",
                         style: {
-                            width: 30,
+                            width: 20,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -152,7 +152,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     {
                         title: "Room NO",
                         style: {
-                            width: 25,
+                            width: 20,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -172,7 +172,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     {
                         title: "CheckIn Date",
                         style: {
-                            width: 30,
+                            width: 40,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -180,7 +180,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                         }
                     },
                     {
-                        title: "Total",
+                        title: "Total(LKR)",
                         style: {
                             width: 20,
                             height: 20,
@@ -220,19 +220,19 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     // }
                     // }
                 ],
-                table: Array.from(Array(report['generated_report'].length), (item, index) => ([
+                table: Array.from(Array(report['generated_report']['results'].length), (item, index) => ([
                     index + 1,
-                    report['generated_report'][index]['reservation_id'],
-                    report['generated_report'][index]['roomNo'],
-                    report['generated_report'][index]['date'],
-                    report['generated_report'][index]['checkIn'],
-                    report['generated_report'][index]['cost'],
+                    report['generated_report']['results'][index]['reservation_id'] + "\n",
+                    report['generated_report']['results'][index]['roomNo'] + "\n",
+                    report['generated_report']['results'][index]['date'] + "\n",
+                    report['generated_report']['results'][index]['checkIn'] + "\n",
+                    report['generated_report']['results'][index]['cost'] + "\n",
                     
                 ])),
 
 
                 additionalRows: [{
-                        col1: 'Total Reservation Income :',
+                        col1: 'Total Reservation Income(LKR) :' + report['generated_report']['totalIncome'],
                         col2: ' ',
                         col3: ' ',
                         style: {

@@ -198,4 +198,12 @@
     background-color: #002447;
 }
 
+/* CSS for the label element in create staff form select role */
+#designation {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    background-color: #eaeef8;
+} 
 

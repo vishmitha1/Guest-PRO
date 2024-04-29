@@ -22,17 +22,34 @@ class M_Reports
         switch ($reportType) {
             case 'Room Summary Report':
                 $this->db->query("
-                    SELECT r.roomNo, r.reservation_id, COUNT(*) AS reservation_count, rt.category
+                    SELECT r.roomNo, COUNT(*) AS reservation_count, rt.category, r.reservation_id
                     FROM reservations r
                     INNER JOIN rooms rt ON r.roomNo = rt.roomNo
                     WHERE r.date BETWEEN :start_date AND :end_date
                     GROUP BY r.roomNo
-                    ORDER BY reservation_count DESC, r.roomNo
+                    ORDER BY reservation_count DESC
                 ");
 
                 $this->db->bind(':start_date', $startDate);
                 $this->db->bind(':end_date', $endDate);
                 $results = $this->db->resultSet();
+
+                // Find the most and least reserved rooms
+                $mostReservedRoom = $results[0];
+                $leastReservedRoom = end($results);
+                $mostReservedCategory = $mostReservedRoom->category;
+                $leastReservedCategory = $leastReservedRoom->category;
+
+                // Store additional information
+                $additionalInfo = [
+
+                    'most_reserved_room' => $mostReservedRoom->roomNo,
+                    'least_reserved_room' => $leastReservedRoom->roomNo,
+                    'most_reserved_category' => $mostReservedCategory ?? null,
+                    'least_reserved_category' => $leastReservedCategory ?? null
+                ];
+
+                return ['results' => $results, 'additional_info' => $additionalInfo];
                 break;
 
             case 'Income Summary Report':
@@ -43,6 +60,18 @@ class M_Reports
                     $this->db->bind(':start_date', $startDate);
                     $this->db->bind(':end_date', $endDate);
                     $results = $this->db->resultSet();
+
+
+                    // Calculate total income
+                    $this->db->query("SELECT SUM(total) AS total_income FROM foodorders
+                                      WHERE date BETWEEN :start_date AND :end_date");
+
+                    $this->db->bind(':start_date', $startDate);
+                    $this->db->bind(':end_date', $endDate);
+                    $result = $this->db->single();
+                    $totalIncome = $result->total_income ?? 0;
+
+                    return ['results' => $results, 'totalIncome' => $totalIncome];
                 } elseif ($reportSpecificData == 'Reservation Income') {
                     $this->db->query("SELECT reservation_id, roomNo, date, checkIn, cost FROM reservations
                                       WHERE date BETWEEN :start_date AND :end_date ORDER BY date ASC");
@@ -50,6 +79,17 @@ class M_Reports
                     $this->db->bind(':start_date', $startDate);
                     $this->db->bind(':end_date', $endDate);
                     $results = $this->db->resultSet();
+
+                    // Calculate total income
+                    $this->db->query("SELECT SUM(cost) AS total_income FROM reservations
+                                      WHERE date BETWEEN :start_date AND :end_date");
+
+                    $this->db->bind(':start_date', $startDate);
+                    $this->db->bind(':end_date', $endDate);
+                    $result = $this->db->single();
+                    $totalIncome = $result->total_income ?? 0;
+
+                    return ['results' => $results, 'totalIncome' => $totalIncome];
                 }
                 break;
 
@@ -78,7 +118,34 @@ class M_Reports
                 $this->db->bind(':start_date', $startDate);
                 $this->db->bind(':end_date', $endDate);
                 $results = $this->db->resultSet();
+
+                // Find the most and least ordered food items
+                $mostOrderedFood = $results[0];
+                $leastOrderedFood = end($results);
+                $mostOrderedFoodCategory = $mostOrderedFood->item_category; 
+                $leastOrderedFoodCategory = $leastOrderedFood->item_category; 
+
+                $additionalInfo = [
+                    'most_ordered_food' => $mostOrderedFood->item_no, 
+                    'least_ordered_food' => $leastOrderedFood->item_no, 
+                    'most_ordered_category' => $mostOrderedFoodCategory ?? null,
+                    'least_ordered_category' => $leastOrderedFoodCategory ?? null
+                ];
+
+                return ['results' => $results, 'additional_info' => $additionalInfo];
+
                 break;
+
+            // case 'Food Order Waiting Time Report':
+            //     $this->db->query("SELECT waiter_id, waiter_name, SUM(total) AS total_income FROM foodorders
+            //                       WHERE date BETWEEN :start_date AND :end_date GROUP BY waiter_id");
+
+            //     $this->db->bind(':start_date', $startDate);
+            //     $this->db->bind(':end_date', $endDate);
+            //     $results = $this->db->resultSet();
+
+            //     return ['results' => $results];
+            //     break;
 
 
             default:
@@ -88,80 +155,3 @@ class M_Reports
         return $results;
     }
 }
-?>
-
-
-
-<!-- // Report generation logic for room reservations
-// $generatedReport .= "<h2 style='margin-bottom: 0px;'>Room Summary Report</h2>";
-// $generatedReport .= "<p style='text-align: right; padding:0 20px;'>From Date: $startDate</p>"; // Start date
-// $generatedReport .= "<p style='text-align: right; padding:0 20px;'>To Date: $endDate</p>"; // End date
-
-// //$generatedReport .= "<table style='border-collapse: collapse;'>";
-    // $generatedReport .= "<table>"; // Table for displaying room reservations
-        // $generatedReport .= "<tr>
-            <th>Room Number</th>
-            <th>Room Category</th>
-            <th>Reservation ID</th>
-            <th>Reservation Count</th>
-        </tr>"; // Table header row
-        // foreach ($results as $row) {
-        // $rowArray = (array) $row; // Convert stdClass object to associative array
-        // $generatedReport .= "<tr>
-            <td>{$rowArray['roomNo']}</td>
-            <td>{$rowArray['category']}</td>
-            <td>{$rowArray['reservation_id']}</td>
-            <td>{$rowArray['reservation_count']}</td>
-        </tr>"; // Table row for each room
-
-        // }
-        // $generatedReport .= "</table>";
-
-    /*case 'reservation_report':
-    // Query to retrieve reservation data
-    $this->db->query("SELECT * FROM reservations WHERE reservation_date BETWEEN :start_date AND :end_date");
-    $this->db->bind(':start_date', $startDate);
-    $this->db->bind(':end_date', $endDate);
-    $results = $this->db->resultSet();
-
-    // Report generation logic for reservations
-    $generatedReport .= "<h2>Reservation Report</h2>";
-    $generatedReport .= "<ul>";
-        foreach ($results as $row) {
-        $generatedReport .= "<li>Guest: {$row['guest_name']}, Reservation Date: {$row['reservation_date']}, Room Type: {$row['room_type']}</li>";
-        }
-        $generatedReport .= "</ul>";
-    break;
-    case 'income_report':
-    // Query to retrieve income data
-    $this->db->query("SELECT * FROM income WHERE date BETWEEN :start_date AND :end_date");
-    $this->db->bind(':start_date', $startDate);
-    $this->db->bind(':end_date', $endDate);
-    $results = $this->db->resultSet();
-
-    // Report generation logic for income
-    $generatedReport .= "<h2>Income Report</h2>";
-    $generatedReport .= "<ul>";
-        foreach ($results as $row) {
-        $generatedReport .= "<li>Date: {$row['date']}, Amount: {$row['amount']}</li>";
-        }
-        $generatedReport .= "</ul>";
-    break;
-    case 'food_orders':
-    // Query to retrieve food order data
-    $this->db->query("SELECT * FROM food_orders WHERE order_date BETWEEN :start_date AND :end_date");
-    $this->db->bind(':start_date', $startDate);
-    $this->db->bind(':end_date', $endDate);
-    $results = $this->db->resultSet();
-
-    // Report generation logic for food orders
-    $generatedReport .= "<h2>Food Orders Report</h2>";
-    $generatedReport .= "<ul>";
-        foreach ($results as $row) {
-        $generatedReport .= "<li>Order Date: {$row['order_date']}, Food Item: {$row['food_item']}, Quantity: {$row['quantity']}</li>";
-        }
-        $generatedReport .= "</ul>";
-    break;
-    default:
-    $generatedReport = 'Invalid report type.';
-    break;*/ -->

@@ -39,7 +39,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                 <th>Order Count</th>
             </tr>
 
-            <?php foreach ($data['generated_report'] as $value) : ?>
+            <?php foreach ($data['generated_report']['results'] as $value) : ?>
                 <tr>
                     <td><?php echo $value->item_no; ?> </td>
                     <td><?php echo $value->item_name; ?></td>
@@ -49,10 +49,10 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
             <?php endforeach; ?>
         </table>
 
-        <p>Most Ordered Food Item :</p>
-        <p>Least Ordered Food Item :</p>
-        <p>Most Ordered Food Item Category:</p>
-        <p>Most Ordered Food Item Category:</p>
+        <p>Most Ordered Food Item : <?php echo $data['generated_report']['additional_info']['most_ordered_food']; ?></p>
+        <p>Least Ordered Food Item : <?php echo $data['generated_report']['additional_info']['least_ordered_food']; ?></p>
+        <p>Most Ordered Food Item Category: <?php echo $data['generated_report']['additional_info']['most_ordered_category']; ?></p>
+        <p>Most Ordered Food Item Category: <?php echo $data['generated_report']['additional_info']['most_ordered_category']; ?></p>
     </div>
 
     <?php $report = json_encode($data['generated_report']);?>
@@ -128,7 +128,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                 header: [{
                         title: "#",
                         style: {
-                            width: 20,
+                            width: 15,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -159,7 +159,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     {
                         title: "Item Category",
                         style: {
-                            width: 50,
+                            width: 40,
                             height: 20,
                             backgroundColor: '#f2f2f2', // Background color for header cell
                             textAlign: 'center', // Center align text
@@ -207,18 +207,18 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     // }
                     // }
                 ],
-                table: Array.from(Array(report['generated_report'].length), (item, index) => ([
+                table: Array.from(Array(report['generated_report']['results'].length), (item, index) => ([
                     index + 1,
-                    report['generated_report'][index]['item_no'],
-                    report['generated_report'][index]['item_name'],
-                    report['generated_report'][index]['item_category'],
-                    report['generated_report'][index]['order_count'],
+                    report['generated_report']['results'][index]['item_no'] + "\n",
+                    report['generated_report']['results'][index]['item_name'] + "\n",
+                    report['generated_report']['results'][index]['item_category'] + "\n",
+                    report['generated_report']['results'][index]['order_count'] + "\n",
                     
                 ])),
 
 
                 additionalRows: [{
-                        col1: 'Most Ordered Food :',
+                        col1: 'Most Ordered Food :' + report['generated_report']['additional_info']['most_ordered_food'],
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -226,7 +226,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                         }
                     },
                     {
-                        col1: 'Least Ordered Food :',
+                        col1: 'Least Ordered Food :' + report['generated_report']['additional_info']['least_ordered_food'],
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -234,7 +234,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                         }
                     },
                     {
-                        col1: 'Most Ordered Food Category :',
+                        col1: 'Most Ordered Food Category :' + report['generated_report']['additional_info']['most_ordered_category'],
                         col2: ' ',
                         col3: ' ',
                         style: {
@@ -242,7 +242,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                         }
                     },
                     {
-                        col1: 'Least Ordered Food Category :',
+                        col1: 'Least Ordered Food Category :' + report['generated_report']['additional_info']['most_ordered_category'],
                         col2: ' ',
                         col3: ' ',
                         style: {

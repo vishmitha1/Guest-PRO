@@ -32,11 +32,7 @@
         <div class="flavours-header">Dashboard</div>
 
         <div class="dashboard-boxes">
-            <div class="dashboard-box">
-                <i class="fas fa-users"></i>
-                <h2>4 Stars</h2>
-                <p>Rated</p>
-            </div>
+            
             <div class="dashboard-box">
                 <i class="fas fa-shopping-cart"></i>
                 <h2>Order <?php echo $data['ongoingorder']; ?></h2>
