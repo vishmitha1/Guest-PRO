@@ -2,8 +2,8 @@
 
 <div class="home">
     <div class="manager-page">
+        <h1 style="text-align: left; color: #003366;">Food Items Management</h1>
 
-        <h1>Food Items Management</h1>
         <!-- Add Food Item button -->
         <div class="addnewbutton">
             <a href="<?php echo URLROOT; ?>/Managers/addfooditem">Add Food Item</a>

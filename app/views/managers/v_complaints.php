@@ -2,7 +2,8 @@
 
 <div class="home">
     <div class="manager-page">
-        <h1>Guests Complaints</h1>
+
+        <h1 style="text-align:left; color: #003366;">Guests Complaints</h1>
         <br></br>
 
         <form action="<?php echo URLROOT; ?>/Managers/applyComplaintsFilters" method="post">
@@ -62,6 +63,10 @@
                             </div>
                         </div>
                         <div class="right-details">
+                            <div class="detail">
+                                <!-- <strong>Created At:</strong> -->
+                                <?php echo ($complaint->created_at); ?>
+                            </div>
                             <div class="detail">
                                 <strong>Status:</strong>
                                 <?php echo ucfirst($complaint->status); ?>
