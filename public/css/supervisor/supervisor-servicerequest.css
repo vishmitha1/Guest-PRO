@@ -175,6 +175,7 @@
 
         #serviceRequestsTable button.completed {
             background-color: #32CD32; /* Green color for completed */
+            pointer-events: none;
         }
 
         #serviceRequestsTable button:hover {

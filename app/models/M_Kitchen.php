@@ -186,11 +186,17 @@
 
     public function getTodaysPlacedOrders(){
         $currentDate = date("Y-m-d");
-        $this->db->query("SELECT * FROM foodorders WHERE delivery_date = :currentDate AND (status ='placed' OR status ='preparing' OR status='ready') ORDER BY delivery_time");
+        $currentTime = date("H:i:s");
+        $twoHoursLater = date("H:i:s", strtotime('+2 hours'));
+    
+        $this->db->query("SELECT * FROM foodorders WHERE delivery_date = :currentDate AND (status ='placed' OR status ='preparing' OR status='ready') AND delivery_time > :currentTime AND delivery_time <= :twoHoursLater ORDER BY delivery_time");
         $this->db->bind(':currentDate', $currentDate);
+        $this->db->bind(':currentTime', $currentTime);
+        $this->db->bind(':twoHoursLater', $twoHoursLater);
         $orders = $this->db->resultset();
         return $orders;
     }
+    
 
     //update
 
