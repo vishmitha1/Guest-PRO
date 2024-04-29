@@ -1,11 +1,19 @@
-.title-admindash h1{
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.title-admindash h1 {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
     color: #003366;
     margin-bottom: 10px;
-    margin-left:10px;
+    margin-left: 10px;
 }
+
 .admin-dashboard-stats {
     padding: 0 20px;
     display: flex;
@@ -21,7 +29,8 @@
     padding: 30px;
     justify-content: center;
     margin: 0 20px;
-    width: 200px; /* Added fixed width */
+    width: 200px;
+    /* Added fixed width */
     text-align: center;
     transition: transform 0.3s ease;
 }
@@ -39,23 +48,29 @@
     margin-bottom: 0;
     font-size: 15px;
 }
- .admin-stat i {
+
+.admin-stat i {
     font-size: 48px;
     color: #002447;
-    margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-.admindash-piechart {
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px; /* Apply border-radius to give the container rounded corners */
+
+
+.home {
+    position: relative;
+    margin-left: 275px;
+    width: calc(100% - 275px);
+    top: 0;
+    background: #ffffff;
+    padding: 20px;
+}
+
+
+#checkinsChart {
+    width: 400px;
     margin-top: 20px;
-    margin-left: 20px;
-    max-height: 350px; /* Limit the maximum height of the container */
-    overflow-y: auto; /* Enable vertical scrolling if the content overflows the container height */
-    width: 450px;
-}
-
-.admindash-piechart h3 {
-    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    display: block;
 }

@@ -103,6 +103,63 @@
 
         //dashboard
 
+        //dashboard boxes
+
+        public function getCleanedRoomsCount() {
+            
+
+            $this->db->query("SELECT COUNT(*) AS cleaned_rooms_count FROM rooms WHERE cleaning_status = 1 ");
+    
+            $row = $this->db->single();
+        
+            
+            return $row->cleaned_rooms_count;
+        }
+
+        public function getNotCleanedRoomsCount() {
+            
+
+            $this->db->query("SELECT COUNT(*) AS not_cleaned_rooms_count FROM rooms WHERE cleaning_status = 0 ");
+     
+            $row = $this->db->single();
+        
+            
+            return $row->not_cleaned_rooms_count;
+        }
+
+        public function getCompletedServiceRequestsCount() {
+           
+            $currentDate = date("Y-m-d");
+        
+            
+            $this->db->query("SELECT COUNT(*) AS completed_service_requests_count FROM servicerequests WHERE status = 'completed' AND DATE('date') = :currentDate");
+            
+            
+            $this->db->bind(':currentDate', $currentDate);
+          
+            $row = $this->db->single();
+            
+            
+            return $row->completed_service_requests_count;
+        }
+
+        public function getPendingServiceRequestsCount() {
+           
+            $currentDate = date("Y-m-d");
+        
+            
+            $this->db->query("SELECT COUNT(*) AS pending_service_requests_count FROM servicerequests WHERE status = 'completed' AND DATE('date') = :currentDate");
+            
+            
+            $this->db->bind(':currentDate', $currentDate);
+          
+            $row = $this->db->single();
+            
+            
+            return $row->pending_service_requests_count;
+        }
+
+
         //chart
         // Retrieve service request counts by service type within a specified time period
         public function getServiceRequestCountsByType($filter)

@@ -1,4 +1,12 @@
-<?php   require APPROOT. "/views/includes/components/sidenavbar.php" ?>
+<?php if($_SESSION['role'] == 'customer'){?>
+    <?php   require APPROOT. "/views/includes/components/sidenavbar.php"?>
+<?php }else{?>
+    <div class="home">
+
+        <?php   require APPROOT. "/views/includes/components/sidenavbar_".$_SESSION['role'].".php"?>
+
+<?php }?>
+
 
 <form action="<?php echo URLROOT;?>/Users/profile" method="post" enctype="multipart/form-data">
     <div class="profile-container">
@@ -21,6 +29,10 @@
                 <input type="text" name="phone" value="<?php echo $data->phone; ?>">
                 <p>Address</p>
                 <input type="text" name="address" value="<?php echo $data->address; ?>">
+                <p>Current Password</p>
+                <input type="password" name="curpass"  >
+                <p>New Password</p>
+                <input type="password" name="newpass" >
                 
                     
                 <p><button type="submit" >Update</button></p>

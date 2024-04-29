@@ -6,52 +6,53 @@
 <div class="home">
     <div class="manager-page">
         <h1 style="text-align: left; color: #003366;">Dashboard</h1>
+        <div class="overview-box">
+            <div class="overview-section">
+                <h2 class="overview-heading">Occupancy Overview</h2>
+                <div class="overview-row">
+                    <div class="overview-item">
+                        <div class="overview-col">
+                            <div class="overview-col-image-1"><i class="fa-solid fa-hotel"></i></div>
+                            <div class="overview-col-details">
+                                <span class="overview-col-value">
+                                    <?php echo $data['totalrooms']; ?>
+                                </span>
+                                <span class="overview-col-text-1">Total Rooms</span>
+                            </div>
+                        </div>
 
-        <div class="overview-section">
-            <h2 class="overview-heading">Occupancy Overview</h2>
-            <div class="overview-row">
-                <div class="overview-item">
-                    <div class="overview-col">
-                        <div class="overview-col-image-1"><i class="fa-solid fa-hotel"></i></div>
-                        <div class="overview-col-details">
-                            <span class="overview-col-value">
-                                <?php echo $data['totalrooms']; ?>
-                            </span>
-                            <span class="overview-col-text-1">Total Rooms</span>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-col">
+                            <div class="overview-col-image-2"><i class="fa-solid fa-door-closed"></i></div>
+                            <div class="overview-col-details">
+                                <span class="overview-col-value">
+                                    <?php echo $data['occupiedrooms']; ?>
+                                </span>
+                                <span class="overview-col-text-2">Occupied Rooms</span>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="overview-item">
-                    <div class="overview-col">
-                        <div class="overview-col-image-2"><i class="fa-solid fa-door-closed"></i></div>
-                        <div class="overview-col-details">
-                            <span class="overview-col-value">
-                                <?php echo $data['occupiedrooms']; ?>
-                            </span>
-                            <span class="overview-col-text-2">Occupied Rooms</span>
+                    <div class="overview-item">
+                        <div class="overview-col">
+                            <div class="overview-col-image-3"><i class="fa-solid fa-door-open"></i></div>
+                            <div class="overview-col-details">
+                                <span class="overview-col-value">
+                                    <?php echo $data['availablerooms']; ?>
+                                </span>
+                                <span class="overview-col-text-3">Available Rooms</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="overview-item">
-                    <div class="overview-col">
-                        <div class="overview-col-image-3"><i class="fa-solid fa-door-open"></i></div>
-                        <div class="overview-col-details">
-                            <span class="overview-col-value">
-                                <?php echo $data['availablerooms']; ?>
-                            </span>
-                            <span class="overview-col-text-3">Available Rooms</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="overview-item">
-                    <div class="overview-col">
-                        <div class="overview-col-image-4"><i class="fa-solid fa-building-lock"></i></div>
-                        <div class="overview-col-details">
-                            <span class="overview-col-value">
-                                <?php echo $data['occupancyrate']; ?>%
-                            </span>
-                            <span class="overview-col-text-4">Occupancy Rate</span>
+                    <div class="overview-item">
+                        <div class="overview-col">
+                            <div class="overview-col-image-4"><i class="fa-solid fa-building-lock"></i></div>
+                            <div class="overview-col-details">
+                                <span class="overview-col-value">
+                                    <?php echo $data['occupancyrate']; ?>%
+                                </span>
+                                <span class="overview-col-text-4">Occupancy Rate</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -221,7 +222,7 @@
                                 <span class="overview-col-value">
                                     <?php echo $data['dispatchOrderCount']; ?>
                                 </span>
-                                <span class="overview-col-text-7">Dispatch</span>
+                                <span class="overview-col-text-7">Ready</span>
                             </div>
                         </div>
 
@@ -256,13 +257,14 @@
 
             <div class="overview-piechart">
                 <h2>Monthly Income</h2>
-                <canvas id="pieChart" width="420" height="200"></canvas>
-            </div>
-            <?php $reservationIncome = $data['reservationIncome'];
+                <canvas id="pieChart"></canvas>
+                <?php $reservationIncome = $data['reservationIncome'];
 
-            ?>
-            <?php
-            $foodOrderIncome = $data['foodOrderIncome']; ?>
+                ?>
+                <?php
+                $foodOrderIncome = $data['foodOrderIncome']; ?>
+            </div>
+
         </div>
 
         <!-- Modal -->

@@ -19,14 +19,14 @@
         <div class="links">
 
         <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Kitchen/dashboard"><i class="fa-solid fa-file-invoice"></i>Dashboard</a>
+            <a href="<?php echo URLROOT;?>/Kitchen/dashboard"><i class="fa-solid fa-grip"></i>Dashboard</a>
             </div>
             
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Kitchen/foodmenu"><i class="fa-solid fa-bell-concierge"></i>Food Menu</a>
+            <a href="<?php echo URLROOT;?>/Kitchen/foodmenu"><i class="fa-solid fa-file-invoice"></i>Food Menu</a>
             </div>
             <div class="link-items">
-            <a href="<?php echo URLROOT;?>/Kitchen/pendingfoodorders"><i class="fa-solid fa-file-invoice"></i>Food Orders</a>
+            <a href="<?php echo URLROOT;?>/Kitchen/pendingfoodorders"><i class="fa-solid fa-bell-concierge"></i>Food Orders</a>
             </div>
            
             
@@ -52,6 +52,23 @@
             <p><?php echo $_SESSION['role'];?></p>
         </div>
     </div>
+
+
+    <script>
+        window.onload = function() {
+            var currentLocation = window.location.href;
+            var links = document.querySelectorAll('.links a');
+
+            for (var i = 0; i < links.length; i++) {
+                if (links[i].href === currentLocation) {
+                    links[i].classList.add('active');
+                    break;
+                }
+            }
+        };
+
+
+        </script>
 
    
 

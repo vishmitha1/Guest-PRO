@@ -64,3 +64,19 @@
             <p><?php echo $_SESSION['role'];?></p>
         </div>
     </div>
+
+    <script>
+        window.onload = function() {
+            var currentLocation = window.location.href;
+            var links = document.querySelectorAll('.links a');
+
+            for (var i = 0; i < links.length; i++) {
+                if (links[i].href === currentLocation) {
+                    links[i].classList.add('active');
+                    break;
+                }
+            }
+        };
+
+
+        </script>

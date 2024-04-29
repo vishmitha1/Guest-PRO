@@ -79,6 +79,7 @@
 <script>
 
     function editFoodItem(Id) {
+        // console.log('run with error')
         window.location.href = "<?php echo URLROOT; ?>/Managers/editRoomType/" + Id;
     }
 

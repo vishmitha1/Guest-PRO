@@ -1,4 +1,4 @@
-<?php   require APPROOT. "/views/includes/components/sidenavbar-receptionist.php" ?>
+<?php   require APPROOT. "/views/includes/components/sidenavbar_receptionist.php" ?>
 
 
 <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
