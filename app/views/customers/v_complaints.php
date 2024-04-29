@@ -4,11 +4,67 @@
 <body>
 
 <div class="complains">
-
-
+    
     <div class="container">
         <h2>Submit a Complaint</h2>
-        <form id="complaintForm">
+        <div class="room-section">
+        <form action="<?php echo URLROOT;?>/Customers/complaints" method='POST' >
+            <label for="reservation_id">Reservation</label>
+            <select name="reservation_id" id="reservation_id">
+                <option value="" selected hidden disabled >Select Reservation</option>
+                <?php if(sizeof($data[1])==1){?>
+                    <option value="<?php echo $data[1]->reservation_id;?>"><?php echo "Reservation ID: ". $data[1]->reservation_id;?></option>
+                    <?php } 
+                else {
+                    foreach ($data[1] as $item){  ?>
+                        <option value="<?php echo $item->reservation_id;?>"><?php echo "Reservation ID: ". $item->reservation_id;?></option>
+                    <?php }
+                } ?>
+                
+                
+            </select>
+
+    
+
+            <label for="roomno">Room No</label>
+            <select name="roomNo" id="roomNo">
+                                                                    <?php if(sizeof($data[0])==1){ ?>
+                                                                        <?php foreach($data[0] as $room){ ?>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);?>
+                                                                                 <option  value=""  selected hidden>Select Room</option>;
+                                                                            <?php for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
+                                                                        <?php } ?>
+                                                                    <?php } 
+                                                                    else{ ?>    
+                                                                    
+                                                                        <option hidden value=""  selected >Select Room</option>
+                                                                        <?php foreach($data[0] as $room){ ?>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                                
+                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
+                                                                        <?php } ?>
+                                                                    <?php } ?>    
+                                                 
+                        </select>
+        </div>
+        
+
             <div class="form-group">
                 <label for="complaint">Complaint:</label>
                 <textarea id="complaint" name="complaint" placeholder="Enter your complaint..." required></textarea>
@@ -40,19 +96,5 @@
     </div>
 </div>
 
-<script>
-    document.getElementById("complaintForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission
-        // You can add your JavaScript code here to handle the form submission, like sending data to your server
-        // For demonstration purposes, let's just log the data to the console
-        const formData = new FormData(event.target);
-        const complaint = formData.get("complaint");
-        const satisfaction = formData.get("satisfaction");
-        console.log("Complaint:", complaint);
-        console.log("Satisfaction:", satisfaction);
-        // You can further process the data or send it to your server via AJAX
-        // For now, we'll just show a simple alert
-        alert("Complaint submitted successfully!");
-    });
-</script>
+
 </body>
