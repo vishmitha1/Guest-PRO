@@ -7,11 +7,11 @@
             <label for="designation">Designation:</label>
             <select id="designation" name="designation">
                 <option hidden value="">Select One</option>
-                <option value="Manager">Manager</option>
-                <option value="Receptionist">Receptionist</option>
-                <option value="Supervisor">Supervisor</option>
-                <option value="Waiter">Waiter</option>
-                <option value="Kitchen">Kitchen</option>
+                <option value="manager">Manager</option>
+                <option value="receptionist">Receptionist</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="waiter">Waiter</option>
+                <option value="kitchen">Kitchen</option>
             </select>
             <span style="color: <?php echo isset($data['designation_error']) ? 'red' : 'inherit'; ?>">
                 <?php echo isset($data['designation_error']) ? $data['designation_error'] : ''; ?>
