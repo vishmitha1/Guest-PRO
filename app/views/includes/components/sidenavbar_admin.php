@@ -29,7 +29,8 @@
             </div>
         </div>
         <div class="logout">
-        <a href="<?php echo URLROOT;?>/Users/logout"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
+        <button id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        <!-- <a href="<?php echo URLROOT;?>/Users/logout"><button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a> -->
         </div>
     </div>
 
@@ -62,3 +63,48 @@
 
 
         </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+  document.getElementById("logoutBtn").addEventListener("click", function() {
+    // Show a confirmation dialog using SweetAlert2
+    Swal.fire({
+      title: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Create a new XMLHttpRequest object
+        var xhttp = new XMLHttpRequest();
+
+        // Define what happens on successful data submission
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            // Display a success alert using SweetAlert2
+            Swal.fire({
+              icon: 'success',
+              title: 'Logout successful',
+              showConfirmButton: false,
+              timer: 1500
+            }).then((result) => {
+              // Redirect to the specified URL after successful logout
+              window.location.href = "<?php echo URLROOT;?>/Users/login";
+            });
+          }
+        };
+
+        // Open a POST request to the logout URL
+        xhttp.open("POST", "<?php echo URLROOT;?>/Users/logout", true);
+        // Set the Content-Type header if needed
+        // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Send the request
+        xhttp.send();
+      }
+    });
+  });
+</script>
