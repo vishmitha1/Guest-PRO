@@ -187,15 +187,17 @@
     public function getTodaysPlacedOrders(){
         $currentDate = date("Y-m-d");
         $currentTime = date("H:i:s");
-        $twoHoursBefore = date("H:i:s", strtotime('-2 hours'));
+        $twoHoursLater = date("H:i:s", strtotime('+2 hours'));
     
-        $sql = "SELECT * FROM foodorders WHERE delivery_date = :currentDate AND (status ='placed' OR status ='preparing' OR status='ready') AND delivery_time <= :currentTime ORDER BY delivery_time";
+        $sql = "SELECT * FROM foodorders WHERE delivery_date = :currentDate AND (status = 'placed' OR status = 'preparing' OR status = 'ready') AND delivery_time <= :twoHoursLater ORDER BY delivery_time";
         $this->db->query($sql);
         $this->db->bind(':currentDate', $currentDate);
-        $this->db->bind(':currentTime', $currentTime);
+        $this->db->bind(':twoHoursLater', $twoHoursLater); // Corrected binding parameter
         $orders = $this->db->resultset();
         return $orders;
     }
+    
+    
     
     
 
