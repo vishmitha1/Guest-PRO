@@ -18,7 +18,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
                     <!-- <option value="Reservation Summary Report">Reservation Summary Report</option> -->
                     <option value="Income Summary Report">Income Summary Report</option>
                     <option value="Food Orders Summary Report">Food Orders Summary Report</option>
-                    <option value="Food Orders Waiting Time Report">Food Orders Waiting Time Report</option>
+                    <!-- <option value="Food Orders Waiting Time Report">Food Orders Waiting Time Report</option> -->
                 </select>
                 <span id="report_type_error" style="color: red;"></span>
             </div>

@@ -78,15 +78,15 @@ class Reports extends Controller
                     }
                     break;
 
-                    case 'Food Orders Waiting Time Report':
-                        // Generate report based on data
-                        $generatedReport = $this->reportModel->generateReport($data);
-                        if ($generatedReport === false) {
-                            die("Failed to generate food orders waiting time report.");
-                        } else {
-                            $this->view('admins/v_waiting_time_report', ['generated_report' => $generatedReport, 'data' => $data]);
-                        }
-                        break;
+                    // case 'Food Orders Waiting Time Report':
+                    //     // Generate report based on data
+                    //     $generatedReport = $this->reportModel->generateReport($data);
+                    //     if ($generatedReport === false) {
+                    //         die("Failed to generate food orders waiting time report.");
+                    //     } else {
+                    //         $this->view('admins/v_waiting_time_report', ['generated_report' => $generatedReport, 'data' => $data]);
+                    //     }
+                    //     break;
 
                 default:
                     die("Invalid report type.");
