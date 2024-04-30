@@ -52,7 +52,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
         <p>Most Ordered Food Item : <?php echo $data['generated_report']['additional_info']['most_ordered_food']; ?></p>
         <p>Least Ordered Food Item : <?php echo $data['generated_report']['additional_info']['least_ordered_food']; ?></p>
         <p>Most Ordered Food Item Category: <?php echo $data['generated_report']['additional_info']['most_ordered_category']; ?></p>
-        <p>Most Ordered Food Item Category: <?php echo $data['generated_report']['additional_info']['most_ordered_category']; ?></p>
+        <p>Least Ordered Food Item Category: <?php echo $data['generated_report']['additional_info']['most_ordered_category']; ?></p>
     </div>
 
     <?php $report = json_encode($data['generated_report']);?>
@@ -83,7 +83,7 @@ require APPROOT . "/views/includes/components/sidenavbar_" . $userRole . ".php";
             orientationLandscape: false,
             compress: true,
             logo: {
-                src: "<?php echo URLROOT ?>/public/img/logo/logo.png",
+                src: "<?php echo URLROOT ?>/public/img/logo/logopdf.jpg",
                 type: 'PNG', //optional, when src= data:uri (nodejs case)
                 width: 53.33, //aspect ratio = width/height
                 height: 26.66,

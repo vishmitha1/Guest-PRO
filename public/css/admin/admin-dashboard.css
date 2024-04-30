@@ -63,11 +63,31 @@ body {
     border-radius: 10px; /* Apply border-radius to give the container rounded corners */
     margin-top: 20px;
     margin-left: 20px;
-    max-height: 350px; /* Limit the maximum height of the container */
+    max-height: 300px; /* Limit the maximum height of the container */
     overflow-y: auto; /* Enable vertical scrolling if the content overflows the container height */
     width: 450px;
 }
 
 .admindash-piechart h3 {
     text-align: center;
+}
+
+.admindash {
+    display: flex;
+    justify-items: center;
+}
+
+.admindashes {
+    display: flex;
+    justify-items: center;
+    padding: 10px;
+    border-radius: 10px; /* Apply border-radius to give the container rounded corners */
+    margin-top: 100px;
+    margin-left: 20px;
+    height: 200px;
+
+}
+
+.admindashes a {
+    text-decoration: none;
 }
