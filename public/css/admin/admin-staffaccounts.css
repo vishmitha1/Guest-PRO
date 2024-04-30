@@ -54,14 +54,15 @@
 
 .staffaccounts-table {
     border-collapse: collapse;
-    width: 100%;
+    width: calc(100%-30px);
     margin-top: 20px;
+    margin-left: 5px;
 }
 
 .staffaccounts-table th,
 .staffaccounts-table td {
     border: 1px solid #003366; /* Add a border to table cells */
-    padding: 12px;
+    padding: 8px;
     text-align: left;
 }
 
