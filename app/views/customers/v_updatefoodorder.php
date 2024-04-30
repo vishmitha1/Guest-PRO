@@ -65,23 +65,34 @@
                     <select  name="roomNumber" form="cart_submit_Form" id="RoomNumberForm" >
                                                              <!-- change this after db roomNo switch to vachr -->
 
-                                                                    <?php if(sizeof($data[2])==1){ ?>
+                                                             <?php if(sizeof($data[2])==1){ ?>
                                                                         <?php foreach($data[2] as $room){ ?>
-                                                                            <?php if(strlen($room->roomNo)>2){
+                                                                            <?php if(strlen($room->roomNo)>1){
                                                                                 $roomNo=explode(",",$room->roomNo);?>
-                                                                                
-                                                                                <?php 
-                                                                                    for($i=0;$i<sizeof($roomNo);$i++){?>
-                                                                                    <?php if($data[3]->roomNo==$roomNo[$i]){?>
-                                                                                            <option value="<?php echo $roomNo[$i];?>" selected ><?php echo "Room No: ". $roomNo[$i];?></option>
-                                                                                        <?php }
-                                                                                        else{ ?>
-                                                                                            <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
-                                                                                    <?php } ?>
+                                                                                <option value="<?php echo $data[3]->roomNo;?>"><?php echo "Room No: ". $data[3]->roomNo;?></option>
+                                                                                <?php for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
                                                                                 <?php }
                                                                             }
                                                                             else{ ?>    
-                                                                                    <option value='<?php echo$data[3]->roomNo;?>' selected ><?php echo  "Room No: ".$data[3]->roomNo;?></option>
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
+                                                                                <?php } ?>    
+
+                                                                        <?php } ?>
+                                                                    <?php } 
+                                                                     else{ ?>    
+                                                                    
+                                                                    <option value="<?php echo $data[3]->roomNo;?>"><?php echo "Room No: ". $data[3]->roomNo;?></option>
+                                                                        <?php foreach($data[2] as $room){ ?>
+                                                                            <?php if(strlen($room->roomNo)>1){
+                                                                                $roomNo=explode(",",$room->roomNo);
+                                                                                
+                                                                                for($i=0;$i<sizeof($roomNo);$i++){?>
+                                                                                    <option value="<?php echo $roomNo[$i];?>"><?php echo "Room No: ". $roomNo[$i];?></option>
+                                                                                <?php }
+                                                                            }
+                                                                            else{ ?>    
+                                                                                    <option value="<?php echo $room->roomNo;?>"><?php echo "Room No: ". $room->roomNo;?></option>
                                                                                 <?php } ?>    
 
                                                                         <?php } ?>
@@ -95,6 +106,7 @@
                         <img src="<?php echo URLROOT;?>/public/img/svgs/solid/xmark.svg" class="svg-medium" onclick="closePopup()" ></img>  
                     </div>
                 </div>
+             
                 <div class="cart-content">
                     <table id="cart-table" >
                     <tbody>

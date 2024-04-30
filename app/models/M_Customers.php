@@ -833,6 +833,17 @@
         }
 
 
+        public function getReservationDetailsForEmail($data){
+
+            $this->db->query("SELECT * FROM reservations WHERE user_id=:id ORDER BY date DESC LIMIT 1");
+            $this->db->bind(':id',$data['user_id']);
+   
+            $row = $this->db->single();
+
+            return $row;
+        }
+
+
 
         //Review waiter''''''''''''''''''''''''''''''''''''''''
         public function getwaiterdetails(){

@@ -16,7 +16,7 @@
 			<a href="<?php echo URLROOT; ?>/Home">Home</a>
 			<a href="<?php echo URLROOT;?>/Home#about">About</a>
 			<a href="<?php echo URLROOT;?>/Home#contact">Contact</a>
-			<a href="<?php echo URLROOT;?>/users/register">Signup</a>
+			<a href="<?php echo URLROOT;?>/users/login">Login</a>
 		
 	</div>
 

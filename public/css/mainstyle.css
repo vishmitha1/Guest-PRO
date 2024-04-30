@@ -56,8 +56,6 @@
 @import url("./admin/admin-accountlogs.css");
 @import url("./admin/admin-dashboard.css");
 
-@import url("./kitchen/kitchen-foodmenu.css");
-@import url("./kitchen/kitchen-foodstatus.css"); 
 
 
 
@@ -77,8 +75,9 @@
 @import url("./manager/manager-delete-fooditems.css");
 @import url("./manager/manager-view.css");
 @import url("./manager/manager-complaints.css");
-@import url("./manager/manager-dashboard.css");
 
+@import url("./manager/manager-fileter.css");
+@import url("./manager/manager-dashboard.css");
 
 @import url("./supervisor/supervisor-cleaningstatus.css");
 @import url("./supervisor/supervisor-servicerequest.css");

@@ -3,53 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .hover-button {
-      position: relative;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      overflow: hidden;
-      border: none;
-      color: #ffffff;
-      background: none;
-      transition: color 0.3s;
-    }
-
-    .hover-button::before {
-      content: 'Hover Me';
-      position: absolute;
-      top: 0;
-      right: -10px; /* Adjust the right offset for the bump */
-      width: 10px; /* Adjust the width of the bump */
-      height: 100%;
-      background: linear-gradient(to right, #3498db 50%, #890000 50%);
-      background-size: 200% 100%;
-      transition: right 0.3s, width 0.3s, content 0.3s; /* Added content transition */
-      z-index: -1; /* Move the bump behind the button content */
-    }
-
-    .hover-button:hover {
-      color: #3498db; /* Change the text color on hover */
-    }
-
-    .hover-button:hover::before {
-      right: 0;
-      width: 20px; /* Adjust the width of the bump on hover */
-      content: 'Hover We'; /* Change content on hover */
-    }
-  </style>
-  <title>Button Hover Effect with Text Change</title>
+  <title>Reservation Confirmation</title>
+  
 </head>
 <body>
-  <button class="hover-button"></button>
+
+  <div class="container">
+    <div class="logo">
+      <img src="./public/img/logo/dark_logo.png" alt="System Logo">
+    </div>
+    <h1>Reservation Confirmation</h1>
+    <p>Dear [Customer Name],</p>
+    <p>We are pleased to confirm your reservation with us. Below are the details of your reservation:</p>
+    
+    <div class="reservation-details">
+      <table>
+        <tr>
+          <th>Reservation Number:</th>
+          <td>[Reservation Number]</td>
+        </tr>
+        <tr>
+          <th>Room Type:</th>
+          <td>[Room Type]</td>
+        </tr>
+        <tr>
+          <th>Customer Name:</th>
+          <td>[Customer Name]</td>
+        </tr>
+        <tr>
+          <th>NIC:</th>
+          <td>[NIC]</td>
+        </tr>
+        <tr>
+          <th>Reserved Rooms:</th>
+          <td>[Reserved Rooms]</td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="hotel-image">
+      <img src="https://drive.google.com/file/d/1r_4Rh98p7wnVU4nhRHidtgqImUgw4rve/view?usp=drive_link" alt="Hotel Image">
+    </div>
+    
+    <p>If you have any questions or need further assistance, please don't hesitate to contact us. We look forward to welcoming you!</p>
+    <p>Best regards,<br>Your Hotel Team</p>
+  </div>
+
 </body>
 </html>

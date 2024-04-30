@@ -77,10 +77,10 @@
                             <td class="button-container">
                                 <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
                                 <?php if(ucfirst($row->checked) =='In'){?>
-                                    <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)" >Merchent</button>
+                                    <button class="payment-button" onclick="paymentGateway(<?php echo $row->reservation_id; ?>)" >Card</button>
                                     <!-- <form action="<?php echo URLROOT;?>/Receptionists/paymentGateway" method="post">
                                         <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
-                                        <button class="payment-button" >Merchent</button>
+                                        <button class="payment-button" >Card</button>
                                     </form> -->
                                     <button onclick="checkoutAftercashed(<?php echo $row->reservation_id; ?>)" >Cash</button>
                                 <?php }?>
@@ -108,7 +108,7 @@
                             <td class="button-container">
                                 <form action="<?php echo URLROOT;?>/Receptionists/paymentGateway" method="post">
                                     <input type="hidden" name="reservation_id" value="<?php echo $row->reservation_id; ?>">
-                                    <button class="payment-button" >Merchent</button>
+                                    <button class="payment-button" >Card</button>
                                 </form>
                                 <button onclick="checkoutAftercashed(<?php echo $row->reservation_id; ?>)" >Cash</button>
                             </td>
