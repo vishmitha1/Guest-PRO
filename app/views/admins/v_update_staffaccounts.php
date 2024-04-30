@@ -13,11 +13,11 @@
 
             <label for="designation">Designation:</label>
             <select id="designation" name="designation">
-                <option value="Manager" <?php echo ($data['staffaccount']->role == 'Manager') ? 'selected' : ''; ?>>Manager</option>
-                <option value="Receptionist" <?php echo ($data['staffaccount']->role == 'Receptionist') ? 'selected' : ''; ?>>Receptionist</option>
-                <option value="Supervisor" <?php echo ($data['staffaccount']->role == 'Supervisor') ? 'selected' : ''; ?>>Supervisor</option>
-                <option value="Waiter" <?php echo ($data['staffaccount']->role == 'Waiter') ? 'selected' : ''; ?>>Waiter</option>
-                <option value="Kitchen" <?php echo ($data['staffaccount']->role == 'Kitchen') ? 'selected' : ''; ?>>Kitchen</option>
+                <option value="Manager" <?php echo ($data['staffaccount']->role == 'manager') ? 'selected' : ''; ?>>Manager</option>
+                <option value="Receptionist" <?php echo ($data['staffaccount']->role == 'receptionist') ? 'selected' : ''; ?>>Receptionist</option>
+                <option value="Supervisor" <?php echo ($data['staffaccount']->role == 'supervisor') ? 'selected' : ''; ?>>Supervisor</option>
+                <option value="Waiter" <?php echo ($data['staffaccount']->role == 'waiter') ? 'selected' : ''; ?>>Waiter</option>
+                <option value="Kitchen" <?php echo ($data['staffaccount']->role == 'kitchen') ? 'selected' : ''; ?>>Kitchen</option>
             </select>
 
             <label for="staffName">Full Name:</label>

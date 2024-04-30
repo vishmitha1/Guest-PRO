@@ -8,7 +8,7 @@
         <h1>Dashboard</h1>
     </div>
     <div class="admin-dashboard-stats">
-        
+
         <div class="admin-stat">
             <i class="fas fa-users"></i>
             <h2><?php echo $data['totalCustomersRegistered']; ?></h2>
@@ -32,50 +32,62 @@
             <p>Monthly Reservation Count</p>
         </div>
 
-        
-
     </div>
 
-  
+    <div class="admindash">
+        <div class="admindash-piechart">
+            <h3>Monthly Income</h3>
+            <canvas id="pieChart" width="200" height="100"></canvas>
+        </div>
 
-    <!-- Canvas element for the bar chart -->
-    <canvas id="checkinsChart" width="800" height="400"></canvas>
+        <div class="admindashes">
+            <div class="admin-stat">
+                <i class="fa-solid fa-file"></i>
+                <a href="<?php echo URLROOT;?>/Reports/generatereports">
+                <h2>Generate reports</h2>
+            </div>
+
+            <div class="admin-stat">
+                <i class="fa-solid fa-file"></i>
+                <a href="<?php echo URLROOT;?>/Admins/accountlogs">
+                <h2>Account logs</h2>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Sample data for the number of check-ins per day of the week
-        const checkinsData = {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Retrieve the reservation income data from the PHP backend and store it in a JavaScript variable.
+        const reservationIncome = <?= json_encode($data['reservationIncome']) ?>;
+
+        // Retrieve the food order income data from the PHP backend and store it in a JavaScript variable.
+        const foodOrderIncome = <?= json_encode($data['foodOrderIncome']) ?>;
+
+        // Prepare the data object for the Chart.js pie chart.
+        const data = {
+            labels: ['Reservations Income (LKR)', 'Food Orders Income (LKR)'],
             datasets: [{
-                label: 'Number of Check-ins',
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1,
-                data: [12, 19, 3, 5, 2, 3, 9], // Replace this with your actual data
+                data: [reservationIncome, foodOrderIncome],
+                backgroundColor: ['#36A2EB', '#FFCE56'], // Colors for each segment of the pie chart
+                borderColor: "black",
+                borderWidth: .1
             }]
         };
 
-        // Get the canvas element
-        const ctx = document.getElementById('checkinsChart').getContext('2d');
+        // Retrieve the canvas element where the pie chart will be drawn.
+        const ctx = document.getElementById('pieChart').getContext('2d');
 
-        // Create the bar chart
-        const checkinsChart = new Chart(ctx, {
-            type: 'bar',
-            data: checkinsData,
+        // Create a new instance of Chart.js pie chart and provide it with the configuration data.
+        const myPieChart = new Chart(ctx, {
+            type: 'pie', // Specify the chart type as pie chart.
+            data: data, // Pass the prepared data object to the chart.
             options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
+                responsive: true, // Enable responsiveness to adapt to different screen sizes
+                maintainAspectRatio: false, // Prevent the chart from resizing to maintain its aspect ratio.
             }
         });
-    </script>
-
-    
-
-
-
-
+    });
+</script>
