@@ -12,7 +12,7 @@
                     <div class="input-box-block">
                     <lable class="material-symbols-outlined">Format_List_Bulleted</lable><span>Room </span> <br>
                         <select name="roomNo" id="roomNo">
-                                                                    <?php if(sizeof($data[0])==1){ ?>
+                                                                 <?php if(sizeof($data[0])==1){ ?>
                                                                         <?php foreach($data[0] as $room){ ?>
                                                                             <?php if(strlen($room->roomNo)>1){
                                                                                 $roomNo=explode(",",$room->roomNo);?>
@@ -43,7 +43,7 @@
                                                                                 <?php } ?>    
 
                                                                         <?php } ?>
-                                                                    <?php } ?>    
+                                                                    <?php } ?>   
                                                  
                         </select>
 

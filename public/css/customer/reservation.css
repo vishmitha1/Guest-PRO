@@ -10,7 +10,7 @@
 
 .reservation-searchbar-wrapper{
     padding: 20px 10px 50px 10px;
-    background: #ecda0a;
+    /* background: #ecda0a; */
     margin: 50px 0 50px 0;
 }
 .reservation-searchbar-wrapper .main-title{
@@ -23,6 +23,7 @@
     border: 2px solid red;
     box-shadow: 10px;
     background: #cadae9;
+    width: 100%;
     
 }
 
@@ -37,6 +38,8 @@
 
 .reservation-searchbar input {
     height: 50%;
+    border: 0px solid;
+    background: #9bbddc;
 }
 
 .reservation-searchbar select{
@@ -419,7 +422,7 @@
   
 
   .active {
-    background-color: #717171;
+    background-color: #ffffff;
   }
 
 .room-amenities{

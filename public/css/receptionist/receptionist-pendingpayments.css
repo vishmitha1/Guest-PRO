@@ -33,17 +33,21 @@
 
 .payment-table-wrapper th {
     padding: 15px;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     border: 1px dotted #5d89ad;
-    background: #8099B3;
+    background-color: #003366;
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+
 }
 
 .payment-table-wrapper td {
     padding: 10px;
-    font-size: 17px;
+    font-size: 15px;
     text-align: center;
     text-transform: capitalize;
+    font-family: 'popins', sans-serif;
 }
 
 

@@ -78,7 +78,7 @@
 .addto-cart  input{
   width: 20px;
   margin-bottom: 10px;
-  height: 10px;
+  height: 14px;
   text-align: center;
 }
 
@@ -199,7 +199,7 @@
 }
 
 .selectRoom select{
-  width: 12 0px;
+  width: 130px;
   height:auto;
   border-radius: 5px;
   border: 2px solid rgb(76, 137, 230);

@@ -17,9 +17,11 @@
                 <tr>
                     <form id="search-form" action="<?php echo URLROOT;?>/Customers/reservation" method="POST" >
                     <?php if(sizeof($data[1])==0){?>
-                        <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date" value='2024-04-14' ></th>
-                        <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date" value='2024-04-20'></th>
-                        <th><div class="img"><i class="fa-solid fa-people-group"></i></div><input type="text" id="roomcount" name="roomcount" placeholder="Rooms"></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i> Check In Date</div><input type="date"  id="indate" name="indate" placeholder="Check In Date"  ></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i>  Check Out Date</div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date" ></th>
+                        <!-- <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date" value='2024-04-14' ></th>
+                        <th><div class="img"><i class="fa-regular fa-calendar"></i> </div><input type="date" id="outdate" name="outdate" placeholder="Check Out Date" value='2024-04-20'></th> -->
+                        <th><div class="img"><i class="fa-solid fa-people-group"></i> Rooms</div><input type="text" id="roomcount" name="roomcount" placeholder="Rooms"></th>
                     <?php } else{?>
                         
                         <th><div class="img"><i class="fa-regular fa-calendar"></i></div><input type="date"  id="indate" name="indate" placeholder="Check In Date" value='<?php echo $data[1]['indate'];?>' ></th>
@@ -128,7 +130,13 @@
 
 
 
-<!-- <script src="<?php echo URLROOT;?>/popup.js"></script> -->
+<script>
+  // Get today's date
+  var today = new Date().toISOString().split('T')[0];
+
+  // Set the minimum date for the input field
+  document.getElementById("indate").setAttribute("min", today);
+</script>
 <script src="<?php echo URLROOT;?>/public/js/customers/reservation.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -191,6 +199,28 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'No rooms available!',
+                        }).then((result) => {
+                            if (result.isConfirmed || result.isDismissed) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                    else if(response=='Date error'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Invalid Date',
+                            text: 'Date error',
+                        }).then((result) => {
+                            if (result.isConfirmed || result.isDismissed) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                    else if(response=='Checkin date should be less than checkout date'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Invalid Date',
+                            text: 'Checkin date should be less than checkout date',
                         }).then((result) => {
                             if (result.isConfirmed || result.isDismissed) {
                                 window.location.reload();

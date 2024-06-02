@@ -21,6 +21,7 @@
 @import url("./customer/dashboard.css");
 @import url("./customer/servicerequest.css");
 @import url("./customer/ratings.css");
+@import url("./customer/complaints.css");
 
 
 @import url("./receptionist/receptionist-reservations.css");

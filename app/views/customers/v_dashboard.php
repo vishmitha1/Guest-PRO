@@ -32,7 +32,7 @@
 		<a href="#foodorder_fletch">	
 			<div class="col-div-3">
 				<div class="box">
-					<p>01<br/><span>My Orders</span></p>
+					<p>0<br/><span>My Orders</span></p>
 					<i class="fa fa-list box-icon"></i>
 				</div>
 			</div>
@@ -89,25 +89,7 @@
 		</div>
 		</div>
 
-		<!-- <div class="col-div-4">
-			<div class="box-4">
-				<div class="content-box">
-						<p> </p>
-
-					<div class="circle-wrap">
-						<div class="circle">
-							<div class="mask full">
-								<div class="fill"></div>
-							</div>
-							<div class="mask half">
-								<div class="fill"></div>
-							</div>
-							<div class="inside-circle"> 70% </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
+		
 		<div class="col-div-4">
 			<div class="box-4"  >
 				<canvas id="chart-1" >
@@ -116,9 +98,7 @@
 			</div>
 		</div>
 		<div class="clearfix"></div>
-		<!-- <div class="cus-dash-chart">
-			
-		</div> -->
+		
 			
 		
 

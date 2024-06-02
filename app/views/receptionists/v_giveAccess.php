@@ -6,7 +6,7 @@
     <div class="manege-res-searchbar-wrapper">
 
         <div class="form-title-mngereservation">
-            <span>Give Access </span>
+            <span>Access Management </span>
         </div> 
 
         <form action="<?php echo URLROOT;?>/Receptionists/giveCustomerAccess" method="POST" >

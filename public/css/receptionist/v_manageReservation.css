@@ -141,7 +141,8 @@
 
 .recep-reservation-history-wrapper th{
     padding: 15px;
-    background-color: antiquewhite;
+    background-color: #003366;
+    color: #fff;
     font-size: 18px;
     font-family: 'Lato', sans-serif;
     font-weight: 600;

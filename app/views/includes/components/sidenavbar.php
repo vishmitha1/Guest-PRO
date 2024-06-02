@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>GuestPro</title>
    
     <link rel="stylesheet" href='<?php echo URLROOT; ?>/public/css/customerMain.css' >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -32,20 +32,21 @@
             
             
 
-                <a href="<?php echo URLROOT;?>/Customers/payments"class="ltags"><i class="fa-regular fa-credit-card"></i>Payments**</a>
+                <!-- <a href="<?php echo URLROOT;?>/Customers/payments"class="ltags"><i class="fa-regular fa-credit-card"></i>Payments**</a> -->
             
             
                 <a href="<?php echo URLROOT;?>/Customers/servicerequest"class="ltags"><i class="fa-solid fa-cart-flatbed-suitcase"></i>Service Request</a>
             
             
-                <a href="<?php echo URLROOT;?>/Customers/complain"class="ltags"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
+                <a href="<?php echo URLROOT;?>/Customers/complaints"class="ltags"><i class="fa-solid fa-person-walking-luggage"></i>Complains</a>
             
                
                 <!-- <a href="<?php echo URLROOT;?>/Customers/reviewwaiter"class="ltags"><i class="fa-solid fa-star"></i></i>Rate</a> -->
             </div>
         </div>
         <div class="logout">
-        <a href="<?php echo URLROOT;?>/Users/logout"> <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
+        <!-- <a href="<?php echo URLROOT;?>/Users/logout"> <button  value="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a> -->
+        <button id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
         </div>
     </div>
 
@@ -94,7 +95,7 @@
             });
         });
 
-        <script>
+
         window.onload = function() {
             var currentLocation = window.location.href;
             var links = document.querySelectorAll('.links a');
@@ -110,8 +111,54 @@
 
         </script>
 
+        <!-- Include SweetAlert2 library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    </script>
+
+<script>
+  document.getElementById("logoutBtn").addEventListener("click", function() {
+    // Show a confirmation dialog using SweetAlert2
+    Swal.fire({
+      title: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Create a new XMLHttpRequest object
+        var xhttp = new XMLHttpRequest();
+
+        // Define what happens on successful data submission
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            // Display a success alert using SweetAlert2
+            Swal.fire({
+              icon: 'success',
+              title: 'Logout successful',
+              showConfirmButton: false,
+              timer: 1500
+            }).then((result) => {
+              // Redirect to the specified URL after successful logout
+              window.location.href = "<?php echo URLROOT;?>/Users/login";
+            });
+          }
+        };
+
+        // Open a POST request to the logout URL
+        xhttp.open("POST", "<?php echo URLROOT;?>/Users/logout", true);
+        // Set the Content-Type header if needed
+        // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Send the request
+        xhttp.send();
+      }
+    });
+  });
+</script>
+
+
+
     
 
    

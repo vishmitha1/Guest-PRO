@@ -206,6 +206,8 @@ use function PHPSTORM_META\type;
                                     $_SESSION['toast_msg']='Reservation placed successfully.';
                                     redirect("Customers/reservation");
                                     // sendEmail("visaluni2@gmail.com",'visal');
+                                    $resdata=$this->userModel->getReservationDetailsForEmail($data);
+                                    reservationConfirmationEmail($_SESSION['email'],$_SESSION['name'],$resdata->reservation_id,$data['roomNo']);
                                 }
                             }
                         }
